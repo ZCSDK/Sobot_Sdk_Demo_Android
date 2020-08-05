@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--多轮会话 标签 背景样式-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--阴影-->
+    <item
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp">
+        <shape >
+            <solid android:color="@color/sobot_common_gray8" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+
+</layer-list>
+

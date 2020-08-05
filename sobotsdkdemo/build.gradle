@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    // 签名配置
+    signingConfigs {
+
+        debug {
+            storeFile file("./keystore/debug.keystore")
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.sobot.chat.tem"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 2
+        versionName "2.8.7"
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    compileOptions.encoding = "UTF-8"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    //--------------智齿相关依赖 start-----------
+    implementation project(":sobotsdk")
+//    implementation  'com.sobot.chat:sobotsdk:2.8.7'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.1'
+    //目前支持常⻅的3种图片加载库，必须在下面的图片加载库中选择一个添加依赖
+    // compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    // compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation('com.github.bumptech.glide:glide:4.9.0')
+    implementation 'com.sobot.chat:sobotsupport-glidev4:1.0.10'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //--------------智齿相关依赖 end-----------
+
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
+    implementation  'com.umeng.umsdk:common:9.1.0' // (必选)
+    implementation  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
+    implementation 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
+    implementation 'com.alibaba:fastjson:1.2.73'
+    //AlphaIndicatorView
+    implementation('com.lzy.widget:view-core:0.1.5') {
+        exclude group: 'com.android.support'
+    }
+}

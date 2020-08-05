@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/sobot_common_gray6"
+    android:orientation="vertical">
+    <!--   文本类型   -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp">
+
+
+        <LinearLayout
+            android:id="@+id/work_order_customer_field_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/sobot_common_gray6"
+            android:gravity="center_vertical"
+            android:minHeight="54dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/work_order_customer_field_text_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/work_order_customer_field_text_img"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="14sp"
+                    android:layout_toStartOf="@+id/work_order_customer_field_text_img" />
+
+                <TextView
+                    android:id="@+id/work_order_customer_edit_hint_text_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/sobot_common_gray3"
+                    android:textColor="@color/sobot_common_gray3"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/work_order_customer_field_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/work_order_customer_field_text_lable"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/work_order_customer_field_text_img"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_toStartOf="@+id/work_order_customer_field_text_img">
+
+                <EditText
+                    android:id="@+id/work_order_customer_field_text_single"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textColorHint="@color/sobot_common_gray3"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/work_order_customer_field_text_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textColorHint="@color/sobot_common_gray3"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/work_order_customer_field_text_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textColorHint="@color/sobot_common_gray3"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/work_order_customer_date_text_click"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textColorHint="@color/sobot_common_gray3"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/work_order_customer_field_text_img"
+            android:layout_width="7dp"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sobot_right_arrow_icon"
+            android:layout_alignParentEnd="true" />
+
+    </LinearLayout>
+
+    <!--   多行文本   -->
+    <LinearLayout
+        android:id="@+id/work_order_customer_field_more_relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:minHeight="76dp"
+        android:background="@color/sobot_common_gray6"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/work_order_customer_field_more_text_lable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sobot_common_black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/work_order_customer_edit_hint_text_label_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColorHint="@color/sobot_common_gray3"
+                android:textColor="@color/sobot_common_gray3"
+                android:layout_marginStart="10dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/work_order_customer_field_text_more_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/work_order_customer_field_more_text_lable"
+            android:background="@null"
+            android:gravity="top|start"
+            android:minHeight="40dp"
+            android:padding="3dp"
+            android:textColor="@color/sobot_common_gray1"
+            android:textColorHint="@color/sobot_common_gray3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/work_order_customer_field_more_text_lable" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/work_order_customer_field_text_bootom_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.4dp"
+        android:background="@color/sobot_line_1dp" />
+
+</LinearLayout>

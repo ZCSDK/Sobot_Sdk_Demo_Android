@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/sobot_lable_nomal_bg_color" />
+
+    <stroke
+        android:width="0.6dp"
+        android:color="@color/sobot_lable_stroke_color" />
+
+    <corners android:radius="15dip" />
+
+</shape>

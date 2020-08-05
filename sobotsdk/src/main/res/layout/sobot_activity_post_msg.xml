@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sobot_white"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/sobot_layout_titlebar1"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/sobot_ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/sobot_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:id="@+id/sobot_pst_back_iv"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="12dp"
+            android:src="@drawable/sobot_icon_back_grey" />
+
+        <com.sobot.chat.widget.PagerSlidingTab
+            android:id="@+id/sobot_pst_indicator"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@color/sobot_color_title_bar_bg"
+            app:curTabTextColor="@color/sobot_postMsg_nav_sel_tx_color"
+            app:indicatorColor="@color/sobot_postMsg_nav_indicator_color"
+            app:tabTextColor="@color/sobot_postMsg_nav_tx_color" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/sobot_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+
+    <LinearLayout
+        android:id="@+id/sobot_ll_completed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/sobot_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/sobot_icon_completed" />
+
+                <TextView
+                    android:id="@+id/sobot_tv_leaveMsg_create_success"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sobot_tv_leaveMsg_create_success_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:gravity="center"
+                    android:textColor="@color/sobot_common_gray2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/sobot_tv_completed"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/sobot_normal_btn_bg"
+                    android:gravity="center"
+                    android:textColor="@color/sobot_common_white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp" />
+
+                <TextView
+                    android:id="@+id/sobot_tv_ticket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/sobot_color"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

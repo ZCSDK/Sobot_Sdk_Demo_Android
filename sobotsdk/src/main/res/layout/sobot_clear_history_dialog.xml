@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/sobot_pop_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/sobot_common_gray6"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/sobot_btn_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/sobot_item_setting_selector"
+            android:textColor="@color/sobot_common_gray1"
+            android:textSize="@dimen/sobot_text_font_normal" />
+
+        <Button
+            android:id="@+id/sobot_btn_scan_qr_code"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/sobot_item_setting_selector"
+            android:textColor="@color/sobot_common_gray1"
+            android:textSize="@dimen/sobot_text_font_normal"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dip"
+            android:background="@color/sobot_line_1dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dip"
+            android:background="@color/sobot_line_1dp" />
+
+        <Button
+            android:id="@+id/sobot_btn_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/sobot_item_setting_selector"
+            android:textColor="@color/sobot_common_gray1"
+            android:textSize="@dimen/sobot_text_font_normal" />
+    </LinearLayout>
+
+</RelativeLayout>

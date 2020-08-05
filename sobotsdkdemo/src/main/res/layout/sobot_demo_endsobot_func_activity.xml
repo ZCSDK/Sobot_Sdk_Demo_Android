@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/sobot_white"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/sobot_demo_titlebar"
+        layout="@layout/sobot_demo_layout_titlebar" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sobot_common_gray2"
+        android:padding="6dp"
+        android:text="参考文档"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tv_start_fun_3_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/sobot_common_blue"
+        android:textSize="14sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/sobot_common_gray1" />
+
+
+    <TextView
+        android:id="@+id/sobot_tv_end"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/sobot_btn_bg_help_center"
+        android:gravity="center"
+        android:padding="6dp"
+        android:text="结束会话"
+        android:textColor="@color/sobot_common_gray1"
+        android:textSize="16sp" />
+
+</LinearLayout>
