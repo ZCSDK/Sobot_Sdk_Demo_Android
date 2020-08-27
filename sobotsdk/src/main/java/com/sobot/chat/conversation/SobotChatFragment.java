@@ -773,7 +773,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 sobot_tv_left.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onLeftMenuClick(v);
+                        onLeftMenuClick();
                     }
                 });
             }
@@ -2937,10 +2937,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
 
     /**
      * 导航栏左边点击事件
-     *
-     * @param view
      */
-    protected void onLeftMenuClick(View view) {
+    protected void onLeftMenuClick() {
         //返回时未知问题或引导答案触发智能转人工按钮，把次数改成0，防止机器人模式下次进来还会显示
         showTimeVisiableCustomBtn = 0;
         hidePanelAndKeyboard(mPanelRoot);

@@ -156,6 +156,7 @@ public class SobotTicketDetailActivity extends SobotBaseActivity implements View
                     for (StUserDealTicketInfo info : datas) {
                         if (info.getFlag() == 1) {//创建
                             mTicketInfo.setFileList(info.getFileList());
+                            mTicketInfo.setContent(info.getContent());
                             if (StringUtils.isEmpty(mTicketInfo.getTimeStr())) {
                                 mTicketInfo.setTimeStr(info.getTimeStr());
                             }

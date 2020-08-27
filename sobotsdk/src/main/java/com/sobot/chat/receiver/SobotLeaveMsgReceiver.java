@@ -25,7 +25,6 @@ public class SobotLeaveMsgReceiver extends BroadcastReceiver {
             LogUtils.i(" 留言回复：" + leaveReplyModel);
             SobotUserTicketInfo item = new SobotUserTicketInfo();
             item.setTicketId(leaveReplyModel.getTicketId());
-            item.setContent(leaveReplyModel.getReplyContent());
             Intent mintent = SobotTicketDetailActivity.newIntent(context, companyId, uid, item);
             context.startActivity(mintent);
         }

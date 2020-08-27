@@ -115,12 +115,9 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                 mOrderStatus.setVisibility(View.GONE);
             }
 
-            if (orderCardContent.getTotalFee() > 0) {
-                mGoodsTotalMoney.setVisibility(View.VISIBLE);
-                mGoodsTotalMoney.setText((!TextUtils.isEmpty(orderCardContent.getGoodsCount()) ? " ," : "") + ResourceUtils.getResString(context, "sobot_order_total_money") + getMoney(orderCardContent.getTotalFee()));
-            } else {
-                mGoodsTotalMoney.setVisibility(View.GONE);
-            }
+            mGoodsTotalMoney.setVisibility(View.VISIBLE);
+            mGoodsTotalMoney.setText((!TextUtils.isEmpty(orderCardContent.getGoodsCount()) ? "," : "") + ResourceUtils.getResString(context, "sobot_order_total_money") + getMoney(orderCardContent.getTotalFee()));
+
 
             if (!TextUtils.isEmpty(orderCardContent.getGoodsCount())) {
                 mGoodsCount.setVisibility(View.VISIBLE);
@@ -137,7 +134,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             }
 
             if (!TextUtils.isEmpty(orderCardContent.getCreateTime())) {
-                mOrderCreatetime.setText(ResourceUtils.getResString(context, "sobot_order_time_lable") + DateUtil.longToDateStr(Long.parseLong(orderCardContent.getCreateTime()), "yyyy-MM-dd HH:mm"));
+                mOrderCreatetime.setText(ResourceUtils.getResString(context, "sobot_order_time_lable") + DateUtil.longToDateStr(Long.parseLong(orderCardContent.getCreateTime()), "yyyy-MM-dd HH:mm:ss"));
                 mOrderCreatetime.setVisibility(View.VISIBLE);
             } else {
                 mOrderCreatetime.setVisibility(View.GONE);

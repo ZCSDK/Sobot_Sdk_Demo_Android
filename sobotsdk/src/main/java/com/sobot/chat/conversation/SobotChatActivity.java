@@ -79,7 +79,7 @@ public class SobotChatActivity extends SobotBaseActivity {
             return;
         }
         if (chatFragment != null) {
-            chatFragment.onBackPress();
+            chatFragment.onLeftMenuClick();
         } else {
             super.onBackPressed();
         }

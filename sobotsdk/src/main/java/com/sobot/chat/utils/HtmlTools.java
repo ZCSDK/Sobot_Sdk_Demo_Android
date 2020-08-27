@@ -206,6 +206,9 @@ public class HtmlTools {
      * @param color   要显示的颜色
      */
     public void setRichText(TextView widget, String content, int color) {
+        if(TextUtils.isEmpty(content)){
+            return;
+        }
         //如果结尾是\n 去掉
         if (!TextUtils.isEmpty(content) && content.length() > 0 && "\n".equals(content.substring(content.length() - 1, content.length()))) {
             for (int i = 0; i < content.length(); i++) {

@@ -1165,6 +1165,7 @@ public class ZCSobotApi {
         }
         //清空sdk 语言设置
         SharedPreferencesUtil.saveObject(context, "SobotLanguage", null);
+        SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, "");
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, isUse);
         SharedPreferencesUtil.saveStringData(context, SOBOT_LANGUAGE_STRING_PATH, "");
 
@@ -1195,6 +1196,8 @@ public class ZCSobotApi {
                 Locale locale = new Locale("iw");
                 SharedPreferencesUtil.saveObject(context, "SobotLanguage", locale);
             }
+            //保存客服设置的语言，例如en,zh_rtw等
+            SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
             return;
         }
         if (!checkStoragePermission(context)) {
@@ -1217,6 +1220,8 @@ public class ZCSobotApi {
                     Locale locale = new Locale("iw");
                     SharedPreferencesUtil.saveObject(context, "SobotLanguage", locale);
                 }
+                //保存客服设置的语言，例如en,zh_rtw等
+                SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
                 SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_PATH, languagePath);
                 SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, true);
                 LogUtils.i(" 国际化语言包保存路径:" + result.getPath());

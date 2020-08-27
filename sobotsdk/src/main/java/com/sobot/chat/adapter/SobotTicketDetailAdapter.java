@@ -276,12 +276,14 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
         }
 
         void bindData(Object item, final int position) {
-            displayInNotch(mActivity, tv_time,0);
-            displayInNotch(mActivity, tv_exp,0);
+            displayInNotch(mActivity, tv_time, 0);
+            displayInNotch(mActivity, tv_exp, 0);
             final SobotUserTicketInfo data = (SobotUserTicketInfo) item;
-            String tempStr = data.getContent().replaceAll("<br/>", "").replace("<p></p>", "")
-                    .replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
-            tv_exp.setText(TextUtils.isEmpty(data.getContent()) ? "" : Html.fromHtml(tempStr));
+            if (data != null && !TextUtils.isEmpty(data.getContent())) {
+                String tempStr = data.getContent().replaceAll("<br/>", "").replace("<p></p>", "")
+                        .replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
+                tv_exp.setText(TextUtils.isEmpty(data.getContent()) ? "" : Html.fromHtml(tempStr));
+            }
             int color = ResourceUtils.getResColorValue(context, "sobot_common_text_gray");
 
             if (2 == data.getFlag()) {
@@ -314,7 +316,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             sobot_ll_root = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_ll_root"));
             sobot_tv_icon2 = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_icon2"));
             sobot_tv_status = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_status"));
-            sobot_tv_status.setText(ResourceUtils.getResString(context,"sobot_created_1"));
+            sobot_tv_status.setText(ResourceUtils.getResString(context, "sobot_created_1"));
             sobot_tv_time = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_time"));
             sobot_tv_secod = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_secod"));
             sobot_line_view = view.findViewById(ResourceUtils.getResId(context, "sobot_line_view"));
@@ -322,7 +324,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
         }
 
         void bindData(Object item, int position) {
-            displayInNotch(mActivity, sobot_ll_root,ScreenUtils.dip2px(context, 20));
+            displayInNotch(mActivity, sobot_ll_root, ScreenUtils.dip2px(context, 20));
             LinearLayout.LayoutParams lp;
             if (position == 1) {
                 lp = new LinearLayout.LayoutParams(ScreenUtils.dip2px(context, 19), ScreenUtils.dip2px(context, 19));
@@ -377,7 +379,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             sobot_tv_content = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_content"));
             sobot_tv_content_detail_split = view.findViewById(ResourceUtils.getResId(context, "sobot_tv_content_detail_split"));
             sobot_tv_content_detail = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_content_detail"));
-            sobot_tv_content_detail.setText(ResourceUtils.getResString(context,"sobot_see_detail"));
+            sobot_tv_content_detail.setText(ResourceUtils.getResString(context, "sobot_see_detail"));
             sobot_ll_container = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_ll_container"));
             sobot_top_line_view = view.findViewById(ResourceUtils.getResId(context, "sobot_top_line_view"));
             sobot_line_split = view.findViewById(ResourceUtils.getResId(context, "sobot_line_split"));
@@ -388,7 +390,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
         }
 
         void bindData(Object item, final int position) {
-            displayInNotch(mActivity, sobot_ll_root,ScreenUtils.dip2px(context, 20));
+            displayInNotch(mActivity, sobot_ll_root, ScreenUtils.dip2px(context, 20));
             LinearLayout.LayoutParams lp;
             int color;
             if (position == 1) {
@@ -515,7 +517,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             sobot_tv_content_ll = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_content_ll"));
             sobot_tv_content_detail_split = view.findViewById(ResourceUtils.getResId(context, "sobot_tv_content_detail_split"));
             sobot_tv_content_detail = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_content_detail"));
-            sobot_tv_content_detail.setText(ResourceUtils.getResString(context,"sobot_see_detail"));
+            sobot_tv_content_detail.setText(ResourceUtils.getResString(context, "sobot_see_detail"));
             sobot_line_split = view.findViewById(ResourceUtils.getResId(context, "sobot_top_line_view_slip"));
             sobot_top_line_view = view.findViewById(ResourceUtils.getResId(context, "sobot_top_line_view"));
             recyclerView = (RecyclerView) view.findViewById(ResourceUtils.getResId(context, "sobot_attachment_file_layout"));
@@ -525,7 +527,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
         }
 
         void bindData(Object item, int position) {
-            displayInNotch(mActivity, sobot_ll_root,ScreenUtils.dip2px(context, 20));
+            displayInNotch(mActivity, sobot_ll_root, ScreenUtils.dip2px(context, 20));
             LinearLayout.LayoutParams lp;
             int color;
             if (position == 1) {
@@ -626,16 +628,16 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             sobot_ll_remark = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_ll_remark"));
             sobot_ratingBar = (RatingBar) view.findViewById(ResourceUtils.getResId(context, "sobot_ratingBar"));
             sobot_my_evaluate_tv = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_my_evaluate_tv"));
-            sobot_my_evaluate_tv.setText(ResourceUtils.getResString(context,"sobot_my_service_comment"));
+            sobot_my_evaluate_tv.setText(ResourceUtils.getResString(context, "sobot_my_service_comment"));
             sobot_tv_my_evaluate_score = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_my_evaluate_score"));
-            sobot_tv_my_evaluate_score.setText(ResourceUtils.getResString(context,"sobot_rating_score"));
+            sobot_tv_my_evaluate_score.setText(ResourceUtils.getResString(context, "sobot_rating_score"));
             sobot_tv_my_evaluate_remark = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_my_evaluate_remark"));
-            sobot_tv_my_evaluate_remark.setText(ResourceUtils.getResString(context,"sobot_rating_dec"));
+            sobot_tv_my_evaluate_remark.setText(ResourceUtils.getResString(context, "sobot_rating_dec"));
             sobot_my_evaluate_ll = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_my_evaluate_ll"));
         }
 
         void bindData(Object item, int position) {
-            displayInNotch(mActivity, sobot_my_evaluate_ll,0);
+            displayInNotch(mActivity, sobot_my_evaluate_ll, 0);
             final SobotUserTicketEvaluate mEvaluate = (SobotUserTicketEvaluate) item;
             if (mEvaluate.isOpen()) {
                 if (mEvaluate.isEvalution()) {
@@ -697,7 +699,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                 public void onResult(INotchScreen.NotchScreenInfo notchScreenInfo) {
                     if (notchScreenInfo.hasNotch) {
                         for (Rect rect : notchScreenInfo.notchRects) {
-                            view.setPadding(rect.right+addPaddingLeft, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
+                            view.setPadding(rect.right + addPaddingLeft, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
                         }
                     }
                 }
