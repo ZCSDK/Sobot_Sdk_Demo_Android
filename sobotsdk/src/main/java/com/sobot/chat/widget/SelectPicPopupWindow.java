@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,7 +88,7 @@ public class SelectPicPopupWindow extends PopupWindow {
                 @Override
                 public void run() {
                     result = CodeUtils.parseMultiQRCode(imgUrl);
-                    if (null != result ) {
+                    if (null != result) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -112,11 +113,11 @@ public class SelectPicPopupWindow extends PopupWindow {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(ResourceUtils.getIdByName(context, "layout", "sobot_clear_history_dialog"), null);
         sobot_btn_take_photo = (Button) mView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_btn_take_photo"));
-        sobot_btn_take_photo.setText(ResourceUtils.getResString(context,"sobot_save_pic"));
+        sobot_btn_take_photo.setText(ResourceUtils.getResString(context, "sobot_save_pic"));
         sobot_btn_cancel = (Button) mView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_btn_cancel"));
-        sobot_btn_cancel.setText(ResourceUtils.getResString(context,"sobot_btn_cancle"));
+        sobot_btn_cancel.setText(ResourceUtils.getResString(context, "sobot_btn_cancle"));
         sobot_btn_scan_qr_code = (Button) mView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_btn_scan_qr_code"));
-        sobot_btn_scan_qr_code.setText(ResourceUtils.getResString(context,"sobot_scan_qr_code"));
+        sobot_btn_scan_qr_code.setText(ResourceUtils.getResString(context, "sobot_scan_qr_code"));
         // 设置SelectPicPopupWindow的View
         this.setContentView(mView);
         // 设置SelectPicPopupWindow弹出窗体的宽
@@ -170,7 +171,7 @@ public class SelectPicPopupWindow extends PopupWindow {
                 if (type.equals("gif")) {
                     saveImageToGallery(context, imgUrl);
                 } else {
-                    Bitmap bitmap = SobotBitmapUtil.compress(imgUrl, context,true);
+                    Bitmap bitmap = SobotBitmapUtil.compress(imgUrl, context, true);
                     saveImageToGallery(context, bitmap);
                 }
             }
@@ -199,11 +200,11 @@ public class SelectPicPopupWindow extends PopupWindow {
 
     public void saveImageToGallery(Context context, Bitmap bmp) {
         if (!isSdCardExist()) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err_sd_card"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err_sd_card"));
             return;
         }
         if (bmp == null) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err_pic"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err_pic"));
             return;
         }
         String savePath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File
@@ -221,13 +222,13 @@ public class SelectPicPopupWindow extends PopupWindow {
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_error_file"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_error_file"));
             e.printStackTrace();
         } catch (IOException e) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err"));
             e.printStackTrace();
         } catch (Exception e) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err"));
             e.printStackTrace();
         }
 
@@ -244,11 +245,11 @@ public class SelectPicPopupWindow extends PopupWindow {
 
     public void saveImageToGallery(Context context, String bmp) {
         if (!isSdCardExist()) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err_sd_card"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err_sd_card"));
             return;
         }
         if (TextUtils.isEmpty(bmp)) {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err_pic"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err_pic"));
             return;
         }
         String savePath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File
@@ -267,16 +268,18 @@ public class SelectPicPopupWindow extends PopupWindow {
 
     // 最后通知图库更新
     public void notifyUpdatePic(File file, String fileName) {
-//		try {
-//			MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+        try {
+            if (file != null && file.exists() && !TextUtils.isEmpty(fileName)) {
+                MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri uri = Uri.fromFile(file);
         intent.setData(uri);
         context.sendBroadcast(intent);
-        showHint(ResourceUtils.getResString(context, "sobot_already_save_to_picture")+"\n"+file.getAbsolutePath());
+        showHint(ResourceUtils.getResString(context, "sobot_already_save_to_picture") + "\n" + file.getAbsolutePath());
     }
 
     /**
@@ -299,7 +302,7 @@ public class SelectPicPopupWindow extends PopupWindow {
             in.transferTo(0, in.size(), out);//连接两个通道，并且从in通道读取，然后写入out通道
         } catch (IOException e) {
             isSuccess = false;
-            ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_save_err"));
+            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_save_err"));
             e.printStackTrace();
         } finally {
             try {

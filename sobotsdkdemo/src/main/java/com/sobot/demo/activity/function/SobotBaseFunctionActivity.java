@@ -107,11 +107,13 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
                 String oldYUming = otherModel.getApi_host();
                 if (!TextUtils.isEmpty(yuming) && !yuming.equals(oldYUming)) {
                     otherModel.setApi_host(yuming);
+                } else {
+                    otherModel.setApi_host("https://api.sobot.com");
                 }
                 otherModel.setPlatformSecretkey(sobot_et_pingtaimiyao.getText().toString().trim());
                 otherModel.setPlatformUnionCode(sobot_et_pingtaibiaoshi.getText().toString().trim());
                 SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
-                if (!TextUtils.isEmpty(yuming) && !oldYUming.equals(yuming)) {
+                if (!oldYUming.equals(yuming)) {
                     android.os.Process.killProcess(android.os.Process.myPid());
                 }
             }

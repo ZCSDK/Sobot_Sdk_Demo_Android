@@ -45,16 +45,17 @@ public class EmoticonsIndicatorView extends LinearLayout {
         if (!checkPageSetEntity(pageSetEntity)) {
             return;
         }
-        if (mImageViews == null || mImageViews.size() == 0) {
-            return;
-        }
 
         updateIndicatorCount(pageSetEntity.getPageCount());
 
-        for (ImageView iv : mImageViews) {
-            iv.setImageDrawable(mDrawableNomal);
+        if (mImageViews != null && mImageViews.size() > 0) {
+            for (ImageView iv : mImageViews) {
+                iv.setImageDrawable(mDrawableNomal);
+            }
+            if (mImageViews.get(position) != null) {
+                mImageViews.get(position).setImageDrawable(mDrawableSelect);
+            }
         }
-        mImageViews.get(position).setImageDrawable(mDrawableSelect);
     }
 
     public void playBy(int startPosition, int nextPosition, PageSetEntity pageSetEntity) {
