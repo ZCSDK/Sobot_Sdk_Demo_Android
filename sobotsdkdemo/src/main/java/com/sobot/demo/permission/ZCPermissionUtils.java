@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.content.PermissionChecker;
+import androidx.core.content.PermissionChecker;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

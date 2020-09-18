@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;

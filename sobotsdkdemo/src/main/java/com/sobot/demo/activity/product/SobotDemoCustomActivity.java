@@ -1,9 +1,8 @@
 package com.sobot.demo.activity.product;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -11,7 +10,6 @@ import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.model.Information;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
-import com.sobot.demo.SobotUtils;
 
 public class SobotDemoCustomActivity extends AppCompatActivity implements View.OnClickListener {
 

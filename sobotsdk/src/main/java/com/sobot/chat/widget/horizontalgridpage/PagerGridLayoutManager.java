@@ -3,17 +3,17 @@ package com.sobot.chat.widget.horizontalgridpage;
 import android.annotation.SuppressLint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sobot.chat.utils.LogUtils;
 
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static android.view.View.MeasureSpec.EXACTLY;
 
 public class PagerGridLayoutManager extends RecyclerView.LayoutManager

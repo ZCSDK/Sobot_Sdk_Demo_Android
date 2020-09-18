@@ -3,7 +3,7 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -12,12 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.activity.WebViewActivity;
-import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
-import com.sobot.demo.model.SobotDemoOtherModel;
 import com.sobot.demo.util.AndroidBug5497Workaround;
 
 public class SobotReobotFunctionActivity extends AppCompatActivity implements View.OnClickListener {

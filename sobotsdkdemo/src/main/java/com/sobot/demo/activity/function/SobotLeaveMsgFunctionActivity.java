@@ -3,7 +3,7 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -15,23 +15,12 @@ import com.alibaba.fastjson.JSON;
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
-import com.sobot.chat.api.enumtype.SobotAutoSendMsgMode;
-import com.sobot.chat.api.model.ConsultingContent;
 import com.sobot.chat.api.model.Information;
-import com.sobot.chat.api.model.OrderCardContentModel;
-import com.sobot.chat.utils.ChatUtils;
-import com.sobot.chat.utils.CommonUtils;
-import com.sobot.chat.utils.SobotJsonUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements View.OnClickListener {

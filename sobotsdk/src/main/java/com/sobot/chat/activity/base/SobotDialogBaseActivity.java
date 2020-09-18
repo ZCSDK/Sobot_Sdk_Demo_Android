@@ -2,14 +2,13 @@ package com.sobot.chat.activity.base;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,16 +17,11 @@ import android.view.WindowManager;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
-import com.sobot.chat.api.ZhiChiApi;
-import com.sobot.chat.application.MyApplication;
-import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
-import com.sobot.chat.widget.dialog.SobotReplyActivity;
 
 /**
  * 从界面下方弹出的activity

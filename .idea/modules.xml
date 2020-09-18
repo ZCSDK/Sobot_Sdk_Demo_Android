@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" filepath="$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sobotsdk/sobotsdk.iml" filepath="$PROJECT_DIR$/sobotsdk/sobotsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sobotsdkdemo/sobotsdkdemo.iml" filepath="$PROJECT_DIR$/sobotsdkdemo/sobotsdkdemo.iml" />
+    </modules>
+  </component>
+</project>

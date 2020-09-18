@@ -1,15 +1,10 @@
 package com.sobot.chat.widget.attachment;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.Spannable;
-import android.text.TextPaint;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,11 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sobot.chat.R;
 import com.sobot.chat.api.model.SobotFileModel;
-import com.sobot.chat.imageloader.SobotImageLoader;
-import com.sobot.chat.utils.CommonUtils;
-import com.sobot.chat.utils.ImageUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotBitmapUtil;
 

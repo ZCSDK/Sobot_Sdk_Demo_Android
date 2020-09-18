@@ -57,6 +57,43 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/sobot_common_gray1" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.7.6 多语言支持"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="[说明:通过配置语言编码,指定国际化语言]"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/sobot_et_langue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/sobot_editview_stocke_bg"
+                android:enabled="true"
+                android:padding="6dp"
+                android:scrollbars="none"
+                android:textColor="@color/sobot_common_gray1"
+                android:textColorHint="@color/sobot_common_gray3"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
 
             <TextView
                 android:layout_width="match_parent"

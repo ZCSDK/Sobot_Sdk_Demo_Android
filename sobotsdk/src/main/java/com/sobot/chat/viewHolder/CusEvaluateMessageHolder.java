@@ -1,8 +1,8 @@
 package com.sobot.chat.viewHolder;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.IdRes;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;

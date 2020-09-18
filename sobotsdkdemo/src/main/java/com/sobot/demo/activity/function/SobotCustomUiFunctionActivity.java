@@ -3,7 +3,7 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.ZCSobotApi;
@@ -25,8 +24,6 @@ import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.model.SobotDemoOtherModel;
-
-import java.util.Map;
 
 public class SobotCustomUiFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 

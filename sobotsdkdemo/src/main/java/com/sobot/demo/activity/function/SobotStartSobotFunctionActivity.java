@@ -3,21 +3,18 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
-import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.api.model.Information;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
-import com.sobot.demo.model.SobotDemoOtherModel;
-import com.sobot.demo.util.AndroidBug5497Workaround;
 
 public class SobotStartSobotFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,6 +62,14 @@ public class SobotStartSobotFunctionActivity extends AppCompatActivity implement
         }
         if (v == sobot_tv_start) {
             if (information != null) {
+                String sobot_custom_language_value = SobotSPUtil.getStringData(getContext(), "sobot_custom_language_value", "");
+                if (TextUtils.isEmpty(sobot_custom_language_value)) {
+                    ZCSobotApi.setInternationalLanguage(getContext(), sobot_custom_language_value, false, false);
+                    ZCSobotApi.hideTimemsgForMessageList(getContext(), false);
+                } else {
+                    ZCSobotApi.setInternationalLanguage(getContext(), sobot_custom_language_value, true, false);
+                    ZCSobotApi.hideTimemsgForMessageList(getContext(), true);
+                }
                 ZCSobotApi.openZCChat(getContext(), information);
             }
         }

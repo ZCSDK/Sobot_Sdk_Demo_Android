@@ -1,6 +1,6 @@
 package com.sobot.chat.provider;
 
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 
 /**
  * @author Created by jinxl on 2018/11/18.

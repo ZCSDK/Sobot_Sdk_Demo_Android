@@ -5,12 +5,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotDemoNewActivity;
-import com.sobot.demo.SobotDemoSettingActivity;
 import com.sobot.demo.permission.ZCPermission;
 
 import static android.os.Build.VERSION_CODES.M;

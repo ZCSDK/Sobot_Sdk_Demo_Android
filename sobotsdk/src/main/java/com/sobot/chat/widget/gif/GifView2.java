@@ -1,24 +1,20 @@
 package com.sobot.chat.widget.gif;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.AndroidException;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.sobot.chat.R;
-import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.MD5Util;
