@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotFileDetailActivity;
 import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.activity.SobotVideoActivity;
@@ -48,6 +49,8 @@ import com.sobot.chat.widget.attachment.FileTypeConfig;
 import com.sobot.chat.widget.attachment.SpaceItemDecoration;
 
 import java.util.List;
+
+import static com.sobot.chat.utils.DateUtil.DATE_TIME_FORMAT;
 
 /**
  * 留言记录适配器
@@ -296,7 +299,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                 tv_ticket_status.setText(str1_resId);
                 tv_ticket_status.setBackgroundResource(bg1_resId);
             }
-            tv_time.setText(data.getTimeStr());
+            tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(),DATE_TIME_FORMAT, ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
             tv_exp.setHaveFile(data.getFileList() != null && data.getFileList().size() > 0);
             recyclerView.setAdapter(new FileAttachmentAdapter(context, data.getFileList(), color, listener));
         }
@@ -347,8 +350,8 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             }
             sobot_tv_icon2.setLayoutParams(lp);
             StUserDealTicketInfo data = (StUserDealTicketInfo) item;
-            sobot_tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(), "MM-dd"));
-            sobot_tv_secod.setText(DateUtil.stringToFormatString(data.getTimeStr(), "HH:mm"));
+            sobot_tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(), "MM-dd",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
+            sobot_tv_secod.setText(DateUtil.stringToFormatString(data.getTimeStr(), "HH:mm",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
         }
 
     }
@@ -480,8 +483,8 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             } else {
                 sobot_tv_status.setVisibility(View.GONE);
                 sobot_tv_content.setText(TextUtils.isEmpty(data.getContent()) ? "" : Html.fromHtml(data.getContent().replaceAll("<p>", "").replaceAll("</p>", "")));
-                sobot_tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(), "MM-dd"));
-                sobot_tv_secod.setText(DateUtil.stringToFormatString(data.getTimeStr(), "HH:mm"));
+                sobot_tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(), "MM-dd",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
+                sobot_tv_secod.setText(DateUtil.stringToFormatString(data.getTimeStr(), "HH:mm",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
             }
 
 //            if (position==1){
@@ -555,8 +558,8 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             }
             sobot_tv_icon2.setLayoutParams(lp);
             final StUserDealTicketInfo data = (StUserDealTicketInfo) item;
-            sobot_tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(), "MM-dd"));
-            sobot_tv_secod.setText(DateUtil.stringToFormatString(data.getTimeStr(), "HH:mm"));
+            sobot_tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(), "MM-dd",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
+            sobot_tv_secod.setText(DateUtil.stringToFormatString(data.getTimeStr(), "HH:mm",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
 
             if (TextUtils.isEmpty(data.getContent())) {
                 sobot_tv_content_ll.setBackgroundDrawable(null);

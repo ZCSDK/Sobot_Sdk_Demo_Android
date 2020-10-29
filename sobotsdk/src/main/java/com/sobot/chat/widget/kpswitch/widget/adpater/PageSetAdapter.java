@@ -5,10 +5,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import com.sobot.chat.widget.kpswitch.widget.data.PageEntity;
 import com.sobot.chat.widget.kpswitch.widget.data.PageSetEntity;
+
+import java.util.ArrayList;
 
 public class PageSetAdapter extends PagerAdapter {
 

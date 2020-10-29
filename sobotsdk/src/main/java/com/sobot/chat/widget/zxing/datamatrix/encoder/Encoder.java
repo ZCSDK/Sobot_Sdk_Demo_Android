@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-import com.sobot.chat.widget.zxing.datamatrix.encoder.EncoderContext;
-
 interface Encoder {
 
   int getEncodingMode();

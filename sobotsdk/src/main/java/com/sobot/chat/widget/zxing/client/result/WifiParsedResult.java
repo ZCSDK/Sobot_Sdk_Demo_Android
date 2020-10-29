@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ParsedResultType;
-
 /**
  * Represents a parsed result that encodes wifi network information, like SSID and password.
  *

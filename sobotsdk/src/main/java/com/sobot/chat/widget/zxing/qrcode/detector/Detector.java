@@ -27,11 +27,6 @@ import com.sobot.chat.widget.zxing.common.GridSampler;
 import com.sobot.chat.widget.zxing.common.PerspectiveTransform;
 import com.sobot.chat.widget.zxing.common.detector.MathUtils;
 import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
-import com.sobot.chat.widget.zxing.qrcode.detector.AlignmentPattern;
-import com.sobot.chat.widget.zxing.qrcode.detector.AlignmentPatternFinder;
-import com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern;
-import com.sobot.chat.widget.zxing.qrcode.detector.FinderPatternFinder;
-import com.sobot.chat.widget.zxing.qrcode.detector.FinderPatternInfo;
 
 import java.util.Map;
 

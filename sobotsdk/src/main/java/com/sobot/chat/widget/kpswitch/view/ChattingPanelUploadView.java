@@ -64,6 +64,9 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
         Information information = (Information) SharedPreferencesUtil.getObject(context, "sobot_last_current_info");
 
         int leaveMsg = SharedPreferencesUtil.getIntData(context, ZhiChiConstant.sobot_msg_flag, ZhiChiConstant.sobot_msg_flag_open);
+        //是否留言转离线消息,留言转离线消息模式下,人工模式加号中菜单不显示留言
+        boolean msgToTicket = SharedPreferencesUtil.getBooleanData(context,
+                ZhiChiConstant.sobot_leave_msg_flag, false);
         mEmoticonsFuncView = (EmoticonsFuncView) getRootView().findViewById(getResId("view_epv"));
         mEmoticonsIndicatorView = ((EmoticonsIndicatorView) getRootView().findViewById(getResId("view_eiv")));
         mEmoticonsFuncView.setOnIndicatorListener(this);
@@ -109,7 +112,7 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
                 operatorList.add(fileEntity);
             }
             if (!information.isHideMenuLeave()) {
-                if (leaveMsg == ZhiChiConstant.sobot_msg_flag_open) {
+                if (leaveMsg == ZhiChiConstant.sobot_msg_flag_open && !msgToTicket) {
                     operatorList.add(leavemsgEntity);
                 }
             }
@@ -127,7 +130,7 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
             operatorList.add(videoEntity);
             operatorList.add(cameraEntity);
             operatorList.add(fileEntity);
-            if (leaveMsg == ZhiChiConstant.sobot_msg_flag_open) {
+            if (leaveMsg == ZhiChiConstant.sobot_msg_flag_open && !msgToTicket) {
                 operatorList.add(leavemsgEntity);
             }
             operatorList.add(satisfactionEntity);

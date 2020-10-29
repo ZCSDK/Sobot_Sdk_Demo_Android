@@ -21,8 +21,6 @@ import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.ResultPointCallback;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern;
-import com.sobot.chat.widget.zxing.qrcode.detector.FinderPatternInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;

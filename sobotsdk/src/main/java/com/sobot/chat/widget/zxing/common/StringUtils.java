@@ -16,10 +16,10 @@
 
 package com.sobot.chat.widget.zxing.common;
 
+import com.sobot.chat.widget.zxing.DecodeHintType;
+
 import java.nio.charset.Charset;
 import java.util.Map;
-
-import com.sobot.chat.widget.zxing.DecodeHintType;
 
 /**
  * Common string-related functions.

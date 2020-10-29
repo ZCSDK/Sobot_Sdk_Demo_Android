@@ -229,16 +229,6 @@ public class SobotUtils {
         SobotApi.setCustomUserOutWord(context, SobotSPUtil.getStringData(context, "sobot_customUserOutWord", ""));// 自定义用户超时下线提示语,默认为空 （如果传入，优先使用该字段）
         //自定义应答设置结束
 
-
-        String sobot_custom_language_value = SobotSPUtil.getStringData(context, "sobot_custom_language_value", "");
-        if (TextUtils.isEmpty(sobot_custom_language_value)) {
-            ZCSobotApi.setInternationalLanguage(context, sobot_custom_language_value, false, false);
-            ZCSobotApi.hideTimemsgForMessageList(context, false);
-        } else {
-            ZCSobotApi.setInternationalLanguage(context, sobot_custom_language_value, true, false);
-            ZCSobotApi.hideTimemsgForMessageList(context, true);
-        }
-
         //启动参数设置开始
         info.setUid(SobotSPUtil.getStringData(context, "sobot_partnerId", ""));
         info.setReceptionistId(SobotSPUtil.getStringData(context, "sobot_receptionistId", ""));

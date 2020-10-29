@@ -24,8 +24,6 @@ import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.EAN13Reader;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
 
 import java.util.Map;
 

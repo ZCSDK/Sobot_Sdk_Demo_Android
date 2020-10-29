@@ -26,9 +26,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ParsedResultType;
-
 import java.util.Map;
 import java.util.Objects;
 

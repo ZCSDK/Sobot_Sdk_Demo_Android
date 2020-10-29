@@ -3,8 +3,6 @@ package com.sobot.chat.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ImageView;

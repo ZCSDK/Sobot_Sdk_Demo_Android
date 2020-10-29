@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.LuminanceSource;
-
 /**
  * A wrapper implementation of {@link LuminanceSource} which inverts the luminances it returns -- black becomes
  * white and vice versa, and each value becomes (255-value).

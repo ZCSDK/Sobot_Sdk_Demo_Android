@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.pdf417.decoder;
 
-import com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox;
-import com.sobot.chat.widget.zxing.pdf417.decoder.Codeword;
-
 import java.util.Formatter;
 
 /**

@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.pdf417.decoder.ec;
 
-import com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusGF;
-
 /**
  * @author Sean Owen
  */

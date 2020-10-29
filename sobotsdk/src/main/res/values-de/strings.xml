@@ -25,7 +25,7 @@
        <string name="sobot_edittext_hint">Wir freuen und darauf, dass sie unseren service vorschlagen~</string>
        <string name="sobot_dcrc">Kundendienst bewerten</string>
        <string name="sobot_str_bottom_message">Nachrichten hinterlassen</string>
-       <string name="sobot_str_bottom_satisfaction">Service-bewertung</string>
+       <string name="sobot_str_bottom_satisfaction">Auswertung</string>
        <string name="sobot_yes">Ja</string>
        <string name="sobot_no">Nein</string>
        <string name="sobot_leavemsg">Nachrichten hinterlassen</string>
@@ -124,7 +124,7 @@
        <string name="sobot_switch_business">Berufsarbeit wechseln</string>
        <string name="sobot_switch_robot_title">Bitte wählen sie die zu beratende berufsarbeit</string>
        <string name="sobot_connecting_customer_service">Verbindung zum menschlichen kundenservice herstellen</string>
-       <string name="sobot_retracted_msg_tip">Kundendienst% 1$s hat eine nachricht zurückgerufen</string>
+       <string name="sobot_retracted_msg_tip">Kundendienst %1$s hat eine nachricht zurückgerufen</string>
        <string name="sobot_ding_cai_sessionoff">Gespräch beendet, kein feedback</string>
        <string name="sobot_ding_cai_like">Danke für ihre unterstützung</string>
        <string name="sobot_ding_cai_dislike">Ich werde fleißig lernen und hoffe, ihnen nächsten mal zu helfen</string>
@@ -250,7 +250,7 @@
        <string name="sobot_please_reply_input">Bitte geben sie ihre antwort ein</string>
        <string name="sobot_my_reply">Meine antwort</string>
        <string name="sobot_preview_see">Anschauen</string>
-       <string name="sobot_money_format">% .2f Yuan</string>
+       <string name="sobot_money_format">%.2f Yuan</string>
        <string name="sobot_chat_type_goods">[artikel]</string>
        <string name="sobot_chat_type_card">[auftrag]</string>
        <string name="sobot_chat_type_other_msg">Sie senden einen nachricht</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[Dokument]</string>
        <string name="sobot_chat_free_account_tip">Das Feature wurde aufgrund der Serviceauslastung ausgeschaltet</string>
        <string name="sobot_do_you_delete_video">Möchten Sie dieses Video löschen?</string>
+       <string name="sobot_outline_leavemsg">Ihre Nachricht wurde erfolgreich übermittelt und diese Sitzung wurde beendet. Wenn Sie die Konsultation fortsetzen müssen, können Sie unten auf die Schaltfläche Sitzung neu erstellen klicken.</string>
 </resources>

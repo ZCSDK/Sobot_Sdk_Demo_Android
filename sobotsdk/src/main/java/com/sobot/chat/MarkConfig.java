@@ -23,6 +23,11 @@ public class MarkConfig {
     public static final int DISPLAY_INNOTCH = 0b100;
 
     /**
+     * 是否自动适配时区，默认不适配，使用北京时区
+     */
+    public static final int AUTO_MATCH_TIMEZONE = 0b1000;
+
+    /**
      * 获取开关位
      *
      * @param mark 开关名

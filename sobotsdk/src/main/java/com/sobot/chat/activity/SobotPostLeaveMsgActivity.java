@@ -19,7 +19,6 @@ import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
-import com.sobot.chat.widget.dialog.SobotBackDialog;
 import com.sobot.chat.widget.dialog.SobotFreeAccountTipDialog;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
 

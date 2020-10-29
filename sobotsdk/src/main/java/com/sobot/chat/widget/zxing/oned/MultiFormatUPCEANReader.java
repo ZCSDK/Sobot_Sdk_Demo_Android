@@ -23,12 +23,6 @@ import com.sobot.chat.widget.zxing.Reader;
 import com.sobot.chat.widget.zxing.ReaderException;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.EAN13Reader;
-import com.sobot.chat.widget.zxing.oned.EAN8Reader;
-import com.sobot.chat.widget.zxing.oned.OneDReader;
-import com.sobot.chat.widget.zxing.oned.UPCAReader;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
-import com.sobot.chat.widget.zxing.oned.UPCEReader;
 
 import java.util.ArrayList;
 import java.util.Collection;

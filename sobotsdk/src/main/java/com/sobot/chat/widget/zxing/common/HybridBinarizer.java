@@ -19,8 +19,6 @@ package com.sobot.chat.widget.zxing.common;
 import com.sobot.chat.widget.zxing.Binarizer;
 import com.sobot.chat.widget.zxing.LuminanceSource;
 import com.sobot.chat.widget.zxing.NotFoundException;
-import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.common.GlobalHistogramBinarizer;
 
 /**
  * This class implements a local thresholding algorithm, which while slower than the

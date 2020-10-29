@@ -25,7 +25,7 @@
        <string name="sobot_edittext_hint">Hizmetimiz için önermenizi bekliyoruz ~</string>
        <string name="sobot_dcrc">Hizmeti değerlendir</string>
        <string name="sobot_str_bottom_message">Mesaj bırak</string>
-       <string name="sobot_str_bottom_satisfaction">Hizmet değerlendirmesi</string>
+       <string name="sobot_str_bottom_satisfaction">Değerlendirme</string>
        <string name="sobot_yes">Evet</string>
        <string name="sobot_no">Hayır</string>
        <string name="sobot_leavemsg">Mesaj bırak</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[belge]</string>
        <string name="sobot_chat_free_account_tip">Hizmet sonu bittiği için özellik kapatıldı.</string>
        <string name="sobot_do_you_delete_video">Bu video silmek ister misiniz?</string>
+       <string name="sobot_outline_leavemsg">Mesajınız başarıyla gönderildi ve bu oturum sona erdi. Konsültasyona devam etmeniz gerekirse, aşağıdaki Oturumu Yeniden Oluştur düğmesini tıklayabilirsiniz.</string>
 </resources>

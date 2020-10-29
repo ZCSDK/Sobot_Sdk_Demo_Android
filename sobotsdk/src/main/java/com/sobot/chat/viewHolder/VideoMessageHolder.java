@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.sobot.chat.activity.SobotVideoActivity;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
@@ -21,7 +19,6 @@ import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.RoundProgressBar;
-import com.sobot.chat.widget.SobotImageView;
 import com.sobot.chat.widget.image.SobotRCImageView;
 
 /**

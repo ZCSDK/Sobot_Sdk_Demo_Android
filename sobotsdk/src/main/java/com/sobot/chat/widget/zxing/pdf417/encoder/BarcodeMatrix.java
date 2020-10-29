@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.pdf417.encoder;
 
-import com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeRow;
-
 /**
  * Holds all of the information for a barcode in a format where it can be easily accessible
  *

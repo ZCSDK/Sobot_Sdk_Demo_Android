@@ -22,7 +22,7 @@
        <string name="sobot_welcome"></string>
        <string name="sobot_submit">ส่ง</string>
        <string name="sobot_question">%1$s แก้ปัญหาของคุณได้หรือไม่</string>
-       <string name="sobot_edittext_hint">ยินดีในการรับคำแนะนำสำหรับบริการของเรา ~</string>
+       <string name="sobot_edittext_hint">ยินดีในการรับคำแนะนำสำหรับบริการของเรา ~</string>
        <string name="sobot_dcrc">รีวิวการบริการลูกค้า</string>
        <string name="sobot_str_bottom_message">ฝากข้อความ</string>
        <string name="sobot_str_bottom_satisfaction">รีวิวการบริการ</string>
@@ -166,7 +166,7 @@
        <string name="sobot_clear_his_msg_empty">ล้างออกทั้งหมด</string>
        <string name="sobot_switch">เปลี่ยน</string>
        <string name="sobot_please_leave_a_message">กรุณาฝากข้อความไว้</string>
-       <string name="sobot_tap_hold_camera">แตะเพื่อถ่ายรูป กดค้างไว้เพื่อถ่ายวีดีโอ</string>
+       <string name="sobot_tap_hold_camera">แตะเพื่อถ่ายรูป กดค้างไว้เพื่อถ่ายวีดีโอ</string>
        <string name="sobot_choice_classification">เลือกประเภท</string>
        <string name="sobot_no_empty">ต้องไม่ว่างเปล่า</string>
        <string name="sobot_can">ได้</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[แฟ้มเอกสาร]</string>
        <string name="sobot_chat_free_account_tip">ฟังก์ชันนี้ถูกปิดเนื่องจากบริการหมดอายุ</string>
        <string name="sobot_do_you_delete_video">คุณต้องการลบวิดีโอนี้</string>
+       <string name="sobot_outline_leavemsg">ส่งข้อความของคุณเรียบร้อยแล้วและเซสชันนี้สิ้นสุดลงแล้วหากคุณต้องการให้คำปรึกษาต่อโปรดคลิกปุ่มสร้างเซสชันใหม่ด้านล่าง</string>
 </resources>

@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.oned;
 
-import com.sobot.chat.widget.zxing.oned.OneDimensionalCodeWriter;
-
 /**
  * <p>Encapsulates functionality and implementation that is common to UPC and EAN families
  * of one-dimensional barcodes.</p>

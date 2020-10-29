@@ -28,8 +28,6 @@ import com.sobot.chat.widget.zxing.ResultMetadataType;
 import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.common.DecoderResult;
 import com.sobot.chat.widget.zxing.multi.MultipleBarcodeReader;
-import com.sobot.chat.widget.zxing.pdf417.PDF417Common;
-import com.sobot.chat.widget.zxing.pdf417.PDF417ResultMetadata;
 import com.sobot.chat.widget.zxing.pdf417.decoder.PDF417ScanningDecoder;
 import com.sobot.chat.widget.zxing.pdf417.detector.Detector;
 import com.sobot.chat.widget.zxing.pdf417.detector.PDF417DetectorResult;

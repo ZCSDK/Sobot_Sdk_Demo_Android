@@ -243,7 +243,7 @@ public class FileOpenHelper {
                 context.startActivity(intent);
             } catch (Exception e) {
                 //ignor
-                ToastUtil.showToast(context,context.getResources().getString(ResourceUtils.getIdByName(context,"string","sobot_cannot_open_file")));
+                ToastUtil.showToast(context,ResourceUtils.getResString(context,"sobot_cannot_open_file"));
 //                e.printStackTrace();
             }
         }

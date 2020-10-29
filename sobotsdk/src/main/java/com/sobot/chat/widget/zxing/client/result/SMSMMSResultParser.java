@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
-import com.sobot.chat.widget.zxing.client.result.SMSParsedResult;
 
 import java.util.ArrayList;
 import java.util.Collection;

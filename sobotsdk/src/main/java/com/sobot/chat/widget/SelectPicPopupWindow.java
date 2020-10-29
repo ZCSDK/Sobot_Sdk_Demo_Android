@@ -2,7 +2,6 @@ package com.sobot.chat.widget;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,16 +18,14 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
-import com.sobot.chat.R;
-import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.activity.WebViewActivity;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.CustomToast;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ToastUtil;
+import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.util.CodeUtils;
 
 import java.io.File;

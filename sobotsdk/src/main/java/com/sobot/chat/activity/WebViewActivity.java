@@ -216,6 +216,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         mWebView.removeJavascriptInterface("searchBoxJavaBridge_");
         mWebView.getSettings().setDefaultFontSize(16);
         mWebView.getSettings().setTextZoom(100);
+        mWebView.getSettings().setAllowFileAccess(false);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         // 设置可以使用localStorage

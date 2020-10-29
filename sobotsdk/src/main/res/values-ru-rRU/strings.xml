@@ -22,10 +22,10 @@
        <string name="sobot_welcome"></string>
        <string name="sobot_submit">Разместить</string>
        <string name="sobot_question">Ваш вопрос был решен?</string>
-       <string name="sobot_edittext_hint">Расскажите нам свои предложения</string>
+       <string name="sobot_edittext_hint">Расскажите нам свои предложения</string>
        <string name="sobot_dcrc">Оценка обслуживания клиентов</string>
        <string name="sobot_str_bottom_message">Сообщение</string>
-       <string name="sobot_str_bottom_satisfaction">Оценка сервиса</string>
+       <string name="sobot_str_bottom_satisfaction">Оценка</string>
        <string name="sobot_yes">Да</string>
        <string name="sobot_no">Нет</string>
        <string name="sobot_leavemsg">Сообщение</string>
@@ -95,8 +95,8 @@
        <string name="sobot_required">(обязательно)</string>
        <string name="sobot_optional">(необязательно)</string>
        <string name="sobot_what_are_the_problems">Пожалуйста, выберите вашу проблему</string>
-       <string name="sobot_robot_customer_service_evaluation">Интеллектуальная оценка обслуживания клиентов</string>
-       <string name="sobot_evaluation_completed_exit">Разговор закончится после оценки</string>
+       <string name="sobot_robot_customer_service_evaluation">Интеллектуальная оценка обслуживания клиентов</string>
+       <string name="sobot_evaluation_completed_exit">Разговор закончится после оценки</string>
        <string name="sobot_delete">Удалить</string>
        <string name="sobot_choice_form_picture">Выберите картинки</string>
        <string name="sobot_choice_form_vedio">Выберите видео</string>
@@ -106,7 +106,7 @@
        <string name="sobot_evaluate_yes">ДА</string>
        <string name="sobot_evaluate_no">НЕТ</string>
        <string name="sobot_please_evaluate">Пожалуйста, оцените сервис %1$s</string>
-       <string name="sobot_please_evaluate_this_service">Оценка сервиса</string>
+       <string name="sobot_please_evaluate_this_service">Оценка сервиса</string>
        <string name="sobot_the_label_is_required">Требуется ярлык</string>
        <string name="sobot_suggestions_are_required">Требуются предложения</string>
        <string name="sobot_wait_full">Обслуживание клиентов занято, пожалуйста, подождите немного</string>
@@ -166,7 +166,7 @@
        <string name="sobot_clear_his_msg_empty">Очистить</string>
        <string name="sobot_switch">Изменить</string>
        <string name="sobot_please_leave_a_message">Добавьте сообщение</string>
-       <string name="sobot_tap_hold_camera">Нажмите, чтобы сделать фото или нажмите и удерживайте для записи</string>
+       <string name="sobot_tap_hold_camera">Нажмите, чтобы сделать фото или нажмите и удерживайте для записи</string>
        <string name="sobot_choice_classification">Выберите тип</string>
        <string name="sobot_no_empty">Не может быть пустым</string>
        <string name="sobot_can">Можно</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[Документация]</string>
        <string name="sobot_chat_free_account_tip">срок службы истек, эта функция закрыта</string>
        <string name="sobot_do_you_delete_video">Удалить это видео?</string>
+       <string name="sobot_outline_leavemsg">Ваше сообщение было успешно отправлено, и этот сеанс завершен. Если вам нужно продолжить консультацию, вы можете нажать кнопку «Восстановить сеанс» ниже.</string>
 </resources>

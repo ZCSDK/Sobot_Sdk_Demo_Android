@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * 日期时间工具类
@@ -116,8 +117,8 @@ public class DateUtil {
      * @param time 不显示HH:mm，并且不显示“今天”
      * @return
      */
-    public static String formatDateTime(String time) {
-        return formatDateTime(time, false, "");
+    public static String formatDateTime(String time, Boolean isAutoMatchTimeZone) {
+        return formatDateTime(time, false, "", isAutoMatchTimeZone);
     }
 
     /**
@@ -126,10 +127,11 @@ public class DateUtil {
      * @param time
      * @return
      */
-    public static String formatDateTime(String time, boolean showHours, String showToday) {
+    public static String formatDateTime(String time, boolean showHours, String showToday, Boolean isAutoMatchTimeZone) {
         if (time == null || "".equals(time) || time.length() < 19) {
             return "";
         }
+        time = bjToLocal(time, "yyyy-MM-dd HH:mm:ss", isAutoMatchTimeZone);
         Date date = null;
         try {
             date = DATE_FORMAT.parse(time);
@@ -138,9 +140,9 @@ public class DateUtil {
         }
 
         Calendar current = Calendar.getInstance();
-
+        current.setTimeZone(TimeZone.getDefault());
         Calendar today = Calendar.getInstance();    //今天
-
+        today.setTimeZone(TimeZone.getDefault());
         today.set(Calendar.YEAR, current.get(Calendar.YEAR));
         today.set(Calendar.MONTH, current.get(Calendar.MONTH));
         today.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH));
@@ -150,7 +152,7 @@ public class DateUtil {
         today.set(Calendar.SECOND, 0);
 
         Calendar yesterday = Calendar.getInstance();    //昨天
-
+        yesterday.setTimeZone(TimeZone.getDefault());
         yesterday.set(Calendar.YEAR, current.get(Calendar.YEAR));
         yesterday.set(Calendar.MONTH, current.get(Calendar.MONTH));
         yesterday.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH) - 1);
@@ -206,12 +208,12 @@ public class DateUtil {
 
     public static void main(String[] args) {
 
-        String time = formatDateTime("2016-01-07 15:41:00", true, "今天");
-        System.out.println("time:" + time);
-        time = formatDateTime("2016-01-03 11:41:00");
-        System.out.println("time:" + time);
-        time = formatDateTime("2016-01-01 15:43:00");
-        System.out.println("time:" + time);
+//        String time = formatDateTime("2016-01-07 15:41:00", true, "今天");
+//        System.out.println("time:" + time);
+//        time = formatDateTime("2016-01-03 11:41:00");
+//        System.out.println("time:" + time);
+//        time = formatDateTime("2016-01-01 15:43:00");
+//        System.out.println("time:" + time);
     }
 
     /**
@@ -220,13 +222,14 @@ public class DateUtil {
      * @param seconds
      * @return
      */
-    public static String timeStamp2Date(String seconds, String format) {
+    public static String timeStamp2Date(String seconds, String format, Boolean isAutoMatchTimeZone) {
         if (seconds == null || TextUtils.isEmpty(seconds) || seconds.equals("null")) {
             return "";
         }
         if (format == null || TextUtils.isEmpty(format)) format = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date(Long.valueOf(seconds + "000")));
+//        SimpleDateFormat sdf = new SimpleDateFormat(format);
+//        return sdf.format(new Date(Long.valueOf(seconds + "000")));
+        return bjToLocal(Long.valueOf(seconds + "000"), format, isAutoMatchTimeZone);
     }
 
     /**
@@ -244,7 +247,7 @@ public class DateUtil {
      * @param timeStr 时间戳
      * @return
      */
-    public static String getStandardDate(String timeStr) {
+    public static String getStandardDate(String timeStr, Boolean isAutoMatchTimeZone) {
 
         StringBuffer sb = new StringBuffer();
 
@@ -259,7 +262,7 @@ public class DateUtil {
         long day = (long) Math.ceil(time / 24 / 60 / 60 / 1000.0f);// 天前
 
         if (day > 7) {
-            sb.append(DateUtil.timeStamp2Date(timeStr, "yyyy-MM-dd"));
+            sb.append(DateUtil.timeStamp2Date(timeStr, "yyyy-MM-dd", isAutoMatchTimeZone));
             return sb.toString();
         } else if (day > 1 && day <= 7) {
             sb.append(day + ResourceUtils.getResString(MyApplication.getInstance(), "sobot_time_unit_day"));
@@ -371,6 +374,7 @@ public class DateUtil {
     public static String getCurrentDate() {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(DateUtil.YEAR_DATE_FORMAT);
+        df.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         datestr = df.format(new Date());
         return datestr;
     }
@@ -383,6 +387,7 @@ public class DateUtil {
     public static String getCurrentDateTime() {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT);
+        df.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         datestr = df.format(new Date());
         return datestr;
     }
@@ -434,15 +439,8 @@ public class DateUtil {
      * @param datestr
      * @return
      */
-    public static String stringToFormatString(String datestr, String dateformat) {
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT);
-        try {
-            date = df.parse(datestr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return dateToString(date, dateformat);
+    public static String stringToFormatString(String datestr, String dateformat, Boolean isAutoMatchTimeZone) {
+        return bjToLocal(datestr, dateformat, isAutoMatchTimeZone);
     }
 
     /**
@@ -545,6 +543,68 @@ public class DateUtil {
         cd.setTime(date);
         wd = cd.get(Calendar.DAY_OF_WEEK) - 1;
         return wd;
+    }
+
+    /**
+     * 北京时间转化为本地时间
+     */
+    public static String bjToLocal(String bjTime, String format, Boolean isAutoMatchTimeZone) {
+        if (!isAutoMatchTimeZone) {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            try {
+                return dateToString(stringToDate(bjTime,"yyyy-MM-dd HH:mm:ss"), format);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        Date utcDate = null;
+        try {
+            utcDate = sdf.parse(bjTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        sdf.setTimeZone(TimeZone.getDefault());
+        Date locatlDate = null;
+        String localTime = sdf.format(utcDate.getTime());
+        try {
+            locatlDate = sdf.parse(localTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateToString(locatlDate, format);
+    }
+
+    /**
+     * 北京时间转化为本地时间
+     */
+    public static String bjToLocal(long utcTime, String format, Boolean isAutoMatchTimeZone) {
+        if (!isAutoMatchTimeZone) {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            try {
+                return dateToString(sdf.parse(longToDateStr(utcTime, "yyyy-MM-dd HH:mm:ss")), format);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        Date utcDate = null;
+        try {
+            utcDate = sdf.parse(longToDateStr(utcTime, "yyyy-MM-dd HH:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        sdf.setTimeZone(TimeZone.getDefault());
+        Date locatlDate = null;
+        String localTime = sdf.format(utcDate.getTime());
+        try {
+            locatlDate = sdf.parse(localTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateToString(locatlDate, format);
     }
 
 

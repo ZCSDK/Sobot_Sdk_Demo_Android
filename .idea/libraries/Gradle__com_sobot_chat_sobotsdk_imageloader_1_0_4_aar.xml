@@ -1,10 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.chat:sobotsdk-imageloader:1.0.4@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/64c262ef51ea2f3825e5622e2cc520ec/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/64c262ef51ea2f3825e5622e2cc520ec/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e11a7b38f7bb6e68d9c1b225da26ca80/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5637eb33fe180c2da07722b6054c3a83/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5637eb33fe180c2da07722b6054c3a83/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5637eb33fe180c2da07722b6054c3a83/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsdk-imageloader/1.0.4/1df3491f8fdae55c8e3a78a41258a9e416792bb/sobotsdk-imageloader-1.0.4-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsdk-imageloader/1.0.4/3afd4fb17e1d8898153a5b7078ab663a87883bc2/sobotsdk-imageloader-1.0.4-sources.jar!/" />
     </SOURCES>

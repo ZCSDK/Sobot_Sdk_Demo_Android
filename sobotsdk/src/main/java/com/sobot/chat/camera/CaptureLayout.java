@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sobot.chat.R;
 import com.sobot.chat.camera.listener.StCaptureListener;
 import com.sobot.chat.camera.listener.StClickListener;
 import com.sobot.chat.camera.listener.StReturnListener;
@@ -139,6 +138,7 @@ public class CaptureLayout extends FrameLayout {
         btn_capture = new CaptureButton(getContext(), button_size);
         LayoutParams btn_capture_param = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         btn_capture_param.gravity = Gravity.CENTER;
+        btn_capture_param.topMargin=20;
         btn_capture.setLayoutParams(btn_capture_param);
         btn_capture.setCaptureLisenter(new StCaptureListener() {
             @Override

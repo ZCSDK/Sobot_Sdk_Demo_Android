@@ -19,7 +19,6 @@ package com.sobot.chat.widget.zxing.qrcode.encoder;
 import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.sobot.chat.widget.zxing.qrcode.decoder.Mode;
 import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
-import com.sobot.chat.widget.zxing.qrcode.encoder.ByteMatrix;
 
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator

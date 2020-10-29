@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.EmailAddressParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
 
 /**
  * <p>Parses an "smtp:" URI result, whose format is not standardized but appears to be like:

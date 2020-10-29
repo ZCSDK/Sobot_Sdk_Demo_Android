@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.InvertedLuminanceSource;
-
 /**
  * The purpose of this class hierarchy is to abstract different bitmap implementations across
  * platforms into a standard interface for requesting greyscale luminance values. The interface

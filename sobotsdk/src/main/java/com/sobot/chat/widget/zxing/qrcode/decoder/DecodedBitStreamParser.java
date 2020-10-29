@@ -22,9 +22,6 @@ import com.sobot.chat.widget.zxing.common.BitSource;
 import com.sobot.chat.widget.zxing.common.CharacterSetECI;
 import com.sobot.chat.widget.zxing.common.DecoderResult;
 import com.sobot.chat.widget.zxing.common.StringUtils;
-import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.sobot.chat.widget.zxing.qrcode.decoder.Mode;
-import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

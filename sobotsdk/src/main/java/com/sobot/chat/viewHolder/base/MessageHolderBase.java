@@ -16,12 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sobot.chat.R;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
-import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.ToastUtil;

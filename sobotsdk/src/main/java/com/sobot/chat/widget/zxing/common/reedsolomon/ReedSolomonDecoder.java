@@ -16,10 +16,6 @@
 
 package com.sobot.chat.widget.zxing.common.reedsolomon;
 
-import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;
-import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGFPoly;
-import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonException;
-
 /**
  * <p>Implements Reed-Solomon decoding, as the name implies.</p>
  *

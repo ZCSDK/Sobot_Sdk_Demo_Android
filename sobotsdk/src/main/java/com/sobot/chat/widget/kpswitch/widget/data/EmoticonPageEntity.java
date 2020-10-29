@@ -3,9 +3,9 @@ package com.sobot.chat.widget.kpswitch.widget.data;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import com.sobot.chat.widget.kpswitch.view.emoticon.EmoticonPageView;
+
+import java.util.List;
 
 public class EmoticonPageEntity<T> extends PageEntity<EmoticonPageEntity> {
 

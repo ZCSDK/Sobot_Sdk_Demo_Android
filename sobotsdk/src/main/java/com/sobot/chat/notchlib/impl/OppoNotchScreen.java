@@ -6,12 +6,11 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
 
+import com.sobot.chat.notchlib.INotchScreen;
+import com.sobot.chat.notchlib.utils.ScreenUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
-import com.sobot.chat.notchlib.INotchScreen;
-import com.sobot.chat.notchlib.utils.ScreenUtil;
 
 @TargetApi(Build.VERSION_CODES.O)
 public class OppoNotchScreen implements INotchScreen {

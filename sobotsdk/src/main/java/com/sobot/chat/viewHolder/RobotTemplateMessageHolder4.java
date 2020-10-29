@@ -15,9 +15,8 @@ import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.HtmlTools;
-import com.sobot.chat.utils.ScreenUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 
 import java.util.List;
@@ -68,7 +67,7 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
                     final Map<String, String> interfaceRet = interfaceRetList.get(0);
                     if (interfaceRet != null && interfaceRet.size() > 0) {
                         setSuccessView();
-                        sobot_template4_title.setText(interfaceRet.get("title"));
+                        HtmlTools.getInstance(context).setRichText(sobot_template4_title, interfaceRet.get("title"), getLinkTextColor());
                         if (!TextUtils.isEmpty(interfaceRet.get("thumbnail"))) {
                             SobotBitmapUtil.display(context, interfaceRet.get("thumbnail"), sobot_template4_thumbnail, ResourceUtils.getIdByName(context, "drawable", "sobot_bg_default_long_pic"), ResourceUtils.getIdByName(context, "drawable", "sobot_bg_default_long_pic"));
                             sobot_template4_thumbnail.setVisibility(View.VISIBLE);

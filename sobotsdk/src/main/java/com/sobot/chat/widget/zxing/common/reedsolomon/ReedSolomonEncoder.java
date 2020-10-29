@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.common.reedsolomon;
 
-import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;
-import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGFPoly;
-
 import java.util.ArrayList;
 import java.util.List;
 

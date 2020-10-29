@@ -1,8 +1,6 @@
 package com.sobot.chat.adapter;
 
 import android.content.Context;
-import androidx.core.widget.TextViewCompat;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

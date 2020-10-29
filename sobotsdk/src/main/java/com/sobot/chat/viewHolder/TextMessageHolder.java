@@ -80,7 +80,7 @@ public class TextMessageHolder extends MessageHolderBase {
             }
 
         } else {
-            msg.setText(CommonUtils.getResString(context, ResourceUtils.getIdByName(context, "string", "sobot_data_wrong_hint")));
+            msg.setText(CommonUtils.getResString(context, "sobot_data_wrong_hint"));
         }
         msg.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

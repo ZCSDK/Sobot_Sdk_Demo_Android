@@ -20,7 +20,6 @@ import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
 
 /**
  * <p>Implements decoding of the UPC-E format.</p>

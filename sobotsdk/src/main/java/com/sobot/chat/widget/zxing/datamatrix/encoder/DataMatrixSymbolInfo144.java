@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-import com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolInfo;
-
 final class DataMatrixSymbolInfo144 extends SymbolInfo {
 
   DataMatrixSymbolInfo144() {

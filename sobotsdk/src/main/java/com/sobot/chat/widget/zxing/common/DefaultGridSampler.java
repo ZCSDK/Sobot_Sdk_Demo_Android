@@ -17,9 +17,6 @@
 package com.sobot.chat.widget.zxing.common;
 
 import com.sobot.chat.widget.zxing.NotFoundException;
-import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.common.GridSampler;
-import com.sobot.chat.widget.zxing.common.PerspectiveTransform;
 
 /**
  * @author Sean Owen

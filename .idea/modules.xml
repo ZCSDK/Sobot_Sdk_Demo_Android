@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" filepath="$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sobotsdk/sobotsdk.iml" filepath="$PROJECT_DIR$/sobotsdk/sobotsdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sobotsdkdemo/sobotsdkdemo.iml" filepath="$PROJECT_DIR$/sobotsdkdemo/sobotsdkdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" />
     </modules>
   </component>
 </project>

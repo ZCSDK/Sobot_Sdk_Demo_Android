@@ -10,7 +10,6 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 
-
 import com.sobot.chat.notchlib.INotchScreen;
 
 import java.util.List;

@@ -16,11 +16,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ParsedResultType;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
-import com.sobot.chat.widget.zxing.client.result.URIResultParser;
-
 /**
  * A simple result type encapsulating a URI that has no further interpretation.
  *

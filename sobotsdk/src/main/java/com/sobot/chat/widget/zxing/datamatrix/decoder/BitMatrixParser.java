@@ -18,7 +18,6 @@ package com.sobot.chat.widget.zxing.datamatrix.decoder;
 
 import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.datamatrix.decoder.Version;
 
 /**
  * @author bbrown@google.com (Brian Brown)

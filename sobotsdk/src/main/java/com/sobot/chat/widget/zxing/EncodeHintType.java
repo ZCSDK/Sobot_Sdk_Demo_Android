@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.BarcodeFormat;
-import com.sobot.chat.widget.zxing.Dimension;
-
 /**
  * These are a set of hints that you may pass to Writers to specify their behavior.
  *

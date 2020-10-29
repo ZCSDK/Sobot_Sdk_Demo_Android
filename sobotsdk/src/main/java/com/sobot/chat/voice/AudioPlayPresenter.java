@@ -5,7 +5,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.text.TextUtils;
 
-import com.sobot.chat.R;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.utils.AudioTools;

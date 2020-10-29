@@ -20,7 +20,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
-import com.sobot.chat.R;
 import com.sobot.chat.camera.listener.StCameraListener;
 import com.sobot.chat.camera.listener.StCaptureListener;
 import com.sobot.chat.camera.listener.StClickListener;

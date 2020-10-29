@@ -17,11 +17,11 @@
 package com.sobot.chat.widget.zxing.datamatrix;
 
 import com.sobot.chat.widget.zxing.BarcodeFormat;
+import com.sobot.chat.widget.zxing.Dimension;
 import com.sobot.chat.widget.zxing.EncodeHintType;
 import com.sobot.chat.widget.zxing.Writer;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
 import com.sobot.chat.widget.zxing.datamatrix.encoder.DefaultPlacement;
-import com.sobot.chat.widget.zxing.Dimension;
 import com.sobot.chat.widget.zxing.datamatrix.encoder.ErrorCorrection;
 import com.sobot.chat.widget.zxing.datamatrix.encoder.HighLevelEncoder;
 import com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolInfo;

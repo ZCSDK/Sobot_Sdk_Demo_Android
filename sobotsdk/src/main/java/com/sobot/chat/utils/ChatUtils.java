@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.adapter.SobotMsgAdapter;
@@ -68,8 +69,8 @@ public class ChatUtils {
 
 //        ToastUtil.showToast(act.getApplicationContext(), act.getResources().getString(
 //                ResourceUtils.getIdByName(act, "string", "sobot_thank_dialog_hint")));
-        CustomToast.makeText(act.getApplicationContext(), act.getResources().getString(
-                ResourceUtils.getIdByName(act, "string", "sobot_thank_dialog_hint")), 1000,
+        CustomToast.makeText(act.getApplicationContext(),
+                ResourceUtils.getResString(act, "sobot_thank_dialog_hint"), 1000,
                 ResourceUtils.getDrawableId(act.getApplicationContext(), "sobot_iv_login_right")).show();
         handler.postDelayed(new Runnable() {
             @Override
@@ -415,6 +416,8 @@ public class ChatUtils {
             return ResourceUtils.getResString(context, "sobot_outline_leverByManager");
         } else if (6 == type) {
             return ResourceUtils.getResString(context, "sobot_outline_openNewWindows");
+        }else if (99 == type) {
+            return context.getString(R.string.sobot_outline_leavemsg);
         }
         return null;
     }

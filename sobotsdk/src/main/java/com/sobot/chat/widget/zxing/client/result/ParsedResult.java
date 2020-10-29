@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ParsedResultType;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
-
 /**
  * <p>Abstract class representing the result of decoding a barcode, as more than
  * a String -- as some type of structured data. This might be a subclass which represents

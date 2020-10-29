@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.pdf417.decoder.ec;
 
 import com.sobot.chat.widget.zxing.ChecksumException;
-import com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusGF;
-import com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly;
 
 /**
  * <p>PDF417 error correction implementation.</p>

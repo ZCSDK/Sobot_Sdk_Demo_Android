@@ -410,7 +410,7 @@ public class SobotTimePickerView extends SobotBasePickerView implements View.OnC
             btnCancel.setOnClickListener(this);
 
             //设置文字
-            btnSubmit.setText(TextUtils.isEmpty(Str_Submit) ? context.getResources().getString(ResourceUtils.getIdByName(context,"string","sobot_btn_submit")) : Str_Submit);
+            btnSubmit.setText(TextUtils.isEmpty(Str_Submit) ? ResourceUtils.getResString(context, "sobot_btn_submit") : Str_Submit);
 //            btnCancel.setText(TextUtils.isEmpty(Str_Cancel) ? context.getResources().getString(ResourceUtils.getIdByName(context,"string","sobot_btn_cancle")) : Str_Cancel);
             tvTitle.setText(TextUtils.isEmpty(Str_Title) ? "" : Str_Title);//默认为空
 

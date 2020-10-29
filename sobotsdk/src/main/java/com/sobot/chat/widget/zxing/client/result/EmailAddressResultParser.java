@@ -17,9 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.EmailAddressParsedResult;
-import com.sobot.chat.widget.zxing.client.result.EmailDoCoMoResultParser;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
 
 import java.util.Map;
 import java.util.regex.Pattern;

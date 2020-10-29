@@ -16,7 +16,6 @@
 
 package com.sobot.chat.widget.zxing.aztec.encoder;
 
-import com.sobot.chat.widget.zxing.aztec.encoder.State;
 import com.sobot.chat.widget.zxing.common.BitArray;
 
 import java.util.Arrays;

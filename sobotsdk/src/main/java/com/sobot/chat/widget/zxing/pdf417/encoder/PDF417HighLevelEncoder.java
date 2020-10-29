@@ -22,7 +22,6 @@ package com.sobot.chat.widget.zxing.pdf417.encoder;
 
 import com.sobot.chat.widget.zxing.WriterException;
 import com.sobot.chat.widget.zxing.common.CharacterSetECI;
-import com.sobot.chat.widget.zxing.pdf417.encoder.Compaction;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;

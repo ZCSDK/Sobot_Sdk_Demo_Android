@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.oned.rss.expanded;
 
-import com.sobot.chat.widget.zxing.oned.rss.expanded.ExpandedPair;
-
 import java.util.ArrayList;
 import java.util.List;
 

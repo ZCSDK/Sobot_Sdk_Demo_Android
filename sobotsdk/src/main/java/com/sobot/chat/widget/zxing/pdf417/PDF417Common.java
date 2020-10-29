@@ -15,10 +15,10 @@
  */
 package com.sobot.chat.widget.zxing.pdf417;
 
+import com.sobot.chat.widget.zxing.common.detector.MathUtils;
+
 import java.util.Arrays;
 import java.util.Collection;
-
-import com.sobot.chat.widget.zxing.common.detector.MathUtils;
 
 /**
  * @author SITA Lab (kevin.osullivan@sita.aero)

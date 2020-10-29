@@ -26,7 +26,6 @@ import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.ResultMetadataType;
 import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.ResultPointCallback;
-import com.sobot.chat.widget.zxing.aztec.AztecDetectorResult;
 import com.sobot.chat.widget.zxing.aztec.decoder.Decoder;
 import com.sobot.chat.widget.zxing.aztec.detector.Detector;
 import com.sobot.chat.widget.zxing.common.DecoderResult;

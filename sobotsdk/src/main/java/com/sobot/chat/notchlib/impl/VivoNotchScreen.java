@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
 
-
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.utils.ScreenUtil;
 

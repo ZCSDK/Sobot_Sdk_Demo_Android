@@ -21,8 +21,8 @@ import com.sobot.chat.widget.zxing.EncodeHintType;
 import com.sobot.chat.widget.zxing.Writer;
 import com.sobot.chat.widget.zxing.WriterException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.qrcode.encoder.ByteMatrix;
 import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.sobot.chat.widget.zxing.qrcode.encoder.ByteMatrix;
 import com.sobot.chat.widget.zxing.qrcode.encoder.Encoder;
 import com.sobot.chat.widget.zxing.qrcode.encoder.QRCode;
 

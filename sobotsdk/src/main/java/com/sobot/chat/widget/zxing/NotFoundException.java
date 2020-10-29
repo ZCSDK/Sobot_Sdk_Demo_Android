@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.ReaderException;
-
 /**
  * Thrown when a barcode was not found in the image. It might have been
  * partially detected but could not be confirmed.

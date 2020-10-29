@@ -120,21 +120,21 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         customName = getIntent().getStringExtra("customName");
         isSolve = getIntent().getIntExtra("isSolve", 0);
         sobot_close_now = (Button) findViewById(getResId("sobot_close_now"));
-        sobot_close_now.setText(ResourceUtils.getResString(context,"sobot_btn_submit_text"));
+        sobot_close_now.setText(ResourceUtils.getResString(context, "sobot_btn_submit_text"));
         sobot_readiogroup = (RadioGroup) findViewById(getResId("sobot_readiogroup"));
         sobot_tv_evaluate_title = (TextView) findViewById(getResId("sobot_tv_evaluate_title"));
-        sobot_tv_evaluate_title.setText(ResourceUtils.getResString(context,"sobot_robot_service_comment"));
+        sobot_tv_evaluate_title.setText(ResourceUtils.getResString(context, "sobot_robot_service_comment"));
         sobot_robot_center_title = (TextView) findViewById(getResId("sobot_robot_center_title"));
-        sobot_robot_center_title.setText(ResourceUtils.getResString(context,"sobot_question"));
+        sobot_robot_center_title.setText(ResourceUtils.getResString(context, "sobot_question"));
         sobot_text_other_problem = (TextView) findViewById(getResId("sobot_text_other_problem"));
-        sobot_text_other_problem.setText(ResourceUtils.getResString(context,"sobot_problem"));
+        sobot_text_other_problem.setText(ResourceUtils.getResString(context, "sobot_problem"));
         sobot_custom_center_title = (TextView) findViewById(getResId("sobot_custom_center_title"));
-        sobot_custom_center_title.setText(ResourceUtils.getResString(context,"sobot_please_evaluate"));
+        sobot_custom_center_title.setText(ResourceUtils.getResString(context, "sobot_please_evaluate"));
         sobot_ratingBar_title = (TextView) findViewById(getResId("sobot_ratingBar_title"));
-        sobot_ratingBar_title.setText(ResourceUtils.getResString(context,"sobot_great_satisfaction"));
+        sobot_ratingBar_title.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
         sobot_tv_evaluate_title_hint = (TextView) findViewById(getResId("sobot_tv_evaluate_title_hint"));
         sobot_evaluate_cancel = (TextView) findViewById(getResId("sobot_evaluate_cancel"));
-        sobot_evaluate_cancel.setText(ResourceUtils.getResString(context,"sobot_temporarily_not_evaluation"));
+        sobot_evaluate_cancel.setText(ResourceUtils.getResString(context, "sobot_temporarily_not_evaluation"));
         sobot_ratingBar_split_view = findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar_split_view"));
         sobot_negativeButton = (LinearLayout) findViewById(getResId("sobot_negativeButton"));
@@ -166,12 +166,12 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         checkBoxList.add(sobot_evaluate_cb_lable5);
         checkBoxList.add(sobot_evaluate_cb_lable6);
         sobot_add_content = (EditText) findViewById(getResId("sobot_add_content"));
-        sobot_add_content.setHint(ResourceUtils.getResString(context,"sobot_edittext_hint"));
+        sobot_add_content.setHint(ResourceUtils.getResString(context, "sobot_edittext_hint"));
         sobot_btn_ok_robot = (RadioButton) findViewById(getResId("sobot_btn_ok_robot"));
-        sobot_btn_ok_robot.setText(ResourceUtils.getResString(context,"sobot_evaluate_yes"));
+        sobot_btn_ok_robot.setText(ResourceUtils.getResString(context, "sobot_evaluate_yes"));
         sobot_btn_ok_robot.setChecked(true);
         sobot_btn_no_robot = (RadioButton) findViewById(getResId("sobot_btn_no_robot"));
-        sobot_btn_no_robot.setText(ResourceUtils.getResString(context,"sobot_evaluate_no"));
+        sobot_btn_no_robot.setText(ResourceUtils.getResString(context, "sobot_evaluate_no"));
         sobot_robot_relative = (LinearLayout) findViewById(getResId("sobot_robot_relative"));
         sobot_custom_relative = (LinearLayout) findViewById(getResId("sobot_custom_relative"));
         sobot_hide_layout = (LinearLayout) findViewById(getResId("sobot_hide_layout"));
@@ -299,7 +299,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 finish();
                 Intent intent = new Intent();
                 intent.setAction(ZhiChiConstants.sobot_close_now);
-                intent.putExtra("isBackShowEvaluate",isBackShowEvaluate);
+                intent.putExtra("isBackShowEvaluate", isBackShowEvaluate);
                 CommonUtils.sendLocalBroadcast(context.getApplicationContext(), intent);
             }
         });
@@ -370,16 +370,26 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 setLableViewVisible(null);
             }
 
+            //根据infomation 配置是否隐藏星星评价描述
+            if (!information.isHideManualEvaluationLabels()) {
+                sobot_ratingBar_title.setVisibility(View.VISIBLE);
+            } else {
+                sobot_ratingBar_title.setVisibility(View.GONE);
+            }
             if (score == 5) {
 //                sobot_hide_layout.setVisibility(View.GONE);
                 setl_submit_content.setVisibility(View.GONE);
                 sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
-                sobot_ratingBar_title.setVisibility(View.VISIBLE);
             } else {
                 setl_submit_content.setVisibility(View.VISIBLE);
             }
         } else {
-            sobot_ratingBar_title.setVisibility(View.VISIBLE);
+            //根据infomation 配置是否隐藏星星评价描述
+            if (!information.isHideManualEvaluationLabels()) {
+                sobot_ratingBar_title.setVisibility(View.VISIBLE);
+            } else {
+                sobot_ratingBar_title.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -401,7 +411,22 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             sobot_hide_layout.setVisibility(View.GONE);
             return;
         } else {
-            sobot_hide_layout.setVisibility(View.VISIBLE);
+            if (current_model == ZhiChiConstant.client_model_robot && initModel != null) {
+                //根据infomation 配置是否隐藏机器人评价标签
+                if (!information.isHideRototEvaluationLabels()) {
+                    sobot_hide_layout.setVisibility(View.VISIBLE);
+                } else {
+                    sobot_hide_layout.setVisibility(View.GONE);
+                }
+            }
+            if (current_model == ZhiChiConstant.client_model_customService && initModel != null) {
+                //根据infomation 配置是否隐藏人工评价标签
+                if (!information.isHideManualEvaluationLabels()) {
+                    sobot_hide_layout.setVisibility(View.VISIBLE);
+                } else {
+                    sobot_hide_layout.setVisibility(View.GONE);
+                }
+            }
             if (current_model == ZhiChiConstant.client_model_customService) {
                 if (satisfactionSetBase != null) {
                     if (satisfactionSetBase.getIsTagMust()) {

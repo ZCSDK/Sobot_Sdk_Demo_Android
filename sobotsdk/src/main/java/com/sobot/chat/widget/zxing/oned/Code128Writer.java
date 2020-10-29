@@ -18,8 +18,6 @@ package com.sobot.chat.widget.zxing.oned;
 
 import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.oned.Code128Reader;
-import com.sobot.chat.widget.zxing.oned.OneDimensionalCodeWriter;
 
 import java.util.ArrayList;
 import java.util.Collection;

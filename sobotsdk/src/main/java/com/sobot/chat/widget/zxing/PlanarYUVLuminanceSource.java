@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.LuminanceSource;
-
 /**
  * This object extends LuminanceSource around an array of YUV data returned from the camera driver,
  * with the option to crop to a rectangle within the full data. This can be used to exclude

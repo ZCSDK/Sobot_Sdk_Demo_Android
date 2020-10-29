@@ -16,8 +16,6 @@
 package com.sobot.chat.widget.zxing.oned;
 
 import com.sobot.chat.widget.zxing.BarcodeFormat;
-import com.sobot.chat.widget.zxing.oned.Code93Reader;
-import com.sobot.chat.widget.zxing.oned.OneDimensionalCodeWriter;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -14,13 +14,17 @@ import android.widget.TextView;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.model.SobotUserTicketInfo;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
+import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.ResourceUtils;
 
 import java.util.List;
+
+import static com.sobot.chat.utils.DateUtil.DATE_TIME_FORMAT;
 
 /**
  * 留言记录适配器
@@ -150,7 +154,7 @@ public class SobotTicketInfoAdapter extends SobotBaseAdapter<SobotUserTicketInfo
                 tv_ticket_status.setBackgroundResource(bg1_resId);
             }
             sobot_tv_new.setVisibility(data.isNewFlag() ? View.VISIBLE : View.GONE);
-            tv_time.setText(data.getTimeStr());
+            tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(),DATE_TIME_FORMAT, ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
             tv_code.setText(String.format(ResourceUtils.getResString(mContext, "sobot_ticket_code"), data.getTicketCode()));
             displayInNotch(tv_time);
             displayInNotch(tv_content);

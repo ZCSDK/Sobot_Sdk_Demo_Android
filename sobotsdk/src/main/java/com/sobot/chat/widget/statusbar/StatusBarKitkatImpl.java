@@ -1,8 +1,6 @@
 package com.sobot.chat.widget.statusbar;
 
 import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.View;

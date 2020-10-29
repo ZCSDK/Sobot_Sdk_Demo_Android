@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.qrcode.decoder;
 
-import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
-
 /**
  * <p>Encapsulates a block of data within a QR Code. QR Codes may split their data into
  * multiple blocks, each of which is a unit of data and error-correction codewords. Each

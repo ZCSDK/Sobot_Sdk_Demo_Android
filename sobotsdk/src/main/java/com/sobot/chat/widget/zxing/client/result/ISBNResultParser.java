@@ -18,8 +18,6 @@ package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.ISBNParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
 
 /**
  * Parses strings of digits that represent a ISBN.

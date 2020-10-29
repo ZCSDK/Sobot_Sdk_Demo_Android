@@ -1,8 +1,8 @@
 package com.sobot.chat.widget.kpswitch.widget.data;
 
-import java.util.ArrayList;
-
 import com.sobot.chat.widget.kpswitch.widget.interfaces.PageViewInstantiateListener;
+
+import java.util.ArrayList;
 
 public class EmoticonPageSetEntity<T> extends PageSetEntity<EmoticonPageEntity> {
 

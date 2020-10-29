@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.GeoParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

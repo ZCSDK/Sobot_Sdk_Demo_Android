@@ -24,7 +24,6 @@ import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.Reader;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.ResultPoint;
-import com.sobot.chat.widget.zxing.multi.GenericMultipleBarcodeReader;
 
 import java.util.Map;
 

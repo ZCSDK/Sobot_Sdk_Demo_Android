@@ -17,11 +17,6 @@
 package com.sobot.chat.widget.zxing.pdf417.decoder;
 
 import com.sobot.chat.widget.zxing.pdf417.PDF417Common;
-import com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata;
-import com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox;
-import com.sobot.chat.widget.zxing.pdf417.decoder.Codeword;
-import com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultColumn;
-import com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultRowIndicatorColumn;
 
 import java.util.Formatter;
 

@@ -30,8 +30,8 @@ import com.sobot.chat.camera.util.CameraParamUtil;
 import com.sobot.chat.camera.util.CheckPermission;
 import com.sobot.chat.camera.util.DeviceUtil;
 import com.sobot.chat.camera.util.FileUtil;
-import com.sobot.chat.camera.util.StCmeraLog;
 import com.sobot.chat.camera.util.ScreenUtils;
+import com.sobot.chat.camera.util.StCmeraLog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -22,10 +22,10 @@
        <string name="sobot_welcome"></string>
        <string name="sobot_submit">제출</string>
        <string name="sobot_question">%1$s문제가 해결 되었습니까?</string>
-       <string name="sobot_edittext_hint">우리의 서비스에 대한 제안을 환영합니다</string>
+       <string name="sobot_edittext_hint">우리의 서비스에 대한 제안을 환영합니다</string>
        <string name="sobot_dcrc">GM평가</string>
        <string name="sobot_str_bottom_message">메시지를 남겨주세요</string>
-       <string name="sobot_str_bottom_satisfaction">서비스 평가</string>
+       <string name="sobot_str_bottom_satisfaction">서비스 평가</string>
        <string name="sobot_yes">네</string>
        <string name="sobot_no">아니요</string>
        <string name="sobot_leavemsg">메시지를 남겨주세요</string>
@@ -95,8 +95,8 @@
        <string name="sobot_required">（필수 기입）</string>
        <string name="sobot_optional">（선택 기입）</string>
        <string name="sobot_what_are_the_problems">아래의 문제가 존재합니다</string>
-       <string name="sobot_robot_customer_service_evaluation">로봇 GM 평가</string>
-       <string name="sobot_evaluation_completed_exit">평가를 제출 한 후 회화 종료됩니다</string>
+       <string name="sobot_robot_customer_service_evaluation">로봇 GM 평가</string>
+       <string name="sobot_evaluation_completed_exit">평가를 제출 한 후 회화 종료됩니다</string>
        <string name="sobot_delete">삭제</string>
        <string name="sobot_choice_form_picture">이미지 선택</string>
        <string name="sobot_choice_form_vedio">비디오 선택</string>
@@ -106,7 +106,7 @@
        <string name="sobot_evaluate_yes">해결 됨</string>
        <string name="sobot_evaluate_no">미 해결</string>
        <string name="sobot_please_evaluate">%1$s 님이이 서비스 평가에 초대하였습니다</string>
-       <string name="sobot_please_evaluate_this_service">서비스 평가</string>
+       <string name="sobot_please_evaluate_this_service">서비스 평가</string>
        <string name="sobot_the_label_is_required">태그 필수</string>
        <string name="sobot_suggestions_are_required">건의는 필수</string>
        <string name="sobot_wait_full">대기열이 가득 찼습니다</string>
@@ -166,7 +166,7 @@
        <string name="sobot_clear_his_msg_empty">비우기</string>
        <string name="sobot_switch">팀 변경</string>
        <string name="sobot_please_leave_a_message">메모를 남겨주세요</string>
-       <string name="sobot_tap_hold_camera">탭하여 사진을 찍습니다,카메라를 길게 누릅니다</string>
+       <string name="sobot_tap_hold_camera">탭하여 사진을 찍습니다,카메라를 길게 누릅니다</string>
        <string name="sobot_choice_classification">카테고리를 선택하십시오</string>
        <string name="sobot_no_empty">비워 둘 수 없습니다</string>
        <string name="sobot_can">가능</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[서류.]</string>
        <string name="sobot_chat_free_account_tip">서비스 기한 이 되 었 기 때문에, 이 기능 은 이미 종료 되 었 습 니 다.</string>
        <string name="sobot_do_you_delete_video">이 영상 을 삭제 하 시 겠 습 니까?</string>
+       <string name="sobot_outline_leavemsg">귀하의 메시지가 성공적으로 제출되었으며이 세션이 종료되었습니다. 상담을 계속하려면 아래 세션 재 구축 버튼을 클릭하십시오.</string>
 </resources>

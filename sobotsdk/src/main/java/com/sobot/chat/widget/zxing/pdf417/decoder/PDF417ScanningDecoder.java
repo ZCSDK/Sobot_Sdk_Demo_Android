@@ -24,15 +24,6 @@ import com.sobot.chat.widget.zxing.common.BitMatrix;
 import com.sobot.chat.widget.zxing.common.DecoderResult;
 import com.sobot.chat.widget.zxing.common.detector.MathUtils;
 import com.sobot.chat.widget.zxing.pdf417.PDF417Common;
-import com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata;
-import com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue;
-import com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox;
-import com.sobot.chat.widget.zxing.pdf417.decoder.Codeword;
-import com.sobot.chat.widget.zxing.pdf417.decoder.DecodedBitStreamParser;
-import com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult;
-import com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultColumn;
-import com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultRowIndicatorColumn;
-import com.sobot.chat.widget.zxing.pdf417.decoder.PDF417CodewordDecoder;
 import com.sobot.chat.widget.zxing.pdf417.decoder.ec.ErrorCorrection;
 
 import java.util.ArrayList;

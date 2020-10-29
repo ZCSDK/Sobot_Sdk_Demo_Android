@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.WindowManager;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
@@ -16,7 +15,6 @@ import com.sobot.chat.api.model.SobotPostMsgTemplate;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.OkHttpUtils;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
-import com.sobot.chat.notchlib.NotchScreenManager;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.dialog.SobotPostMsgTmpListActivity;
 import com.sobot.chat.widget.dialog.SobotPostMsgTmpListDialog;

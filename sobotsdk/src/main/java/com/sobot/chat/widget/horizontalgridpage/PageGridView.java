@@ -1,7 +1,6 @@
 package com.sobot.chat.widget.horizontalgridpage;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**

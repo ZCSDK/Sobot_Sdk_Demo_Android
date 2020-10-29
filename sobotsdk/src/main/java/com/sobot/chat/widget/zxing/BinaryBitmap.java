@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.Binarizer;
-import com.sobot.chat.widget.zxing.LuminanceSource;
-import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.common.BitArray;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
 

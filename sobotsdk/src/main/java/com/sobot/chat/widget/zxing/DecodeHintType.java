@@ -16,12 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.BarcodeFormat;
-import com.sobot.chat.widget.zxing.BinaryBitmap;
-import com.sobot.chat.widget.zxing.Reader;
-import com.sobot.chat.widget.zxing.ResultPoint;
-import com.sobot.chat.widget.zxing.ResultPointCallback;
-
 import java.util.List;
 
 /**

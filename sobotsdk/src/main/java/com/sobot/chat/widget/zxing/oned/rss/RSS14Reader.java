@@ -24,14 +24,9 @@ import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.ResultPointCallback;
 import com.sobot.chat.widget.zxing.common.BitArray;
 import com.sobot.chat.widget.zxing.common.detector.MathUtils;
-import com.sobot.chat.widget.zxing.oned.rss.AbstractRSSReader;
-import com.sobot.chat.widget.zxing.oned.rss.DataCharacter;
-import com.sobot.chat.widget.zxing.oned.rss.FinderPattern;
-import com.sobot.chat.widget.zxing.oned.rss.Pair;
-import com.sobot.chat.widget.zxing.oned.rss.RSSUtils;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

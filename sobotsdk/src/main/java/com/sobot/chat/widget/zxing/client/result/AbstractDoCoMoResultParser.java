@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
-
 /**
  * <p>See
  * <a href="http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/about/s2.html">

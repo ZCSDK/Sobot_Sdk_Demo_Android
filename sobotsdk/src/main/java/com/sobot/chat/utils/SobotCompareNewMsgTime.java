@@ -2,9 +2,7 @@ package com.sobot.chat.utils;
 
 import com.sobot.chat.api.model.SobotMsgCenterModel;
 
-import java.text.ParseException;
 import java.util.Comparator;
-import java.util.Date;
 
 /**
  * @author Created by jinxl on 2018/9/5.

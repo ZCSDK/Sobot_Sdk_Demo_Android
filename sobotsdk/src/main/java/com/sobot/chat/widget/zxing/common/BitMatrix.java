@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.common;
 
-import com.sobot.chat.widget.zxing.common.BitArray;
-
 import java.util.Arrays;
 
 /**

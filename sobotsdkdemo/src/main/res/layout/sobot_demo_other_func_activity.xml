@@ -94,6 +94,182 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/sobot_common_gray1" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.7.6.2 服务端接口多语言支持"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="[说明:暂时支持简体中文:zh-Hans 繁体中文:zh-Hant 英语:en 西班牙语:es 葡萄牙语:pt]"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/sobot_et_server_langue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/sobot_editview_stocke_bg"
+                android:enabled="true"
+                android:padding="6dp"
+                android:scrollbars="none"
+                android:textColor="@color/sobot_common_gray1"
+                android:textColorHint="@color/sobot_common_gray3"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_7_6_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/sobot_text4761"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="隐藏机器人评价标签"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sobot_text4761"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="2"
+                    android:text="[说明:评价标签不支持多语言时，可以不显示]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_7_6_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_7_6_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/sobot_text4762"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="隐藏人工评价标签"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sobot_text4762"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="3"
+                    android:text="[说明:评价标签不支持多语言时，可以不显示]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_7_6_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_7_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/sobot_text478"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="时区适配"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sobot_text478"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="3"
+                    android:text="[说明:自动根据手机时区适配时间显示，默认显示东八区时间]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_7_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"

@@ -17,6 +17,7 @@
 package com.sobot.chat.widget.zxing.maxicode.decoder;
 
 import com.sobot.chat.widget.zxing.common.DecoderResult;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 

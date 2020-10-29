@@ -21,11 +21,6 @@
 package com.sobot.chat.widget.zxing.pdf417.encoder;
 
 import com.sobot.chat.widget.zxing.WriterException;
-import com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeMatrix;
-import com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeRow;
-import com.sobot.chat.widget.zxing.pdf417.encoder.Compaction;
-import com.sobot.chat.widget.zxing.pdf417.encoder.PDF417ErrorCorrection;
-import com.sobot.chat.widget.zxing.pdf417.encoder.PDF417HighLevelEncoder;
 
 import java.nio.charset.Charset;
 

@@ -8,8 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.SobotUserTicketEvaluate;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.widget.SobotEditTextLayout;
 import com.sobot.chat.widget.dialog.base.SobotActionSheet;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
@@ -87,7 +89,13 @@ public class SobotTicketEvaluateDialog extends SobotActionSheet {
     }
 
     private void setViewListener() {
-
+        Information information = (Information) SharedPreferencesUtil.getObject(getContext(), "sobot_last_current_info");
+        //根据infomation 配置是否隐藏星星评价描述
+        if (!information.isHideManualEvaluationLabels()) {
+            sobot_ratingBar_title.setVisibility(View.VISIBLE);
+        } else {
+            sobot_ratingBar_title.setVisibility(View.GONE);
+        }
         sobot_ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.ZhiChiApi;
+import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.SatisfactionSet;
 import com.sobot.chat.api.model.SatisfactionSetBase;
 import com.sobot.chat.api.model.SobotEvaluateModel;
@@ -45,6 +46,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
     TextView sobot_ratingBar_title;//星星对应描述
     TextView sobot_submit;//提交
     View sobot_ratingBar_split_view;//如果有已解决按钮和未解决按钮就显示，否则隐藏；
+    Information information;
     private LinearLayout sobot_evaluate_ll_lable1;//评价  用来放前两个标签，标签最多可以有六个
     private LinearLayout sobot_evaluate_ll_lable2;//评价  用来放中间两个标签
     private LinearLayout sobot_evaluate_ll_lable3;//评价  用来放最后两个标签
@@ -71,24 +73,24 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         sobot_readiogroup = (RadioGroup) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_readiogroup"));
         sobot_btn_ok_robot = (RadioButton) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_btn_ok_robot"));
-        sobot_btn_ok_robot.setText(ResourceUtils.getResString(context,"sobot_evaluate_yes"));
+        sobot_btn_ok_robot.setText(ResourceUtils.getResString(context, "sobot_evaluate_yes"));
         sobot_btn_no_robot = (RadioButton) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_btn_no_robot"));
-        sobot_btn_no_robot.setText(ResourceUtils.getResString(context,"sobot_evaluate_no"));
+        sobot_btn_no_robot.setText(ResourceUtils.getResString(context, "sobot_evaluate_no"));
         sobot_tv_star_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_tv_star_title"));
-        sobot_tv_star_title.setText(ResourceUtils.getResString(context,"sobot_please_evaluate"));
+        sobot_tv_star_title.setText(ResourceUtils.getResString(context, "sobot_please_evaluate"));
         sobot_ratingBar = (RatingBar) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar"));
         sobot_submit = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_submit"));
-        sobot_submit.setText(ResourceUtils.getResString(context,"sobot_submit"));
+        sobot_submit.setText(ResourceUtils.getResString(context, "sobot_submit"));
         sobot_ratingBar_split_view = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar_split_view"));
         sobot_btn_ok_robot.setSelected(true);
         sobot_ratingBar_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar_title"));
-        sobot_ratingBar_title.setText(ResourceUtils.getResString(context,"sobot_great_satisfaction"));
+        sobot_ratingBar_title.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
         sobot_hide_layout = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_hide_layout"));
         sobot_evaluate_ll_lable1 = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_ll_lable1"));
@@ -110,6 +112,12 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
 
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {
+        information = (Information) SharedPreferencesUtil.getObject(context, "sobot_last_current_info");
+        if (!information.isHideManualEvaluationLabels()) {
+            sobot_ratingBar_title.setVisibility(View.VISIBLE);
+        } else {
+            sobot_ratingBar_title.setVisibility(View.GONE);
+        }
         this.message = message;
         this.sobotEvaluateModel = message.getSobotEvaluateModel();
         if (satisFactionList == null || satisFactionList.size() == 0) {
@@ -137,7 +145,12 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                             sobot_ratingBar_title.setText(ResourceUtils.getResString(context, "sobot_evaluate_zero_score_des"));
                             sobot_ratingBar_title.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray3")));
                         } else {
-                            sobot_hide_layout.setVisibility(View.VISIBLE);
+                            //根据infomation 配置是否隐藏人工评价标签
+                            if (!information.isHideManualEvaluationLabels()) {
+                                sobot_hide_layout.setVisibility(View.VISIBLE);
+                            } else {
+                                sobot_hide_layout.setVisibility(View.GONE);
+                            }
                             sobot_submit.setVisibility(View.VISIBLE);
                             sobot_ratingBar_title.setText(satisFactionList.get(4).getScoreExplain());
                             sobot_ratingBar_title.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_color_evaluate_ratingBar_des_tv")));
@@ -179,7 +192,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                 //校验评5星评价标签是否必选
                 if (TextUtils.isEmpty(checkBoxIsChecked()) && satisFactionList != null && satisFactionList.size() == 5
                         && satisFactionList.get(4).getIsTagMust()
-                        && !TextUtils.isEmpty(satisFactionList.get(4).getLabelName())) {
+                        && !TextUtils.isEmpty(satisFactionList.get(4).getLabelName()) && !information.isHideManualEvaluationLabels()) {
                     ToastUtil.showToast(mContext, ResourceUtils.getResString(mContext, "sobot_the_label_is_required"));//标签必选
                     return;
                 }
@@ -369,7 +382,12 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
             sobot_hide_layout.setVisibility(View.GONE);
             return;
         } else {
-            sobot_hide_layout.setVisibility(View.VISIBLE);
+            //根据infomation 配置是否隐藏人工评价标签
+            if (!information.isHideManualEvaluationLabels()) {
+                sobot_hide_layout.setVisibility(View.VISIBLE);
+            } else {
+                sobot_hide_layout.setVisibility(View.GONE);
+            }
         }
 
         switch (tmpData.length) {
@@ -461,8 +479,8 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                 str.append(checkBoxList.get(i).getText() + ",");
             }
         }
-        if (str.length()>0){
-            str.substring(0,str.length()-1);
+        if (str.length() > 0) {
+            str.substring(0, str.length() - 1);
         }
         return str + "";
     }

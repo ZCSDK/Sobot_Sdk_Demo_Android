@@ -27,7 +27,6 @@
 package com.sobot.chat.widget.zxing.oned.rss.expanded;
 
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.ExpandedPair;
 
 import java.util.List;
 

@@ -14,8 +14,8 @@ android {
         applicationId "com.sobot.chat.tem"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 2
-        versionName "2.8.7"
+        versionCode 3
+        versionName "2.8.9"
 
         ndk {
             //设置支持的SO库架构
@@ -50,7 +50,7 @@ dependencies {
 
     //--------------智齿相关依赖 start-----------
     implementation project(":sobotsdk")
-//    implementation  'com.sobot.chat:sobotsdk:2.8.7'
+//    implementation  'com.sobot.chat:sobotsdk:2.8.9'
     implementation 'com.squareup.okhttp3:okhttp:4.4.1'
     //目前支持常⻅的3种图片加载库，必须在下面的图片加载库中选择一个添加依赖
     // compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'

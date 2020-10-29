@@ -293,4 +293,7 @@
     <!-- 2.8.7 新增-->
     <string name="sobot_do_you_delete_video">要删除这个视频吗?</string>
 
+    <!-- 2.8.9 新增-->
+    <string name="sobot_outline_leavemsg">您的留言已经提交成功，此会话已结束，如需继续咨询可点击下方 重建会话 按钮。</string>
+
 </resources>

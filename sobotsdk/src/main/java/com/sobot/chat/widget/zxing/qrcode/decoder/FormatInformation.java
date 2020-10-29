@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.qrcode.decoder;
 
-import com.sobot.chat.widget.zxing.qrcode.decoder.DataMask;
-import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
 /**
  * <p>Encapsulates a QR Code's format information, including the data mask used and
  * error correction level.</p>

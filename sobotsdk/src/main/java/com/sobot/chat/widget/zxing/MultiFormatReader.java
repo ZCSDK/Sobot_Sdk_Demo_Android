@@ -16,13 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.BarcodeFormat;
-import com.sobot.chat.widget.zxing.BinaryBitmap;
-import com.sobot.chat.widget.zxing.DecodeHintType;
-import com.sobot.chat.widget.zxing.NotFoundException;
-import com.sobot.chat.widget.zxing.Reader;
-import com.sobot.chat.widget.zxing.ReaderException;
-import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.aztec.AztecReader;
 import com.sobot.chat.widget.zxing.datamatrix.DataMatrixReader;
 import com.sobot.chat.widget.zxing.maxicode.MaxiCodeReader;

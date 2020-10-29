@@ -25,7 +25,7 @@
        <string name="sobot_edittext_hint">Benvenuti a darci i vostri suggerimenti sul nostro servizio~</string>
        <string name="sobot_dcrc">Valutare il servizio clienti</string>
        <string name="sobot_str_bottom_message">Lasciare i messaggi</string>
-       <string name="sobot_str_bottom_satisfaction">Valutazione del servizio</string>
+       <string name="sobot_str_bottom_satisfaction">Valutazione</string>
        <string name="sobot_yes">Sì</string>
        <string name="sobot_no">No</string>
        <string name="sobot_leavemsg">Lasciare i messaggi</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[documento]</string>
        <string name="sobot_chat_free_account_tip">La funzione è stata disattivata a causa della scadenza del servizio</string>
        <string name="sobot_do_you_delete_video">Vuoi cancellare questo video?</string>
+       <string name="sobot_outline_leavemsg">Il tuo messaggio è stato inviato con successo e questa sessione è terminata. Se devi continuare la consultazione, puoi fare clic sul pulsante Ricostruisci sessione in basso.</string>
 </resources>

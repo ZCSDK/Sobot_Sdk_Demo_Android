@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.common.reedsolomon;
 
-import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;
-
 /**
  * <p>Represents a polynomial whose coefficients are elements of a GF.
  * Instances of this class are immutable.</p>

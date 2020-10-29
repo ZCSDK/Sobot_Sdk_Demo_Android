@@ -3,31 +3,22 @@ package com.sobot.chat.viewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.sobot.chat.R;
 import com.sobot.chat.activity.WebViewActivity;
-import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.api.model.OrderCardContentModel;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.image.SobotRCImageView;
-
-import java.util.Locale;
 
 /**
  * 订单卡片

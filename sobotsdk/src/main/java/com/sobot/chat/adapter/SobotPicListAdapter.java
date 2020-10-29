@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.model.ZhiChiUploadAppFileModelResult;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.widget.image.SobotRCImageView;
 
 import java.util.ArrayList;

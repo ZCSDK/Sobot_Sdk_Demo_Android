@@ -18,8 +18,6 @@ package com.sobot.chat.widget.zxing.qrcode.decoder;
 
 import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.sobot.chat.widget.zxing.qrcode.decoder.FormatInformation;
 
 /**
  * See ISO 18004:2006 Annex D

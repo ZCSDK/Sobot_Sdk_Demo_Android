@@ -17,17 +17,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@color/sobot_common_gray6"
             android:gravity="center_vertical"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
                 android:orientation="vertical">
 
                 <TextView

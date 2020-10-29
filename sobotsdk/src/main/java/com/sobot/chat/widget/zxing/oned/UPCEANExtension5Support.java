@@ -22,8 +22,6 @@ import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.ResultMetadataType;
 import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.UPCEANExtension2Support;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
 
 import java.util.EnumMap;
 import java.util.Map;

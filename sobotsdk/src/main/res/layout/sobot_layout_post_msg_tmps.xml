@@ -16,14 +16,18 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@color/sobot_common_gray6"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center"
                 android:orientation="vertical">
                 <!-- 留言模版按钮 -->
@@ -41,17 +45,17 @@
                 android:id="@+id/sobot_negativeButton"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true">
+                android:layout_centerVertical="true">
 
                 <TextView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="25dp"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/sobot_icon_evaluation_cancel"
-                    android:layout_marginStart="25dp" />
+                    android:background="@drawable/sobot_icon_evaluation_cancel" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -65,14 +69,14 @@
             style="@style/sobot_grid_view"
             android:layout_height="wrap_content"
             android:horizontalSpacing="10dp"
+            android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
+            android:paddingEnd="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="40dp"
             android:scrollbarThumbVertical="@drawable/custom_scroll_style"
             android:scrollbars="none"
-            android:verticalSpacing="20dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp" />
+            android:verticalSpacing="20dp" />
     </com.sobot.chat.widget.SobotMHLinearLayout>
 </LinearLayout>

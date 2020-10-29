@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.qrcode.encoder;
 
-import com.sobot.chat.widget.zxing.qrcode.encoder.ByteMatrix;
-
 /**
  * @author Satoru Takabayashi
  * @author Daniel Switkin

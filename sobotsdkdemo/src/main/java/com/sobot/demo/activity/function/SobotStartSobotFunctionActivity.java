@@ -62,14 +62,6 @@ public class SobotStartSobotFunctionActivity extends AppCompatActivity implement
         }
         if (v == sobot_tv_start) {
             if (information != null) {
-                String sobot_custom_language_value = SobotSPUtil.getStringData(getContext(), "sobot_custom_language_value", "");
-                if (TextUtils.isEmpty(sobot_custom_language_value)) {
-                    ZCSobotApi.setInternationalLanguage(getContext(), sobot_custom_language_value, false, false);
-                    ZCSobotApi.hideTimemsgForMessageList(getContext(), false);
-                } else {
-                    ZCSobotApi.setInternationalLanguage(getContext(), sobot_custom_language_value, true, false);
-                    ZCSobotApi.hideTimemsgForMessageList(getContext(), true);
-                }
                 ZCSobotApi.openZCChat(getContext(), information);
             }
         }

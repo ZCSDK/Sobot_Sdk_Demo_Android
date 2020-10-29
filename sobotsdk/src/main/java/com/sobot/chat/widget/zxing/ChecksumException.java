@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.ReaderException;
-
 /**
  * Thrown when a barcode was successfully detected and decoded, but
  * was not returned because its checksum feature failed.

@@ -1176,7 +1176,7 @@ public class ZCSobotApi {
         SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_NAME, "sobot_android_strings_" + language);
         String languageFileName = "sobot_android_strings_" + language + "_" + getVersion(context) + ".json";
         //指定语言包保存路径
-        final String languagePath = CommonUtils.getSDCardRootPath() + File.separator + getAppName(context) + File.separator + "sobot_language" + File.separator + languageFileName;
+        final String languagePath = CommonUtils.getPrivatePath(context) + File.separator + getAppName(context) + File.separator + "sobot_language" + File.separator + languageFileName;
         File file = new File(languagePath);
         if (isReDownload && file.exists()) {
             //如果指定语言包已存在，并且要重新下载使用最新，先删除本地已存在的
@@ -1200,11 +1200,11 @@ public class ZCSobotApi {
             SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
             return;
         }
-        if (!checkStoragePermission(context)) {
-            SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, false);
-            LogUtils.i("没有文件存储权限，无法下载语言包");
-            return;
-        }
+//        if (!checkStoragePermission(context)) {
+//            SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, false);
+//            LogUtils.i("没有文件存储权限，无法下载语言包");
+//            return;
+//        }
 
         HttpUtils.getInstance().download("https://img.sobot.com/mobile/multilingual/android/" + languageFileName, file, null, new HttpUtils.FileCallBack() {
 

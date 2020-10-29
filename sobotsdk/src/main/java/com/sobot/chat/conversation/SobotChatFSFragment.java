@@ -1245,6 +1245,8 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 }
                 SharedPreferencesUtil.saveIntData(mAppContext,
                         ZhiChiConstant.sobot_msg_flag, initModel.getMsgFlag());
+                SharedPreferencesUtil.saveBooleanData(mAppContext,
+                        ZhiChiConstant.sobot_leave_msg_flag, initModel.isMsgToTicketFlag());
                 SharedPreferencesUtil.saveStringData(mAppContext,
                         "lastCid", initModel.getCid());
                 SharedPreferencesUtil.saveStringData(mAppContext,
@@ -1455,6 +1457,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             } else if (4 == outLineType) {
                 base.setAction(ZhiChiConstant.action_remind_past_time);
             } else if (6 == outLineType) {
+                base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
+            }else if (99 == outLineType) {
+                //留言转离线消息 成功后结束会话，添加提示语
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             }
             reply.setMsg(offlineMsg);
@@ -4358,6 +4363,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         messageAdapter.justAddData(tmpMsg);
                         messageAdapter.justAddData(tmpMsg2);
                         messageAdapter.notifyDataSetChanged();
+                        customerServiceOffline(initModel, 99);
                         break;
                     case ZCSobotConstant
                             .EXTRA_SWITCH_ROBOT_REQUEST_CODE:

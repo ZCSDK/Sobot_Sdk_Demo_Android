@@ -19,8 +19,6 @@ package com.sobot.chat.widget.zxing.qrcode.detector;
 import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.ResultPointCallback;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.qrcode.detector.AlignmentPattern;
-import com.sobot.chat.widget.zxing.qrcode.detector.FinderPatternFinder;
 
 import java.util.ArrayList;
 import java.util.List;

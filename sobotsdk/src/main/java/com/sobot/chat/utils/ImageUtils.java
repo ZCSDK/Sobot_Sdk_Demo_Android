@@ -1,7 +1,6 @@
 package com.sobot.chat.utils;
 
 import android.annotation.TargetApi;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;

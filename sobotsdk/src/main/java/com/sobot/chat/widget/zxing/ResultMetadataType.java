@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.Result;
-
 /**
  * Represents some type of metadata about the result of the decoding that the decoder
  * wishes to communicate back to the caller.

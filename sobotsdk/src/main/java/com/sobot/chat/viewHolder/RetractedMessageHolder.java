@@ -21,7 +21,7 @@ public class RetractedMessageHolder extends MessageHolderBase {
         super(context, convertView);
         sobot_tv_tip = (TextView) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_tip"));
-        tipStr = context.getResources().getString(ResourceUtils.getIdByName(context, "string", "sobot_retracted_msg_tip"));
+        tipStr = ResourceUtils.getResString(context, "sobot_retracted_msg_tip");
     }
 
     @Override

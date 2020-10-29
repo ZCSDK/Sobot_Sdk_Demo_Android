@@ -23,10 +23,6 @@ import com.sobot.chat.widget.zxing.common.DecoderResult;
 import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;
 import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonDecoder;
 import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonException;
-import com.sobot.chat.widget.zxing.datamatrix.decoder.BitMatrixParser;
-import com.sobot.chat.widget.zxing.datamatrix.decoder.DataBlock;
-import com.sobot.chat.widget.zxing.datamatrix.decoder.DecodedBitStreamParser;
-import com.sobot.chat.widget.zxing.datamatrix.decoder.Version;
 
 /**
  * <p>The main class which implements Data Matrix Code decoding -- as opposed to locating and extracting

@@ -17,9 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.CalendarParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
-import com.sobot.chat.widget.zxing.client.result.VCardResultParser;
 
 import java.util.List;
 

@@ -19,7 +19,6 @@ package com.sobot.chat.widget.zxing.oned;
 import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
 
 /**
  * <p>Implements decoding of the EAN-8 format.</p>

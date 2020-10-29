@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.BarcodeFormat;
-import com.sobot.chat.widget.zxing.EncodeHintType;
-import com.sobot.chat.widget.zxing.WriterException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
 
 import java.util.Map;

@@ -519,7 +519,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                                         ZhiChiInitModeBase initModel, final Handler handler, int current_client_model, int questionFlag, String question) {
         if (ZhiChiConstant.client_model_robot == current_client_model) { // 客户和机械人进行聊天
             sendHttpRobotMessage(msgId, context, initModel.getPartnerid(),
-                    initModel.getCid(), handler, questionFlag, question);
+                    initModel.getCid(), handler, questionFlag, question, info.getLocale());
             LogUtils.i("机器人模式");
         } else if (ZhiChiConstant.client_model_customService == current_client_model) {
             sendHttpCustomServiceMessage(context, initModel.getPartnerid(),
@@ -530,7 +530,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
 
     // 人与机械人进行聊天
     protected void sendHttpRobotMessage(final String msgId, String requestText,
-                                        String uid, String cid, final Handler handler, int questionFlag, String question) {
+                                        String uid, String cid, final Handler handler, int questionFlag, String question, String serverInternationalLanguage) {
         zhiChiApi.chatSendMsgToRoot(initModel.getRobotid(), requestText, questionFlag, question, uid, cid,
                 new StringResultCallBack<ZhiChiMessageBase>() {
                     @Override
@@ -1115,7 +1115,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             float f_proximiny = event.values[0];
             // LogUtils.i("监听模式的转换：" + f_proximiny + " 听筒的模式："
             // + mProximiny.getMaximumRange());
-            if (!phoneName.trim().equals("MI")) {
+            if (!phoneName.trim().equals("MI")||!phoneName.trim().equals("Re")) {
                 if (f_proximiny != 0.0) {
                     audioManager.setSpeakerphoneOn(true);// 打开扬声器
                     audioManager.setMode(AudioManager.MODE_NORMAL);

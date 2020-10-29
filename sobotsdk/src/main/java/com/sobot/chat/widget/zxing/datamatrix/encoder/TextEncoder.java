@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-import com.sobot.chat.widget.zxing.datamatrix.encoder.C40Encoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.HighLevelEncoder;
-
 final class TextEncoder extends com.sobot.chat.widget.zxing.datamatrix.encoder.C40Encoder {
 
   @Override

@@ -1,7 +1,6 @@
 package com.sobot.chat.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;

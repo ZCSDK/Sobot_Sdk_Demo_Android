@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.AddressBookParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
 
 import java.util.ArrayList;
 import java.util.List;

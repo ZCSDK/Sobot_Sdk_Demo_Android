@@ -20,9 +20,6 @@ import com.sobot.chat.widget.zxing.WriterException;
 import com.sobot.chat.widget.zxing.common.BitArray;
 import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
-import com.sobot.chat.widget.zxing.qrcode.encoder.ByteMatrix;
-import com.sobot.chat.widget.zxing.qrcode.encoder.MaskUtil;
-import com.sobot.chat.widget.zxing.qrcode.encoder.QRCode;
 
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator

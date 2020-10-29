@@ -26,8 +26,6 @@
 
 package com.sobot.chat.widget.zxing.oned.rss.expanded.decoders;
 
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedObject;
-
 /**
  * @author Pablo Orduña, University of Deusto (pablo.orduna@deusto.es)
  * @author Eduardo Castillejo, University of Deusto (eduardo.castillejo@deusto.es)

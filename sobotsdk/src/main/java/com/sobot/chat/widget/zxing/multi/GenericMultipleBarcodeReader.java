@@ -23,8 +23,6 @@ import com.sobot.chat.widget.zxing.Reader;
 import com.sobot.chat.widget.zxing.ReaderException;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.ResultPoint;
-import com.sobot.chat.widget.zxing.multi.ByQuadrantReader;
-import com.sobot.chat.widget.zxing.multi.MultipleBarcodeReader;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,12 +16,10 @@
 
 package com.sobot.chat.widget.zxing.aztec.encoder;
 
+import com.sobot.chat.widget.zxing.common.BitArray;
+
 import java.util.Deque;
 import java.util.LinkedList;
-
-import com.sobot.chat.widget.zxing.aztec.encoder.HighLevelEncoder;
-import com.sobot.chat.widget.zxing.aztec.encoder.Token;
-import com.sobot.chat.widget.zxing.common.BitArray;
 
 /**
  * State represents all information about a sequence necessary to generate the current output.

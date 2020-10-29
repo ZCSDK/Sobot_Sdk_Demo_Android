@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.umeng.umsdk:crash:0.0.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/840e7806b29dc8c3a11653b37f1fe588/jars/libs/crashsdk-3.2.0.4.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/840e7806b29dc8c3a11653b37f1fe588/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/840e7806b29dc8c3a11653b37f1fe588/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/64b02af064a699844ae554ab8f2b618e/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/64b02af064a699844ae554ab8f2b618e/jars/libs/crashsdk-3.2.0.4.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/64b02af064a699844ae554ab8f2b618e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/64b02af064a699844ae554ab8f2b618e/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

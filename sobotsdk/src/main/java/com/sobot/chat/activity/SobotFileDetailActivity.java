@@ -190,7 +190,7 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
 
     private void showCommonUi() {
         sobot_btn_start.setSelected(false);
-        sobot_btn_start.setText(getResStringId("sobot_file_download"));
+        sobot_btn_start.setText(getResString("sobot_file_download"));
         sobot_tv_file_size.setVisibility(View.VISIBLE);
         sobot_tv_progress.setVisibility(View.GONE);
         sobot_btn_start.setVisibility(View.VISIBLE);
@@ -201,7 +201,7 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
     private void showFinishUi() {
         sobot_tv_file_size.setVisibility(View.VISIBLE);
         sobot_tv_progress.setVisibility(View.GONE);
-        sobot_btn_start.setText(getResStringId("sobot_file_open"));
+        sobot_btn_start.setText(getResString("sobot_file_open"));
         sobot_btn_start.setVisibility(View.VISIBLE);
         sobot_tv_decribe.setVisibility(View.VISIBLE);
         sobot_ll_progress.setVisibility(View.GONE);

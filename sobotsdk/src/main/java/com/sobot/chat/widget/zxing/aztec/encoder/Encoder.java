@@ -16,8 +16,6 @@
 
 package com.sobot.chat.widget.zxing.aztec.encoder;
 
-import com.sobot.chat.widget.zxing.aztec.encoder.AztecCode;
-import com.sobot.chat.widget.zxing.aztec.encoder.HighLevelEncoder;
 import com.sobot.chat.widget.zxing.common.BitArray;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
 import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;

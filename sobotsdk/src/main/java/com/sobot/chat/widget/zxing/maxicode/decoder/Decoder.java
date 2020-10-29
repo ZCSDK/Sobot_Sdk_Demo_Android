@@ -24,8 +24,6 @@ import com.sobot.chat.widget.zxing.common.DecoderResult;
 import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;
 import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonDecoder;
 import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonException;
-import com.sobot.chat.widget.zxing.maxicode.decoder.BitMatrixParser;
-import com.sobot.chat.widget.zxing.maxicode.decoder.DecodedBitStreamParser;
 
 import java.util.Map;
 

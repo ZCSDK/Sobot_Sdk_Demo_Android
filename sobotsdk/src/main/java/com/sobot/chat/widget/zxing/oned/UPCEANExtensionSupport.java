@@ -20,9 +20,6 @@ import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.ReaderException;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.UPCEANExtension2Support;
-import com.sobot.chat.widget.zxing.oned.UPCEANExtension5Support;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
 
 final class UPCEANExtensionSupport {
 

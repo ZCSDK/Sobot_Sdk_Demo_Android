@@ -18,9 +18,6 @@ package com.sobot.chat.widget.zxing.qrcode.decoder;
 
 import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.qrcode.decoder.DataMask;
-import com.sobot.chat.widget.zxing.qrcode.decoder.FormatInformation;
-import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
 
 /**
  * @author Sean Owen

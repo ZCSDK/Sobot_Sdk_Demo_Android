@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.model.SobotMsgCenterModel;
 import com.sobot.chat.utils.DateUtil;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SobotBitmapUtil;
 
 import java.util.List;
 

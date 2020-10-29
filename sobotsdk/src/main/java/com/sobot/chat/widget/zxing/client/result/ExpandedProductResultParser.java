@@ -26,13 +26,11 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.ExpandedProductParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ResultParser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Parses strings of digits that represent a RSS Extended code.

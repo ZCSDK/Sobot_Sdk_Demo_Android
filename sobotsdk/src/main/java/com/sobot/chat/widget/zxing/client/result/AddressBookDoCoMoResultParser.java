@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.AbstractDoCoMoResultParser;
-import com.sobot.chat.widget.zxing.client.result.AddressBookParsedResult;
 
 /**
  * Implements the "MECARD" address book entry format.

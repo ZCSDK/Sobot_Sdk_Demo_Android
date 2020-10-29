@@ -17,9 +17,6 @@
 package com.sobot.chat.widget.zxing.common;
 
 import com.sobot.chat.widget.zxing.NotFoundException;
-import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.common.DefaultGridSampler;
-import com.sobot.chat.widget.zxing.common.PerspectiveTransform;
 
 /**
  * Implementations of this class can, given locations of finder patterns for a QR code in an

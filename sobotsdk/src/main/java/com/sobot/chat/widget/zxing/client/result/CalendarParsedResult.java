@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ParsedResultType;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,8 +1,6 @@
 package com.sobot.chat.activity.base;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ZhiChiConstant;

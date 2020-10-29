@@ -143,6 +143,7 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
         mWebView.getSettings().setDefaultFontSize(14);
         mWebView.getSettings().setTextZoom(100);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setAllowFileAccess(false);
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mWebView.setBackgroundColor(0);
 

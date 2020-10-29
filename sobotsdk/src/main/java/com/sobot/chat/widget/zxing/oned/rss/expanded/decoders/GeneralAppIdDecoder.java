@@ -29,12 +29,6 @@ package com.sobot.chat.widget.zxing.oned.rss.expanded.decoders;
 import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.CurrentParsingState;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.FieldParser;
 
 /**
  * @author Pablo Orduña, University of Deusto (pablo.orduna@deusto.es)

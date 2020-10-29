@@ -25,11 +25,6 @@ import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonEncoder;
 import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.sobot.chat.widget.zxing.qrcode.decoder.Mode;
 import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
-import com.sobot.chat.widget.zxing.qrcode.encoder.BlockPair;
-import com.sobot.chat.widget.zxing.qrcode.encoder.ByteMatrix;
-import com.sobot.chat.widget.zxing.qrcode.encoder.MaskUtil;
-import com.sobot.chat.widget.zxing.qrcode.encoder.MatrixUtil;
-import com.sobot.chat.widget.zxing.qrcode.encoder.QRCode;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

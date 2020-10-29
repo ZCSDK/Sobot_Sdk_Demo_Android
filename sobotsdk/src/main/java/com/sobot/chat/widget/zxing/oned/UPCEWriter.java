@@ -16,15 +16,12 @@
 
 package com.sobot.chat.widget.zxing.oned;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.FormatException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.oned.UPCEANReader;
-import com.sobot.chat.widget.zxing.oned.UPCEANWriter;
-import com.sobot.chat.widget.zxing.oned.UPCEReader;
+
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * This object renders an UPC-E code as a {@link BitMatrix}.

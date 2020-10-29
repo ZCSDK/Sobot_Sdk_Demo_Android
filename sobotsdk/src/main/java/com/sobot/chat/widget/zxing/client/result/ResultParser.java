@@ -17,28 +17,6 @@
 package com.sobot.chat.widget.zxing.client.result;
 
 import com.sobot.chat.widget.zxing.Result;
-import com.sobot.chat.widget.zxing.client.result.AddressBookAUResultParser;
-import com.sobot.chat.widget.zxing.client.result.AddressBookDoCoMoResultParser;
-import com.sobot.chat.widget.zxing.client.result.BizcardResultParser;
-import com.sobot.chat.widget.zxing.client.result.BookmarkDoCoMoResultParser;
-import com.sobot.chat.widget.zxing.client.result.EmailAddressResultParser;
-import com.sobot.chat.widget.zxing.client.result.EmailDoCoMoResultParser;
-import com.sobot.chat.widget.zxing.client.result.ExpandedProductResultParser;
-import com.sobot.chat.widget.zxing.client.result.GeoResultParser;
-import com.sobot.chat.widget.zxing.client.result.ISBNResultParser;
-import com.sobot.chat.widget.zxing.client.result.ParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ProductResultParser;
-import com.sobot.chat.widget.zxing.client.result.SMSMMSResultParser;
-import com.sobot.chat.widget.zxing.client.result.SMSTOMMSTOResultParser;
-import com.sobot.chat.widget.zxing.client.result.SMTPResultParser;
-import com.sobot.chat.widget.zxing.client.result.TelResultParser;
-import com.sobot.chat.widget.zxing.client.result.TextParsedResult;
-import com.sobot.chat.widget.zxing.client.result.URIResultParser;
-import com.sobot.chat.widget.zxing.client.result.URLTOResultParser;
-import com.sobot.chat.widget.zxing.client.result.VCardResultParser;
-import com.sobot.chat.widget.zxing.client.result.VEventResultParser;
-import com.sobot.chat.widget.zxing.client.result.VINResultParser;
-import com.sobot.chat.widget.zxing.client.result.WifiResultParser;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

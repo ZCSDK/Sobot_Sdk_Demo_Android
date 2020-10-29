@@ -19,8 +19,6 @@ package com.sobot.chat.widget.zxing.common;
 import com.sobot.chat.widget.zxing.Binarizer;
 import com.sobot.chat.widget.zxing.LuminanceSource;
 import com.sobot.chat.widget.zxing.NotFoundException;
-import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.common.BitMatrix;
 
 /**
  * This Binarizer implementation uses the old ZXing global histogram approach. It is suitable

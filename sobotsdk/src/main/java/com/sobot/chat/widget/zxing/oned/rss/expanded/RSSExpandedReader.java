@@ -38,18 +38,15 @@ import com.sobot.chat.widget.zxing.oned.rss.AbstractRSSReader;
 import com.sobot.chat.widget.zxing.oned.rss.DataCharacter;
 import com.sobot.chat.widget.zxing.oned.rss.FinderPattern;
 import com.sobot.chat.widget.zxing.oned.rss.RSSUtils;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.BitArrayBuilder;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.ExpandedPair;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.ExpandedRow;
 import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.AbstractExpandedDecoder;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
 
 /**
  * @author Pablo Orduña, University of Deusto (pablo.orduna@deusto.es)

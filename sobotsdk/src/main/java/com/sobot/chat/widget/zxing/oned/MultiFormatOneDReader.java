@@ -23,13 +23,6 @@ import com.sobot.chat.widget.zxing.Reader;
 import com.sobot.chat.widget.zxing.ReaderException;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.CodaBarReader;
-import com.sobot.chat.widget.zxing.oned.Code128Reader;
-import com.sobot.chat.widget.zxing.oned.Code39Reader;
-import com.sobot.chat.widget.zxing.oned.Code93Reader;
-import com.sobot.chat.widget.zxing.oned.ITFReader;
-import com.sobot.chat.widget.zxing.oned.MultiFormatUPCEANReader;
-import com.sobot.chat.widget.zxing.oned.OneDReader;
 import com.sobot.chat.widget.zxing.oned.rss.RSS14Reader;
 import com.sobot.chat.widget.zxing.oned.rss.expanded.RSSExpandedReader;
 

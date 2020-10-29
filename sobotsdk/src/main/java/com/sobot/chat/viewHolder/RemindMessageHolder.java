@@ -38,9 +38,9 @@ public class RemindMessageHolder extends MessageHolderBase {
                 .findViewById(ResourceUtils.getIdByName(context, "id", "sobot_center_Remind_note2"));
         rl_not_read = (RelativeLayout) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id", "rl_not_read"));
-        sobot_center_Remind_note5= (TextView) convertView
+        sobot_center_Remind_note5 = (TextView) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id", "sobot_center_Remind_note5"));
-        sobot_center_Remind_note5.setText(ResourceUtils.getResString(context,"sobot_no_read"));
+        sobot_center_Remind_note5.setText(ResourceUtils.getResString(context, "sobot_no_read"));
     }
 
     @Override
@@ -72,12 +72,19 @@ public class RemindMessageHolder extends MessageHolderBase {
                 center_Remind_Info1.setVisibility(View.GONE);
                 int remindType = message.getAnswer().getRemindType();
                 if (ZhiChiConstant.action_remind_info_post_msg.equals(message.getAction())) {
-                    if (remindType == ZhiChiConstant.sobot_remind_type_customer_offline || remindType == ZhiChiConstant.sobot_remind_type_unable_to_customer) {
+                    if (remindType == ZhiChiConstant.sobot_remind_type_customer_offline) {
                         //暂无客服在线   和 暂时无法转接人工客服
                         if (message.isShake()) {
                             center_Remind_Info.setAnimation(shakeAnimation(5));
                         }
-                        setRemindPostMsg(context, center_Remind_Info, message,false);
+                        setRemindPostMsg(context, center_Remind_Info, message, false);
+                    }
+                    if (remindType == ZhiChiConstant.sobot_remind_type_unable_to_customer) {
+                        //暂无客服在线   和 暂时无法转接人工客服
+                        if (message.isShake()) {
+                            center_Remind_Info.setAnimation(shakeAnimation(5));
+                        }
+                        setRemindPostMsg(context, center_Remind_Info, message, true);
                     }
                 } else if (ZhiChiConstant.action_remind_info_paidui.equals(message.getAction())) {
                     if (remindType == ZhiChiConstant.sobot_remind_type_paidui_status) {
@@ -85,7 +92,7 @@ public class RemindMessageHolder extends MessageHolderBase {
                         if (message.isShake()) {
                             center_Remind_Info.setAnimation(shakeAnimation(5));
                         }
-                        setRemindPostMsg(context, center_Remind_Info, message,true);
+                        setRemindPostMsg(context, center_Remind_Info, message, false);
                     }
                 } else if (ZhiChiConstant.action_remind_connt_success.equals(message.getAction())) {
                     if (remindType == ZhiChiConstant.sobot_remind_type_accept_request) {
@@ -110,15 +117,14 @@ public class RemindMessageHolder extends MessageHolderBase {
     }
 
     /**
-     *
      * @param context
      * @param remindInfo
      * @param message
-     * @param haveDH  是否有 逗号
+     * @param haveDH     是否有 逗号
      */
-    private void setRemindPostMsg(Context context, TextView remindInfo, ZhiChiMessageBase message,boolean haveDH) {
+    private void setRemindPostMsg(Context context, TextView remindInfo, ZhiChiMessageBase message, boolean haveDH) {
         int isLeaveMsg = SharedPreferencesUtil.getIntData(context, ZhiChiConstant.sobot_msg_flag, ZhiChiConstant.sobot_msg_flag_open);
-        String postMsg = (haveDH?context.getResources().getString(ResourceUtils.getIdByName(context, "string", "sobot_douhao")):" ") + context.getResources().getString(ResourceUtils.getIdByName(context, "string", "sobot_you_can")) + "<a href='sobot:SobotPostMsgActivity'> " + context.getResources().getString(ResourceUtils.getIdByName(context, "string", "sobot_leavemsg")) + "</a>";
+        String postMsg = (haveDH ? context.getResources().getString(ResourceUtils.getIdByName(context, "string", "sobot_douhao")) : " ") + ResourceUtils.getResString(context, "sobot_you_can") + "<a href='sobot:SobotPostMsgActivity'> " + ResourceUtils.getResString(context, "sobot_leavemsg") + "</a>";
         String content = message.getAnswer().getMsg().replace("<br/>", "").replace("<p>", "").replace("</p>", "");
         if (isLeaveMsg == ZhiChiConstant.sobot_msg_flag_open) {
             content = content + postMsg;

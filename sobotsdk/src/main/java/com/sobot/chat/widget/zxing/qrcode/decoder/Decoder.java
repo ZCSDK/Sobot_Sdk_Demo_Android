@@ -24,12 +24,6 @@ import com.sobot.chat.widget.zxing.common.DecoderResult;
 import com.sobot.chat.widget.zxing.common.reedsolomon.GenericGF;
 import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonDecoder;
 import com.sobot.chat.widget.zxing.common.reedsolomon.ReedSolomonException;
-import com.sobot.chat.widget.zxing.qrcode.decoder.BitMatrixParser;
-import com.sobot.chat.widget.zxing.qrcode.decoder.DataBlock;
-import com.sobot.chat.widget.zxing.qrcode.decoder.DecodedBitStreamParser;
-import com.sobot.chat.widget.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.sobot.chat.widget.zxing.qrcode.decoder.QRCodeDecoderMetaData;
-import com.sobot.chat.widget.zxing.qrcode.decoder.Version;
 
 import java.util.Map;
 

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sobot.chat.MarkConfig;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.apiUtils.GsonUtil;
 import com.sobot.chat.api.model.SobotEvaluateModel;
@@ -887,17 +889,15 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
 
     private String getTimeStr(ZhiChiMessageBase tempModel, int position) {
         String stringData = SharedPreferencesUtil.getStringData(context, "lastCid", "");
-        tempModel.setTs(TextUtils.isEmpty(tempModel.getTs()) ? (DateUtil.timeStamp2Date((System.currentTimeMillis() / 1000) + "",
-                "yyyy-MM-dd HH:mm:ss")) : tempModel.getTs());
+        tempModel.setTs(TextUtils.isEmpty(tempModel.getTs()) ? (DateUtil.getCurrentDateTime()) : tempModel.getTs());
         String time = "";
-        String dataTime = DateUtil.timeStamp2Date(DateUtil.stringToLong(tempModel.getTs()) + "", "yyyy-MM-dd");
-        String nowTime = DateUtil.timeStamp2Date((System.currentTimeMillis() / 1000) + "",
-                "yyyy-MM-dd");
+        String dataTime = DateUtil.stringToFormatString(tempModel.getTs() + "", "yyyy-MM-dd",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
+        String nowTime = DateUtil.getCurrentDate();
         if (tempModel.getCid() != null && tempModel.getCid().equals(stringData) && nowTime.equals(dataTime)) {
-            time = DateUtil.formatDateTime(tempModel.getTs(), true, "");
+            time = DateUtil.formatDateTime(tempModel.getTs(), true, "",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
         } else {
-            time = DateUtil.timeStamp2Date(DateUtil.stringToLong(list.get(position).getTs()) +
-                    "", "MM-dd HH:mm");
+            time = DateUtil.stringToFormatString(list.get(position).getTs() +
+                    "", "MM-dd HH:mm", ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
         }
         return time;
     }

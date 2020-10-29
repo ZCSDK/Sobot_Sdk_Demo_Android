@@ -27,9 +27,6 @@ import com.sobot.chat.widget.zxing.ResultMetadataType;
 import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.ResultPointCallback;
 import com.sobot.chat.widget.zxing.common.BitArray;
-import com.sobot.chat.widget.zxing.oned.EANManufacturerOrgSupport;
-import com.sobot.chat.widget.zxing.oned.OneDReader;
-import com.sobot.chat.widget.zxing.oned.UPCEANExtensionSupport;
 
 import java.util.Arrays;
 import java.util.Map;

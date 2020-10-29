@@ -17,8 +17,6 @@
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
 import com.sobot.chat.widget.zxing.Dimension;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.DataMatrixSymbolInfo144;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolShapeHint;
 
 /**
  * Symbol info table for DataMatrix.

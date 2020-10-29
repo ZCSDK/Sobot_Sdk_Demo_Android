@@ -25,7 +25,6 @@ import com.sobot.chat.camera.listener.StVideoListener;
 import com.sobot.chat.camera.util.AudioUtil;
 import com.sobot.chat.camera.util.ScreenUtils;
 import com.sobot.chat.camera.util.StCmeraLog;
-import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 
 import java.io.File;

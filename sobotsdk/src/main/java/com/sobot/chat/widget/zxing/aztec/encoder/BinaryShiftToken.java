@@ -16,7 +16,6 @@
 
 package com.sobot.chat.widget.zxing.aztec.encoder;
 
-import com.sobot.chat.widget.zxing.aztec.encoder.Token;
 import com.sobot.chat.widget.zxing.common.BitArray;
 
 final class BinaryShiftToken extends com.sobot.chat.widget.zxing.aztec.encoder.Token {

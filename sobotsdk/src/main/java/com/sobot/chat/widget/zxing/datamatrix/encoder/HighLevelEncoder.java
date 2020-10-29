@@ -17,15 +17,6 @@
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
 import com.sobot.chat.widget.zxing.Dimension;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.ASCIIEncoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.Base256Encoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.C40Encoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.EdifactEncoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.Encoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.EncoderContext;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolShapeHint;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.TextEncoder;
-import com.sobot.chat.widget.zxing.datamatrix.encoder.X12Encoder;
 
 import java.util.Arrays;
 

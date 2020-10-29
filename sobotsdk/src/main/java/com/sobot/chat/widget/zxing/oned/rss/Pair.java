@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.oned.rss;
 
-import com.sobot.chat.widget.zxing.oned.rss.DataCharacter;
-import com.sobot.chat.widget.zxing.oned.rss.FinderPattern;
-
 final class Pair extends DataCharacter {
 
   private final FinderPattern finderPattern;

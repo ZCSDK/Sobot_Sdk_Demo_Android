@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing.client.result;
 
-import com.sobot.chat.widget.zxing.client.result.ParsedResult;
-import com.sobot.chat.widget.zxing.client.result.ParsedResultType;
-
 /**
  * A simple result type encapsulating a string that has no further
  * interpretation.

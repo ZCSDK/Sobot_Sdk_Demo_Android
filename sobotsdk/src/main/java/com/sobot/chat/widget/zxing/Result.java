@@ -16,10 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.BarcodeFormat;
-import com.sobot.chat.widget.zxing.ResultMetadataType;
-import com.sobot.chat.widget.zxing.ResultPoint;
-
 import java.util.EnumMap;
 import java.util.Map;
 

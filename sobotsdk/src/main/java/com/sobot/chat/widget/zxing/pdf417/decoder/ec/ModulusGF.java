@@ -17,7 +17,6 @@
 package com.sobot.chat.widget.zxing.pdf417.decoder.ec;
 
 import com.sobot.chat.widget.zxing.pdf417.PDF417Common;
-import com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly;
 
 /**
  * <p>A field based on powers of a generator integer, modulo some modulus.</p>

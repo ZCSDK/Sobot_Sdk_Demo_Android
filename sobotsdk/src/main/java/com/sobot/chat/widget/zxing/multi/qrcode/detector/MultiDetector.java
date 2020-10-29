@@ -22,7 +22,6 @@ import com.sobot.chat.widget.zxing.ReaderException;
 import com.sobot.chat.widget.zxing.ResultPointCallback;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
 import com.sobot.chat.widget.zxing.common.DetectorResult;
-import com.sobot.chat.widget.zxing.multi.qrcode.detector.MultiFinderPatternFinder;
 import com.sobot.chat.widget.zxing.qrcode.detector.Detector;
 import com.sobot.chat.widget.zxing.qrcode.detector.FinderPatternInfo;
 

@@ -7,9 +7,6 @@ import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 
 import com.sobot.chat.utils.IOUtils;
-import com.sobot.chat.utils.ImageUtils;
-import com.sobot.chat.utils.MD5Util;
-import com.sobot.chat.utils.MediaFileUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotPathManager;
 import com.sobot.chat.utils.ToastUtil;

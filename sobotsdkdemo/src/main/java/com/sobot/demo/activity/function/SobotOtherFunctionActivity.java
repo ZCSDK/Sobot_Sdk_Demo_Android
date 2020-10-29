@@ -3,16 +3,22 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
+import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
@@ -20,12 +26,19 @@ import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.util.AndroidBug5497Workaround;
 
+import java.util.Map;
+
 public class SobotOtherFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
+    private RelativeLayout sobot_rl_4_7_6_1, sobot_rl_4_7_6_2, sobot_rl_4_7_8;
+    private ImageView sobotImage4761, sobotImage4762, sobotImage478;
+    private boolean status4761, status4762, status478;
     private TextView tv_other_fun_4_7_2, sobot_tv_save;
     private EditText sobot_et_scope_time;
     private EditText sobot_et_langue;
+    private EditText sobot_et_server_langue;
+    private Information information;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,7 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
     }
 
     private void findvViews() {
+        information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         sobot_tv_left = (RelativeLayout) findViewById(R.id.sobot_demo_tv_left);
         sobot_tv_left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,14 +63,39 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
         TextView sobot_text_title = (TextView) findViewById(R.id.sobot_demo_tv_title);
         sobot_text_title.setText("其它配置");
         sobot_et_scope_time = findViewById(R.id.sobot_et_scope_time);
-        sobot_et_langue= findViewById(R.id.sobot_et_langue);
+        sobot_et_langue = findViewById(R.id.sobot_et_langue);
+        sobot_et_server_langue= findViewById(R.id.sobot_et_server_langue);
 
         sobot_tv_save = findViewById(R.id.sobot_tv_save);
         sobot_tv_save.setVisibility(View.VISIBLE);
         sobot_tv_save.setOnClickListener(this);
 
+
+        sobot_rl_4_7_6_1 = (RelativeLayout) findViewById(R.id.sobot_rl_4_7_6_1);
+        sobot_rl_4_7_6_1.setOnClickListener(this);
+        sobotImage4761 = (ImageView) findViewById(R.id.sobot_image_4_7_6_1);
+
+        sobot_rl_4_7_6_2 = (RelativeLayout) findViewById(R.id.sobot_rl_4_7_6_2);
+        sobot_rl_4_7_6_2.setOnClickListener(this);
+        sobotImage4762 = (ImageView) findViewById(R.id.sobot_image_4_7_6_2);
+
+        sobot_rl_4_7_8 = (RelativeLayout) findViewById(R.id.sobot_rl_4_7_8);
+        sobot_rl_4_7_8.setOnClickListener(this);
+        sobotImage478 = (ImageView) findViewById(R.id.sobot_image_4_7_8);
+
+
+        if (information != null) {
+            status4761 = information.isHideRototEvaluationLabels();
+            setImageShowStatus(status4761, sobotImage4761);
+            status4762 = information.isHideManualEvaluationLabels();
+            setImageShowStatus(status4762, sobotImage4762);
+            sobot_et_server_langue.setText(information.getLocale());
+        }
+        status478 = ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE);
+        setImageShowStatus(status478, sobotImage478);
+
         sobot_et_scope_time.setText(SharedPreferencesUtil.getLongData(getContext(), ZhiChiConstant.SOBOT_SCOPE_TIME, 0) + "");
-        String sobot_custom_language_value = SobotSPUtil.getStringData(this, "sobot_custom_language_value", "");
+        String sobot_custom_language_value = SobotSPUtil.getStringData(this, "custom_language_value", "");
         if (!TextUtils.isEmpty(sobot_custom_language_value)) {
             sobot_et_langue.setText(sobot_custom_language_value);
         }
@@ -80,14 +119,51 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        if (v == sobot_tv_save) {
-            String scope_time = sobot_et_scope_time.getText().toString().trim();
-            SobotApi.setScope_time(getContext(), Integer.parseInt(scope_time));
-            ToastUtil.showToast(getContext(), "已保存");
-            SobotSPUtil.saveStringData(this, "sobot_custom_language_value", sobot_et_langue.getText().toString());
-            finish();
+        switch (v.getId()) {
+            case R.id.sobot_tv_save:
+                if (information != null) {
+                    information.setHideManualEvaluationLabels(status4762);
+                    information.setHideRototEvaluationLabels(status4761);
+                    information.setLocale(sobot_et_server_langue.getText().toString());
+                    SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
+                }
+                ZCSobotApi.setSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE, status478);
+                String scope_time = sobot_et_scope_time.getText().toString().trim();
+                SobotApi.setScope_time(getContext(), Integer.parseInt(scope_time));
+                ToastUtil.showToast(getContext(), "已保存");
+                if (TextUtils.isEmpty(sobot_et_langue.getText().toString().trim())) {
+                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), false, true);
+                    ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
+                } else {
+                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), true, true);
+                    ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
+                }
+                SobotSPUtil.saveStringData(this, "custom_language_value", sobot_et_langue.getText().toString().trim());
+                ZCSobotApi.outCurrentUserZCLibInfo(getContext());
+                finish();
+                break;
+            case R.id.sobot_rl_4_7_6_1:
+                status4761 = !status4761;
+                setImageShowStatus(status4761, sobotImage4761);
+                break;
+            case R.id.sobot_rl_4_7_6_2:
+                status4762 = !status4762;
+                setImageShowStatus(status4762, sobotImage4762);
+                break;
+            case R.id.sobot_rl_4_7_8:
+                status478 = !status478;
+                setImageShowStatus(status478, sobotImage478);
+                break;
         }
 
+    }
+
+    private void setImageShowStatus(boolean status, ImageView imageView) {
+        if (status) {
+            imageView.setBackgroundResource(R.drawable.sobot_demo_icon_open);
+        } else {
+            imageView.setBackgroundResource(R.drawable.sobot_demo_icon_close);
+        }
     }
 
     public Context getContext() {

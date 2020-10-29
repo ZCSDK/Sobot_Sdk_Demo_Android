@@ -27,7 +27,6 @@
 package com.sobot.chat.widget.zxing.oned.rss.expanded.decoders;
 
 import com.sobot.chat.widget.zxing.FormatException;
-import com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedObject;
 
 /**
  * @author Pablo Orduña, University of Deusto (pablo.orduna@deusto.es)

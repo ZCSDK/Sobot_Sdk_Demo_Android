@@ -16,9 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.DecodeHintType;
-import com.sobot.chat.widget.zxing.ResultPoint;
-
 /**
  * Callback which is invoked when a possible result point (significant
  * point in the barcode image such as a corner) is found.

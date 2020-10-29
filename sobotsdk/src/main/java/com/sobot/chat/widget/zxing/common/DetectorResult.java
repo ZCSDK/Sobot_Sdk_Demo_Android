@@ -17,7 +17,6 @@
 package com.sobot.chat.widget.zxing.common;
 
 import com.sobot.chat.widget.zxing.ResultPoint;
-import com.sobot.chat.widget.zxing.common.BitMatrix;
 
 /**
  * <p>Encapsulates the result of detecting a barcode in an image. This includes the raw

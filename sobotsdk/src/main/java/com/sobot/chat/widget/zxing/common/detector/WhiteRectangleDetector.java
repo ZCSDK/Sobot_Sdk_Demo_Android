@@ -19,7 +19,6 @@ package com.sobot.chat.widget.zxing.common.detector;
 import com.sobot.chat.widget.zxing.NotFoundException;
 import com.sobot.chat.widget.zxing.ResultPoint;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.common.detector.MathUtils;
 
 /**
  * <p>

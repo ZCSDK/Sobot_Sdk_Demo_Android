@@ -21,7 +21,6 @@ import com.sobot.chat.widget.zxing.EncodeHintType;
 import com.sobot.chat.widget.zxing.Writer;
 import com.sobot.chat.widget.zxing.WriterException;
 import com.sobot.chat.widget.zxing.common.BitMatrix;
-import com.sobot.chat.widget.zxing.oned.EAN13Writer;
 
 import java.util.Map;
 

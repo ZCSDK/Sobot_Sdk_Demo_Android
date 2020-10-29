@@ -25,7 +25,7 @@
        <string name="sobot_edittext_hint">Bienvenue à suggérer notre service ~</string>
        <string name="sobot_dcrc">Évaluer le service client</string>
        <string name="sobot_str_bottom_message">Laisser un message</string>
-       <string name="sobot_str_bottom_satisfaction">Évaluer le service</string>
+       <string name="sobot_str_bottom_satisfaction">Évaluation</string>
        <string name="sobot_yes">Oui</string>
        <string name="sobot_no">Non</string>
        <string name="sobot_leavemsg">Message</string>
@@ -271,4 +271,5 @@
        <string name="sobot_chat_type_file">[Documentation]</string>
        <string name="sobot_chat_free_account_tip">Cette fonction est désactivée en raison de l \'expiration du Service</string>
        <string name="sobot_do_you_delete_video">Voulez - vous supprimer cette vidéo?</string>
+       <string name="sobot_outline_leavemsg">Votre message a été envoyé avec succès et cette session est terminée. Si vous devez poursuivre la consultation, vous pouvez cliquer sur le bouton Reconstruire la session ci-dessous.</string>
 </resources>

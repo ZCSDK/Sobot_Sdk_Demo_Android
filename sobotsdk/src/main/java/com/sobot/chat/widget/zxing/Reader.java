@@ -16,14 +16,6 @@
 
 package com.sobot.chat.widget.zxing;
 
-import com.sobot.chat.widget.zxing.BinaryBitmap;
-import com.sobot.chat.widget.zxing.ChecksumException;
-import com.sobot.chat.widget.zxing.DecodeHintType;
-import com.sobot.chat.widget.zxing.FormatException;
-import com.sobot.chat.widget.zxing.MultiFormatReader;
-import com.sobot.chat.widget.zxing.NotFoundException;
-import com.sobot.chat.widget.zxing.Result;
-
 import java.util.Map;
 
 /**
