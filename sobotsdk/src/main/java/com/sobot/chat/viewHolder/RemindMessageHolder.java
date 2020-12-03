@@ -124,7 +124,7 @@ public class RemindMessageHolder extends MessageHolderBase {
      */
     private void setRemindPostMsg(Context context, TextView remindInfo, ZhiChiMessageBase message, boolean haveDH) {
         int isLeaveMsg = SharedPreferencesUtil.getIntData(context, ZhiChiConstant.sobot_msg_flag, ZhiChiConstant.sobot_msg_flag_open);
-        String postMsg = (haveDH ? context.getResources().getString(ResourceUtils.getIdByName(context, "string", "sobot_douhao")) : " ") + ResourceUtils.getResString(context, "sobot_you_can") + "<a href='sobot:SobotPostMsgActivity'> " + ResourceUtils.getResString(context, "sobot_leavemsg") + "</a>";
+        String postMsg = (haveDH ? "，" : " ") + ResourceUtils.getResString(context, "sobot_can") + "<a href='sobot:SobotPostMsgActivity'> " + ResourceUtils.getResString(context, "sobot_str_bottom_message") + "</a>";
         String content = message.getAnswer().getMsg().replace("<br/>", "").replace("<p>", "").replace("</p>", "");
         if (isLeaveMsg == ZhiChiConstant.sobot_msg_flag_open) {
             content = content + postMsg;

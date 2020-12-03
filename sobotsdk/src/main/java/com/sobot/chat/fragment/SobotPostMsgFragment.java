@@ -204,7 +204,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         sobot_tv_problem_description = (TextView) rootView.findViewById(getResId("sobot_tv_problem_description"));
         sobot_tv_problem_description.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_problem_description"));
         sobot_btn_submit = (Button) rootView.findViewById(getResId("sobot_btn_submit"));
-        sobot_btn_submit.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_submit"));
+        sobot_btn_submit.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
         sobot_post_customer_field.setVisibility(View.GONE);
 
@@ -426,7 +426,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
 
         if (mConfig.isTicketTitleShowFlag()) {
             if (TextUtils.isEmpty(sobot_post_title.getText().toString().trim())) {
-                showHint(getResString("sobot_leave_msg_title") + "  " + getResString("sobot__is_null"));
+                showHint(getResString("sobot_title") + "  " + getResString("sobot__is_null"));
                 return;
             } else {
                 title = sobot_post_title.getText().toString();
@@ -495,22 +495,11 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                     showHint(getResString("sobot_phone_no_empty"));
                     return;
                 }
-                if (!TextUtils.isEmpty(sobot_post_phone.getText().toString().trim())
-                        && ScreenUtils.isMobileNO(sobot_post_phone.getText().toString().trim())) {
-                    userPhone = sobot_post_phone.getText().toString();
-                } else {
-                    showHint(getResString("sobot_phone_dialog_hint"));
-                    return;
-                }
+                userPhone = sobot_post_phone.getText().toString();
             } else {
                 if (!TextUtils.isEmpty(sobot_post_phone.getText().toString().trim())) {
                     String phoneStr = sobot_post_phone.getText().toString().trim();
-                    if (ScreenUtils.isMobileNO(phoneStr)) {
-                        userPhone = phoneStr;
-                    } else {
-                        showHint(getResString("sobot_phone_dialog_hint"));
-                        return;
-                    }
+                    userPhone = phoneStr;
                 }
             }
         }
@@ -795,7 +784,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             sobot_post_phone_lable.setText(Html.fromHtml(getResString("sobot_phone")));
         }
         if (mConfig.isTicketTitleShowFlag()) {
-            sobot_post_title_lable.setText(Html.fromHtml(getResString("sobot_leave_msg_title") + mustFill));
+            sobot_post_title_lable.setText(Html.fromHtml(getResString("sobot_title") + mustFill));
         }
 
     }
@@ -856,6 +845,9 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             if (requestCode == ZhiChiConstant.REQUEST_CODE_picture) { // 发送本地图片
                 if (data != null && data.getData() != null) {
                     Uri selectedImage = data.getData();
+                    if (selectedImage == null) {
+                        selectedImage = ImageUtils.getUri(data, getSobotActivity());
+                    }
                     String path = ImageUtils.getPath(getSobotActivity(), selectedImage);
                     if (!StringUtils.isEmpty(path)) {
                         if (MediaFileUtils.isVideoFileType(path)) {

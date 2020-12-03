@@ -155,7 +155,6 @@ public class SobotTicketInfoAdapter extends SobotBaseAdapter<SobotUserTicketInfo
             }
             sobot_tv_new.setVisibility(data.isNewFlag() ? View.VISIBLE : View.GONE);
             tv_time.setText(DateUtil.stringToFormatString(data.getTimeStr(),DATE_TIME_FORMAT, ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE)));
-            tv_code.setText(String.format(ResourceUtils.getResString(mContext, "sobot_ticket_code"), data.getTicketCode()));
             displayInNotch(tv_time);
             displayInNotch(tv_content);
         }

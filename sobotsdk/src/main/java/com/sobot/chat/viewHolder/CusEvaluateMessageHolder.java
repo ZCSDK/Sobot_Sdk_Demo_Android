@@ -84,7 +84,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                 "sobot_ratingBar"));
         sobot_submit = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_submit"));
-        sobot_submit.setText(ResourceUtils.getResString(context, "sobot_submit"));
+        sobot_submit.setText(ResourceUtils.getResString(context, "sobot_btn_submit_text"));
         sobot_ratingBar_split_view = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar_split_view"));
         sobot_btn_ok_robot.setSelected(true);
@@ -178,8 +178,8 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         }
 
 
-        sobot_center_title.setText(String.format(ChatUtils.getResString(context, "sobot_question"), message.getSenderName()));
-        sobot_tv_star_title.setText(String.format(ChatUtils.getResString(context, "sobot_please_evaluate"), message.getSenderName()));
+        sobot_center_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_question"));
+        sobot_tv_star_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_please_evaluate"));
 
         checkQuestionFlag();
         refreshItem();
@@ -300,7 +300,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
      */
     private void doEvaluate(boolean evaluateFlag, int score) {
         if (mContext != null && message != null && message.getSobotEvaluateModel() != null) {
-            int resolved = -1;
+            int resolved = sobotEvaluateModel.getIsResolved();
             if (ChatUtils.isQuestionFlag(message.getSobotEvaluateModel())) {
                 if (sobot_btn_ok_robot.isChecked()) {
                     resolved = 0;
@@ -473,14 +473,14 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
 
     //检测选中的标签
     private String checkBoxIsChecked() {
-        StringBuffer str = new StringBuffer();
+        String str = new String();
         for (int i = 0; i < checkBoxList.size(); i++) {
             if (checkBoxList.get(i).isChecked()) {
-                str.append(checkBoxList.get(i).getText() + ",");
+                str = str + checkBoxList.get(i).getText() + ",";
             }
         }
         if (str.length() > 0) {
-            str.substring(0, str.length() - 1);
+            str = str.substring(0, str.length() - 1);
         }
         return str + "";
     }

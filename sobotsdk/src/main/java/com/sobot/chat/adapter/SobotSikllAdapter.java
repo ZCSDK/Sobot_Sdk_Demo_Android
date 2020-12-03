@@ -61,7 +61,7 @@ public class SobotSikllAdapter extends SobotBaseAdapter {
                 sobot_tv_content.setTextSize(12);
                 sobot_tv_content.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
                 if (msgFlag == ZhiChiConstant.sobot_msg_flag_open) {
-                    content = ResourceUtils.getResString(context, "sobot_no_access") + ResourceUtils.getResString(context, "sobot_douhao") + ResourceUtils.getResString(context, "sobot_can") + "<font color='#0DAEAF'>" + ResourceUtils.getResString(context, "sobot_leavemsg") + "</a>";
+                    content = ResourceUtils.getResString(context, "sobot_no_access") + " " + ResourceUtils.getResString(context, "sobot_can") + "<font color='#0DAEAF'>" + ResourceUtils.getResString(context, "sobot_str_bottom_message") + "</a>";
                 } else {
                     content = ResourceUtils.getResString(context, "sobot_no_access");
                 }

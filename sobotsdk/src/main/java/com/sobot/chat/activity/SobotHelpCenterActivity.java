@@ -40,7 +40,7 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
     @Override
     protected void initView() {
         setTitle(getResString("sobot_help_center_title"));
-        showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), "", true);
         mEmptyView = findViewById(getResId("ll_empty_view"));
         mBottomBtn = findViewById(getResId("ll_bottom"));
         mGridView = findViewById(getResId("sobot_gv"));

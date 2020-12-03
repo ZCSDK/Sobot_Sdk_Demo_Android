@@ -51,7 +51,7 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
     @Override
     protected void initView() {
         setTitle(getResString("sobot_file_preview"));
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         sobot_file_icon = (TextView) findViewById(getResId("sobot_file_icon"));
         sobot_file_name = (TextView) findViewById(getResId("sobot_file_name"));
         sobot_tv_file_size = (TextView) findViewById(getResId("sobot_tv_file_size"));
@@ -116,14 +116,14 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
                             @Override
                             public void run() {
                                 mCacheFile.setFileSize(s);
-                                sobot_tv_file_size.setText(String.format(getResString("sobot_file_size"), mCacheFile.getFileSize()));
+                                sobot_tv_file_size.setText(getResString("sobot_file_size") + "：" + mCacheFile.getFileSize());
                             }
                         });
 
                     }
                 });
             } else {
-                sobot_tv_file_size.setText(String.format(getResString("sobot_file_size"), mCacheFile.getFileSize()));
+                sobot_tv_file_size.setText(getResString("sobot_file_size") + "：" + mCacheFile.getFileSize());
             }
             SobotDownload.getInstance().setFolder(SobotPathManager.getInstance().getCacheDir());
 //            LogUtils.i("initFolder:" +SobotPathManager.getInstance().getCacheDir()));
@@ -184,7 +184,7 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
         sobot_ll_progress.setVisibility(View.VISIBLE);
         String currentSize = Formatter.formatFileSize(this, pcurrentSize);
         String totalSize = Formatter.formatFileSize(this, ptotalSize);
-        sobot_tv_progress.setText(String.format(mProgressStr, currentSize, totalSize));
+        sobot_tv_progress.setText(mProgressStr + "…(" + currentSize + "/" + totalSize + ")");
         sobot_pb_progress.setProgress((int) (fraction * 100));
     }
 

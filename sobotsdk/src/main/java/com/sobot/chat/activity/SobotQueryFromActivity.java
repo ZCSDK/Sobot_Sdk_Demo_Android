@@ -78,9 +78,9 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
 
     @Override
     protected void initView() {
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         sobot_btn_submit = (Button) findViewById(getResId("sobot_btn_submit"));
-        sobot_btn_submit.setText(ResourceUtils.getResString(SobotQueryFromActivity.this,"sobot_submit"));
+        sobot_btn_submit.setText(ResourceUtils.getResString(SobotQueryFromActivity.this,"sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
         sobot_container = (LinearLayout) findViewById(getResId("sobot_container"));
         sobot_tv_doc = (TextView) findViewById(getResId("sobot_tv_doc"));

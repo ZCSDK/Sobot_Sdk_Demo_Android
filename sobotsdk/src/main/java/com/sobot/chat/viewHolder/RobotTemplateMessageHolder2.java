@@ -2,6 +2,8 @@ package com.sobot.chat.viewHolder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -26,6 +28,7 @@ import com.sobot.chat.widget.horizontalgridpage.HorizontalGridPage;
 import com.sobot.chat.widget.horizontalgridpage.PageBuilder;
 import com.sobot.chat.widget.horizontalgridpage.PageCallBack;
 import com.sobot.chat.widget.horizontalgridpage.PageGridAdapter;
+import com.sobot.chat.widget.horizontalgridpage.PagerGridLayoutManager;
 import com.sobot.chat.widget.lablesview.SobotLablesViewModel;
 
 import java.util.ArrayList;
@@ -40,9 +43,12 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
     public ZhiChiMessageBase message;
     private LinearLayout sobot_ll_transferBtn;//只包含转人工按钮
     private TextView sobot_tv_transferBtn;//机器人转人工按钮
+    private TextView sobot_template2_item_previous_page;//上一页
+    private TextView sobot_template2_item_last_page;//下一页
+    private LinearLayout ll_sobot_template2_item_page;//分页ll
 
 
-    private static final int PAGE_SIZE = 9;
+    private static final int PAGE_SIZE = 30;
 
 
     private PageGridAdapter adapter;
@@ -56,7 +62,10 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
         pageView = (HorizontalGridPage) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "pageView"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
-        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context,"sobot_transfer_to_customer_service"));
+        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
+        sobot_template2_item_previous_page = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template2_item_previous_page"));
+        sobot_template2_item_last_page = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template2_item_last_page"));
+        ll_sobot_template2_item_page = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "ll_sobot_template2_item_page"));
         this.mContext = context;
     }
 
@@ -75,7 +84,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                         android.R.drawable.presence_online)//设置指示器图片资源
                 .setIndicatorGravity(Gravity.CENTER)//设置指示器位置
                 .setSwipePercent(40)//设置翻页滑动距离百分比（1-100）
-                .setShowIndicator(true)//设置显示指示器
+                .setShowIndicator(false)//设置显示指示器
                 .setSpace(2)//设置间距
                 .setItemHeight(ScreenUtils.dip2px(mContext, 42))
                 .build();
@@ -134,11 +143,12 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
         pageView.init(pageBuilder, message.getCurrentPageNum());
         adapter.init(pageBuilder);
         pageView.setAdapter(adapter, message);
+
     }
 
 
     @Override
-    public void bindData(Context context, ZhiChiMessageBase message) {
+    public void bindData(final Context context, ZhiChiMessageBase message) {
         this.message = message;
         if (message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null) {
             final SobotMultiDiaRespInfo multiDiaRespInfo = message.getAnswer().getMultiDiaRespInfo();
@@ -163,10 +173,12 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                         lablesViewModel.setAnchor(interfaceRet.get("anchor"));
                         label.add(lablesViewModel);
                     }
-                    if (label.size() >= 3) {
-                        initView(3, 1);
+                    if (label.size() >= 10) {
+                        initView(10, 1);
+                        ll_sobot_template2_item_page.setVisibility(View.VISIBLE);
                     } else {
-                        initView(label.size(), (int) Math.ceil(label.size() / 3.0f));
+                        initView(label.size(), (int) Math.ceil(label.size() / 10.0f));
+                        ll_sobot_template2_item_page.setVisibility(View.GONE);
                     }
                     adapter.setData(label);
                     adapter.setZhiChiMessageBaseData(message);
@@ -177,10 +189,12 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                         label.add(lablesViewModel);
                     }
                     // 显示更多
-                    if (label.size() >= 3) {
-                        initView(3, 1);
+                    if (label.size() >= 10) {
+                        initView(10, 1);
+                        ll_sobot_template2_item_page.setVisibility(View.VISIBLE);
                     } else {
-                        initView(label.size(), (int) Math.ceil(label.size() / 3.0f));
+                        initView(label.size(), (int) Math.ceil(label.size() / 10.0f));
+                        ll_sobot_template2_item_page.setVisibility(View.GONE);
                     }
                     adapter.setData(label);
                     adapter.setZhiChiMessageBaseData(message);
@@ -191,9 +205,101 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 pageView.setVisibility(View.GONE);
             }
         }
+        pageView.setPageListener(new PagerGridLayoutManager.PageListener() {
+            @Override
+            public void onPageSizeChanged(int pageSize) {
+            }
 
+            @Override
+            public void onPageSelect(int pageIndex) {
+                if (pageView.isFirstPage()) {
+                    sobot_template2_item_previous_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray3")));
+                    Drawable img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_no_pre_page"));
+                    if (img != null) {
+                        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                        sobot_template2_item_previous_page.setCompoundDrawables(null, null, img, null);
+                    }
+                } else {
+                    sobot_template2_item_previous_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
+                    Drawable img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_pre_page"));
+                    if (img != null) {
+                        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                        sobot_template2_item_previous_page.setCompoundDrawables(null, null, img, null);
+                    }
+                }
+
+                if (pageView.isLastPage()) {
+                    sobot_template2_item_last_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray3")));
+                    Drawable img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_no_last_page"));
+                    if (img != null) {
+                        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                        sobot_template2_item_last_page.setCompoundDrawables(null, null, img, null);
+                    }
+                } else {
+                    sobot_template2_item_last_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
+                    Drawable img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_last_page"));
+                    if (img != null) {
+                        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                        sobot_template2_item_last_page.setCompoundDrawables(null, null, img, null);
+                    }
+                }
+            }
+        });
+
+        sobot_template2_item_previous_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageView.selectPreviousPage();
+                updatePreBtn(context);
+            }
+        });
+        sobot_template2_item_last_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageView.selectLastPage();
+                updateLastBtn(context);
+            }
+        });
         refreshRevaluateItem();//左侧消息刷新顶和踩布局
         pageView.selectCurrentItem();
+    }
+
+    public void updatePreBtn(Context context) {
+        sobot_template2_item_last_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
+        Drawable lastImg = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_last_page"));
+        lastImg.setBounds(0, 0, lastImg.getMinimumWidth(), lastImg.getMinimumHeight());
+        sobot_template2_item_last_page.setCompoundDrawables(null, null, lastImg, null);
+
+        Drawable img = null;
+        img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_pre_page"));
+        sobot_template2_item_previous_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
+        if (pageView.isFirstPage()) {
+            sobot_template2_item_previous_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray3")));
+            img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_no_pre_page"));
+        }
+        if (img != null) {
+            img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+            sobot_template2_item_previous_page.setCompoundDrawables(null, null, img, null);
+        }
+    }
+
+    public void updateLastBtn(Context context) {
+        sobot_template2_item_previous_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
+        Drawable preImg = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_pre_page"));
+        preImg.setBounds(0, 0, preImg.getMinimumWidth(), preImg.getMinimumHeight());
+        sobot_template2_item_previous_page.setCompoundDrawables(null, null, preImg, null);
+
+        sobot_template2_item_last_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray2")));
+        Drawable img = null;
+        img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_last_page"));
+        if (pageView.isLastPage()) {
+            sobot_template2_item_last_page.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray3")));
+            img = mContext.getResources().getDrawable(ResourceUtils.getDrawableId(mContext, "sobot_no_last_page"));
+        }
+        if (img != null) {
+            img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+            sobot_template2_item_last_page.setCompoundDrawables(null, null, img, null);
+        }
     }
 
 

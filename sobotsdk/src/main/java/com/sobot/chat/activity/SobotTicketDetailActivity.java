@@ -91,7 +91,7 @@ public class SobotTicketDetailActivity extends SobotBaseActivity implements View
 
     @Override
     protected void initView() {
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         getLeftMenu().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

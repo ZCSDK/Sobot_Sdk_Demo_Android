@@ -21,13 +21,13 @@ public class RetractedMessageHolder extends MessageHolderBase {
         super(context, convertView);
         sobot_tv_tip = (TextView) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_tip"));
-        tipStr = ResourceUtils.getResString(context, "sobot_retracted_msg_tip");
+        tipStr = ResourceUtils.getResString(context, "sobot_retracted_msg_tip_end");
     }
 
     @Override
     public void bindData(Context context, ZhiChiMessageBase message) {
         if (message != null) {
-            sobot_tv_tip.setText(String.format(tipStr, TextUtils.isEmpty(message.getSenderName()) ? "" : message.getSenderName()));
+            sobot_tv_tip.setText(TextUtils.isEmpty(message.getSenderName()) ? "" : (message.getSenderName() + " ") + tipStr);
         }
     }
 }

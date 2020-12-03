@@ -66,7 +66,7 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
 
     @Override
     protected void initView() {
-        showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), "", true);
         setTitle(getResString("sobot_problem_detail_title"));
         mBottomBtn = findViewById(getResId("ll_bottom"));
         mBottomBtn.setOnClickListener(this);

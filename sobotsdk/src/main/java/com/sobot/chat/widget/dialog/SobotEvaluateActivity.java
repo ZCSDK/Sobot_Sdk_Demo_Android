@@ -123,11 +123,10 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         sobot_close_now.setText(ResourceUtils.getResString(context, "sobot_btn_submit_text"));
         sobot_readiogroup = (RadioGroup) findViewById(getResId("sobot_readiogroup"));
         sobot_tv_evaluate_title = (TextView) findViewById(getResId("sobot_tv_evaluate_title"));
-        sobot_tv_evaluate_title.setText(ResourceUtils.getResString(context, "sobot_robot_service_comment"));
+        sobot_tv_evaluate_title.setText(ResourceUtils.getResString(context, "sobot_robot_customer_service_evaluation"));
         sobot_robot_center_title = (TextView) findViewById(getResId("sobot_robot_center_title"));
         sobot_robot_center_title.setText(ResourceUtils.getResString(context, "sobot_question"));
         sobot_text_other_problem = (TextView) findViewById(getResId("sobot_text_other_problem"));
-        sobot_text_other_problem.setText(ResourceUtils.getResString(context, "sobot_problem"));
         sobot_custom_center_title = (TextView) findViewById(getResId("sobot_custom_center_title"));
         sobot_custom_center_title.setText(ResourceUtils.getResString(context, "sobot_please_evaluate"));
         sobot_ratingBar_title = (TextView) findViewById(getResId("sobot_ratingBar_title"));
@@ -323,8 +322,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
 
         if (current_model == ZhiChiConstant.client_model_robot) {
             sobot_tv_evaluate_title.setText(getResString("sobot_robot_customer_service_evaluation"));
-            sobot_robot_center_title.setText(String.format(ChatUtils.getResString(context, "sobot_question"), initModel.getRobotName()));
-            sobot_text_other_problem.setText(getResString("sobot_what_are_the_problems"));
+            sobot_robot_center_title.setText(initModel.getRobotName() + ChatUtils.getResString(context, "sobot_question"));
             sobot_robot_relative.setVisibility(View.VISIBLE);
             sobot_custom_relative.setVisibility(View.GONE);
         } else {
@@ -337,8 +335,8 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 sobot_tv_evaluate_title_hint.setVisibility(View.GONE);
             }
             sobot_tv_evaluate_title.setText(getResString("sobot_please_evaluate_this_service"));
-            sobot_robot_center_title.setText(String.format(ChatUtils.getResString(context, "sobot_question"), customName));
-            sobot_custom_center_title.setText(String.format(ChatUtils.getResString(context, "sobot_please_evaluate"), customName));
+            sobot_robot_center_title.setText(customName +" "+ ChatUtils.getResString(context, "sobot_question"));
+            sobot_custom_center_title.setText(customName +" "+ ChatUtils.getResString(context, "sobot_please_evaluate"));
             sobot_robot_relative.setVisibility(View.GONE);
             sobot_custom_relative.setVisibility(View.VISIBLE);
         }
@@ -378,7 +376,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             }
             if (score == 5) {
 //                sobot_hide_layout.setVisibility(View.GONE);
-                setl_submit_content.setVisibility(View.GONE);
+                setl_submit_content.setVisibility(View.VISIBLE);
                 sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
             } else {
                 setl_submit_content.setVisibility(View.VISIBLE);
@@ -429,16 +427,17 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             }
             if (current_model == ZhiChiConstant.client_model_customService) {
                 if (satisfactionSetBase != null) {
-                    if (satisfactionSetBase.getIsTagMust()) {
-                        sobot_text_other_problem.setText(getResString("sobot_what_are_the_problems") + getResString("sobot_required"));
+                    if (TextUtils.isEmpty(satisfactionSetBase.getTagTips())) {
+                        sobot_text_other_problem.setVisibility(View.GONE);
                     } else {
-                        sobot_text_other_problem.setText(getResString("sobot_what_are_the_problems"));
+                        sobot_text_other_problem.setVisibility(View.VISIBLE);
+                        if (satisfactionSetBase.getIsTagMust()) {
+                            sobot_text_other_problem.setText(satisfactionSetBase.getTagTips());
+                        } else {
+                            sobot_text_other_problem.setText(satisfactionSetBase.getTagTips());
+                        }
                     }
-                } else {
-                    sobot_text_other_problem.setText(getResString("sobot_what_are_the_problems"));
                 }
-            } else {
-                sobot_text_other_problem.setText(getResString("sobot_what_are_the_problems"));
             }
         }
 
@@ -645,16 +644,16 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 });
     }
 
-    //检测呗选中的标签
+    //检测选中的标签
     private String checkBoxIsChecked() {
-        StringBuffer str = new StringBuffer();
+        String str = "";
         for (int i = 0; i < checkBoxList.size(); i++) {
             if (checkBoxList.get(i).isChecked()) {
-                str.append(checkBoxList.get(i).getText() + ",");
+                str = str + checkBoxList.get(i).getText() + ",";
             }
         }
         if (str.length() > 0) {
-            str.substring(0, str.length() - 1);
+            str = str.substring(0, str.length() - 1);
         }
         return str + "";
     }

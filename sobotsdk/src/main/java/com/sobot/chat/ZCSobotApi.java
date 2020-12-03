@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.sobot.chat.activity.SobotConsultationListActivity;
 import com.sobot.chat.activity.SobotHelpCenterActivity;
@@ -57,7 +56,6 @@ import com.sobot.chat.utils.SobotCache;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StServiceUtils;
 import com.sobot.chat.utils.SystemUtil;
-import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 
 import java.io.File;
@@ -264,7 +262,7 @@ public class ZCSobotApi {
             return;
         }
         if (TextUtils.isEmpty(content.getOrderCode())) {
-            ToastUtil.showCustomToast(context, ResourceUtils.getResString(context, "sobot_order_not_empty"), Toast.LENGTH_LONG);
+            LogUtils.e("订单编号不能为空");
             return;
         }
         Intent intent = new Intent();

@@ -24,7 +24,8 @@ public class PagerGridLayoutManager extends RecyclerView.LayoutManager
     public static final int HORIZONTAL = 1;         // 水平滚动
 
     @IntDef({VERTICAL, HORIZONTAL})
-    public @interface OrientationType {}            // 滚动类型
+    public @interface OrientationType {
+    }            // 滚动类型
 
     @OrientationType
     private int mOrientation;                       // 默认水平滚动
@@ -756,11 +757,11 @@ public class PagerGridLayoutManager extends RecyclerView.LayoutManager
      */
     public void smoothScrollToPage(int pageIndex) {
         if (pageIndex < 0 || pageIndex >= mLastPageCount) {
-            LogUtils.e( "pageIndex is outOfIndex, must in [0, " + mLastPageCount + ").");
+            LogUtils.e("pageIndex is outOfIndex, must in [0, " + mLastPageCount + ").");
             return;
         }
         if (null == mRecyclerView) {
-            LogUtils.e( "RecyclerView Not Found!");
+            LogUtils.e("RecyclerView Not Found!");
             return;
         }
 
@@ -798,10 +799,33 @@ public class PagerGridLayoutManager extends RecyclerView.LayoutManager
     }
 
     /**
+     * 是否第一页
+     */
+    public boolean isFirstPage() {
+        LogUtils.i("getPageIndexByOffset = " + getPageIndexByOffset() + "   mLastPageCount=" + mLastPageCount + ")");
+        if (getPageIndexByOffset() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * 下一页
      */
     public void nextPage() {
         scrollToPage(getPageIndexByOffset() + 1);
+    }
+
+    /**
+     * 是否最后一页
+     */
+    public boolean isLastPage() {
+        LogUtils.i("getPageIndexByOffset = " + (getPageIndexByOffset()+1) + "   mLastPageCount=" + mLastPageCount + ")");
+        if ((getPageIndexByOffset()+1) == mLastPageCount) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -811,12 +835,12 @@ public class PagerGridLayoutManager extends RecyclerView.LayoutManager
      */
     public void scrollToPage(int pageIndex) {
         if (pageIndex < 0 || pageIndex >= mLastPageCount) {
-            LogUtils.e( "pageIndex = " + pageIndex + " is out of bounds, mast in [0, " + mLastPageCount + ")");
+            LogUtils.e("pageIndex = " + pageIndex + " is out of bounds, mast in [0, " + mLastPageCount + ")");
             return;
         }
 
         if (null == mRecyclerView) {
-            LogUtils.e( "RecyclerView Not Found!");
+            LogUtils.e("RecyclerView Not Found!");
             return;
         }
 

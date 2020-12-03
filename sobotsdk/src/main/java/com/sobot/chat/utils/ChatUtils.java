@@ -416,7 +416,7 @@ public class ChatUtils {
             return ResourceUtils.getResString(context, "sobot_outline_leverByManager");
         } else if (6 == type) {
             return ResourceUtils.getResString(context, "sobot_outline_openNewWindows");
-        }else if (99 == type) {
+        } else if (99 == type) {
             return context.getString(R.string.sobot_outline_leavemsg);
         }
         return null;
@@ -444,7 +444,7 @@ public class ChatUtils {
         base.setSenderName(TextUtils.isEmpty(pushMessage.getAname()) ? ResourceUtils.getResString(MyApplication.getInstance(), "sobot_cus_service") : pushMessage.getAname());
         SobotEvaluateModel sobotEvaluateModel = new SobotEvaluateModel();
         sobotEvaluateModel.setIsQuestionFlag(pushMessage.getIsQuestionFlag());
-        sobotEvaluateModel.setIsResolved(-1);
+        sobotEvaluateModel.setIsResolved(pushMessage.getIsQuestionFlag() ? 0 : -1);
         base.setSobotEvaluateModel(sobotEvaluateModel);
         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
         base.setSenderType(ZhiChiConstant.message_sender_type_custom_evaluate + "");
@@ -831,10 +831,7 @@ public class ChatUtils {
         base.setT(Calendar.getInstance().getTime().getTime() + "");
         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
         reply.setMsgType(null);
-
-        String nameColor = "<font color='" + ChatUtils.getResString(context, "sobot_color_custom_name")
-                + "'>" + aname + "</font>";
-        reply.setMsg(String.format(ChatUtils.getResString(context, "sobot_service_accept"), nameColor));
+        reply.setMsg(ChatUtils.getResString(context, "sobot_service_accept_start") + " " + aname + " " + ChatUtils.getResString(context, "sobot_service_accept_end"));
         reply.setRemindType(ZhiChiConstant.sobot_remind_type_accept_request);
         base.setAnswer(reply);
         return base;
@@ -1028,7 +1025,7 @@ public class ChatUtils {
      *
      * @return
      */
-    public static boolean isQuestionFlag(final SobotEvaluateModel evaluateModel) {
+    public static boolean isQuestionFlag(SobotEvaluateModel evaluateModel) {
         if (evaluateModel != null) {
             return evaluateModel.getIsQuestionFlag();
         }
@@ -1071,12 +1068,12 @@ public class ChatUtils {
                 }
                 String lastMsg = "";
                 if ((ZhiChiConstant.message_sender_type_customer_sendImage + "").equals(tempMsg.getSenderType())) {
-                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_pic");
+                    lastMsg = ResourceUtils.getResString(context, "sobot_upload");
                 } else if ((ZhiChiConstant.message_sender_type_send_voice + "").equals(tempMsg.getSenderType())) {
                     lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_voice");
                 } else if (tempMsg.getAnswer() != null) {
                     if ((ZhiChiConstant.message_type_pic + "").equals(tempMsg.getAnswer().getMsgType())) {
-                        lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_pic");
+                        lastMsg = ResourceUtils.getResString(context, "sobot_upload");
                     } else {
                         if (tempMsg.getAnswer().getMsg() == null) {
                             if ((ZhiChiConstant.message_type_card + "").equals(tempMsg.getAnswer().getMsgType())) {
@@ -1084,9 +1081,9 @@ public class ChatUtils {
                             } else if ((ZhiChiConstant.message_type_ordercard + "").equals(tempMsg.getAnswer().getMsgType())) {
                                 lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_card");
                             } else if ((ZhiChiConstant.message_type_video + "").equals(tempMsg.getAnswer().getMsgType())) {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_video");
+                                lastMsg = ResourceUtils.getResString(context, "sobot_upload_video");
                             } else if ((ZhiChiConstant.message_type_file + "").equals(tempMsg.getAnswer().getMsgType())) {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_file");
+                                lastMsg = ResourceUtils.getResString(context, "sobot_choose_file");
                             } else {
                                 lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_other_msg");
                             }

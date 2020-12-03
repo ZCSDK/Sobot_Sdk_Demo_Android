@@ -270,7 +270,7 @@ public class CaptureLayout extends FrameLayout {
         LayoutParams txt_param = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         txt_param.gravity = Gravity.CENTER_HORIZONTAL;
         txt_param.setMargins(0, 0, 0, 0);
-        txt_tip.setText(ResourceUtils.getResString(getContext(),"sobot_camera_tip"));
+        txt_tip.setText(ResourceUtils.getResString(getContext(),"sobot_tap_hold_camera"));
         txt_tip.setTextColor(0xFFFFFFFF);
         txt_tip.setGravity(Gravity.CENTER);
         txt_tip.setLayoutParams(txt_param);

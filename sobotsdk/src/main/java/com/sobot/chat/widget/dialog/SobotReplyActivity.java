@@ -103,7 +103,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
         sobotReplyEdit.setHint(ResourceUtils.getResString(SobotReplyActivity.this, "sobot_please_input_reply_hint"));
         sobotReplyMsgPic = (GridView) findViewById(getResId("sobot_reply_msg_pic"));
         sobotBtnSubmit = (Button) findViewById(getResId("sobot_btn_submit"));
-        sobotBtnSubmit.setText(ResourceUtils.getResString(SobotReplyActivity.this, "sobot_submit"));
+        sobotBtnSubmit.setText(ResourceUtils.getResString(SobotReplyActivity.this, "sobot_btn_submit_text"));
 
         List<ZhiChiUploadAppFileModelResult> picTempList = (List<ZhiChiUploadAppFileModelResult>) getIntent().getSerializableExtra("picTempList");
         String replyTempContent = getIntent().getStringExtra("replyTempContent");
@@ -250,6 +250,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
 
                     @Override
                     public void onFailure(Exception e, String des) {
+                        ToastUtil.showCustomToast(SobotReplyActivity.this,ResourceUtils.getResString(SobotReplyActivity.this, "sobot_leavemsg_error_tip"));
                         e.printStackTrace();
                         SobotDialogUtils.stopProgressDialog(SobotReplyActivity.this);
                     }
@@ -422,6 +423,9 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
             if (requestCode == ZhiChiConstant.REQUEST_CODE_picture) { // 发送本地图片
                 if (data != null && data.getData() != null) {
                     Uri selectedImage = data.getData();
+                    if (selectedImage == null) {
+                        selectedImage = ImageUtils.getUri(data, SobotReplyActivity.this);
+                    }
                     String path = ImageUtils.getPath(this, selectedImage);
                     if (MediaFileUtils.isVideoFileType(path)) {
                         MediaPlayer mp = new MediaPlayer();

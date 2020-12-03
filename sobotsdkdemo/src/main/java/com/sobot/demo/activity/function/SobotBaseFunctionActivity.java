@@ -3,12 +3,13 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.model.Information;
@@ -112,7 +113,7 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
                 otherModel.setPlatformSecretkey(sobot_et_pingtaimiyao.getText().toString().trim());
                 otherModel.setPlatformUnionCode(sobot_et_pingtaibiaoshi.getText().toString().trim());
                 SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
-                if (!oldYUming.equals(yuming)) {
+                if (!TextUtils.isEmpty(oldYUming) && !oldYUming.equals(yuming)) {
                     android.os.Process.killProcess(android.os.Process.myPid());
                 }
             }

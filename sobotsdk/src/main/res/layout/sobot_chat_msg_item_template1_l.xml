@@ -46,7 +46,6 @@
                 android:id="@+id/sobot__template1_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:lineSpacingExtra="@dimen/sobot_DIMEN_5PX"
                 android:textColor="@color/sobot_color_title_bar_title"
                 android:textSize="@dimen/sobot_robot_msg_text_size"

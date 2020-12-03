@@ -132,7 +132,7 @@ public class SobotConsultationListActivity extends SobotBaseActivity implements 
 
     @Override
     public void initView() {
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         setTitle(getResString("sobot_consultation_list"));
 
         sobot_ll_msg_center = (ListView) findViewById(getResId("sobot_ll_msg_center"));

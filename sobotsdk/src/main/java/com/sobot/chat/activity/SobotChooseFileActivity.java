@@ -59,7 +59,7 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
 
         }
         setTitle(getResString("sobot_internal_memory"));
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         sobot_lv_files = (ListView) findViewById(getResId("sobot_lv_files"));
         sobot_tv_send = (TextView) findViewById(getResId("sobot_tv_send"));
         sobot_tv_send.setText(ResourceUtils.getResString(SobotChooseFileActivity.this,"sobot_button_send"));
@@ -143,7 +143,6 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
                     //不能上传可执行文件 （.exe、.sys、 .com、.bat、.dll、.sh、.py）
                     String fileName = file.getName().toLowerCase();
                     if (FileOpenHelper.checkEndsWithInStringArray(fileName, SobotChooseFileActivity.this, "sobot_fileEndingAll")) {
-                        ToastUtil.showToast(SobotChooseFileActivity.this, getResString("sobot_file_upload_failed_unknown_format"));
                         return;
                     }
                     if (mAdapter != null) {
@@ -158,7 +157,7 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
                             sobot_tv_send.setEnabled(true);
                         }
                         mAdapter.notifyDataSetChanged();
-                        sobot_tv_total.setText(String.format(getResString("sobot_files_selected"), totalSize));
+                        sobot_tv_total.setText(getResString("sobot_files_selected")+"："+totalSize);
                     }
                 }
             }

@@ -82,7 +82,7 @@ public class SobotPermissionDialog extends Dialog implements View.OnClickListene
             titleView.setText(title);
         }
         sobot_btn_cancle_conversation = (Button) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_btn_left"));
-        sobot_btn_cancle_conversation.setText(ResourceUtils.getResString(getContext(),"sobot_cancel"));
+        sobot_btn_cancle_conversation.setText(ResourceUtils.getResString(getContext(),"sobot_btn_cancle"));
         sobot_btn_temporary_leave = (Button) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_btn_right"));
         sobot_btn_temporary_leave.setText(ResourceUtils.getResString(getContext(),"sobot_go_setting"));
         coustom_pop_layout = (LinearLayout) findViewById(ResourceUtils.getIdByName(getContext(), "id", "pop_layout"));

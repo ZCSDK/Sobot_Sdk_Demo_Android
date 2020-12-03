@@ -50,7 +50,6 @@
                     android:id="@+id/sobot_template4_temp_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textColor="@color/sobot_color_title_bar_title"
                     android:textSize="14sp"/>
 
@@ -67,7 +66,6 @@
                     android:id="@+id/sobot_template4_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/sobot_color_title_bar_title"
                     android:textSize="14sp"/>
@@ -96,7 +94,6 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
-                    android:textStyle="bold"
                     android:textColor="@color/sobot_template4_more_text_color"
                     android:textSize="12sp" />
 

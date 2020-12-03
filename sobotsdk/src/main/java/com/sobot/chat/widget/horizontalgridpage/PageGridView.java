@@ -1,6 +1,7 @@
 package com.sobot.chat.widget.horizontalgridpage;
 
 import android.content.Context;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -62,7 +63,11 @@ public class PageGridView extends RecyclerView {
 
 
     }
-
+    @Nullable
+    @Override
+    public PagerGridLayoutManager getLayoutManager() {
+        return layoutManager;
+    }
 
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
@@ -212,4 +217,12 @@ public class PageGridView extends RecyclerView {
 //        super.onScrolled(dx, dy);
 //    }
 
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
 }

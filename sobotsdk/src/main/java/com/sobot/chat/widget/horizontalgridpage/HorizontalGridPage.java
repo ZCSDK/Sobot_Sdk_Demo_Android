@@ -38,8 +38,8 @@ public class HorizontalGridPage extends LinearLayout {
      *
      * @param builder 参数构建器
      */
-    public void init(PageBuilder builder,int currentItem) {
-        currentIndex =currentItem;
+    public void init(PageBuilder builder, int currentItem) {
+        currentIndex = currentItem;
         setOrientation(LinearLayout.VERTICAL);//纵向排列
         if (builder == null) {
             builder = new PageBuilder.Builder().build();
@@ -108,4 +108,43 @@ public class HorizontalGridPage extends LinearLayout {
         if (gridView != null)
             gridView.setSelectItem(currentIndex);
     }
+
+    public void selectPreviousPage() {
+        if (gridView != null) {
+            gridView.getLayoutManager().prePage();
+        }
+    }
+
+    public void selectLastPage() {
+        if (gridView != null) {
+            gridView.getLayoutManager().nextPage();
+        }
+    }
+
+    /**
+     * 是否第一页
+     */
+    public boolean isFirstPage() {
+        if (gridView != null) {
+            return gridView.getLayoutManager().isFirstPage();
+        }
+        return false;
+    }
+
+    /**
+     * 是否最后一页
+     */
+    public boolean isLastPage() {
+        if (gridView != null) {
+            return gridView.getLayoutManager().isLastPage();
+        }
+        return false;
+    }
+
+    public void setPageListener(PagerGridLayoutManager.PageListener pageListener) {
+        if (gridView != null) {
+            gridView.getLayoutManager().setPageListener(pageListener);
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.sobot.chat.utils;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,10 +18,14 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -170,6 +175,30 @@ public class ImageUtils {
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
             if (isNewGooglePhotosUri(uri)) {
+                if (uri != null && !TextUtils.isEmpty(uri.getPath()) && uri.getPath().contains("video")) {
+                    //如果是谷歌图库里的视频，需要复制出来，在上传
+                    try {
+                        ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
+                        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                        InputStream inputStream = new FileInputStream(fileDescriptor);
+                        BufferedInputStream reader = new BufferedInputStream(inputStream);
+                        String picDir = SobotPathManager.getInstance().getVideoDir();
+                        IOUtils.createFolder(picDir);
+                        String videoFileName = "v_" + System.currentTimeMillis() + ".mp4";
+                        String videoPath = picDir + videoFileName;
+                        LogUtils.i(videoPath);
+                        //创建要保存到
+                        BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(videoPath));
+                        byte[] buf = new byte[2048];
+                        int len;
+                        while ((len = reader.read(buf)) > 0) {
+                            outStream.write(buf, 0, len);
+                        }
+                        return videoPath;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 Uri imageUrlWithAuthority = getImageUrlWithAuthority(context, uri);
                 if (imageUrlWithAuthority == null) {
                     return "";
@@ -365,5 +394,43 @@ public class ImageUtils {
         }
         cursor.close();
         return null;
+    }
+
+    /**
+     * 解决手机上获取图片路径为null的情况
+     * @param intent
+     * @return
+     */
+    public static Uri getUri(android.content.Intent intent,Context context) {
+        Uri uri = intent.getData();
+        String type = intent.getType();
+        if (uri.getScheme().equals("file") && (type.contains("image/*"))) {
+            String path = uri.getEncodedPath();
+            if (path != null) {
+                path = Uri.decode(path);
+                ContentResolver cr = context.getContentResolver();
+                StringBuffer buff = new StringBuffer();
+                buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=")
+                        .append("'" + path + "'").append(")");
+                Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        new String[] { MediaStore.Images.ImageColumns._ID },
+                        buff.toString(), null, null);
+                int index = 0;
+                for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+                    index = cur.getColumnIndex(MediaStore.Images.ImageColumns._ID);
+                    // set _id value
+                    index = cur.getInt(index);
+                }
+                if (index == 0) {
+                    // do nothing
+                } else {
+                    Uri uri_temp = Uri.parse("content://media/external/images/media/" + index);
+                    if (uri_temp != null) {
+                        uri = uri_temp;
+                    }
+                }
+            }
+        }
+        return uri;
     }
 }

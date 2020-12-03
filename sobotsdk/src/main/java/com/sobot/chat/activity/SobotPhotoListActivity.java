@@ -92,7 +92,7 @@ public class SobotPhotoListActivity extends SobotBaseActivity {
     protected void initView() {
         showRightMenu(getResDrawableId("sobot_pic_delete_selector"), "", true);
         setTitlePageNum(currentPic);
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
     }
 
     // 为弹出窗口popupwindow实现监听类

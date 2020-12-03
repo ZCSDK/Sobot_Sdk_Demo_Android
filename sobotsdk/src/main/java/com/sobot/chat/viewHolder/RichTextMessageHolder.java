@@ -3,6 +3,9 @@ package com.sobot.chat.viewHolder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import androidx.core.content.ContextCompat;
+import android.text.Layout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +14,26 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.activity.SobotFileDetailActivity;
+import com.sobot.chat.activity.SobotVideoActivity;
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
+import com.sobot.chat.api.model.ChatMessageRichListModel;
+import com.sobot.chat.api.model.SobotCacheFile;
 import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
+import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ChatUtils;
-import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SobotBitmapUtil;
-import com.sobot.chat.utils.StTextUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
+import com.sobot.chat.widget.attachment.FileTypeConfig;
 
 import java.util.ArrayList;
 
@@ -36,13 +43,10 @@ import java.util.ArrayList;
  */
 public class RichTextMessageHolder extends MessageHolderBase implements View.OnClickListener {
     private TextView msg; // 聊天的消息内容
-    private TextView sobot_msg_title; // 机会人回复的富文本标题
+    private LinearLayout sobot_rich_ll;//拆分的富文本消息
     private TextView sobot_msgStripe; // 多轮会话中配置的引导语
     private LinearLayout answersList;
     private TextView stripe;
-    // 答案
-    private ImageView bigPicImage; // 大的图片的展示
-    private TextView rendAllText; // 阅读全文
 
     private LinearLayout sobot_chat_more_action;//包含以下所有控件
 
@@ -58,12 +62,14 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     private LinearLayout sobot_ll_switch;//换一组按钮
     private TextView sobot_tv_switch;
     private View sobot_view_split;//换一组和查看详情分割线
-    private TextView see_detail_line;//查看详情分割线
+    int msgMaxWidth;//气泡最大宽度
 
     public RichTextMessageHolder(Context context, View convertView) {
         super(context, convertView);
+        //102=左间距12+内间距30+右间距60
+        msgMaxWidth=ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         msg = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msg"));
-        sobot_msg_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msg_title"));
+        sobot_rich_ll = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_rich_ll"));
         sobot_msgStripe = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msgStripe"));
         sobot_chat_more_action = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_chat_more_action"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
@@ -71,20 +77,10 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         sobot_ll_dislikeBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_dislikeBtn"));
         sobot_ll_content = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_content"));
         sobot_ll_switch = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_switch"));
-        sobot_tv_switch= (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_switch"));
-        sobot_tv_switch.setText(ResourceUtils.getResString(context,"sobot_switch"));
+        sobot_tv_switch = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_switch"));
+        sobot_tv_switch.setText(ResourceUtils.getResString(context, "sobot_switch"));
         sobot_view_split = convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_view_split"));
         sobot_right_empty_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_right_empty_rl"));
-        see_detail_line = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template4_line"));
-        // 富文本的大图片
-        bigPicImage = (ImageView) convertView
-                .findViewById(ResourceUtils.getIdByName(context, "id",
-                        "sobot_bigPicImage"));
-        // 阅读全文
-        rendAllText = (TextView) convertView
-                .findViewById(ResourceUtils.getIdByName(context, "id",
-                        "sobot_rendAllText"));
-        rendAllText.setText(ResourceUtils.getResString(context,"sobot_read_all"));
 
         stripe = (TextView) convertView.findViewById(ResourceUtils
                 .getIdByName(context, "id", "sobot_stripe"));
@@ -93,78 +89,24 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         "sobot_answersList"));
 
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
-        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context,"sobot_transfer_to_customer_service"));
+        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
         sobot_tv_likeBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_likeBtn"));
         sobot_tv_dislikeBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_dislikeBtn"));
         sobot_ll_switch.setOnClickListener(this);
-        //102=左间距12+内间距30+右间距60
-        msg.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
+        msg.setMaxWidth(msgMaxWidth);
     }
 
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {
         // 更具消息类型进行对布局的优化
         if (message.getAnswer() != null) {
-
             setupMsgContent(context, message);
-            if (!TextUtils.isEmpty(message.getAnswer().getRichpricurl())) {
-                bigPicImage.setVisibility(View.VISIBLE);
-                SobotBitmapUtil.display(context, CommonUtils.encode(message.getAnswer()
-                        .getRichpricurl()), bigPicImage);
-                // 点击大图 查看大图的内容
-                bigPicImage.setOnClickListener(new ImageClickLisenter(context, message
-                        .getAnswer().getRichpricurl()));
-            } else {
-                bigPicImage.setVisibility(View.GONE);
-            }
-
-            if (1 == message.getSugguestionsFontColor()) {
-                if (message.getSdkMsg() != null && !TextUtils.isEmpty(message.getSdkMsg().getQuestion())) {
-                    sobot_msg_title.setVisibility(View.VISIBLE);
-                    sobot_msg_title.setText(message.getSdkMsg().getQuestion());
-                } else {
-                    sobot_msg_title.setVisibility(View.GONE);
-                }
-            } else if (!TextUtils.isEmpty(message.getQuestion())) {
-                sobot_msg_title.setVisibility(View.VISIBLE);
-                sobot_msg_title.setText(message.getQuestion());
-            } else {
-                sobot_msg_title.setVisibility(View.GONE);
-            }
-
-            if (!TextUtils.isEmpty(message.getAnswer().getRichmoreurl())) {
-                rendAllText.setVisibility(View.VISIBLE);
-                see_detail_line.setVisibility(View.VISIBLE);
-                rendAllText.setOnClickListener(new ReadAllTextLisenter(context, message.getAnswer().getRichmoreurl()));
-                StTextUtils.ellipsizeEnd(17, msg);
-                resetMaxWidth();
-            } else {
-                rendAllText.setVisibility(View.GONE);
-                see_detail_line.setVisibility(View.GONE);
-                msg.setMaxLines(Integer.MAX_VALUE);
-                resetMinWidth();
-            }
-
             if (!TextUtils.isEmpty(message.getAnswer().getMsgStripe())) {
                 sobot_msgStripe.setVisibility(View.VISIBLE);
                 sobot_msgStripe.setText(message.getAnswer().getMsgStripe());
             } else {
                 sobot_msgStripe.setVisibility(View.GONE);
             }
-        }
-
-        if ("1".equals(message.getRictype())) {
-            bigPicImage.setVisibility(View.VISIBLE);
-            rendAllText.setVisibility(View.VISIBLE);
-            see_detail_line.setVisibility(View.VISIBLE);
-            SobotBitmapUtil.display(context, CommonUtils.encode(message.getPicurl()), bigPicImage);
-            rendAllText.setVisibility(View.VISIBLE);
-            rendAllText.setOnClickListener(new ReadAllTextLisenter(context, message
-                    .getAnswer().getRichmoreurl()));
-        } else if ("0".equals(message.getRictype())) {// 代表无图片的格式
-            bigPicImage.setVisibility(View.GONE);
-            rendAllText.setVisibility(View.GONE);
-            see_detail_line.setVisibility(View.GONE);
         }
 
         // 回复语的答复
@@ -349,6 +291,16 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         sobot_tv_dislikeBtn.setSelected(false);
         //有顶和踩时显示信息显示两行 72-10-10=52 总高度减去上下内间距
         msg.setMinHeight(ScreenUtils.dip2px(mContext, 52));
+        //有顶和踩时,拆分后的富文本消息如果只有一个并且是文本类型设置最小高度 72-10-10=52 总高度减去上下内间距
+        if (sobot_rich_ll != null && sobot_rich_ll.getChildCount() == 1) {
+            for (int i = 0; i < sobot_rich_ll.getChildCount(); i++) {
+                View view = sobot_rich_ll.getChildAt(i);
+                if (view instanceof TextView) {
+                    TextView tv = (TextView) view;
+                    tv.setMinHeight(ScreenUtils.dip2px(mContext, 52));
+                }
+            }
+        }
 
         sobot_tv_likeBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -510,28 +462,125 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         }
     }
 
-    private void setupMsgContent(Context context, ZhiChiMessageBase message) {
-        if (message.getAnswer() != null && !TextUtils.isEmpty(message.getAnswer().getMsg())) {
-            msg.setVisibility(View.VISIBLE);
-            String robotAnswer = "";
-            if ("9".equals(message.getAnswer().getMsgType())) {
-                if (message.getAnswer().getMultiDiaRespInfo() != null) {
-                    robotAnswer = message.getAnswer().getMultiDiaRespInfo().getAnswer();
+    int getTextSize(TextView view) {
+
+        CharSequence text = view.getText();
+
+        TextPaint paint = view.getPaint();
+
+        int textSize = (int) Layout.getDesiredWidth(text, 0, text.length(), paint);
+
+        return textSize;
+
+    }
+
+    private void setupMsgContent(final Context context, final ZhiChiMessageBase message) {
+        if (message.getAnswer() != null && message.getAnswer().getRichList() != null && message.getAnswer().getRichList().size() > 0) {
+            LinearLayout.LayoutParams wlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            wlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
+            sobot_rich_ll.removeAllViews();
+            for (int i = 0; i < message.getAnswer().getRichList().size(); i++) {
+                final ChatMessageRichListModel richListModel = message.getAnswer().getRichList().get(i);
+                if (richListModel != null) {
+                    // 0：文本，1：图片，2：音频，3：视频，4：文件
+                    if (richListModel.getType() == 0) {
+                        TextView textView = new TextView(mContext);
+                        textView.setLayoutParams(wlayoutParams);
+                        textView.setMaxWidth(msgMaxWidth);
+                        if (!TextUtils.isEmpty(richListModel.getName()) && HtmlTools.isHasPatterns(richListModel.getMsg())) {
+                            textView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
+                            textView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(context, WebViewActivity.class);
+                                    intent.putExtra("url", richListModel.getMsg());
+                                    context.startActivity(intent);
+                                }
+                            });
+                            textView.setText(richListModel.getName());
+                        } else {
+                            textView.setText(richListModel.getMsg());
+                            textView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_left_msg_text_color")));
+                        }
+                        sobot_rich_ll.addView(textView);
+                    } else if (richListModel.getType() == 1 && HtmlTools.isHasPatterns(richListModel.getMsg())) {
+                        LinearLayout.LayoutParams mlayoutParams = new LinearLayout.LayoutParams(msgMaxWidth,
+                                ScreenUtils.dip2px(context, 200));
+                        mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
+                        ImageView imageView = new ImageView(mContext);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        imageView.setLayoutParams(mlayoutParams);
+                        SobotBitmapUtil.display(mContext, richListModel.getMsg(), imageView);
+                        imageView.setOnClickListener(new ImageClickLisenter(context, richListModel.getMsg(), isRight));
+                        sobot_rich_ll.addView(imageView);
+                    } else if (richListModel.getType() == 3 && HtmlTools.isHasPatterns(richListModel.getMsg())) {
+                        TextView videoView = new TextView(mContext);
+                        videoView.setMaxWidth(msgMaxWidth);
+                        HtmlTools.getInstance(mContext).setRichText(videoView, TextUtils.isEmpty(richListModel.getName()) ? richListModel.getMsg() : richListModel.getName(), getLinkTextColor());
+                        videoView.setLayoutParams(wlayoutParams);
+                        videoView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
+                        sobot_rich_ll.addView(videoView);
+                        videoView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                SobotCacheFile cacheFile = new SobotCacheFile();
+                                cacheFile.setFileName(richListModel.getName());
+                                cacheFile.setUrl(richListModel.getMsg());
+                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.getFileEndWith(richListModel.getMsg())));
+                                cacheFile.setMsgId(message.getMsgId() + richListModel.getMsg());
+                                Intent intent = SobotVideoActivity.newIntent(mContext, cacheFile);
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    } else if ((richListModel.getType() == 4 || richListModel.getType() == 2) && HtmlTools.isHasPatterns(richListModel.getMsg())) {
+                        TextView fileView = new TextView(mContext);
+                        fileView.setMaxWidth(msgMaxWidth);
+                        HtmlTools.getInstance(mContext).setRichText(fileView, TextUtils.isEmpty(richListModel.getName()) ? richListModel.getMsg() : richListModel.getName(), getLinkTextColor());
+                        fileView.setLayoutParams(wlayoutParams);
+                        fileView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
+                        sobot_rich_ll.addView(fileView);
+                        fileView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // 打开详情页面
+                                Intent intent = new Intent(mContext, SobotFileDetailActivity.class);
+                                SobotCacheFile cacheFile = new SobotCacheFile();
+                                cacheFile.setFileName(richListModel.getName());
+                                cacheFile.setUrl(richListModel.getMsg());
+                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.getFileEndWith(richListModel.getMsg())));
+                                cacheFile.setMsgId(message.getMsgId() + richListModel.getMsg());
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_DATA_SELECTED_FILE, cacheFile);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    }
                 }
-
-            } else {
-                robotAnswer = message.getAnswer().getMsg();
             }
-
-            if (ZhiChiConstant.message_sender_type_robot_guide == Integer
-                    .parseInt(message.getSenderType())) {
-                msg.getPaint().setFakeBoldText(true);
-            } else {
-                msg.getPaint().setFakeBoldText(false);
-            }
-            HtmlTools.getInstance(context).setRichText(msg, robotAnswer, getLinkTextColor());
-        } else {
+            sobot_rich_ll.setVisibility(View.VISIBLE);
             msg.setVisibility(View.GONE);
+            LinearLayout.LayoutParams contentlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            contentlayoutParams.leftMargin = ScreenUtils.dip2px(context, 12);
+            sobot_ll_content.setLayoutParams(contentlayoutParams);
+        } else {
+            sobot_rich_ll.setVisibility(View.GONE);
+            if (message.getAnswer() != null && !TextUtils.isEmpty(message.getAnswer().getMsg())) {
+                msg.setVisibility(View.VISIBLE);
+                String robotAnswer = "";
+                if ("9".equals(message.getAnswer().getMsgType())) {
+                    if (message.getAnswer().getMultiDiaRespInfo() != null) {
+                        robotAnswer = message.getAnswer().getMultiDiaRespInfo().getAnswer();
+                    }
+
+                } else {
+                    robotAnswer = message.getAnswer().getMsg();
+                }
+                HtmlTools.getInstance(context).setRichText(msg, robotAnswer, getLinkTextColor());
+            } else {
+                msg.setVisibility(View.GONE);
+            }
         }
     }
 

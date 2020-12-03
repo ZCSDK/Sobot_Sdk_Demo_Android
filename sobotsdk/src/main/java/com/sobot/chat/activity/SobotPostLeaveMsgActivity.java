@@ -70,14 +70,14 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
 
     @Override
     protected void initView() {
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         setTitle(getResString("sobot_leavemsg_title"));
         sobot_tv_post_msg = (TextView) findViewById(getResId("sobot_tv_post_msg"));
         sobot_post_et_content = (EditText) findViewById(getResId("sobot_post_et_content"));
         sobot_tv_problem_description = (TextView) findViewById(getResId("sobot_tv_problem_description"));
         sobot_tv_problem_description.setText(ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_problem_description"));
         sobot_btn_submit = (Button) findViewById(getResId("sobot_btn_submit"));
-        sobot_btn_submit.setText(ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_submit"));
+        sobot_btn_submit.setText(ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
     }
 
@@ -106,7 +106,7 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
         if (v == sobot_btn_submit) {
             final String content = sobot_post_et_content.getText().toString();
             if (TextUtils.isEmpty(content) || TextUtils.isEmpty(mUid)) {
-                CustomToast.makeText(SobotPostLeaveMsgActivity.this, ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_problem_description") + ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_no_empty"), 1000).show();
+                CustomToast.makeText(SobotPostLeaveMsgActivity.this, ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_problem_description") + ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot__is_null"), 1000).show();
                 return;
             }
             KeyboardUtil.hideKeyboard(sobot_post_et_content);

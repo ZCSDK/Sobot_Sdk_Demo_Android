@@ -207,7 +207,6 @@ public class RobotTemplateMessageHolder3 extends MessageHolderBase {
             sobotLayout = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template1_item_"));
             sobotThumbnail = (SobotRCImageView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template1_item_thumbnail"));
             sobotTitle = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template1_item_title"));
-            sobotTitle.setText(ResourceUtils.getResString(context,"sobot_why"));
             sobotSummary = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template1_item_summary"));
             sobotLable = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template1_item_lable"));
             sobotOtherLable = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template1_item_other_flag"));

@@ -61,36 +61,9 @@
                         android:gravity="start"
                         android:textColor="@color/sobot_left_msg_text_color"
                         android:textSize="@dimen/sobot_robot_msg_text_size"
-                        android:textStyle="bold"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp" />
-
-                    <ImageView
-                        android:id="@+id/sobot_bigPicImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:maxHeight="120dp"
-                        android:scaleType="centerCrop"
-                        android:visibility="gone" />
-
-                    <!--标题-->
-                    <TextView
-                        android:id="@+id/sobot_msg_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="@dimen/sobot_DIMEN_7PX"
-                        android:layout_marginBottom="@dimen/sobot_DIMEN_7PX"
-                        android:ellipsize="end"
-                        android:lineSpacingExtra="@dimen/sobot_DIMEN_5PX"
-                        android:maxLines="1"
-                        android:paddingTop="2dp"
-                        android:textColor="@color/sobot_left_msg_text_color"
-                        android:textSize="@dimen/sobot_text_font_small"
-                        android:visibility="gone"
-                        android:layout_marginStart="5dp" />
 
                     <!-- 机械人回复  单文本消息 -->
                     <TextView
@@ -111,6 +84,14 @@
                         android:textSize="@dimen/sobot_robot_msg_text_size"
                         android:visibility="visible" />
 
+                    <LinearLayout
+                        android:id="@+id/sobot_rich_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
                     <!-- stripe -->
                     <TextView
                         android:id="@+id/sobot_stripe"
@@ -121,7 +102,6 @@
                         android:gravity="start"
                         android:textColor="@color/sobot_left_msg_text_color"
                         android:textSize="@dimen/sobot_robot_msg_text_size"
-                        android:textStyle="bold"
                         android:visibility="gone"
                         android:layout_marginEnd="5dp" />
 
@@ -161,32 +141,8 @@
                             android:gravity="center"
                             android:textColor="@color/sobot_color_link"
                             android:textSize="12sp"
-                            android:textStyle="bold"
                             android:drawableStart="@drawable/sobot_icon_switch" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/sobot_template4_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/sobot_line_1dp"
-                        android:visibility="visible" />
-
-                    <!-- 查看详情 -->
-                    <TextView
-                        android:id="@+id/sobot_rendAllText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:textColor="@color/sobot_template4_more_text_color"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-
                 </LinearLayout>
 
 

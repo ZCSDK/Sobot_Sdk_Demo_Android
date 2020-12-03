@@ -222,8 +222,8 @@ public class SobotSessionServer extends Service {
                         content = ResourceUtils.getResString(this, "sobot_chat_type_rich_text");
                         notificationContent = ResourceUtils.getResString(this, "sobot_receive_new_message");
                     } else if (msgType == ZhiChiConstant.message_type_pic) {
-                        content = ResourceUtils.getResString(this, "sobot_chat_type_pic");
-                        notificationContent = ResourceUtils.getResString(this, "sobot_chat_type_pic");
+                        content = ResourceUtils.getResString(this, "sobot_upload");
+                        notificationContent = ResourceUtils.getResString(this, "sobot_upload");
                     }
                     int localUnreadNum = SobotMsgManager.getInstance(getApplicationContext()).addUnreadCount(pushMessage, Calendar.getInstance().getTime().getTime() + "", currentUid);
                     Intent intent = new Intent();
@@ -232,7 +232,7 @@ public class SobotSessionServer extends Service {
                     intent.putExtra("content", content);
                     intent.putExtra("sobot_appId", pushMessage.getAppId());
                     CommonUtils.sendLocalBroadcast(getApplicationContext(), intent);
-                    showNotification(notificationContent, pushMessage);
+                    showNotification("[" + notificationContent + "]", pushMessage);
                 }
             }
         } else if (ZhiChiConstant.push_message_receverSystemMessage == pushMessage
@@ -342,7 +342,7 @@ public class SobotSessionServer extends Service {
 
             if (type == ZhiChiConstant.type_custom_only) {
                 //显示标题
-                config.activityTitle = ChatUtils.getLogicTitle(getApplicationContext(), false, getResString("sobot_in_line_title"),
+                config.activityTitle = ChatUtils.getLogicTitle(getApplicationContext(), false, getResString("sobot_in_line"),
                         initModel.getCompanyName());
                 config.bottomViewtype = ZhiChiConstant.bottomViewtype_onlycustomer_paidui;
             } else {
@@ -444,7 +444,7 @@ public class SobotSessionServer extends Service {
             String notificationTitle = ResourceUtils.getResString(getApplicationContext(), "sobot_notification_tip_title");
             String contentTmp;
             if (!TextUtils.isEmpty(pushMessage.getAname())) {
-                contentTmp = String.format(ResourceUtils.getResString(getApplicationContext(), "sobot_notification_tip"), pushMessage.getAname(), content);
+                contentTmp = ResourceUtils.getResString(getApplicationContext(), "sobot_cus_service") + pushMessage.getAname() + "：" + content;
             } else {
                 contentTmp = content;
             }

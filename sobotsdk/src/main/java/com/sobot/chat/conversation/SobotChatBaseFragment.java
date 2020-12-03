@@ -748,13 +748,13 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 }
                 //不能上传可执行文件 （.exe、.sys、 .com、.bat、.dll、.sh、.py）
                 if (FileOpenHelper.checkEndsWithInStringArray(fileName, getContext(), "sobot_fileEndingAll")) {
-                    ToastUtil.showToast(getContext(), getResString("sobot_file_upload_failed_unknown_format"));
                     return;
                 }
                 String tmpMsgId = String.valueOf(System.currentTimeMillis());
                 LogUtils.i("tmpMsgId:" + tmpMsgId);
                 zhiChiApi.addUploadFileTask(false, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), selectedFile.getAbsolutePath(), null);
                 updateUiMessage(messageAdapter, ChatUtils.getUploadFileModel(getContext(), tmpMsgId, selectedFile));
+                isAboveZero = true;
             }
         }
     }
@@ -816,6 +816,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         }
         zhiChiApi.addUploadFileTask(true, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), filePath, filePath);
         updateUiMessage(messageAdapter, ChatUtils.getUploadVideoModel(getContext(), tmpMsgId, videoFile, filePath));
+        isAboveZero = true;
     }
 
     /**
@@ -1115,7 +1116,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             float f_proximiny = event.values[0];
             // LogUtils.i("监听模式的转换：" + f_proximiny + " 听筒的模式："
             // + mProximiny.getMaximumRange());
-            if (!phoneName.trim().equals("MI")||!phoneName.trim().equals("Re")) {
+            if (!phoneName.trim().equals("MI") || !phoneName.trim().equals("Re")) {
                 if (f_proximiny != 0.0) {
                     audioManager.setSpeakerphoneOn(true);// 打开扬声器
                     audioManager.setMode(AudioManager.MODE_NORMAL);

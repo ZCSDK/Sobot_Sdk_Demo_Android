@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c94c5812b0f4c86a73217b3c14a7ec30/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c94c5812b0f4c86a73217b3c14a7ec30/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c94c5812b0f4c86a73217b3c14a7ec30/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/81c89cc9b4fecc952860f4ab2de285e9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/81c89cc9b4fecc952860f4ab2de285e9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/81c89cc9b4fecc952860f4ab2de285e9/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsupport-glidev4/1.0.10/d127a3a8654f283f88416c573779104646893cc5/sobotsupport-glidev4-1.0.10-javadoc.jar!/" />

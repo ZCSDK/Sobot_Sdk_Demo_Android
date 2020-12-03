@@ -92,7 +92,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                         statusStr = ResourceUtils.getResString(context, "sobot_order_status_4");
                         break;
                     case 5:
-                        statusStr = ResourceUtils.getResString(context, "sobot_order_status_5");
+                        statusStr = ResourceUtils.getResString(context, "sobot_completed");
                         break;
                     case 6:
                         statusStr = ResourceUtils.getResString(context, "sobot_order_status_6");
@@ -101,13 +101,13 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                         statusStr = ResourceUtils.getResString(context, "sobot_order_status_7");
                         break;
                 }
-                mOrderStatus.setText(Html.fromHtml(ResourceUtils.getResString(context, "sobot_order_status_lable") + "<b><font color=\'#E67F17\'>" + statusStr + "</font></b>"));
+                mOrderStatus.setText(Html.fromHtml(ResourceUtils.getResString(context, "sobot_order_status_lable") + "：" + "<b><font color=\'#E67F17\'>" + statusStr + "</font></b>"));
             } else {
                 mOrderStatus.setVisibility(View.GONE);
             }
 
             mGoodsTotalMoney.setVisibility(View.VISIBLE);
-            mGoodsTotalMoney.setText((!TextUtils.isEmpty(orderCardContent.getGoodsCount()) ? "," : "") + ResourceUtils.getResString(context, "sobot_order_total_money") + getMoney(orderCardContent.getTotalFee()));
+            mGoodsTotalMoney.setText((!TextUtils.isEmpty(orderCardContent.getGoodsCount()) ? "," : "") + ResourceUtils.getResString(context, "sobot_order_total_money") + " " + getMoney(orderCardContent.getTotalFee()) + ResourceUtils.getResString(context, "sobot_money_format"));
 
 
             if (!TextUtils.isEmpty(orderCardContent.getGoodsCount())) {
@@ -118,14 +118,14 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             }
 
             if (!TextUtils.isEmpty(orderCardContent.getOrderCode())) {
-                mOrderNumber.setText(ResourceUtils.getResString(context, "sobot_order_code_lable") + orderCardContent.getOrderCode());
+                mOrderNumber.setText(ResourceUtils.getResString(context, "sobot_order_code_lable") +"："+ orderCardContent.getOrderCode());
                 mOrderNumber.setVisibility(View.VISIBLE);
             } else {
                 mOrderNumber.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(orderCardContent.getCreateTime())) {
-                mOrderCreatetime.setText(ResourceUtils.getResString(context, "sobot_order_time_lable") + DateUtil.longToDateStr(Long.parseLong(orderCardContent.getCreateTime()), "yyyy-MM-dd HH:mm:ss"));
+                mOrderCreatetime.setText(ResourceUtils.getResString(context, "sobot_order_time_lable") +"："+ DateUtil.longToDateStr(Long.parseLong(orderCardContent.getCreateTime()), "yyyy-MM-dd HH:mm:ss"));
                 mOrderCreatetime.setVisibility(View.VISIBLE);
             } else {
                 mOrderCreatetime.setVisibility(View.GONE);
@@ -190,7 +190,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
         if (mContext == null) {
             return "";
         }
-        return String.format(ResourceUtils.getResString(mContext, "sobot_money_format"), money / 100.0f);
+        return ResourceUtils.getResString(mContext, "sobot_money_format") + " " + money / 100.0f;
 
 
     }

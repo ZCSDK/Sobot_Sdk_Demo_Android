@@ -252,13 +252,13 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                         textView.setText(ResourceUtils.getResString(mContext, "sobot_notice_collapse"));
 //                        imageView.setImageResource(ResourceUtils.getDrawableId(mContext,"sobot_icon_arrow_up"));
                     } else {
-                        textView.setText(ResourceUtils.getResString(mContext, "sobot_ticket_expand"));
+                        textView.setText(ResourceUtils.getResString(mContext, "sobot_notice_expand"));
 //                        imageView.setImageResource(ResourceUtils.getDrawableId(mContext,"sobot_icon_arrow_dwon"));
                     }
 
                 }
             });
-            textView.setText(ResourceUtils.getResString(mContext, "sobot_ticket_expand"));
+            textView.setText(ResourceUtils.getResString(mContext, "sobot_notice_expand"));
             imageView.setImageResource(ResourceUtils.getDrawableId(mContext, "sobot_icon_arrow_down"));
             tv_time = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_time"));
             ViewGroup otherGroup = tv_exp.getmOtherView();
@@ -459,7 +459,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                             sobot_tv_content_detail_split.setVisibility(View.GONE);
                             sobot_tv_content.setPadding(0, 0, 0, 0);
                         }
-                        HtmlTools.getInstance(context).setRichText(sobot_tv_content, reply.getReplyContent().replaceAll("<br/>", "").replaceAll("\n", "<br/>").replaceAll("<img.*?/>", " " + ResourceUtils.getResString(context, "sobot_chat_type_pic") + " "), getLinkTextColor());
+                        HtmlTools.getInstance(context).setRichText(sobot_tv_content, reply.getReplyContent().replaceAll("<br/>", "").replaceAll("\n", "<br/>").replaceAll("<img.*?/>", " " + ResourceUtils.getResString(context, "sobot_upload") + " "), getLinkTextColor());
                     }
 
 
@@ -472,7 +472,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                     sobot_tv_content.setPadding(0, 0, 0, 0);
                     sobot_tv_status.setVisibility(View.VISIBLE);
                     sobot_tv_status.setText(ResourceUtils.getResString(context, "sobot_my_reply"));
-                    sobot_tv_content.setText(TextUtils.isEmpty(reply.getReplyContent()) ? ResourceUtils.getResString(context, "sobot_nothing") : Html.fromHtml(reply.getReplyContent().replaceAll("<img.*?/>", " " + ResourceUtils.getResString(context, "sobot_chat_type_pic") + " ")));
+                    sobot_tv_content.setText(TextUtils.isEmpty(reply.getReplyContent()) ? ResourceUtils.getResString(context, "sobot_nothing") : Html.fromHtml(reply.getReplyContent().replaceAll("<img.*?/>", " " + ResourceUtils.getResString(context, "sobot_upload") + " ")));
                 }
                 sobot_tv_time.setText(DateUtil.toDate(reply.getReplyTime() * 1000, DateUtil.DATE_FORMAT6));
                 sobot_tv_secod.setText(DateUtil.toDate(reply.getReplyTime() * 1000, DateUtil.DATE_FORMAT3));
@@ -590,7 +590,7 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                     sobot_tv_content_detail_split.setVisibility(View.GONE);
                     sobot_tv_content.setPadding(0, 0, 0, 0);
                 }
-                HtmlTools.getInstance(context).setRichText(sobot_tv_content, data.getContent().replaceAll("<br/>", "").replaceAll("\n", "<br/>").replaceAll("<img.*?/>", " " + ResourceUtils.getResString(context, "sobot_chat_type_pic") + " "), getLinkTextColor());
+                HtmlTools.getInstance(context).setRichText(sobot_tv_content, data.getContent().replaceAll("<br/>", "").replaceAll("\n", "<br/>").replaceAll("<img.*?/>", " " + ResourceUtils.getResString(context, "sobot_upload") + " "), getLinkTextColor());
             }
 
 
@@ -633,9 +633,9 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             sobot_my_evaluate_tv = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_my_evaluate_tv"));
             sobot_my_evaluate_tv.setText(ResourceUtils.getResString(context, "sobot_my_service_comment"));
             sobot_tv_my_evaluate_score = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_my_evaluate_score"));
-            sobot_tv_my_evaluate_score.setText(ResourceUtils.getResString(context, "sobot_rating_score"));
+            sobot_tv_my_evaluate_score.setText(ResourceUtils.getResString(context, "sobot_rating_score")+"：");
             sobot_tv_my_evaluate_remark = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_my_evaluate_remark"));
-            sobot_tv_my_evaluate_remark.setText(ResourceUtils.getResString(context, "sobot_rating_dec"));
+            sobot_tv_my_evaluate_remark.setText(ResourceUtils.getResString(context, "sobot_rating_dec")+"：");
             sobot_my_evaluate_ll = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_my_evaluate_ll"));
         }
 

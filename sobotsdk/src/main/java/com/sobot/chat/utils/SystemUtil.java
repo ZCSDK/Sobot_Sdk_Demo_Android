@@ -1,11 +1,9 @@
 package com.sobot.chat.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.telephony.TelephonyManager;
 
 import java.util.Locale;
 
@@ -53,19 +51,6 @@ public class SystemUtil {
      */
     public static String getDeviceBrand() {
         return android.os.Build.BRAND;
-    }
-
-    /**
-     * 获取手机IMEI(需要“android.permission.READ_PHONE_STATE”权限)
-     *
-     * @return 手机IMEI
-     */
-    public static String getIMEI(Context ctx) {
-        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Activity.TELEPHONY_SERVICE);
-        if (tm != null) {
-            return tm.getDeviceId();
-        }
-        return null;
     }
 
     /**

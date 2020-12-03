@@ -73,7 +73,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
     @Override
     protected void initView() {
         setTitle("");
-        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         mWebView = (WebView) findViewById(getResId("sobot_mWebView"));
         mProgressBar = (ProgressBar) findViewById(getResId("sobot_loadProgress"));
         sobot_rl_net_error = (RelativeLayout) findViewById(getResId("sobot_rl_net_error"));
@@ -82,9 +82,8 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         sobot_btn_reconnect.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_reunicon"));
         sobot_btn_reconnect.setOnClickListener(this);
         sobot_textReConnect = (TextView) findViewById(getResId("sobot_textReConnect"));
-        sobot_textReConnect.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_current_network"));
+        sobot_textReConnect.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_network_unavailable"));
         sobot_txt_loading = (TextView) findViewById(getResId("sobot_txt_loading"));
-        sobot_txt_loading.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_welcome"));
         sobot_webview_goback = (ImageView) findViewById(getResId("sobot_webview_goback"));
         sobot_webview_forward = (ImageView) findViewById(getResId("sobot_webview_forward"));
         sobot_webview_reload = (ImageView) findViewById(getResId("sobot_webview_reload"));

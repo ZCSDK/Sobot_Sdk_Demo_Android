@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.StCameraView;
 import com.sobot.chat.camera.listener.StCameraListener;
 import com.sobot.chat.camera.listener.StClickListener;
@@ -79,6 +80,7 @@ public class SobotCameraActivity extends FragmentActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(ResourceUtils.getIdByName(SobotCameraActivity.this, "layout", "sobot_activity_camera"));
+        MyApplication.getInstance().addActivity(this);
         jCameraView = (StCameraView) findViewById(ResourceUtils.getIdByName(SobotCameraActivity.this, "id", "sobot_cameraview"));
         //设置视频保存路径
         jCameraView.setSaveVideoPath(SobotPathManager.getInstance().getVideoDir());

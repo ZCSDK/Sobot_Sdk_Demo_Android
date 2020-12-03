@@ -35,7 +35,7 @@ public class ReSendDialog extends Dialog {
 		button = (Button) findViewById(ResourceUtils.getIdByName(content, "id", "sobot_negativeButton"));
 		button.setText(ResourceUtils.getResString(content,"sobot_button_send"));
 		button2 = (Button) findViewById(ResourceUtils.getIdByName(content, "id", "sobot_positiveButton"));
-		button2.setText(ResourceUtils.getResString(content,"sobot_cancel"));
+		button2.setText(ResourceUtils.getResString(content,"sobot_btn_cancle"));
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.viewpager.widget.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.adapter.StViewPagerAdapter;
+import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.SobotLeaveMsgConfig;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.fragment.SobotBaseFragment;
@@ -99,9 +101,9 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
         psgBackIv = (ImageView) findViewById(getResId("sobot_pst_back_iv"));
 
         mTvLeaveMsgCreateSuccess = (TextView) findViewById(getResId("sobot_tv_leaveMsg_create_success"));
-        mTvLeaveMsgCreateSuccess.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leaveMsg_create_success"));
+        mTvLeaveMsgCreateSuccess.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leavemsg_success_tip"));
         mTvLeaveMsgCreateSuccessDes = (TextView) findViewById(getResId("sobot_tv_leaveMsg_create_success_des"));
-        mTvLeaveMsgCreateSuccessDes.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leaveMsg_create_success_des"));
+        mTvLeaveMsgCreateSuccessDes.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leavemsg_success_tip"));
 
         mTvTicket.setOnClickListener(this);
         mTvCompleted.setOnClickListener(this);
@@ -131,6 +133,30 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
         }
         mFragments.clear();
         if (!mIsShowTicket) {
+            if (mConfig == null) {
+                //如果mConfig 为空，直接从初始化接口获取配置信息
+                Information info = (Information) SharedPreferencesUtil.getObject(SobotPostMsgActivity.this, "sobot_last_current_info");
+                mConfig = new SobotLeaveMsgConfig();
+                mConfig.setEmailFlag(initMode.isEmailFlag());
+                mConfig.setEmailShowFlag(initMode.isEmailShowFlag());
+                mConfig.setEnclosureFlag(initMode.isEnclosureFlag());
+                mConfig.setEnclosureShowFlag(initMode.isEnclosureShowFlag());
+                mConfig.setTelFlag(initMode.isTelFlag());
+                mConfig.setTelShowFlag(initMode.isTelShowFlag());
+                mConfig.setTicketStartWay(initMode.isTicketStartWay());
+                mConfig.setTicketShowFlag(initMode.isTicketShowFlag());
+                mConfig.setCompanyId(initMode.getCompanyId());
+                if (!TextUtils.isEmpty(info.getLeaveMsgTemplateContent())) {
+                    mConfig.setMsgTmp(info.getLeaveMsgTemplateContent());
+                } else {
+                    mConfig.setMsgTmp(initMode.getMsgTmp());
+                }
+                if (!TextUtils.isEmpty(info.getLeaveMsgGuideContent())) {
+                    mConfig.setMsgTxt(info.getLeaveMsgGuideContent());
+                } else {
+                    mConfig.setMsgTxt(initMode.getMsgTxt());
+                }
+            }
             Bundle bundle = new Bundle();
             bundle.putString(StPostMsgPresenter.INTENT_KEY_UID, mUid);
             bundle.putString(StPostMsgPresenter.INTENT_KEY_GROUPID, mGroupId);
@@ -167,7 +193,7 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
 
 
         if (mIsShowTicket) {
-            showLeftMenu(getResDrawableId("sobot_btn_back_selector"), getResString("sobot_back"), true);
+            showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
             setTitle(getResString("sobot_message_record"));
             showTicketInfo();
             getToolBar().setVisibility(View.VISIBLE);

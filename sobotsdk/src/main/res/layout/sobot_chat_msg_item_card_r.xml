@@ -76,8 +76,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:textColor="@color/sobot_goods_title_text_color"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
 
                 <com.sobot.chat.widget.image.SobotRCImageView
@@ -116,7 +115,6 @@
                     android:layout_toRightOf="@id/sobot_goods_pic"
                     android:textColor="@color/sobot_goods_price_text_color"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     android:layout_toEndOf="@id/sobot_goods_pic" />
             </RelativeLayout>
         </LinearLayout>

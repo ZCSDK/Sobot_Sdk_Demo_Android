@@ -206,7 +206,7 @@ public class HtmlTools {
      * @param color   要显示的颜色
      */
     public void setRichText(TextView widget, String content, int color) {
-        if(TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             return;
         }
         //如果结尾是\n 去掉
@@ -340,6 +340,19 @@ public class HtmlTools {
             }
 
             widget.setText(style);
+        }
+    }
+
+    public static boolean isHasPatterns(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return false;
+        }
+
+        if (getWebUrl().matcher(url.toString()).matches()) {
+            return true;
+        } else {
+            LogUtils.i("URL 非法，请输入有效的URL链接:" + url);
+            return false;
         }
     }
 }

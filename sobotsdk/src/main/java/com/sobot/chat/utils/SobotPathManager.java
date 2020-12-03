@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.sobot.chat.api.apiUtils.SobotApp;
+import com.sobot.chat.application.MyApplication;
 
 import java.io.File;
 import java.security.MessageDigest;
@@ -23,7 +24,11 @@ public class SobotPathManager {
     private static final String CACHE_DIR = "cache";
 
     private SobotPathManager(Context context) {
-        mContext = context.getApplicationContext();
+        if (context != null) {
+            mContext = context.getApplicationContext();
+        }else{
+            mContext= MyApplication.getInstance().getLastActivity();
+        }
     }
 
     private static SobotPathManager instance;

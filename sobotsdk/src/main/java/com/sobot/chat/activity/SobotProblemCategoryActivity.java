@@ -57,7 +57,7 @@ public class SobotProblemCategoryActivity extends SobotBaseHelpCenterActivity im
 
     @Override
     protected void initView() {
-        showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), getResString("sobot_back"), true);
+        showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), "", true);
         mListView = (ListView) findViewById(getResId("sobot_listview"));
         mEmpty = (TextView) findViewById(getResId("sobot_tv_empty"));
         mEmpty.setText(ResourceUtils.getResString(SobotProblemCategoryActivity.this,"sobot_no_content"));

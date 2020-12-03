@@ -38,7 +38,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
@@ -331,20 +330,20 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (info == null) {
-            ToastUtil.showCustomToast(mAppContext, getResString("sobot_init_data_is_null"));
+            LogUtils.e("初始化参数不能为空");
             finish();
             return;
         }
 
         if (SobotVerControl.isPlatformVer) {
             if (TextUtils.isEmpty(info.getApp_key()) && TextUtils.isEmpty(info.getCustomer_code())) {
-                ToastUtil.showCustomToast(mAppContext, ResourceUtils.getResString(getContext(), "sobot_appkey_custom_code_eques"));
+                LogUtils.i("appkey或者customCode必须设置一项");
                 finish();
                 return;
             }
         } else {
             if (TextUtils.isEmpty(info.getApp_key())) {
-                ToastUtil.showCustomToast(mAppContext, getResString("sobot_appkey_is_null"), Toast.LENGTH_SHORT);
+                LogUtils.e("您的AppKey为空");
                 finish();
                 return;
             }
@@ -454,9 +453,8 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         chat_main = (RelativeLayout) rootView.findViewById(getResId("sobot_chat_main"));
         welcome = (FrameLayout) rootView.findViewById(getResId("sobot_welcome"));
         txt_loading = (TextView) rootView.findViewById(getResId("sobot_txt_loading"));
-        txt_loading.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_welcome"));
         textReConnect = (TextView) rootView.findViewById(getResId("sobot_textReConnect"));
-        textReConnect.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_current_network"));
+        textReConnect.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_network_unavailable"));
         loading_anim_view = (ProgressBar) rootView.findViewById(getResId("sobot_image_view"));
         image_reLoading = (ImageView) rootView.findViewById(getResId("sobot_image_reloading"));
         icon_nonet = (ImageView) rootView.findViewById(getResId("sobot_icon_nonet"));
@@ -480,7 +478,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             lv_message.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
         et_sendmessage = (ContainsEmojiEditText) rootView.findViewById(getResId("sobot_et_sendmessage"));
-        et_sendmessage.setHint(ResourceUtils.getResString(getSobotActivity(),"sobot_robot_question_hint"));
         et_sendmessage.setVisibility(View.VISIBLE);
         btn_send = (Button) rootView.findViewById(getResId("sobot_btn_send"));
         btn_send.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_button_send"));
@@ -1408,6 +1405,8 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         showOutlineTip(initModel, outLineType);
         //更改底部键盘
         setBottomView(ZhiChiConstant.bottomViewtype_outline);
+        //隐藏底部标签控件
+        sobot_custom_menu.setVisibility(View.GONE);
         mBottomViewtype = ZhiChiConstant.bottomViewtype_outline;
 
         if (Integer.parseInt(initModel.getType()) == ZhiChiConstant.type_custom_only) {
@@ -1447,7 +1446,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             if (1 == outLineType) {
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             } else if (2 == outLineType) {
-                offlineMsg = offlineMsg.replace(ResourceUtils.getResString(getContext(), "sobot_topic_cus_service"), currentUserName);
+                offlineMsg = offlineMsg.replace("#"+ResourceUtils.getResString(getContext(), "sobot_cus_service")+"#", currentUserName);
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             } else if (3 == outLineType) {
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
@@ -1619,7 +1618,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         showTimeVisiableCustomBtn++;
         if (showTimeVisiableCustomBtn >= info.getArtificialIntelligenceNum()) {
             btn_set_mode_rengong.setVisibility(View.VISIBLE);
-            et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_robot_question_hint"));
         }
     }
 
@@ -2181,7 +2179,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             }
 
             if (type == ZhiChiConstant.type_custom_only) {
-                showLogicTitle(getResString("sobot_in_line_title"), null, false);
+                showLogicTitle(getResString("sobot_in_line"), null, false);
                 setBottomView(ZhiChiConstant.bottomViewtype_onlycustomer_paidui);
                 mBottomViewtype = ZhiChiConstant.bottomViewtype_onlycustomer_paidui;
             } else {
@@ -2468,6 +2466,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             sobotCommentParam.setType("1");
             sobotCommentParam.setScore("5");
             sobotCommentParam.setCommentType(0);
+            sobotCommentParam.setProblem(sobotEvaluateModel.getProblem());
             sobotCommentParam.setIsresolve(sobotEvaluateModel.getIsResolved());
             zhiChiApi.comment(SobotChatFSFragment.this, initModel.getCid(), initModel.getPartnerid(), sobotCommentParam, new StringResultCallBack<CommonModel>() {
                 @Override
@@ -2604,7 +2603,12 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             btn_model_voice.setVisibility(View.GONE);
             btn_emoticon_view.setVisibility(View.GONE);
         }
-        sobot_tv_satisfaction.setVisibility(View.VISIBLE);
+        if(info.isHideMenuSatisfaction()){
+            sobot_tv_satisfaction.setVisibility(View.GONE);
+        }else{
+            sobot_tv_satisfaction.setVisibility(View.VISIBLE);
+        }
+
         sobot_txt_restart_talk.setVisibility(View.VISIBLE);
         sobot_tv_message.setVisibility(View.VISIBLE);
 
@@ -2623,7 +2627,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     }
                     btn_set_mode_rengong.setClickable(false);
                     btn_set_mode_rengong.setVisibility(View.GONE);
-                    et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_service_question_hint"));
                 }
                 btn_emoticon_view.setVisibility(View.GONE);
                 btn_upload_view.setVisibility(View.VISIBLE);
@@ -2635,14 +2638,11 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     //智能转人工只适用于机器人优先
                     if (showTimeVisiableCustomBtn >= info.getArtificialIntelligenceNum()) {
                         btn_set_mode_rengong.setVisibility(View.VISIBLE);
-                        et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_robot_question_hint"));
                     } else {
                         btn_set_mode_rengong.setVisibility(View.GONE);
-                        et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_service_question_hint"));
                     }
                 } else {
                     btn_set_mode_rengong.setVisibility(View.VISIBLE);
-                    et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_robot_question_hint"));
                 }
 
                 btn_set_mode_rengong.setClickable(true);
@@ -2669,7 +2669,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 hideRobotVoiceHint();
                 btn_model_edit.setVisibility(View.GONE);
                 btn_set_mode_rengong.setVisibility(View.GONE);
-                et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_service_question_hint"));
                 btn_upload_view.setVisibility(View.VISIBLE);
                 btn_send.setVisibility(View.GONE);
                 showEmotionBtn();
@@ -2707,7 +2706,11 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 hidePanelAndKeyboard(mPanelRoot);/*隐藏键盘*/
                 sobot_ll_bottom.setVisibility(View.GONE);
                 sobot_ll_restart_talk.setVisibility(View.VISIBLE);
-                sobot_tv_satisfaction.setVisibility(View.VISIBLE);
+                if(info.isHideMenuSatisfaction()){
+                    sobot_tv_satisfaction.setVisibility(View.GONE);
+                }else{
+                    sobot_tv_satisfaction.setVisibility(View.VISIBLE);
+                }
                 sobot_txt_restart_talk.setVisibility(View.VISIBLE);
                 btn_model_edit.setVisibility(View.GONE);
                 sobot_tv_message.setVisibility(initModel.getMsgFlag() == ZhiChiConstant.sobot_msg_flag_close ? View
@@ -2760,7 +2763,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         sobot_ll_bottom.setVisibility(View.VISIBLE);
 
         btn_set_mode_rengong.setVisibility(View.GONE);
-        et_sendmessage.setHint(ResourceUtils.getResString(getContext(), "sobot_service_question_hint"));
         btn_set_mode_rengong.setClickable(false);
 
         btn_upload_view.setVisibility(View.VISIBLE);
@@ -4238,6 +4240,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 if (requestCode == ZhiChiConstant.REQUEST_CODE_picture) { // 发送本地图片
                     if (data != null && data.getData() != null) {
                         Uri selectedImage = data.getData();
+                        if (selectedImage == null) {
+                            selectedImage = ImageUtils.getUri(data, getSobotActivity());
+                        }
                         String path = ImageUtils.getPath(getSobotActivity(), selectedImage);
                         if (MediaFileUtils.isVideoFileType(path)) {
                             MediaPlayer mp = new MediaPlayer();
@@ -4310,6 +4315,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             uploadFile(selectedFile, handler, lv_message, messageAdapter, false);
                         } else {
                             String tmpMsgId = String.valueOf(System.currentTimeMillis());
+                            if (selectedFileUri == null) {
+                                selectedFileUri = ImageUtils.getUri(data, getSobotActivity());
+                            }
                             String path = ImageUtils.getPath(getSobotActivity(), selectedFileUri);
                             if (TextUtils.isEmpty(path)) {
                                 ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_pic_type_error"));
@@ -4453,7 +4461,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         mic_image.setVisibility(View.GONE);
                         mic_image_animate.setVisibility(View.GONE);
                         recording_timeshort.setVisibility(View.GONE);
-                        txt_speak_content.setText(getResString("sobot_up_send_calcel"));
+                        txt_speak_content.setText(getResString("sobot_release_to_cancel"));
                         recording_hint.setText(getResString("sobot_release_to_cancel"));
                         recording_hint.setBackgroundResource(getResDrawableId("sobot_recording_text_hint_bg"));
                     } else {
@@ -4502,7 +4510,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             // 发送语音
                             if (currentVoiceLong < 1 * 1000) {
                                 voice_top_image.setVisibility(View.VISIBLE);
-                                recording_hint.setText(getResString("sobot_voice_can_not_be_less_than_one_second"));
+                                recording_hint.setText(getResString("sobot_voice_time_short"));
                                 recording_hint.setBackgroundResource(getResDrawableId("sobot_recording_text_hint_bg"));
                                 recording_timeshort.setVisibility(View.VISIBLE);
                                 voice_time_long.setVisibility(View.VISIBLE);
