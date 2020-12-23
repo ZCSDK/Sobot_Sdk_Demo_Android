@@ -231,7 +231,9 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     }
 
     public void addData(ZhiChiMessageBase message) {
-
+        if (message == null) {
+            return;
+        }
         if (message.getAction() != null && ZhiChiConstant.action_remind_connt_success.equals(message
                 .getAction())) {
             for (int i = 0; i < list.size(); i++) {
@@ -280,9 +282,11 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     }
 
     public void justAddData(ZhiChiMessageBase message) {
+        if (message == null) {
+            return;
+        }
         String lastCid = SharedPreferencesUtil.getStringData(context, "lastCid", "");
         setDefaultCid(lastCid, message);
-
         list.add(message);
     }
 
@@ -891,10 +895,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         String stringData = SharedPreferencesUtil.getStringData(context, "lastCid", "");
         tempModel.setTs(TextUtils.isEmpty(tempModel.getTs()) ? (DateUtil.getCurrentDateTime()) : tempModel.getTs());
         String time = "";
-        String dataTime = DateUtil.stringToFormatString(tempModel.getTs() + "", "yyyy-MM-dd",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
+        String dataTime = DateUtil.stringToFormatString(tempModel.getTs() + "", "yyyy-MM-dd", ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
         String nowTime = DateUtil.getCurrentDate();
         if (tempModel.getCid() != null && tempModel.getCid().equals(stringData) && nowTime.equals(dataTime)) {
-            time = DateUtil.formatDateTime(tempModel.getTs(), true, "",ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
+            time = DateUtil.formatDateTime(tempModel.getTs(), true, "", ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));
         } else {
             time = DateUtil.stringToFormatString(list.get(position).getTs() +
                     "", "MM-dd HH:mm", ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE));

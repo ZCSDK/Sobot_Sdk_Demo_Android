@@ -3,21 +3,20 @@
     android:id="@+id/sobot_template_item_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/sobot_oval_white_bg"
-    android:gravity="center">
+    android:background="@drawable/sobot_oval_white_bg">
 
 
     <TextView
         android:id="@+id/sobot_template_item_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="15dp"
+        android:layout_gravity="center"
         android:paddingRight="15dp"
         android:textColor="@color/sobot_template2_lable_text_color"
         android:textSize="14sp"

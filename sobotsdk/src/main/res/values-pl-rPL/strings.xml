@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">brak pozwolenia na aparat</string>
        <string name="sobot_internal_memory">pamięć wewnętrzna</string>
        <string name="sobot_connecting_customer_service">łączenie się  z obsługą klienta</string>
+       <string name="sobot_want_use_your">Chcesz odwiedzić swój</string>
+       <string name="sobot_memory_card">plik</string>
+       <string name="sobot_memory_card_yongtu">Możesz wysłać zdjęcia, filmy i pliki opisujące problem, gdy skonsultujesz się z obsługą klienta i zostawisz wiadomość</string>
+       <string name="sobot_camera">Aparat fotograficzny</string>
+       <string name="sobot_camera_yongtu">Możesz wysłać zdjęcia i filmy, aby uzyskać pomoc podczas konsultacji z obsługą klienta i pozostawienia wiadomości</string>
+       <string name="sobot_microphone">Mikrofon</string>
+       <string name="sobot_microphone_yongtu">Możesz używać głosu do szybkiej komunikacji podczas konsultacji z obsługą klienta i pozostawiania wiadomości</string>
 </resources>

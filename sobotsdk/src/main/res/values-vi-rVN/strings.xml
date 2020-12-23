@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Không có quyền chụp ảnh</string>
        <string name="sobot_internal_memory">Bộ nhớ trong</string>
        <string name="sobot_connecting_customer_service">Đang kết nối với dịch vụ khách hàng</string>
+       <string name="sobot_want_use_your">Muốn đến thăm của bạn</string>
+       <string name="sobot_memory_card">Tập tin</string>
+       <string name="sobot_memory_card_yongtu">Bạn có thể gửi hình ảnh, video và tệp để mô tả sự cố khi bạn tư vấn dịch vụ khách hàng và để lại tin nhắn</string>
+       <string name="sobot_camera">Máy ảnh</string>
+       <string name="sobot_camera_yongtu">Bạn có thể gửi ảnh và video để được trợ giúp khi tư vấn dịch vụ khách hàng và để lại lời nhắn</string>
+       <string name="sobot_microphone">Cái mic cờ rô</string>
+       <string name="sobot_microphone_yongtu">Bạn có thể sử dụng giọng nói để giao tiếp nhanh chóng khi tư vấn dịch vụ khách hàng và để lại tin nhắn</string>
 </resources>

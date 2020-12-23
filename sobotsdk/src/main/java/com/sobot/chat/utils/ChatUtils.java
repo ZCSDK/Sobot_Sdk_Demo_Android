@@ -663,15 +663,15 @@ public class ChatUtils {
      * @param isBackShowEvaluate 是否是返回时弹出评价窗  true 是 false 否
      */
     public static SobotEvaluateDialog showEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitCommit, ZhiChiInitModeBase
-            initModel, int current_model, int commentType, String customName, int scroe, int isSolve, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
+            initModel, int current_model, int commentType, String customName, int scroe, int isSolve, String checklables,boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
         if (initModel == null) {
             return null;
         }
         SobotEvaluateDialog dialog = null;
         if (ScreenUtils.isFullScreen(context)) {
-            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, isBackShowEvaluate, canBackWithNotEvaluation, ResourceUtils.getIdByName(context, "style", "sobot_FullScreenDialogStyle"));
+            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables,isBackShowEvaluate, canBackWithNotEvaluation, ResourceUtils.getIdByName(context, "style", "sobot_FullScreenDialogStyle"));
         } else {
-            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, isBackShowEvaluate, canBackWithNotEvaluation);
+            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables,isBackShowEvaluate, canBackWithNotEvaluation);
         }
 
         dialog.setCanceledOnTouchOutside(true);
@@ -846,6 +846,9 @@ public class ChatUtils {
      * @return
      */
     public static ZhiChiMessageBase getServiceHelloTip(String aname, String aface, String content) {
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        }
         ZhiChiMessageBase base = new ZhiChiMessageBase();
         base.setT(Calendar.getInstance().getTime().getTime() + "");
         base.setSenderName(TextUtils.isEmpty(aname) ? "" : aname);

@@ -14,8 +14,8 @@ android {
         applicationId "com.sobot.chat.tem"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 3
-        versionName "2.9.0"
+        versionCode 4
+        versionName "2.9.1"
 
         ndk {
             //设置支持的SO库架构

@@ -67,7 +67,6 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
 
     public CusEvaluateMessageHolder(Context context, View convertView) {
         super(context, convertView);
-        satisFactionList = new ArrayList<>();
         sobot_center_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_center_title"));
         sobot_readiogroup = (RadioGroup) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_readiogroup"));
@@ -118,6 +117,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         } else {
             sobot_ratingBar_title.setVisibility(View.GONE);
         }
+        sobot_submit.setVisibility(View.GONE);
         this.message = message;
         this.sobotEvaluateModel = message.getSobotEvaluateModel();
         if (satisFactionList == null || satisFactionList.size() == 0) {
@@ -128,6 +128,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
             zhiChiApi.satisfactionMessage(CusEvaluateMessageHolder.this, initMode.getPartnerid(), new ResultCallBack<SatisfactionSet>() {
                 @Override
                 public void onSuccess(SatisfactionSet satisfactionSet) {
+                    sobot_submit.setVisibility(View.VISIBLE);
                     if (satisfactionSet != null && "1".equals(satisfactionSet.getCode()) && satisfactionSet.getData() != null && satisfactionSet.getData().size() != 0) {
                         satisFactionList = satisfactionSet.getData();
                         int score = 5;
@@ -169,6 +170,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
 
                 @Override
                 public void onFailure(Exception e, String des) {
+                    sobot_submit.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -189,6 +191,12 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         sobot_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (satisFactionList != null && satisFactionList.size() == 5
+                        && satisFactionList.get(4).getIsInputMust()) {
+                    //校验5星评价建议是否必填写，如果是，弹出评价pop再去提交
+                    doEvaluate(false, 5);
+                    return;
+                }
                 //校验评5星评价标签是否必选
                 if (TextUtils.isEmpty(checkBoxIsChecked()) && satisFactionList != null && satisFactionList.size() == 5
                         && satisFactionList.get(4).getIsTagMust()
@@ -235,7 +243,9 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
 
             //未评价
             setNotEvaluatedLayout();
-            sobot_submit.setVisibility(View.VISIBLE);
+            if (satisFactionList != null) {
+                sobot_submit.setVisibility(View.VISIBLE);
+            }
         } else if (1 == sobotEvaluateModel.getEvaluateStatus()) {
             //已评价
             setEvaluatedLayout();

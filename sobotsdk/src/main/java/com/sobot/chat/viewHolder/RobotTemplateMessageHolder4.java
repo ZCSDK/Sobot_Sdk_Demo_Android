@@ -17,6 +17,7 @@ import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotBitmapUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 
 import java.util.List;
@@ -80,6 +81,13 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
                             sobot_template4_anchor.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    if (SobotOption.newHyperlinkListener != null) {
+                                        //如果返回true,拦截;false 不拦截
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(interfaceRet.get("anchor"));
+                                        if (isIntercept) {
+                                            return;
+                                        }
+                                    }
                                     Intent intent = new Intent(context, WebViewActivity.class);
                                     intent.putExtra("url", interfaceRet.get("anchor"));
                                     context.startActivity(intent);

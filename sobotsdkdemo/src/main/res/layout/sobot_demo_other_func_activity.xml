@@ -271,6 +271,48 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_7_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/sobot_text479"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="权限用途提示框"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sobot_text479"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="3"
+                    android:text="[说明:是否在申请权限前弹出权限用途提示框,默认不弹]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_7_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

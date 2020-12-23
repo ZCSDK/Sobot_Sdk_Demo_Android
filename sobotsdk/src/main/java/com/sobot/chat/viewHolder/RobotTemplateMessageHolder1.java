@@ -21,6 +21,7 @@ import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.SobotBitmapUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.horizontalgridpage.HorizontalGridPage;
 import com.sobot.chat.widget.horizontalgridpage.PageBuilder;
@@ -136,6 +137,13 @@ public class RobotTemplateMessageHolder1 extends MessageHolderBase {
                 }
 
                 if (mMultiDiaRespInfo.getEndFlag() && !TextUtils.isEmpty(mInterfaceRet.get("anchor"))) {
+                    if (SobotOption.newHyperlinkListener != null) {
+                        //如果返回true,拦截;false 不拦截
+                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mInterfaceRet.get("anchor"));
+                        if (isIntercept) {
+                            return;
+                        }
+                    }
                     Intent intent = new Intent(mContext, WebViewActivity.class);
                     intent.putExtra("url", mInterfaceRet.get("anchor"));
                     mContext.startActivity(intent);

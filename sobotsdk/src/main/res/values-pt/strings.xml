@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Sem acesso à câmara.</string>
        <string name="sobot_internal_memory">Transferir para o serviço de atendimento humano</string>
        <string name="sobot_connecting_customer_service">Conectando-se ao serviço de atendimento humano</string>
+       <string name="sobot_want_use_your">Quero visitar o seu</string>
+       <string name="sobot_memory_card">Arquivo</string>
+       <string name="sobot_memory_card_yongtu">Você pode enviar fotos, vídeos e arquivos para descrever o problema ao consultar o atendimento ao cliente e deixar uma mensagem</string>
+       <string name="sobot_camera">Câmera</string>
+       <string name="sobot_camera_yongtu">Você pode enviar fotos e vídeos para obter ajuda ao consultar o atendimento ao cliente e deixar uma mensagem</string>
+       <string name="sobot_microphone">Microfone</string>
+       <string name="sobot_microphone_yongtu">Você pode usar a voz para se comunicar rapidamente ao consultar o atendimento ao cliente e deixar mensagens</string>
 </resources>

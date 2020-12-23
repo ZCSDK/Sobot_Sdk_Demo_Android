@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Keine kameragestattung</string>
        <string name="sobot_internal_memory">Interne speicher</string>
        <string name="sobot_connecting_customer_service">Verbindung zum menschlichen kundenservice herstellen</string>
+       <string name="sobot_want_use_your">Willst du deine besuchen</string>
+       <string name="sobot_memory_card">Datei</string>
+       <string name="sobot_memory_card_yongtu">Sie können Bilder, Videos und Dateien senden, um das Problem zu beschreiben, wenn Sie den Kundendienst konsultieren und eine Nachricht hinterlassen</string>
+       <string name="sobot_camera">Kamera</string>
+       <string name="sobot_camera_yongtu">Sie können Fotos und Videos senden, um Hilfe zu erhalten, wenn Sie den Kundendienst konsultieren und eine Nachricht hinterlassen</string>
+       <string name="sobot_microphone">Mikrofon</string>
+       <string name="sobot_microphone_yongtu">Sie können Sprache verwenden, um schnell zu kommunizieren, wenn Sie den Kundendienst konsultieren und Nachrichten hinterlassen</string>
 </resources>

@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">카메라 권한이 없습니다</string>
        <string name="sobot_internal_memory">내부 저장</string>
        <string name="sobot_connecting_customer_service">GM 연결중</string>
+       <string name="sobot_want_use_your">방문하고 싶은</string>
+       <string name="sobot_memory_card">파일</string>
+       <string name="sobot_memory_card_yongtu">고객 서비스에 문의하고 메시지를 남길 때 문제를 설명하기 위해 사진, 비디오 및 파일을 보낼 수 있습니다.</string>
+       <string name="sobot_camera">카메라</string>
+       <string name="sobot_camera_yongtu">고객 서비스에 문의하고 메시지를 남길 때 도움이 필요한 사진과 동영상을 보낼 수 있습니다.</string>
+       <string name="sobot_microphone">마이크로폰</string>
+       <string name="sobot_microphone_yongtu">고객 서비스를 문의하고 메시지를 남길 때 음성을 사용하여 빠르게 의사 소통 할 수 있습니다.</string>
 </resources>

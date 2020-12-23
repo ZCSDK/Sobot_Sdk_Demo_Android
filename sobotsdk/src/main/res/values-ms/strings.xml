@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Tidak ada batas kekuasaan kamera</string>
        <string name="sobot_internal_memory">Simpanan dalaman</string>
        <string name="sobot_connecting_customer_service">Sedang menyambung kepada perkhidmat pelanggan manual</string>
+       <string name="sobot_want_use_your">Ingin melawat anda</string>
+       <string name="sobot_memory_card">Fail</string>
+       <string name="sobot_memory_card_yongtu">Anda boleh menghantar gambar, video dan fail untuk menerangkan masalah ketika anda berunding dengan perkhidmatan pelanggan dan meninggalkan pesanan</string>
+       <string name="sobot_camera">Kamera</string>
+       <string name="sobot_camera_yongtu">Anda boleh menghantar gambar dan video untuk mendapatkan bantuan ketika berunding dengan perkhidmatan pelanggan dan meninggalkan pesanan</string>
+       <string name="sobot_microphone">Mikrofon</string>
+       <string name="sobot_microphone_yongtu">Anda boleh menggunakan suara untuk berkomunikasi dengan cepat semasa berunding dengan perkhidmatan pelanggan dan meninggalkan mesej</string>
 </resources>

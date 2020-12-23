@@ -7,8 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -168,6 +170,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         , ChattingPanelUploadView.SobotPlusClickListener, SobotRobotListDialog.SobotRobotListListener {
 
     //---------------UI控件 START---------------
+    public LinearLayout sobot_header_center_ll;//头部中间部分
     public TextView mTitleTextView;//头部标题
     public SobotRCImageView mAvatarIV;//头像
     public TextView sobot_title_conn_status;
@@ -438,6 +441,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
 
         //loading 层
         relative = (RelativeLayout) rootView.findViewById(getResId("sobot_layout_titlebar"));
+        sobot_header_center_ll = (LinearLayout) rootView.findViewById(getResId("sobot_header_center_ll"));
         mTitleTextView = (TextView) rootView.findViewById(getResId("sobot_text_title"));
         mAvatarIV = rootView.findViewById(getResId("sobot_avatar_iv"));
         sobot_title_conn_status = (TextView) rootView.findViewById(getResId("sobot_title_conn_status"));
@@ -445,8 +449,8 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         sobot_tv_right_second = (TextView) rootView.findViewById(getResId("sobot_tv_right_second"));
         sobot_conn_loading = (ProgressBar) rootView.findViewById(getResId("sobot_conn_loading"));
         net_status_remide = (RelativeLayout) rootView.findViewById(getResId("sobot_net_status_remide"));
-        sobot_net_not_connect= (TextView) rootView.findViewById(getResId("sobot_net_not_connect"));
-        sobot_net_not_connect.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_network_unavailable"));
+        sobot_net_not_connect = (TextView) rootView.findViewById(getResId("sobot_net_not_connect"));
+        sobot_net_not_connect.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_network_unavailable"));
 
         relative.setVisibility(View.GONE);
         notReadInfo = (TextView) rootView.findViewById(getResId("notReadInfo"));
@@ -454,12 +458,12 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         welcome = (FrameLayout) rootView.findViewById(getResId("sobot_welcome"));
         txt_loading = (TextView) rootView.findViewById(getResId("sobot_txt_loading"));
         textReConnect = (TextView) rootView.findViewById(getResId("sobot_textReConnect"));
-        textReConnect.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_network_unavailable"));
+        textReConnect.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_network_unavailable"));
         loading_anim_view = (ProgressBar) rootView.findViewById(getResId("sobot_image_view"));
         image_reLoading = (ImageView) rootView.findViewById(getResId("sobot_image_reloading"));
         icon_nonet = (ImageView) rootView.findViewById(getResId("sobot_icon_nonet"));
         btn_reconnect = (Button) rootView.findViewById(getResId("sobot_btn_reconnect"));
-        btn_reconnect.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_reunicon"));
+        btn_reconnect.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_reunicon"));
         btn_reconnect.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -480,11 +484,11 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         et_sendmessage = (ContainsEmojiEditText) rootView.findViewById(getResId("sobot_et_sendmessage"));
         et_sendmessage.setVisibility(View.VISIBLE);
         btn_send = (Button) rootView.findViewById(getResId("sobot_btn_send"));
-        btn_send.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_button_send"));
+        btn_send.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_button_send"));
         btn_set_mode_rengong = (ImageButton) rootView.findViewById(getResId("sobot_btn_set_mode_rengong"));
         view_model_split = rootView.findViewById(getResId("sobot_view_model_split"));
         send_voice_robot_hint = (TextView) rootView.findViewById(getResId("send_voice_robot_hint"));
-        send_voice_robot_hint.setHint(ResourceUtils.getResString(getSobotActivity(),"sobot_robot_voice_hint"));
+        send_voice_robot_hint.setHint(ResourceUtils.getResString(getSobotActivity(), "sobot_robot_voice_hint"));
         send_voice_robot_hint.setVisibility(View.GONE);
         btn_upload_view = (Button) rootView.findViewById(getResId("sobot_btn_upload_view"));
         btn_emoticon_view = (ImageButton) rootView.findViewById(getResId("sobot_btn_emoticon_view"));
@@ -511,15 +515,15 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
 
         sobot_ll_restart_talk = (RelativeLayout) rootView.findViewById(getResId("sobot_ll_restart_talk"));
         sobot_txt_restart_talk = (TextView) rootView.findViewById(getResId("sobot_txt_restart_talk"));
-        sobot_txt_restart_talk.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_restart_talk"));
+        sobot_txt_restart_talk.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_restart_talk"));
         sobot_tv_message = (TextView) rootView.findViewById(getResId("sobot_tv_message"));
-        sobot_tv_message.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_str_bottom_message"));
+        sobot_tv_message.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_str_bottom_message"));
         sobot_tv_satisfaction = (TextView) rootView.findViewById(getResId("sobot_tv_satisfaction"));
-        sobot_tv_satisfaction.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_str_bottom_satisfaction"));
+        sobot_tv_satisfaction.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_str_bottom_satisfaction"));
         sobot_ll_bottom = (LinearLayout) rootView.findViewById(getResId("sobot_ll_bottom"));
         sobot_ll_switch_robot = (LinearLayout) rootView.findViewById(getResId("sobot_ll_switch_robot"));
-        sobot_tv_switch_robot= (TextView) rootView.findViewById(getResId("sobot_tv_switch_robot"));
-        sobot_tv_switch_robot.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_switch_business"));
+        sobot_tv_switch_robot = (TextView) rootView.findViewById(getResId("sobot_tv_switch_robot"));
+        sobot_tv_switch_robot.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_switch_business"));
 
         sobot_announcement = (RelativeLayout) rootView.findViewById(getResId("sobot_announcement"));
         sobot_announcement_right_icon = (TextView) rootView.findViewById(getResId("sobot_announcement_right_icon"));
@@ -776,7 +780,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         TextView sobot_tv_left = rootView.findViewById(getResId("sobot_tv_left"));
         TextView sobot_tv_right = rootView.findViewById(getResId("sobot_tv_right"));
         sobot_tv_close = rootView.findViewById(getResId("sobot_tv_close"));
-        sobot_tv_close.setText(ResourceUtils.getResString(getSobotActivity(),"sobot_colse"));
+        sobot_tv_close.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_colse"));
         if (toolBar != null) {
             if (sobot_tv_left != null) {
                 //找到 Toolbar 的返回按钮,并且设置点击事件,点击关闭这个 Activity
@@ -980,7 +984,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         sobot_tv_satisfaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                submitEvaluation(true, 5, 0);
+                submitEvaluation(true, 5, 0, "");
             }
         });
     }
@@ -1446,7 +1450,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             if (1 == outLineType) {
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             } else if (2 == outLineType) {
-                offlineMsg = offlineMsg.replace("#"+ResourceUtils.getResString(getContext(), "sobot_cus_service")+"#", currentUserName);
+                offlineMsg = offlineMsg.replace("#" + ResourceUtils.getResString(getContext(), "sobot_cus_service") + "#", currentUserName);
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             } else if (3 == outLineType) {
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
@@ -1457,7 +1461,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 base.setAction(ZhiChiConstant.action_remind_past_time);
             } else if (6 == outLineType) {
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
-            }else if (99 == outLineType) {
+            } else if (99 == outLineType) {
                 //留言转离线消息 成功后结束会话，添加提示语
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             }
@@ -2131,6 +2135,10 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             if (!TextUtils.isEmpty(adminNoneLineTitle)) {
                 reply.setMsg(adminNoneLineTitle);
             } else {
+                if (TextUtils.isEmpty(initModel.getAdminNonelineTitle())) {
+                    //如果提示语为空，直接返回，不然会显示错误数据
+                    return;
+                }
                 reply.setMsg(initModel.getAdminNonelineTitle());
             }
             reply.setRemindType(ZhiChiConstant.sobot_remind_type_customer_offline);
@@ -2489,7 +2497,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 }
             });
         } else {
-            submitEvaluation(false, sobotEvaluateModel.getScore(), sobotEvaluateModel.getIsResolved());
+            submitEvaluation(false, sobotEvaluateModel.getScore(), sobotEvaluateModel.getIsResolved(), sobotEvaluateModel.getProblem());
         }
 
     }
@@ -2603,9 +2611,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             btn_model_voice.setVisibility(View.GONE);
             btn_emoticon_view.setVisibility(View.GONE);
         }
-        if(info.isHideMenuSatisfaction()){
+        if (info.isHideMenuSatisfaction()) {
             sobot_tv_satisfaction.setVisibility(View.GONE);
-        }else{
+        } else {
             sobot_tv_satisfaction.setVisibility(View.VISIBLE);
         }
 
@@ -2706,9 +2714,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 hidePanelAndKeyboard(mPanelRoot);/*隐藏键盘*/
                 sobot_ll_bottom.setVisibility(View.GONE);
                 sobot_ll_restart_talk.setVisibility(View.VISIBLE);
-                if(info.isHideMenuSatisfaction()){
+                if (info.isHideMenuSatisfaction()) {
                     sobot_tv_satisfaction.setVisibility(View.GONE);
-                }else{
+                } else {
                     sobot_tv_satisfaction.setVisibility(View.VISIBLE);
                 }
                 sobot_txt_restart_talk.setVisibility(View.VISIBLE);
@@ -2767,9 +2775,8 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
 
         btn_upload_view.setVisibility(View.VISIBLE);
         btn_send.setVisibility(View.GONE);
-        //可以留言和评价
-        btn_upload_view.setClickable(true);
-        btn_upload_view.setEnabled(true);
+        btn_upload_view.setClickable(false);
+        btn_upload_view.setEnabled(false);
 
         showEmotionBtn();
         btn_emoticon_view.setClickable(false);
@@ -2778,13 +2785,14 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         showVoiceBtn();
         btn_model_voice.setClickable(false);
         btn_model_voice.setEnabled(false);
+        btn_model_voice.setVisibility(View.GONE);
 
 
         edittext_layout.setVisibility(View.GONE);
         btn_press_to_speak.setClickable(false);
         btn_press_to_speak.setEnabled(false);
         btn_press_to_speak.setVisibility(View.VISIBLE);
-        //txt_speak_content.setText(getResString("sobot_in_line"));
+        txt_speak_content.setText(getResString("sobot_in_line"));
         showLogicTitle(getResString("sobot_in_line"), null, false);
         if (sobot_ll_restart_talk.getVisibility() == View.VISIBLE) {
             sobot_ll_restart_talk.setVisibility(View.GONE);
@@ -2857,6 +2865,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     intent.putExtra("commentType", 1);
                     intent.putExtra("customName", currentUserName);
                     intent.putExtra("isSolve", 0);
+                    intent.putExtra("evaluateChecklables", "");
                     startActivity(intent);
                     return;
                 } else {
@@ -2894,6 +2903,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     intent.putExtra("commentType", 1);
                     intent.putExtra("customName", currentUserName);
                     intent.putExtra("isSolve", 0);
+                    intent.putExtra("evaluateChecklables", "");
                     startActivity(intent);
                     return;
                 } else {
@@ -2936,14 +2946,24 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      */
     private void showLogicTitle(String title, String avatarUrl, boolean ignoreLogic) {
         if (initModel != null) {
-            String str = ChatUtils.getLogicTitle(mAppContext, ignoreLogic, title, initModel.getCompanyName());
-            //是否显示标题,true 显示;false 隐藏,默认false
-            boolean isShowTitle = SharedPreferencesUtil.getBooleanData(getContext(), ZhiChiConstant.SOBOT_CHAT_TITLE_IS_SHOW, false);
-            setTitle(str, isShowTitle);
-            String avatarStr = ChatUtils.getLogicAvatar(mAppContext, ignoreLogic, avatarUrl, initModel.getCompanyLogo());
-            //是否显示头像,true 显示;false 隐藏,默认true
-            boolean isShowAvatar = SharedPreferencesUtil.getBooleanData(getContext(), ZhiChiConstant.SOBOT_CHAT_AVATAR_IS_SHOW, true);
-            setAvatar(avatarStr, isShowAvatar);
+            if (initModel != null) {
+                String avatarStr = ChatUtils.getLogicAvatar(mAppContext, ignoreLogic, avatarUrl, initModel.getCompanyLogo());
+                //是否显示头像,true 显示;false 隐藏,默认true
+                boolean isShowAvatar = SharedPreferencesUtil.getBooleanData(getContext(), ZhiChiConstant.SOBOT_CHAT_AVATAR_IS_SHOW, true);
+                if (TextUtils.isEmpty(avatarUrl)) {
+                    //如果头像为空，隐藏头像
+                    isShowAvatar = false;
+                }
+                setAvatar(avatarStr, isShowAvatar);
+                String str = ChatUtils.getLogicTitle(mAppContext, ignoreLogic, title, initModel.getCompanyName());
+                //是否显示标题,true 显示;false 隐藏,默认false
+                boolean isShowTitle = SharedPreferencesUtil.getBooleanData(getContext(), ZhiChiConstant.SOBOT_CHAT_TITLE_IS_SHOW, false);
+                if (TextUtils.isEmpty(avatarUrl)) {
+                    //如果头像为空，显示标题
+                    isShowTitle = true;
+                }
+                setTitle(str, isShowTitle);
+            }
         }
     }
 
@@ -3181,7 +3201,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     public void btnSatisfaction() {
         lv_message.setSelection(messageAdapter.getCount());
         //满意度逻辑 点击时首先判断是否评价过 评价过 弹您已完成提示 未评价 判断是否达到可评价标准
-        submitEvaluation(true, 5, 0);
+        submitEvaluation(true, 5, 0, "");
     }
 
     /**
@@ -3190,6 +3210,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      */
     @Override
     public void chooseFile() {
+        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1)) {
+            return;
+        }
         // 选择文件
         if (!checkStoragePermission()) {
             return;
@@ -3654,24 +3677,27 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     switch (connStatus) {
                         case Const.CONNTYPE_IN_CONNECTION:
                             sobot_container_conn_status.setVisibility(View.VISIBLE);
-                            sobot_title_conn_status.setText("");
-                            // mTitleTextView.setVisibility(View.GONE);
-                            //mAvatarIV.setVisibility(View.GONE);
+                            sobot_title_conn_status.setText(getResString("sobot_conntype_in_connection"));
+                            if (sobot_header_center_ll != null) {
+                                sobot_header_center_ll.setVisibility(View.GONE);
+                            }
                             sobot_conn_loading.setVisibility(View.VISIBLE);
                             break;
                         case Const.CONNTYPE_CONNECT_SUCCESS:
                             setShowNetRemind(false);
                             sobot_container_conn_status.setVisibility(View.GONE);
                             sobot_title_conn_status.setText("");
-                            //  mTitleTextView.setVisibility(View.VISIBLE);
-                            // mAvatarIV.setVisibility(View.VISIBLE);
+                            if (sobot_header_center_ll != null) {
+                                sobot_header_center_ll.setVisibility(View.VISIBLE);
+                            }
                             sobot_conn_loading.setVisibility(View.GONE);
                             break;
                         case Const.CONNTYPE_UNCONNECTED:
                             sobot_container_conn_status.setVisibility(View.VISIBLE);
-                            sobot_title_conn_status.setText("");
-                            //   mTitleTextView.setVisibility(View.GONE);
-                            // mAvatarIV.setVisibility(View.GONE);
+                            sobot_title_conn_status.setText(getResString("sobot_conntype_unconnected"));
+                            if (sobot_header_center_ll != null) {
+                                sobot_header_center_ll.setVisibility(View.GONE);
+                            }
                             sobot_conn_loading.setVisibility(View.GONE);
                             if (welcome.getVisibility() != View.VISIBLE) {
                                 setShowNetRemind(true);
@@ -3996,6 +4022,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     showAudioRecorder();
                 }
             };
+            if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2)) {
+                return;
+            }
             if (!checkStorageAndAudioPermission()) {
                 return;
             }
@@ -4156,7 +4185,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      * @param score    几颗星
      * @param isSolve  是否已解决 0 是已解决  1 未解决
      */
-    public void submitEvaluation(boolean isActive, int score, int isSolve) {
+    public void submitEvaluation(boolean isActive, int score, int isSolve, String checklables) {
         if (isComment) {
             hidePanelAndKeyboard(mPanelRoot);
             showHint(getResString("sobot_completed_the_evaluation"));
@@ -4179,6 +4208,11 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         intent.putExtra("commentType", isActive ? 1 : 0);
                         intent.putExtra("customName", currentUserName);
                         intent.putExtra("isSolve", isSolve);
+                        if (score == 5) {
+                            intent.putExtra("evaluateChecklables", checklables);
+                        } else {
+                            intent.putExtra("evaluateChecklables", "");
+                        }
                         startActivity(intent);
                     }
                 }
@@ -4257,8 +4291,14 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                                 //SobotDialogUtils.startProgressDialog(getSobotActivity());
                                 File videoFile = new File(path);
                                 if (videoFile.exists()) {
-                                    String snapshotPath = SobotCameraActivity.getSelectedImage(data);
-                                    uploadVideo(videoFile, selectedImage, path, messageAdapter);
+                                    MediaMetadataRetriever media = new MediaMetadataRetriever();
+                                    media.setDataSource(path);//path 本地视频的路径
+                                    Bitmap bitmap = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                                    String snapshotPath = "";
+                                    if (bitmap != null) {
+                                        snapshotPath = FileUtil.saveBitmap(100, bitmap);
+                                    }
+                                    uploadVideo(videoFile, selectedImage, snapshotPath, messageAdapter);
                                 }
 
                             } catch (IOException e) {
@@ -4573,7 +4613,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     if (isAboveZero && !isComment) {
                         // 退出时 之前没有评价过的话 才能 弹评价框
                         mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, false, initModel,
-                                current_client_model, 1, currentUserName, 5, 0, true, true);
+                                current_client_model, 1, currentUserName, 5, 0, "", true, true);
                         return;
                     }
                 }

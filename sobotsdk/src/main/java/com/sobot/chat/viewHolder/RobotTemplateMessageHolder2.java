@@ -23,6 +23,7 @@ import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.horizontalgridpage.HorizontalGridPage;
 import com.sobot.chat.widget.horizontalgridpage.PageBuilder;
@@ -70,7 +71,8 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
     }
 
     //初始化翻页控件布局 多少行 多少列
-    public void initView(int row, int column) {
+    //type =0 样式1 居中带有边框 ；type =1 样式2 居左带有索引
+    public void initView(int row, int column, final String type) {
         //只初始化一次，不然会重复创建
         if (pageBuilder != null) {
             return;
@@ -86,7 +88,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 .setSwipePercent(40)//设置翻页滑动距离百分比（1-100）
                 .setShowIndicator(false)//设置显示指示器
                 .setSpace(2)//设置间距
-                .setItemHeight(ScreenUtils.dip2px(mContext, 42))
+                .setItemHeight("0".equals(type) ? ScreenUtils.dip2px(mContext, 42) : ScreenUtils.dip2px(mContext, 30))
                 .build();
 
         adapter = new PageGridAdapter<>(new PageCallBack() {
@@ -102,6 +104,17 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 SobotLablesViewModel lablesViewModel = (SobotLablesViewModel) adapter.getData().get(position);
                 ((Template2ViewHolder) holder).sobotTitle.setText(lablesViewModel.getTitle());
                 SobotMultiDiaRespInfo multiDiaRespInfo = adapter.getZhiChiMessageBaseData().getAnswer().getMultiDiaRespInfo();
+                if ("1".equals(type)) {
+                    ((Template2ViewHolder) holder).sobotTemplateItemLL.setBackground(null);
+                    ((Template2ViewHolder) holder).sobotTitle.setText((position + 1) + "、 " + lablesViewModel.getTitle());
+                    ((Template2ViewHolder) holder).sobotTitle.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                    ((Template2ViewHolder) holder).sobotTitle.setPadding(0, 0, 0, 0);
+                    if (adapter.getZhiChiMessageBaseData().getSugguestionsFontColor() == 0) {
+                        ((Template2ViewHolder) holder).sobotTitle.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
+                    }else{
+                        ((Template2ViewHolder) holder).sobotTitle.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_common_gray1")));
+                    }
+                }
             }
 
             @Override
@@ -127,6 +140,13 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 SobotMultiDiaRespInfo multiDiaRespInfo = message.getAnswer().getMultiDiaRespInfo();
                 SobotLablesViewModel lablesViewModel = (SobotLablesViewModel) adapter.getData().get(position);
                 if (multiDiaRespInfo != null && multiDiaRespInfo.getEndFlag() && !TextUtils.isEmpty(lablesViewModel.getAnchor())) {
+                    if (SobotOption.newHyperlinkListener != null) {
+                        //如果返回true,拦截;false 不拦截
+                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(lablesViewModel.getAnchor());
+                        if (isIntercept) {
+                            return;
+                        }
+                    }
                     Intent intent = new Intent(mContext, WebViewActivity.class);
                     intent.putExtra("url", lablesViewModel.getAnchor());
                     mContext.startActivity(intent);
@@ -174,10 +194,10 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                         label.add(lablesViewModel);
                     }
                     if (label.size() >= 10) {
-                        initView(10, 1);
+                        initView(10, 1, "0");
                         ll_sobot_template2_item_page.setVisibility(View.VISIBLE);
                     } else {
-                        initView(label.size(), (int) Math.ceil(label.size() / 10.0f));
+                        initView(label.size(), (int) Math.ceil(label.size() / 10.0f), "0");
                         ll_sobot_template2_item_page.setVisibility(View.GONE);
                     }
                     adapter.setData(label);
@@ -190,10 +210,10 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                     }
                     // 显示更多
                     if (label.size() >= 10) {
-                        initView(10, 1);
+                        initView(10, 1, multiDiaRespInfo.getTemplate());
                         ll_sobot_template2_item_page.setVisibility(View.VISIBLE);
                     } else {
-                        initView(label.size(), (int) Math.ceil(label.size() / 10.0f));
+                        initView(label.size(), (int) Math.ceil(label.size() / 10.0f), multiDiaRespInfo.getTemplate());
                         ll_sobot_template2_item_page.setVisibility(View.GONE);
                     }
                     adapter.setData(label);

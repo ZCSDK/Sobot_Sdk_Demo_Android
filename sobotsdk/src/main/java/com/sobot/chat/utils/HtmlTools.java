@@ -187,8 +187,15 @@ public class HtmlTools {
      * @param color   要显示的颜色
      */
     public void setRichText(TextView widget, String content, int color, boolean showBottomLine) {
-        if (TextUtils.isEmpty(content))
+        if (TextUtils.isEmpty(content)) {
             return;
+        }
+        while (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(0, 5))) {
+            content = content.substring(5, content.length());
+        }
+        if (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
+            content = content.substring(0, content.length() - 5);
+        }
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
         widget.setFocusable(false);
         Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br />"), color);
@@ -209,7 +216,12 @@ public class HtmlTools {
         if (TextUtils.isEmpty(content)) {
             return;
         }
-        //如果结尾是\n 去掉
+        while (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(0, 5))) {
+            content = content.substring(5, content.length());
+        }
+        if (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
+            content = content.substring(0, content.length() - 5);
+        }
         if (!TextUtils.isEmpty(content) && content.length() > 0 && "\n".equals(content.substring(content.length() - 1, content.length()))) {
             for (int i = 0; i < content.length(); i++) {
                 int aa = content.lastIndexOf("\n");
@@ -219,11 +231,10 @@ public class HtmlTools {
                     break;
                 }
             }
-
         }
 
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br />"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("\\n", "\n").replace("\n", "<br />"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接

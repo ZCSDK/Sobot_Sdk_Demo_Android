@@ -31,9 +31,9 @@ import java.util.Map;
 public class SobotOtherFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
-    private RelativeLayout sobot_rl_4_7_6_1, sobot_rl_4_7_6_2, sobot_rl_4_7_8;
-    private ImageView sobotImage4761, sobotImage4762, sobotImage478;
-    private boolean status4761, status4762, status478;
+    private RelativeLayout sobot_rl_4_7_6_1, sobot_rl_4_7_6_2, sobot_rl_4_7_8, sobot_rl_4_7_9;
+    private ImageView sobotImage4761, sobotImage4762, sobotImage478, sobotImage479;
+    private boolean status4761, status4762, status478, status479;
     private TextView tv_other_fun_4_7_2, sobot_tv_save;
     private EditText sobot_et_scope_time;
     private EditText sobot_et_langue;
@@ -64,7 +64,7 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
         sobot_text_title.setText("其它配置");
         sobot_et_scope_time = findViewById(R.id.sobot_et_scope_time);
         sobot_et_langue = findViewById(R.id.sobot_et_langue);
-        sobot_et_server_langue= findViewById(R.id.sobot_et_server_langue);
+        sobot_et_server_langue = findViewById(R.id.sobot_et_server_langue);
 
         sobot_tv_save = findViewById(R.id.sobot_tv_save);
         sobot_tv_save.setVisibility(View.VISIBLE);
@@ -83,6 +83,10 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
         sobot_rl_4_7_8.setOnClickListener(this);
         sobotImage478 = (ImageView) findViewById(R.id.sobot_image_4_7_8);
 
+        sobot_rl_4_7_9 = (RelativeLayout) findViewById(R.id.sobot_rl_4_7_9);
+        sobot_rl_4_7_9.setOnClickListener(this);
+        sobotImage479 = (ImageView) findViewById(R.id.sobot_image_4_7_9);
+
 
         if (information != null) {
             status4761 = information.isHideRototEvaluationLabels();
@@ -91,8 +95,11 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
             setImageShowStatus(status4762, sobotImage4762);
             sobot_et_server_langue.setText(information.getLocale());
         }
-        status478 = ZCSobotApi.getSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE);
+        status478 = SobotSPUtil.getBooleanData(this, "auto_match_timezone", false);
         setImageShowStatus(status478, sobotImage478);
+
+        status479 = SobotSPUtil.getBooleanData(this, "show_permission_tips_pop", false);
+        setImageShowStatus(status479, sobotImage479);
 
         sobot_et_scope_time.setText(SharedPreferencesUtil.getLongData(getContext(), ZhiChiConstant.SOBOT_SCOPE_TIME, 0) + "");
         String sobot_custom_language_value = SobotSPUtil.getStringData(this, "custom_language_value", "");
@@ -128,6 +135,7 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
                     SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
                 }
                 ZCSobotApi.setSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE, status478);
+                SobotSPUtil.saveBooleanData(this, "auto_match_timezone", status478);
                 String scope_time = sobot_et_scope_time.getText().toString().trim();
                 SobotApi.setScope_time(getContext(), Integer.parseInt(scope_time));
                 ToastUtil.showToast(getContext(), "已保存");
@@ -139,6 +147,9 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
                     ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
                 }
                 SobotSPUtil.saveStringData(this, "custom_language_value", sobot_et_langue.getText().toString().trim());
+                //是否在申请权限前弹出权限用途提示框,默认不弹
+                ZCSobotApi.setSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP, status479);
+                SobotSPUtil.saveBooleanData(this, "show_permission_tips_pop", status479);
                 ZCSobotApi.outCurrentUserZCLibInfo(getContext());
                 finish();
                 break;
@@ -153,6 +164,10 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
             case R.id.sobot_rl_4_7_8:
                 status478 = !status478;
                 setImageShowStatus(status478, sobotImage478);
+                break;
+            case R.id.sobot_rl_4_7_9:
+                status479 = !status479;
+                setImageShowStatus(status479, sobotImage479);
                 break;
         }
 

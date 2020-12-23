@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Tidak ada izin kamera</string>
        <string name="sobot_internal_memory">Penyimpanan internal</string>
        <string name="sobot_connecting_customer_service">Menghubungkan ke layanan pelanggan manusia</string>
+       <string name="sobot_want_use_your">Ingin mengunjungi Anda</string>
+       <string name="sobot_memory_card">Mengajukan</string>
+       <string name="sobot_memory_card_yongtu">Anda dapat mengirim gambar, video dan file untuk menjelaskan masalah ketika Anda berkonsultasi dengan layanan pelanggan dan meninggalkan pesan</string>
+       <string name="sobot_camera">Kamera</string>
+       <string name="sobot_camera_yongtu">Anda dapat mengirim foto dan video untuk mendapatkan bantuan saat berkonsultasi dengan layanan pelanggan dan meninggalkan pesan</string>
+       <string name="sobot_microphone">Mikropon</string>
+       <string name="sobot_microphone_yongtu">Anda dapat menggunakan suara untuk berkomunikasi dengan cepat saat berkonsultasi dengan layanan pelanggan dan meninggalkan pesan</string>
 </resources>

@@ -322,7 +322,7 @@ public class ImageUtils {
         if (inContext.getContentResolver() != null && inImage != null) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "IMG"+ Calendar.getInstance().getTime(), null);
+            String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "IMG" + Calendar.getInstance().getTime(), null);
             if (path != null) {
                 return Uri.parse(path);
             }
@@ -398,10 +398,11 @@ public class ImageUtils {
 
     /**
      * 解决手机上获取图片路径为null的情况
+     *
      * @param intent
      * @return
      */
-    public static Uri getUri(android.content.Intent intent,Context context) {
+    public static Uri getUri(android.content.Intent intent, Context context) {
         Uri uri = intent.getData();
         String type = intent.getType();
         if (uri.getScheme().equals("file") && (type.contains("image/*"))) {
@@ -413,7 +414,7 @@ public class ImageUtils {
                 buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=")
                         .append("'" + path + "'").append(")");
                 Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        new String[] { MediaStore.Images.ImageColumns._ID },
+                        new String[]{MediaStore.Images.ImageColumns._ID},
                         buff.toString(), null, null);
                 int index = 0;
                 for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {

@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">ไม่มีสิทธิ์ใช้งานกล้อง</string>
        <string name="sobot_internal_memory">ที่เก็บข้อมูลภายใน</string>
        <string name="sobot_connecting_customer_service">กำลังเชื่อมต่อแอดมินบริการลูกค้า</string>
+       <string name="sobot_want_use_your">ต้องการเยี่ยมชมไฟล์</string>
+       <string name="sobot_memory_card">ไฟล์</string>
+       <string name="sobot_memory_card_yongtu">คุณสามารถส่งรูปภาพวิดีโอและไฟล์เพื่ออธิบายปัญหาเมื่อคุณปรึกษาฝ่ายบริการลูกค้าและฝากข้อความไว้</string>
+       <string name="sobot_camera">กล้อง</string>
+       <string name="sobot_camera_yongtu">คุณสามารถส่งรูปถ่ายและวิดีโอเพื่อขอความช่วยเหลือเมื่อปรึกษาฝ่ายบริการลูกค้าและฝากข้อความไว้</string>
+       <string name="sobot_microphone">ไมโครโฟน</string>
+       <string name="sobot_microphone_yongtu">คุณสามารถใช้เสียงเพื่อสื่อสารได้อย่างรวดเร็วเมื่อปรึกษาฝ่ายบริการลูกค้าและฝากข้อความ</string>
 </resources>

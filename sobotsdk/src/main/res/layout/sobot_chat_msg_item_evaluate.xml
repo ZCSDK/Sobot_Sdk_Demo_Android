@@ -256,6 +256,7 @@
                     android:background="@drawable/sobot_evaluate_commit_selector"
                     android:gravity="center"
                     android:padding="8dp"
+                    android:visibility="gone"
                     android:textColor="@color/sobot_common_white"
                     android:textSize="14sp"
                     android:layout_marginStart="60dp"

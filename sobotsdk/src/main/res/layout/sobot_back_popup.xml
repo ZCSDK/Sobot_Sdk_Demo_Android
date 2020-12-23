@@ -26,7 +26,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.1dip"
+            android:layout_height="0.5dip"
             android:background="@color/sobot_line_1dp" />
 
         <LinearLayout
@@ -46,7 +46,7 @@
                 android:textSize="15sp" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:background="@color/sobot_line_1dp" />
 

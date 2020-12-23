@@ -89,6 +89,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
     private TextView sobot_tv_evaluate_title_hint;//评价  提交后结束评价
     private RatingBar sobot_ratingBar;//评价  打分
 
+    private String evaluateChecklables;//主动邀请评价选中的标签
     private LinearLayout sobot_evaluate_ll_lable1;//评价  用来放前两个标签，标签最多可以有六个
     private LinearLayout sobot_evaluate_ll_lable2;//评价  用来放中间两个标签
     private LinearLayout sobot_evaluate_ll_lable3;//评价  用来放最后两个标签
@@ -118,7 +119,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         this.customName = customName;
     }
 
-    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
+    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
         super(context);
         this.context = context;
         this.score = score;
@@ -130,11 +131,12 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         this.commentType = commentType;
         this.customName = customName;
         this.isSolve = isSolve;
+        this.evaluateChecklables = checklables;
         this.isBackShowEvaluate = isBackShowEvaluate;
         this.canBackWithNotEvaluation = canBackWithNotEvaluation;
     }
 
-    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation, @StyleRes int themeResId) {
+    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation, @StyleRes int themeResId) {
         super(context, themeResId);
         this.context = context;
         this.score = score;
@@ -146,6 +148,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         this.commentType = commentType;
         this.customName = customName;
         this.isSolve = isSolve;
+        this.evaluateChecklables = checklables;
         this.isBackShowEvaluate = isBackShowEvaluate;
         this.canBackWithNotEvaluation = canBackWithNotEvaluation;
     }
@@ -497,7 +500,6 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 }
             }
         }
-
         switch (tmpData.length) {
             case 1:
                 sobot_evaluate_cb_lable1.setText(tmpData[0]);
@@ -506,6 +508,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
                 sobot_evaluate_ll_lable2.setVisibility(View.GONE);
                 sobot_evaluate_ll_lable3.setVisibility(View.GONE);
+                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
                 break;
             case 2:
                 sobot_evaluate_cb_lable1.setText(tmpData[0]);
@@ -515,6 +518,8 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
                 sobot_evaluate_ll_lable2.setVisibility(View.GONE);
                 sobot_evaluate_ll_lable3.setVisibility(View.GONE);
+                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
+                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
                 break;
             case 3:
                 sobot_evaluate_cb_lable1.setText(tmpData[0]);
@@ -527,6 +532,9 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 sobot_evaluate_cb_lable4.setVisibility(View.INVISIBLE);
                 sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
                 sobot_evaluate_ll_lable3.setVisibility(View.GONE);
+                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
+                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
+                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
                 break;
             case 4:
                 sobot_evaluate_cb_lable1.setText(tmpData[0]);
@@ -540,6 +548,10 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
                 sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
                 sobot_evaluate_ll_lable3.setVisibility(View.GONE);
+                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
+                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
+                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
+                checkLable(tmpData, 3, sobot_evaluate_cb_lable4);
                 break;
             case 5:
                 sobot_evaluate_cb_lable1.setText(tmpData[0]);
@@ -556,6 +568,11 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 sobot_evaluate_cb_lable5.setVisibility(View.VISIBLE);
                 sobot_evaluate_cb_lable6.setVisibility(View.INVISIBLE);
                 sobot_evaluate_ll_lable3.setVisibility(View.VISIBLE);
+                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
+                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
+                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
+                checkLable(tmpData, 3, sobot_evaluate_cb_lable4);
+                checkLable(tmpData, 4, sobot_evaluate_cb_lable5);
                 break;
             case 6:
                 sobot_evaluate_cb_lable1.setText(tmpData[0]);
@@ -573,9 +590,26 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 sobot_evaluate_cb_lable6.setText(tmpData[5]);
                 sobot_evaluate_cb_lable6.setVisibility(View.VISIBLE);
                 sobot_evaluate_ll_lable3.setVisibility(View.VISIBLE);
+                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
+                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
+                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
+                checkLable(tmpData, 3, sobot_evaluate_cb_lable4);
+                checkLable(tmpData, 4, sobot_evaluate_cb_lable5);
+                checkLable(tmpData, 5, sobot_evaluate_cb_lable6);
                 break;
             default:
                 break;
+        }
+    }
+
+    //检查标签是否选中（根据主动邀评传过来的选中标签判断）
+    private void checkLable(String tmpData[], int pos, CheckBox cb) {
+        if (tmpData != null && tmpData.length > 0 && !TextUtils.isEmpty(evaluateChecklables) && cb != null) {
+            if (evaluateChecklables.contains(tmpData[pos])) {
+                cb.setChecked(true);
+            } else {
+                cb.setChecked(false);
+            }
         }
     }
 

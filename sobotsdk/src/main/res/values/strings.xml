@@ -225,8 +225,17 @@
     <string name="sobot_do_you_delete_video">要删除这个视频吗?</string>
     <string name="sobot_outline_leavemsg">您的留言已经提交成功，此会话已结束，如需继续咨询可点击下方 重建会话 按钮。</string>
 
-    <!-- 2.8.9 新增-->
+    <!-- 2.9.0 新增-->
     <string name="sobot_previous_page">上一页</string>
     <string name="sobot_last_page">下一页</string>
+
+    <!-- 2.9.1 新增-->
+    <string name="sobot_want_use_your">想访问您的</string>
+    <string name="sobot_memory_card">文件</string>
+    <string name="sobot_memory_card_yongtu">您可以在咨询客服和留言时，发送图片、视频、文件描述问题</string>
+    <string name="sobot_camera">相机</string>
+    <string name="sobot_camera_yongtu">您可以在咨询客服和留言时，发送拍摄的照片和视频获取帮助</string>
+    <string name="sobot_microphone">麦克风</string>
+    <string name="sobot_microphone_yongtu">您可以在咨询客服和留言时，使用语音快速沟通</string>
 
 </resources>

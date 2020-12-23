@@ -30,6 +30,7 @@ import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SobotBitmapUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -67,7 +68,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     public RichTextMessageHolder(Context context, View convertView) {
         super(context, convertView);
         //102=左间距12+内间距30+右间距60
-        msgMaxWidth=ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         msg = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msg"));
         sobot_rich_ll = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_rich_ll"));
         sobot_msgStripe = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msgStripe"));
@@ -493,6 +494,13 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                             textView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    if (SobotOption.newHyperlinkListener != null) {
+                                        //如果返回true,拦截;false 不拦截
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(richListModel.getMsg());
+                                        if (isIntercept) {
+                                            return;
+                                        }
+                                    }
                                     Intent intent = new Intent(context, WebViewActivity.class);
                                     intent.putExtra("url", richListModel.getMsg());
                                     context.startActivity(intent);
@@ -500,8 +508,8 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                             });
                             textView.setText(richListModel.getName());
                         } else {
-                            textView.setText(richListModel.getMsg());
                             textView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_left_msg_text_color")));
+                            HtmlTools.getInstance(mContext).setRichText(textView, richListModel.getMsg(), getLinkTextColor());
                         }
                         sobot_rich_ll.addView(textView);
                     } else if (richListModel.getType() == 1 && HtmlTools.isHasPatterns(richListModel.getMsg())) {

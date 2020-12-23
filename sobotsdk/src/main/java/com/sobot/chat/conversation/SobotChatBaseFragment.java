@@ -359,6 +359,10 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 if (!TextUtils.isEmpty(adminTipWord)) {
                     reply.setMsg(adminTipWord);
                 } else {
+                    if (TextUtils.isEmpty(initModel.getAdminTipWord())) {
+                        //如果客服超时提示语为空，直接返回，不然会显示错误数据
+                        return;
+                    }
                     String msgHint = initModel.getAdminTipWord().replace("\n", "<br/>");
                     if (msgHint.startsWith("<br/>")) {
                         msgHint = msgHint.substring(5, msgHint.length());
@@ -410,6 +414,10 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     if (!TextUtils.isEmpty(userTipWord)) {
                         reply.setMsg(userTipWord);
                     } else {
+                        if (TextUtils.isEmpty(initModel.getUserTipWord())) {
+                            //如果客户超时提示语为空，直接返回，不然会显示错误数据
+                            return;
+                        }
                         String msgHint = initModel.getUserTipWord().replace("\n", "<br/>");
                         if (msgHint.startsWith("<br/>")) {
                             msgHint = msgHint.substring(5, msgHint.length());
@@ -814,8 +822,8 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_pic_type_error"));
             return;
         }
-        zhiChiApi.addUploadFileTask(true, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), filePath, filePath);
-        updateUiMessage(messageAdapter, ChatUtils.getUploadVideoModel(getContext(), tmpMsgId, videoFile, filePath));
+        zhiChiApi.addUploadFileTask(true, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), filePath, snapshotPath);
+        updateUiMessage(messageAdapter, ChatUtils.getUploadVideoModel(getContext(), tmpMsgId, videoFile, snapshotPath));
         isAboveZero = true;
     }
 
@@ -1109,14 +1117,14 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     public void onSensorChanged(SensorEvent event) {
         /* 获取当前手机品牌 过滤掉小米手机 */
         try {
-            String phoneName = android.os.Build.MODEL.substring(0, 2);
-            // LogUtils.i("当前手机品牌是" + phoneName + phoneName.length());
+            String phoneName = android.os.Build.MODEL.toLowerCase();
+//            LogUtils.i("当前手机品牌是" + phoneName);
             // 模式的转化
             // 当前传感器距离
             float f_proximiny = event.values[0];
             // LogUtils.i("监听模式的转换：" + f_proximiny + " 听筒的模式："
             // + mProximiny.getMaximumRange());
-            if (!phoneName.trim().equals("MI") || !phoneName.trim().equals("Re")) {
+            if (!phoneName.contains("mi")) {
                 if (f_proximiny != 0.0) {
                     audioManager.setSpeakerphoneOn(true);// 打开扬声器
                     audioManager.setMode(AudioManager.MODE_NORMAL);
@@ -1239,6 +1247,10 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     if (!TextUtils.isEmpty(robotHolloWord)) {
                         reply.setMsg(robotHolloWord);
                     } else {
+                        if (TextUtils.isEmpty(initModel.getRobotHelloWord())) {
+                            //如果提示语为空，直接返回，不然会显示错误数据
+                            return;
+                        }
                         String msgHint = initModel.getRobotHelloWord().replace("\n", "<br/>");
                         if (msgHint.startsWith("<br/>")) {
                             msgHint = msgHint.substring(5, msgHint.length());

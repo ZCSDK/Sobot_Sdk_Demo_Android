@@ -28,6 +28,11 @@ public class MarkConfig {
     public static final int AUTO_MATCH_TIMEZONE = 0b1000;
 
     /**
+     * 是否在申请权限前弹出权限用途提示框,默认不弹
+     */
+    public static final int SHOW_PERMISSION_TIPS_POP = 0b10000;
+
+    /**
      * 获取开关位
      *
      * @param mark 开关名

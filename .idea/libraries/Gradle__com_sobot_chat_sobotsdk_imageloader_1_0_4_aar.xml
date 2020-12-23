@@ -8,6 +8,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/be3f75d877aeacd179fc71b39a23cb54/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/be3f75d877aeacd179fc71b39a23cb54/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/be3f75d877aeacd179fc71b39a23cb54/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e4c1c528f7c4e32e186277e2a4aea3c0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e4c1c528f7c4e32e186277e2a4aea3c0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e4c1c528f7c4e32e186277e2a4aea3c0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsdk-imageloader/1.0.4/1df3491f8fdae55c8e3a78a41258a9e416792bb/sobotsdk-imageloader-1.0.4-javadoc.jar!/" />

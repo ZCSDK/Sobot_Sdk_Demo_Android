@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Kamera izni yok</string>
        <string name="sobot_internal_memory">Iç depolama</string>
        <string name="sobot_connecting_customer_service">Müşteri hizmetlerine bağlanıyor</string>
+       <string name="sobot_want_use_your">Ziyaret etmek istiyorum</string>
+       <string name="sobot_memory_card">Dosya</string>
+       <string name="sobot_memory_card_yongtu">Müşteri hizmetlerine danıştığınızda ve mesaj bıraktığınızda sorunu açıklamak için resimler, videolar ve dosyalar gönderebilirsiniz.</string>
+       <string name="sobot_camera">Kamera</string>
+       <string name="sobot_camera_yongtu">Müşteri hizmetlerine danışırken ve mesaj bırakırken yardım için fotoğraf ve video gönderebilirsiniz.</string>
+       <string name="sobot_microphone">Mikrofon</string>
+       <string name="sobot_microphone_yongtu">Müşteri hizmetlerine danışırken ve mesaj bırakırken hızlı iletişim kurmak için sesi kullanabilirsiniz</string>
 </resources>

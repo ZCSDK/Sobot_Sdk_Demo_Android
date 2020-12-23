@@ -97,7 +97,6 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
             if (!information.isHideMenuSatisfaction()) {
                 robotList.add(satisfactionEntity);
             }
-            robotList.add(picEntity);
 
             //人工模式下
             if (!information.isHideMenuPicture()) {

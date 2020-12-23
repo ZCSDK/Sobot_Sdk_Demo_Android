@@ -3,7 +3,9 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -92,9 +94,9 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
         status4622 = SharedPreferencesUtil.getBooleanData(getContext(), ZhiChiConstant.SOBOT_CHAT_AVATAR_IS_SHOW,
                 true);
         setImageShowStatus(status4622, sobotImage4622);
-        status463 = ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN);
+        status463 = SobotSPUtil.getBooleanData(this, "landscape_screen", false);
         setImageShowStatus(status463, sobotImage463);
-        status464 = ZCSobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH);
+        status464 = SobotSPUtil.getBooleanData(this, "display_innotch", false);
         setImageShowStatus(status464, sobotImage464);
 
         tv_customui_fun_4_6_2 = findViewById(R.id.tv_customui_fun_4_6_2);
@@ -145,9 +147,11 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
                     }
                     //true 横屏 , false 竖屏; 默认 false 竖屏
                     ZCSobotApi.setSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN, status463);
+                    SobotSPUtil.saveBooleanData(this, "landscape_screen", status463);
                     //只有在横屏下才有用;竖屏已适配，可修改状态栏颜色
                     //true 打开 ,false 关闭; 默认 false 关闭
                     ZCSobotApi.setSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH, status464);
+                    SobotSPUtil.saveBooleanData(this, "display_innotch", status464);
                 }
                 ToastUtil.showToast(getContext(), "已保存");
                 finish();

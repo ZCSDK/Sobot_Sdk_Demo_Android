@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Aucune autorisation de caméra</string>
        <string name="sobot_internal_memory">Stockage interne</string>
        <string name="sobot_connecting_customer_service">Connexion au service client humain</string>
+       <string name="sobot_want_use_your">Envie de visiter votre</string>
+       <string name="sobot_memory_card">Fichier</string>
+       <string name="sobot_memory_card_yongtu">Vous pouvez envoyer des photos, des vidéos et des fichiers pour décrire le problème lorsque vous consultez le service client et laissez un message</string>
+       <string name="sobot_camera">Caméra</string>
+       <string name="sobot_camera_yongtu">Vous pouvez envoyer des photos et des vidéos pour obtenir de l\'aide lorsque vous consultez le service client et laissez un message</string>
+       <string name="sobot_microphone">Microphone</string>
+       <string name="sobot_microphone_yongtu">Vous pouvez utiliser la voix pour communiquer rapidement lorsque vous consultez le service client et laissez des messages</string>
 </resources>

@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">Nessun accesso alle telecamere</string>
        <string name="sobot_internal_memory">Stoccaggio interno</string>
        <string name="sobot_connecting_customer_service">Connessione al servizio clienti umano ora</string>
+       <string name="sobot_want_use_your">Voglio visitare il tuo</string>
+       <string name="sobot_memory_card">File</string>
+       <string name="sobot_memory_card_yongtu">È possibile inviare immagini, video e file per descrivere il problema quando si consulta il servizio clienti e si lascia un messaggio</string>
+       <string name="sobot_camera">Telecamera</string>
+       <string name="sobot_camera_yongtu">Puoi inviare foto e video per chiedere aiuto quando consulti il ​​servizio clienti e lasci un messaggio</string>
+       <string name="sobot_microphone">Microfono</string>
+       <string name="sobot_microphone_yongtu">Puoi utilizzare la voce per comunicare rapidamente quando consulti il ​​servizio clienti e lasci messaggi</string>
 </resources>

@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">沒有相機權限</string>
        <string name="sobot_internal_memory">內部存儲</string>
        <string name="sobot_connecting_customer_service">正在連接人工客服</string>
+       <string name="sobot_want_use_your">想訪問您的</string>
+       <string name="sobot_memory_card">文件</string>
+       <string name="sobot_memory_card_yongtu">您可以在諮詢客服和留言時，發送圖片、視頻、文件描述問題</string>
+       <string name="sobot_camera">相機</string>
+       <string name="sobot_camera_yongtu">您可以在諮詢客服和留言時，發送拍攝的照片和視頻獲取幫助</string>
+       <string name="sobot_microphone">麥克風</string>
+       <string name="sobot_microphone_yongtu">您可以在諮詢客服和留言時，使用語音快速溝通</string>
 </resources>

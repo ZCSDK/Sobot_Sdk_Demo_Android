@@ -205,4 +205,11 @@
        <string name="sobot_no_camera_permission">لا يوجد إذن كميرا</string>
        <string name="sobot_internal_memory">الذاكرة الداخلية</string>
        <string name="sobot_connecting_customer_service">جارٍ الاتصال</string>
+       <string name="sobot_want_use_your">تريد زيارة الخاص بك</string>
+       <string name="sobot_memory_card">ملف</string>
+       <string name="sobot_memory_card_yongtu">يمكنك إرسال الصور ومقاطع الفيديو والملفات لوصف المشكلة عند استشارة خدمة العملاء وترك رسالة</string>
+       <string name="sobot_camera">الة تصوير</string>
+       <string name="sobot_camera_yongtu">يمكنك إرسال الصور ومقاطع الفيديو للمساعدة عند استشارة خدمة العملاء وترك رسالة</string>
+       <string name="sobot_microphone">ميكروفون</string>
+       <string name="sobot_microphone_yongtu">يمكنك استخدام الصوت للتواصل بسرعة عند استشارة خدمة العملاء وترك الرسائل</string>
 </resources>

@@ -3,7 +3,9 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -81,7 +83,7 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
                     e.printStackTrace();
                 }
             }
-            status435 = ZCSobotApi.getSwitchMarkStatus(MarkConfig.LEAVE_COMPLETE_CAN_REPLY);
+            status435 = SobotSPUtil.getBooleanData(this, "leave_complete_can_reply", false);
             setImageShowStatus(status435, sobotImage435);
             status437 = information.isShowLeaveDetailBackEvaluate();
             setImageShowStatus(status437, sobotImage437);
@@ -127,6 +129,7 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
                     information.setLeaveMsgGroupId(leaveMsgGroupId);
                     //已完成状态的留言，是否可持续回复 true 持续回复 ，false 不可继续回复 ；默认 true 用户可一直持续回复
                     ZCSobotApi.setSwitchMarkStatus(MarkConfig.LEAVE_COMPLETE_CAN_REPLY, status435);
+                    SobotSPUtil.saveBooleanData(this, "leave_complete_can_reply", status435);
                     //添加留言评价主动提醒开关
                     information.setShowLeaveDetailBackEvaluate(status437);
 
