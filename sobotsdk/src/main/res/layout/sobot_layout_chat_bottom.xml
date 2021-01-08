@@ -130,7 +130,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/sobot_chatting_bottom_bg_blur"
-            android:gravity="bottom"
             android:orientation="horizontal">
 
             <!-- 自定义的editText -->

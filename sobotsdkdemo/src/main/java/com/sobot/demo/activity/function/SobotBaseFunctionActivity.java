@@ -61,7 +61,9 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
         }
 
         if (otherModel != null) {
-            sobot_et_yuming.setText(otherModel.getApi_host());
+            if (!TextUtils.isEmpty(otherModel.getApi_host())) {
+                sobot_et_yuming.setText(otherModel.getApi_host());
+            }
             sobot_et_pingtaibiaoshi.setText(otherModel.getPlatformUnionCode());
             sobot_et_pingtaimiyao.setText(otherModel.getPlatformSecretkey());
         }
@@ -105,17 +107,18 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
             }
             if (otherModel != null) {
                 String oldYUming = otherModel.getApi_host();
-                if (!TextUtils.isEmpty(yuming) && !yuming.equals(oldYUming)) {
-                    otherModel.setApi_host(yuming);
+                if (!TextUtils.isEmpty(yuming)) {
+                    if (!yuming.equals(oldYUming)) {
+                        otherModel.setApi_host(yuming);
+                        SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
                 } else {
                     otherModel.setApi_host("https://api.sobot.com");
                 }
                 otherModel.setPlatformSecretkey(sobot_et_pingtaimiyao.getText().toString().trim());
                 otherModel.setPlatformUnionCode(sobot_et_pingtaibiaoshi.getText().toString().trim());
                 SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
-                if (!TextUtils.isEmpty(oldYUming) && !oldYUming.equals(yuming)) {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
             }
             ToastUtil.showToast(getContext(), "已保存");
             finish();

@@ -11,6 +11,7 @@ import com.sobot.chat.api.model.SobotKeyWordTransfer;
 import com.sobot.chat.api.model.ZhiChiGroupBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.ChatUtils;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 
@@ -34,7 +35,7 @@ public class RobotKeyWordMessageHolder extends MessageHolderBase {
             if (sobotKeyWordTransfer != null) {
                 if (sobotKeyWordTransfer.getTipsMessage() != null) {
                     applyTextViewUIConfig(tv_title);
-                    tv_title.setText(sobotKeyWordTransfer.getTipsMessage());
+                    HtmlTools.getInstance(context).setRichText(tv_title, sobotKeyWordTransfer.getTipsMessage(), isRight ? getLinkTextColor() : getLinkTextColor());
                 }
 
                 List<ZhiChiGroupBase> groupList = sobotKeyWordTransfer.getGroupList();

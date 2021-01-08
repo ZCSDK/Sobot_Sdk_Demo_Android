@@ -289,6 +289,12 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     //留言处理
     private StPostMsgPresenter mPostMsgPresenter;
 
+    //2.9.2添加 初始化时如果有离线消息直接转对应的客服
+    private int offlineMsgConnectFlag;
+    private String offlineMsgAdminId;
+    //命中后端关键词转人工，机器人接口返回的
+    ZhiChiMessageBase keyWordMessageBase;
+
     public static SobotChatFragment newInstance(Bundle info) {
         Bundle arguments = new Bundle();
         arguments.putBundle(ZhiChiConstant.SOBOT_BUNDLE_INFORMATION, info);
@@ -594,21 +600,28 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                         // 多轮会话结束时禁用所有多轮会话可点击选项
                         restMultiMsg();
                     }
-
                     messageAdapter.justAddData(zhiChiMessageBasebase);
                     SobotKeyWordTransfer keyWordTransfer = zhiChiMessageBasebase.getSobotKeyWordTransfer();
                     if (keyWordTransfer != null) {
                         //关键词转人工
                         if (type != ZhiChiConstant.type_robot_only) {
-                            if (1 == keyWordTransfer.getTransferFlag() || 3 == keyWordTransfer.getTransferFlag()) {
+                            if (1 == keyWordTransfer.getTransferFlag()) {
+//                                if (!keyWordTransfer.isQueueFlag()) {
+//                                    keyWordMessageBase = zhiChiMessageBasebase;
+//                                }
+                                //转给指定的技能组
                                 transfer2Custom(keyWordTransfer.getGroupId(), keyWordTransfer.getKeyword(), keyWordTransfer.getKeywordId(), keyWordTransfer.isQueueFlag());
                             } else if (2 == keyWordTransfer.getTransferFlag()) {
+                                //转给多个技能组（一个消息cell），用户可以选择
                                 ZhiChiMessageBase keyWordBase = new ZhiChiMessageBase();
                                 keyWordBase.setSenderFace(zhiChiMessageBasebase.getSenderFace());
                                 keyWordBase.setSenderType(ZhiChiConstant.message_sender_type_robot_keyword_msg + "");
                                 keyWordBase.setSenderName(zhiChiMessageBasebase.getSenderName());
                                 keyWordBase.setSobotKeyWordTransfer(keyWordTransfer);
                                 messageAdapter.justAddData(keyWordBase);
+                            } else if (3 == keyWordTransfer.getTransferFlag()) {
+                                //默认，按正常转人工的逻辑走
+                                transfer2Custom("", "", "", keyWordTransfer.isQueueFlag());
                             }
                         }
                     } else {
@@ -771,6 +784,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 //找到 Toolbar 的返回按钮,并且设置点击事件,点击关闭这个 Activity
                 //设置导航栏返回按钮
                 showLeftMenu(sobot_tv_left, getResDrawableId("sobot_icon_back_grey"), "");
+                displayInNotch(sobot_tv_left);
                 sobot_tv_left.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1260,6 +1274,15 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     messageAdapter.notifyDataSetChanged();
                 }
 
+                //如果有离线直接转人工功能开启，判断离线客服id有值，直接转人工
+                if (initModel.getOfflineMsgConnectFlag() == 1 && !TextUtils.isEmpty(initModel.getOfflineMsgAdminId())
+                        && !"null".equals(initModel.getOfflineMsgAdminId())) {
+                    offlineMsgConnectFlag = initModel.getOfflineMsgConnectFlag();
+                    offlineMsgAdminId = initModel.getOfflineMsgAdminId();
+                    connectCustomerService("", "", false);
+                    return;
+                }
+
                 if (type == ZhiChiConstant.type_robot_only) {
                     remindRobotMessage(handler, initModel, info);
                     showSwitchRobotBtn();
@@ -1735,8 +1758,14 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                 }
                             }
                         } else {
-                            //技能组没有客服在线
-                            connCustomerServiceFail(true);
+                            if (messageAdapter != null && keyWordMessageBase != null) {
+                                messageAdapter.justAddData(keyWordMessageBase);
+                                messageAdapter.notifyDataSetChanged();
+                                keyWordMessageBase = null;
+                            } else {
+                                //技能组没有客服在线
+                                connCustomerServiceFail(true);
+                            }
                         }
                     } else {
                         //没有设置技能组
@@ -1848,12 +1877,16 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         param.setTransferAction(info.getTransferAction());
         param.setIs_Queue_First(info.is_queue_first());
         param.setSummary_params(info.getSummary_params());
+        param.setOfflineMsgAdminId(offlineMsgAdminId);
+        param.setOfflineMsgConnectFlag(offlineMsgConnectFlag);
         zhiChiApi.connnect(SobotChatFragment.this, param,
                 new StringResultCallBack<ZhiChiMessageBase>() {
                     @Override
                     public void onSuccess(ZhiChiMessageBase zhichiMessageBase) {
                         LogUtils.i("connectCustomerService:zhichiMessageBase= " + zhichiMessageBase);
                         isConnCustomerService = false;
+                        offlineMsgAdminId = "";
+                        offlineMsgConnectFlag = 0;
                         if (!isActive()) {
                             return;
                         }
@@ -1885,9 +1918,21 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                 if (ZhiChiConstant.transfer_customeServeive_success == status) {
                                     connCustomerServiceSuccess(zhichiMessageBase);
                                 } else if (ZhiChiConstant.transfer_customeServeive_fail == status) {
-                                    connCustomerServiceFail(isShowTips);
+                                    if (messageAdapter != null && keyWordMessageBase != null) {
+                                        messageAdapter.justAddData(keyWordMessageBase);
+                                        messageAdapter.notifyDataSetChanged();
+                                        keyWordMessageBase = null;
+                                    } else {
+                                        connCustomerServiceFail(isShowTips);
+                                    }
                                 } else if (ZhiChiConstant.transfer_customeServeive_isBalk == status) {
-                                    connCustomerServiceBlack(isShowTips);
+                                    if (messageAdapter != null && keyWordMessageBase != null) {
+                                        messageAdapter.justAddData(keyWordMessageBase);
+                                        messageAdapter.notifyDataSetChanged();
+                                        keyWordMessageBase = null;
+                                    } else {
+                                        connCustomerServiceBlack(isShowTips);
+                                    }
                                 } else if (ZhiChiConstant.transfer_customeServeive_already == status) {
                                     connCustomerServiceSuccess(zhichiMessageBase);
                                 } else if (ZhiChiConstant.transfer_robot_custom_max_status == status) {
@@ -1933,6 +1978,10 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     public void onFailure(Exception e, String des) {
                         LogUtils.i("connectCustomerService:e= " + e.toString() + des);
                         isConnCustomerService = false;
+                        if (messageAdapter != null && keyWordMessageBase != null) {
+                            messageAdapter.justAddData(keyWordMessageBase);
+                            keyWordMessageBase = null;
+                        }
                         if (!isActive()) {
                             return;
                         }

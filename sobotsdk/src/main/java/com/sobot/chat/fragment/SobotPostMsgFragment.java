@@ -618,7 +618,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                 Activity tempActivity = MyApplication.getInstance().getLastActivity();
                 if (tempActivity != null && tempActivity instanceof SobotPostMsgActivity) {
                     tempActivity.finish();
-                    getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(getSobotActivity()
+                    tempActivity.overridePendingTransition(ResourceUtils.getIdByName(tempActivity
                             , "anim", "push_right_in"),
                             ResourceUtils.getIdByName(tempActivity, "anim", "push_right_out"));
                 }

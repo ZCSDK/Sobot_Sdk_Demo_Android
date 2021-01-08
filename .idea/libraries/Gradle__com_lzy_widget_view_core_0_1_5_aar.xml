@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.lzy.widget:view-core:0.1.5@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae1cb850cea550c2835c9a9ecd6334fb/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae1cb850cea550c2835c9a9ecd6334fb/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae1cb850cea550c2835c9a9ecd6334fb/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a0b8c4ffb1fa2a44670b02460e9f8c7/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a0b8c4ffb1fa2a44670b02460e9f8c7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a0b8c4ffb1fa2a44670b02460e9f8c7/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b9cf46b6ade0e09ddb5f97d18bde0be/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b9cf46b6ade0e09ddb5f97d18bde0be/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b9cf46b6ade0e09ddb5f97d18bde0be/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b9cf46b6ade0e09ddb5f97d18bde0be/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1276,7 +1276,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             //获取机器人带引导与的欢迎语
             if (1 == initModel.getGuideFlag()) {
 
-                zhiChiApi.robotGuide(SobotChatBaseFragment.this, initModel.getPartnerid(), initModel.getRobotid(), new
+                zhiChiApi.robotGuide(SobotChatBaseFragment.this, initModel.getPartnerid(), initModel.getRobotid(),info.getFaqId(), new
                         StringResultCallBack<ZhiChiMessageBase>() {
                             @Override
                             public void onSuccess(ZhiChiMessageBase robot) {

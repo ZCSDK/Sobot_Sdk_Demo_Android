@@ -294,6 +294,10 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     //留言处理
     private StPostMsgPresenter mPostMsgPresenter;
 
+    //2.9.2添加 初始化时如果有离线消息直接转对应的客服
+    private int offlineMsgConnectFlag;
+    private String offlineMsgAdminId;
+
     public static SobotChatFSFragment newInstance(Bundle info) {
         Bundle arguments = new Bundle();
         arguments.putBundle(ZhiChiConstant.SOBOT_BUNDLE_INFORMATION, info);
@@ -615,15 +619,20 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     if (keyWordTransfer != null) {
                         //关键词转人工
                         if (type != ZhiChiConstant.type_robot_only) {
-                            if (1 == keyWordTransfer.getTransferFlag() || 3 == keyWordTransfer.getTransferFlag()) {
+                            if (1 == keyWordTransfer.getTransferFlag()) {
+                                //转给指定的技能组
                                 transfer2Custom(keyWordTransfer.getGroupId(), keyWordTransfer.getKeyword(), keyWordTransfer.getKeywordId(), keyWordTransfer.isQueueFlag());
                             } else if (2 == keyWordTransfer.getTransferFlag()) {
+                                //转给多个技能组（一个消息cell），用户可以选择
                                 ZhiChiMessageBase keyWordBase = new ZhiChiMessageBase();
                                 keyWordBase.setSenderFace(zhiChiMessageBasebase.getSenderFace());
                                 keyWordBase.setSenderType(ZhiChiConstant.message_sender_type_robot_keyword_msg + "");
                                 keyWordBase.setSenderName(zhiChiMessageBasebase.getSenderName());
                                 keyWordBase.setSobotKeyWordTransfer(keyWordTransfer);
                                 messageAdapter.justAddData(keyWordBase);
+                            } else if (3 == keyWordTransfer.getTransferFlag()) {
+                                //默认，按正常转人工的逻辑走
+                                transfer2Custom("", "", "", keyWordTransfer.isQueueFlag());
                             }
                         }
                     } else {
@@ -786,6 +795,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 //找到 Toolbar 的返回按钮,并且设置点击事件,点击关闭这个 Activity
                 //设置导航栏返回按钮
                 showLeftMenu(sobot_tv_left, getResDrawableId("sobot_icon_back_grey"), "");
+                displayInNotch(sobot_tv_left);
                 sobot_tv_left.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1275,6 +1285,24 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     ZhiChiMessageBase noticeModel = ChatUtils.getNoticeModel(getContext(), initModel);
                     messageAdapter.justAddData(noticeModel);
                     messageAdapter.notifyDataSetChanged();
+                }
+
+                //如果有离线直接转人工功能开启，判断离线客服id有值，直接转人工
+                if (initModel.getOfflineMsgConnectFlag() == 1 && !TextUtils.isEmpty(initModel.getOfflineMsgAdminId())
+                        && !"null".equals(initModel.getOfflineMsgAdminId())) {
+                    offlineMsgConnectFlag = initModel.getOfflineMsgConnectFlag();
+                    offlineMsgAdminId = initModel.getOfflineMsgAdminId();
+                    connectCustomerService("", "", false);
+                    return;
+                }
+
+               //如果有离线直接转人工功能开启，判断离线客服id有值，直接转人工
+                if (initModel.getOfflineMsgConnectFlag() == 1 && !TextUtils.isEmpty(initModel.getOfflineMsgAdminId())
+                        && !"null".equals(initModel.getOfflineMsgAdminId())) {
+                    offlineMsgConnectFlag = initModel.getOfflineMsgConnectFlag();
+                    offlineMsgAdminId = initModel.getOfflineMsgAdminId();
+                    connectCustomerService("","",false);
+                    return;
                 }
 
                 if (type == ZhiChiConstant.type_robot_only) {
@@ -1863,12 +1891,16 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         param.setTransferAction(info.getTransferAction());
         param.setIs_Queue_First(info.is_queue_first());
         param.setSummary_params(info.getSummary_params());
+        param.setOfflineMsgAdminId(offlineMsgAdminId);
+        param.setOfflineMsgConnectFlag(offlineMsgConnectFlag);
         zhiChiApi.connnect(SobotChatFSFragment.this, param,
                 new StringResultCallBack<ZhiChiMessageBase>() {
                     @Override
                     public void onSuccess(ZhiChiMessageBase zhichiMessageBase) {
                         LogUtils.i("connectCustomerService:zhichiMessageBase= " + zhichiMessageBase);
                         isConnCustomerService = false;
+                        offlineMsgAdminId = "";
+                        offlineMsgConnectFlag = 0;
                         if (!isActive()) {
                             return;
                         }

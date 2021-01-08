@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
@@ -122,7 +123,9 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
                     "    <body>" + mUrl + "  </body>\n" +
                     "</html>";
             //显示文本内容
-            mWebView.loadData(mUrl, "text/html; charset=UTF-8", null);
+            String html = mUrl;
+            String newHtmlCode = Base64.encodeToString(html.getBytes(), Base64.NO_PADDING);
+            mWebView.loadData(newHtmlCode, "text/html", "base64");
             sobot_webview_copy.setVisibility(View.GONE);
         }
         LogUtils.i("webViewActivity---" + mUrl);

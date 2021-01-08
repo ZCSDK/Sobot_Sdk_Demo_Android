@@ -46,7 +46,6 @@
                 android:inputType="textMultiLine"
                 android:padding="6dp"
                 android:scrollbars="none"
-                android:text="https://api.sobot.com"
                 android:textColor="@color/sobot_common_gray1"
                 android:textColorHint="@color/sobot_common_gray3"
                 android:textSize="14sp" />

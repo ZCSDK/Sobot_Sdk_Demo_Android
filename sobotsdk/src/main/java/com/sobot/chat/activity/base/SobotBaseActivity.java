@@ -111,6 +111,11 @@ public abstract class SobotBaseActivity extends FragmentActivity {
 
         //修改国际化语言
         changeAppLanguage();
+
+        //左上角返回按钮水滴屏适配
+        if (getLeftMenu() != null) {
+            displayInNotch(getLeftMenu());
+        }
     }
 
     public void displayInNotch(final View view) {

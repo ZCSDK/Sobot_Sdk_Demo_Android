@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
@@ -76,6 +77,7 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
         tvOnlineService.setText(ResourceUtils.getResString(this,"sobot_help_center_online_service"));
         initWebView();
         displayInNotch(mWebView);
+        displayInNotch(mProblemTitle);
     }
 
     @Override
@@ -107,7 +109,9 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
                             "    <body>" + answerDesc + "  </body>\n" +
                             "</html>";
                     //显示文本内容
-                    mWebView.loadData(DEFAULT_STYLE + answerDesc, "text/html; charset=UTF-8", "UTF-8");
+                    String html = DEFAULT_STYLE + answerDesc;
+                    String newHtmlCode = Base64.encodeToString(html.getBytes(), Base64.NO_PADDING);
+                    mWebView.loadData(newHtmlCode, "text/html", "base64");
                 }
             }
 

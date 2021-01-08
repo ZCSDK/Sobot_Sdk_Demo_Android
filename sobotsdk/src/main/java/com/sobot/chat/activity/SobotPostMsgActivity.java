@@ -99,7 +99,12 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
         mViewPager = (ViewPager) findViewById(getResId("sobot_viewPager"));
         sobot_pst_indicator = (PagerSlidingTab) findViewById(getResId("sobot_pst_indicator"));
         psgBackIv = (ImageView) findViewById(getResId("sobot_pst_back_iv"));
-
+        if (psgBackIv != null) {
+            if (SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && SobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH)) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) psgBackIv.getLayoutParams();
+                layoutParams.leftMargin = layoutParams.leftMargin + 34;
+            }
+        }
         mTvLeaveMsgCreateSuccess = (TextView) findViewById(getResId("sobot_tv_leaveMsg_create_success"));
         mTvLeaveMsgCreateSuccess.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leavemsg_success_tip"));
         mTvLeaveMsgCreateSuccessDes = (TextView) findViewById(getResId("sobot_tv_leaveMsg_create_success_des"));

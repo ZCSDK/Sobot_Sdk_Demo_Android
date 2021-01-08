@@ -24,7 +24,7 @@ public class SobotReobotFunctionActivity extends AppCompatActivity implements Vi
     private ImageView sobotImage4151, sobotImage4152;
     private boolean status4151, status4152;
     private TextView tv_rebot_fun_4_1_1, tv_rebot_fun_4_1_2, tv_rebot_fun_4_1_4, tv_rebot_fun_4_1_5, sobot_tv_save;
-    private EditText sobot_et_rebot_id, sobot_et_rebot_alise, sobot_et_service_mode;
+    private EditText sobot_et_rebot_id, sobot_et_rebot_alise, sobot_et_service_mode, sobot_et_rebot_faqid;
     private Information information;
 
     @Override
@@ -47,6 +47,7 @@ public class SobotReobotFunctionActivity extends AppCompatActivity implements Vi
         sobot_et_rebot_id = findViewById(R.id.sobot_et_rebot_id);
         sobot_et_rebot_alise = findViewById(R.id.sobot_et_rebot_alise);
         sobot_et_service_mode = findViewById(R.id.sobot_et_service_mode);
+        sobot_et_rebot_faqid= findViewById(R.id.sobot_et_rebot_faqid);
         sobot_rl_4_1_5_1 = (RelativeLayout) findViewById(R.id.sobot_rl_4_1_5_1);
         sobot_rl_4_1_5_1.setOnClickListener(this);
         sobotImage4151 = (ImageView) findViewById(R.id.sobot_image_4_1_5_1);
@@ -63,6 +64,7 @@ public class SobotReobotFunctionActivity extends AppCompatActivity implements Vi
             sobot_et_rebot_id.setText(TextUtils.isEmpty(information.getRobot_code()) ? "" : information.getRobot_code());
             sobot_et_rebot_alise.setText(TextUtils.isEmpty(information.getRobot_alias()) ? "" : information.getRobot_alias());
             sobot_et_service_mode.setText(information.getService_mode() + "");
+            sobot_et_rebot_faqid.setText(information.getFaqId()+"");
             setImageShowStatus4(information.isHideMenuLeave());
             setImageShowStatus5(information.isHideMenuSatisfaction());
         }
@@ -96,12 +98,18 @@ public class SobotReobotFunctionActivity extends AppCompatActivity implements Vi
             String rebotId = sobot_et_rebot_id.getText().toString().trim();
             String rebotAlise = sobot_et_rebot_alise.getText().toString().trim();
             String serviceMode = sobot_et_service_mode.getText().toString().trim();
+            String faqid = sobot_et_rebot_faqid.getText().toString().trim();
             if (information != null) {
                 information.setRobot_code(rebotId);
                 information.setRobot_alias(rebotAlise);
                 information.setService_mode(TextUtils.isEmpty(serviceMode) ? -1 : Integer.parseInt(serviceMode));
                 information.setHideMenuLeave(status4151);
                 information.setHideMenuSatisfaction(status4152);
+                if (!TextUtils.isEmpty(faqid)){
+                    information.setFaqId(Integer.parseInt(faqid));
+                }else{
+                    information.setFaqId(0);
+                }
                 SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
             }
             ToastUtil.showToast(getContext(), "已保存");

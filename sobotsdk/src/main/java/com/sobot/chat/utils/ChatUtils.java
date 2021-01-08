@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.ZhiChiApi;
@@ -922,7 +923,8 @@ public class ChatUtils {
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_IS_EXIT, true);
         String cid = SharedPreferencesUtil.getStringData(context, Const.SOBOT_CID, "");
         String uid = SharedPreferencesUtil.getStringData(context, Const.SOBOT_UID, "");
-
+        //断开通道
+        ZCSobotApi.closeIMConnection(context);
         if (!TextUtils.isEmpty(cid) && !TextUtils.isEmpty(uid)) {
             ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
             zhiChiApi.out(cid, uid, new StringResultCallBack<CommonModel>() {
