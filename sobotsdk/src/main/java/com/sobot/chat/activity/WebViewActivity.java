@@ -123,9 +123,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
                     "    <body>" + mUrl + "  </body>\n" +
                     "</html>";
             //显示文本内容
-            String html = mUrl;
-            String newHtmlCode = Base64.encodeToString(html.getBytes(), Base64.NO_PADDING);
-            mWebView.loadData(newHtmlCode, "text/html", "base64");
+            mWebView.loadDataWithBaseURL("about:blank", mUrl, "text/html", "utf-8", null);
             sobot_webview_copy.setVisibility(View.GONE);
         }
         LogUtils.i("webViewActivity---" + mUrl);

@@ -234,7 +234,7 @@ public class HtmlTools {
         }
 
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("\\n", "\n").replace("\n", "<br />"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br />"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接

@@ -110,8 +110,7 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
                             "</html>";
                     //显示文本内容
                     String html = DEFAULT_STYLE + answerDesc;
-                    String newHtmlCode = Base64.encodeToString(html.getBytes(), Base64.NO_PADDING);
-                    mWebView.loadData(newHtmlCode, "text/html", "base64");
+                    mWebView.loadDataWithBaseURL("about:blank", html, "text/html", "utf-8", null);
                 }
             }
 
