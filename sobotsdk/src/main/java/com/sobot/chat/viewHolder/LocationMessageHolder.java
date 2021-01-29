@@ -11,6 +11,7 @@ import com.sobot.chat.api.model.SobotLocationModel;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotBitmapUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StMapOpenHelper;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -96,6 +97,13 @@ public class LocationMessageHolder extends MessageHolderBase implements View.OnC
 
         if (v == sobot_msg_container) {
             if (mLocationData != null) {
+                if (SobotOption.mapCardListener != null) {
+                    //如果返回true,拦截;false 不拦截
+                    boolean isIntercept = SobotOption.mapCardListener.onClickMapCradMsg(mContext, mLocationData);
+                    if (isIntercept) {
+                        return;
+                    }
+                }
                 StMapOpenHelper.openMap(mContext, mLocationData);
             }
         }

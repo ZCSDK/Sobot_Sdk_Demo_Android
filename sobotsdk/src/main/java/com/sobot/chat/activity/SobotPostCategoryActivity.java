@@ -96,14 +96,18 @@ public class SobotPostCategoryActivity extends SobotDialogBaseActivity {
         types.clear();
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");
-        ArrayList<SobotTypeModel> typeTemp = (ArrayList<SobotTypeModel>) bundle.getSerializable("types");
+        ArrayList<SobotTypeModel> typeTemp = null;
+        if (bundle != null) {
+            typeName = bundle.getString("typeName");
+            typeId = bundle.getString("typeId");
+            typeTemp = (ArrayList<SobotTypeModel>) bundle.getSerializable("types");
+        }
         if (typeTemp != null) {
             types.addAll(typeTemp);
         }
         sobot_tv_title.setText(ResourceUtils.getResString(getBaseContext(), "sobot_choice_classification"));
 
-        typeName = bundle.getString("typeName");
-        typeId = bundle.getString("typeId");
+
         //存贮一级List
         currentLevel = 1;
         tmpMap.put(1, types);

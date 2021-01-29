@@ -88,7 +88,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 .setSwipePercent(40)//设置翻页滑动距离百分比（1-100）
                 .setShowIndicator(false)//设置显示指示器
                 .setSpace(2)//设置间距
-                .setItemHeight("0".equals(type) ? ScreenUtils.dip2px(mContext, 42) : ScreenUtils.dip2px(mContext, 30))
+                .setItemHeight("0".equals(type) ? ScreenUtils.dip2px(mContext, 42) : ScreenUtils.dip2px(mContext, 36))
                 .build();
 
         adapter = new PageGridAdapter<>(new PageCallBack() {
@@ -108,6 +108,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                     ((Template2ViewHolder) holder).sobotTemplateItemLL.setBackground(null);
                     ((Template2ViewHolder) holder).sobotTitle.setText((position + 1) + "、 " + lablesViewModel.getTitle());
                     ((Template2ViewHolder) holder).sobotTitle.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                    ((Template2ViewHolder) holder).sobotTitle.setMaxLines(2);
                     ((Template2ViewHolder) holder).sobotTitle.setPadding(0, 0, 0, 0);
                     if (adapter.getZhiChiMessageBaseData().getSugguestionsFontColor() == 0) {
                         ((Template2ViewHolder) holder).sobotTitle.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));

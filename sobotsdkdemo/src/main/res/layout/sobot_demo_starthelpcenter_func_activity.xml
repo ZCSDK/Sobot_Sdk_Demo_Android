@@ -1,18 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/sobot_white"
     android:layout_height="match_parent"
+    android:background="@color/sobot_white"
     android:orientation="vertical">
 
     <include
         android:id="@+id/sobot_demo_titlebar"
         layout="@layout/sobot_demo_layout_titlebar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.4.3.1 客服电话"
+            android:textColor="@color/sobot_common_gray1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="[说明:客服电话按钮文案和对应的电话都有值客户服务中心页面底部显示拨打电话按钮，点击可直接电话联系客服]"
+            android:textColor="@color/sobot_common_gray1"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/sobot_et_phone_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sobot_editview_stocke_bg"
+            android:hint="客服电话按钮显示文案"
+            android:padding="6dp"
+            android:scrollbars="none"
+            android:textColor="@color/sobot_common_gray1"
+            android:textColorHint="@color/sobot_common_gray3"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/sobot_et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sobot_editview_stocke_bg"
+            android:hint="客服电话按钮对应号码 例如：400-100000"
+            android:padding="6dp"
+            android:scrollbars="none"
+            android:textColor="@color/sobot_common_gray1"
+            android:textColorHint="@color/sobot_common_gray3"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:background="@color/sobot_common_gray2"
         android:padding="6dp"
         android:text="参考文档"

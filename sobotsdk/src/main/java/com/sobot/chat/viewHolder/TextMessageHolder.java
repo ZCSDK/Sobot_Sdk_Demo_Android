@@ -33,8 +33,8 @@ public class TextMessageHolder extends MessageHolderBase {
         super(context, convertView);
         msg = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_msg"));
         sobot_tv_icon = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_tv_icon"));
-        if (sobot_tv_icon!=null){
-            sobot_tv_icon.setText(ResourceUtils.getResString(context,"sobot_leavemsg_title"));
+        if (sobot_tv_icon != null) {
+            sobot_tv_icon.setText(ResourceUtils.getResString(context, "sobot_leavemsg_title"));
         }
         rightEmptyRL = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_right_empty_rl"));
         sobot_ll_likeBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_likeBtn"));
@@ -80,7 +80,8 @@ public class TextMessageHolder extends MessageHolderBase {
             }
 
         } else {
-            msg.setText(CommonUtils.getResString(context, "sobot_data_wrong_hint"));
+            // msg.setText(CommonUtils.getResString(context, "sobot_data_wrong_hint"));
+            msg.setText("");
         }
         msg.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

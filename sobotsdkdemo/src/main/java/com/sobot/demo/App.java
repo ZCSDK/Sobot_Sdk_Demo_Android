@@ -1,16 +1,30 @@
 package com.sobot.demo;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.sobot.chat.MarkConfig;
+import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.api.model.Information;
+import com.sobot.chat.api.model.OrderCardContentModel;
+import com.sobot.chat.api.model.SobotLocationModel;
 import com.sobot.chat.listener.NewHyperlinkListener;
+import com.sobot.chat.listener.SobotMapCardListener;
+import com.sobot.chat.listener.SobotPlusMenuListener;
+import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SobotOption;
+import com.sobot.chat.utils.StMapOpenHelper;
 import com.sobot.chat.utils.ToastUtil;
+import com.sobot.chat.widget.kpswitch.view.ChattingPanelUploadView;
 import com.sobot.demo.model.SobotDemoOtherModel;
 import com.umeng.commonsdk.UMConfigure;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/29.
@@ -80,6 +94,79 @@ public class App extends Application {
                 return false;
             }
         });
+        final String ACTION_LOCATION = "sobot_action_location";
+        //位置
+        final ChattingPanelUploadView.SobotPlusEntity locationEntity = new ChattingPanelUploadView.SobotPlusEntity(ResourceUtils.getDrawableId(getApplicationContext(), "sobot_location_btn_selector"), "位置", ACTION_LOCATION);
+        List<ChattingPanelUploadView.SobotPlusEntity> tmpList = new ArrayList<>();
+        tmpList.add(locationEntity);
+
+        //发送订单卡片
+        final String ACTION_SEND_ORDERCARD = "sobot_action_send_ordercard";
+        ChattingPanelUploadView.SobotPlusEntity ordercardEntity = new ChattingPanelUploadView.SobotPlusEntity(ResourceUtils.getDrawableId(getApplicationContext(), "sobot_ordercard_btn_selector"), "订单", ACTION_SEND_ORDERCARD);
+        tmpList.add(ordercardEntity);
+        SobotUIConfig.pulsMenu.operatorMenus = tmpList;
+
+        SobotUIConfig.pulsMenu.sSobotPlusMenuListener = new SobotPlusMenuListener() {
+            @Override
+            public void onClick(View view, String action) {
+                if (ACTION_SEND_ORDERCARD.equals(action)) {
+                    Context context = view.getContext();
+                    List<OrderCardContentModel.Goods> goodsList = new ArrayList<>();
+                    goodsList.add(new OrderCardContentModel.Goods("苹果", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    goodsList.add(new OrderCardContentModel.Goods("苹果1111111", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    goodsList.add(new OrderCardContentModel.Goods("苹果2222", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    goodsList.add(new OrderCardContentModel.Goods("苹果33333333", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    OrderCardContentModel orderCardContent = new OrderCardContentModel();
+                    //订单编号（必填）
+                    orderCardContent.setOrderCode("zc32525235425");
+                    //订单状态
+                    orderCardContent.setOrderStatus(1);
+                    //订单总金额
+                    orderCardContent.setTotalFee(1234);
+                    //订单商品总数
+                    orderCardContent.setGoodsCount("4");
+                    //订单链接
+                    orderCardContent.setOrderUrl("https://item.jd.com/1765513297.html");
+                    //订单创建时间
+                    orderCardContent.setCreateTime(System.currentTimeMillis() + "");
+                    //订单商品集合
+                    orderCardContent.setGoods(goodsList);
+                    ZCSobotApi.sendOrderGoodsInfo(context, orderCardContent);
+                }
+
+                if (ACTION_LOCATION.equals(action)) {
+                    Context context = view.getContext();
+                    //在地图定位页面获取位置信息后发送给客服：
+                    SobotLocationModel locationData = new SobotLocationModel();
+                    //地图快照，必须传入本地图片地址，注意：如果不传会显示默认的地图图片
+                    // locationData.setSnapshot(Environment.getExternalStorageDirectory().getAbsolutePath() + "/1.png");
+                    //纬度
+                    locationData.setLat("40.007486");
+                    //经度
+                    locationData.setLng("116.360362");
+                    //标点名称
+                    locationData.setLocalName("金码大厦");
+                    //标点地址
+                    locationData.setLocalLabel("北京市海淀区六道口金码大厦");
+                    ZCSobotApi.sendLocation(context, locationData);
+
+                }
+            }
+        };
+
+        //优先打开百度地图，没有安装百度地图，再打开高德地图；可拦截拦截位置卡片点击事件，自己处理
+        SobotOption.mapCardListener = new SobotMapCardListener() {
+            @Override
+            public boolean onClickMapCradMsg(Context context, SobotLocationModel locationModel) {
+                if (context != null && locationModel != null) {
+                    ToastUtil.showCustomToast(context, "点击拦截位置卡片事件");
+                    StMapOpenHelper.firstOpenGaodeMap(context, locationModel);
+//                    StMapOpenHelper.firstOpenBaiduMap(context, locationModel);
+                }
+                return true;
+            }
+        };
     }
+
 
 }

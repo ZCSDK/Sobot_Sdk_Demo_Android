@@ -28,7 +28,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7131948a-cca0-4901-8f33-175813d1b00c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_libs_sobot_sdk_mall_x_lib_2_9_3_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/listener/SobotMapCardListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sobotsdk/src/main/res/drawable-xhdpi/def_admin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -39,29 +41,39 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_libs_sobot_sdk_mall_x_lib_2_9_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_9_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_9_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_8_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_8_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nostra13_universalimageloader_universal_image_loader_1_9_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nostra13_universalimageloader_universal_image_loader_1_9_5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_61.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_61.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobot_sdk_demo_android.apk" beforeDir="false" afterPath="$PROJECT_DIR$/sobot_sdk_demo_android.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotChooseCityActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotChooseCityActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotHelpCenterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotHelpCenterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotPostCategoryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotPostCategoryActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotPostMsgActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotPostMsgActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotProblemDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotProblemDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotQueryFromActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/SobotQueryFromActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/WebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/activity/WebViewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/HtmlTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/HtmlTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatBaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatBaseFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatFSFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatFSFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/server/SobotSessionServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/server/SobotSessionServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/ImageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/ImageUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/SobotOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/SobotOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/StMapOpenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/utils/StMapOpenHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/LocationMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/LocationMessageHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/RobotKeyWordMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/RobotKeyWordMessageHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder2.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/TextMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/viewHolder/TextMessageHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/src/main/res/layout/sobot_layout_online_service_btn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/src/main/res/layout/sobot_layout_online_service_btn.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/function/SobotManualFunctionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/function/SobotManualFunctionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/function/SobotStartHelpCenterFunctionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/function/SobotStartHelpCenterFunctionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_manual_func_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_manual_func_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_starthelpcenter_func_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_starthelpcenter_func_activity.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +105,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-view/Users/znw/Documents/sobot-sdk-history/Sobot_Sdk_Demo_Android/sobotsdk/src/main/java/com/sobot/chat/widget/ContainsEmojiEditText.java_SELECTED" value="ContainsEmojiEditText" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1610958595932" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1611817429829" />
     <property name="multi-representation-preview/Users/znw/Documents/sobot-sdk-history/Sobot_Sdk_Demo_Android/sobotsdk/src/main/java/com/sobot/chat/widget/ContainsEmojiEditText.java_selected" value="Custom views" />
   </component>
   <component name="RecentsManager">
@@ -274,11 +286,12 @@
     </state>
     <state x="458" y="-852" key="Vcs.Push.Dialog.v2/0.23.1680.942/-54.-1057.1920.1057@-54.-1057.1920.1057" timestamp="1610093243338" />
     <state x="458" y="-852" key="Vcs.Push.Dialog.v2/0.23.1680.948/-54.-1057.1920.1057@-54.-1057.1920.1057" timestamp="1608705861407" />
-    <state x="314" y="-837" width="961" height="616" key="find.popup" timestamp="1609987975220">
+    <state x="314" y="-837" width="961" height="616" key="find.popup" timestamp="1611817433519">
       <screen x="-54" y="-1057" width="1920" height="1057" />
     </state>
     <state x="314" y="-837" width="961" height="616" key="find.popup/0.23.1680.937/-54.-1057.1920.1057@-54.-1057.1920.1057" timestamp="1609987975220" />
     <state x="314" y="-837" width="961" height="616" key="find.popup/0.23.1680.939/-54.-1057.1920.1057@-54.-1057.1920.1057" timestamp="1609846129411" />
+    <state x="314" y="-837" width="961" height="616" key="find.popup/0.23.1680.951/-54.-1057.1920.1057@-54.-1057.1920.1057" timestamp="1611817433519" />
     <state x="480" y="-1032" width="838" height="1032" key="search.everywhere.popup" timestamp="1610950642982">
       <screen x="-54" y="-1057" width="1920" height="1057" />
     </state>
@@ -295,7 +308,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/sobotsdk/src/main/java/com/sobot/chat/conversation/SobotChatFragment.java</url>
-          <line>3426</line>
+          <line>3495</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">

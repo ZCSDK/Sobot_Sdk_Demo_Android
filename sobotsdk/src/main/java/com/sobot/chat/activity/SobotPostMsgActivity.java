@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -231,7 +232,7 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
         // 创建过滤器，并指定action，使之用于接收同action的广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(SOBOT_ACTION_SHOW_COMPLETED_VIEW);
-        registerReceiver(mReceiver, filter);
+        LocalBroadcastManager.getInstance(getSobotBaseActivity()).registerReceiver(mReceiver, filter);
     }
 
     @Override
@@ -245,7 +246,7 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(mReceiver);
+        LocalBroadcastManager.getInstance(getSobotBaseActivity()).unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 

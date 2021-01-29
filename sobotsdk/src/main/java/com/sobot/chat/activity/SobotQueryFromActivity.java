@@ -20,6 +20,7 @@ import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.ISobotCusField;
 import com.sobot.chat.presenter.StCusFieldPresenter;
 import com.sobot.chat.utils.CustomToast;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
@@ -86,7 +87,7 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
         sobot_tv_doc = (TextView) findViewById(getResId("sobot_tv_doc"));
         if (mQueryFormModel != null) {
             setTitle(mQueryFormModel.getFormTitle());
-            sobot_tv_doc.setText(mQueryFormModel.getFormDoc());
+            HtmlTools.getInstance(getSobotBaseActivity()).setRichText(sobot_tv_doc,mQueryFormModel.getFormDoc(),ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_color_link"));
         }
         displayInNotch(sobot_tv_doc);
         StCusFieldPresenter.addWorkOrderCusFields(SobotQueryFromActivity.this, SobotQueryFromActivity.this, mField, sobot_container, SobotQueryFromActivity.this);

@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
@@ -23,6 +22,7 @@ import com.sobot.chat.api.model.StDocModel;
 import com.sobot.chat.api.model.StHelpDocModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
+import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
@@ -39,6 +39,9 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
     private StDocModel mDoc;
     private WebView mWebView;
     private View mBottomBtn;
+    private TextView tv_sobot_layout_online_service;
+    private TextView tv_sobot_layout_online_tel;
+
     private TextView mProblemTitle;
     private TextView tvOnlineService;
 
@@ -70,11 +73,20 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
         showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), "", true);
         setTitle(getResString("sobot_problem_detail_title"));
         mBottomBtn = findViewById(getResId("ll_bottom"));
-        mBottomBtn.setOnClickListener(this);
+        tv_sobot_layout_online_service = findViewById(getResId("tv_sobot_layout_online_service"));
+        tv_sobot_layout_online_tel = findViewById(getResId("tv_sobot_layout_online_tel"));
         mProblemTitle= findViewById(getResId("sobot_text_problem_title"));
         mWebView = (WebView) findViewById(getResId("sobot_webView"));
         tvOnlineService = findViewById(getResId("tv_sobot_layout_online_service"));
         tvOnlineService.setText(ResourceUtils.getResString(this,"sobot_help_center_online_service"));
+        tv_sobot_layout_online_service.setOnClickListener(this);
+        tv_sobot_layout_online_tel.setOnClickListener(this);
+        if (mInfo != null && !TextUtils.isEmpty(mInfo.getHelpCenterTelTitle()) && !TextUtils.isEmpty(mInfo.getHelpCenterTel())) {
+            tv_sobot_layout_online_tel.setVisibility(View.VISIBLE);
+            tv_sobot_layout_online_tel.setText(mInfo.getHelpCenterTelTitle());
+        } else {
+            tv_sobot_layout_online_tel.setVisibility(View.GONE);
+        }
         initWebView();
         displayInNotch(mWebView);
         displayInNotch(mProblemTitle);
@@ -247,8 +259,13 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
 
     @Override
     public void onClick(View v) {
-        if (v == mBottomBtn) {
+        if (v == tv_sobot_layout_online_service) {
             SobotApi.startSobotChat(getApplicationContext(), mInfo);
+        }
+        if (v == tv_sobot_layout_online_tel) {
+            if (!TextUtils.isEmpty(mInfo.getHelpCenterTel())) {
+                CommonUtils.callUp(mInfo.getHelpCenterTel(), getSobotBaseActivity());
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import com.sobot.chat.api.model.SobotKeyWordTransfer;
 import com.sobot.chat.api.model.ZhiChiGroupBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.ChatUtils;
+import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -69,7 +70,7 @@ public class RobotKeyWordMessageHolder extends MessageHolderBase {
             intent.putExtra("tempGroupId", sobotKeyWordTransfer.getTempGroupId());
             intent.putExtra("keyword", sobotKeyWordTransfer.getKeyword());
             intent.putExtra("keywordId", sobotKeyWordTransfer.getKeywordId());
-            mContext.sendBroadcast(intent);
+            CommonUtils.sendLocalBroadcast(mContext,intent);
         }
     };
 

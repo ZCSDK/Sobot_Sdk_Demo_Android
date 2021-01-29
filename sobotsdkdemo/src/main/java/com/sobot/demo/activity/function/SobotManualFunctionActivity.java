@@ -3,7 +3,9 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -29,7 +31,7 @@ import java.util.List;
 public class SobotManualFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText sobot_et_groupid, sobot_et_choose_adminid, sobot_et_tranReceptionistFlag, sobot_et_customer_fields, sobot_et_autoSendMsgMode, sobot_et_autoSendMsgcontent, sobot_et_autoSendMsgtype,
-            sobot_et_queue_First, sobot_et_summary_params, sobot_et_multi_params, sobot_et_vip_level, sobot_et_user_label;
+            sobot_et_queue_First, sobot_et_summary_params, sobot_et_multi_params, sobot_et_vip_level, sobot_et_user_label, sobot_et_autoSendMsg_count;
     private RelativeLayout sobot_tv_left, sobot_rl_4_2_8, sobot_rl_4_2_9, sobot_rl_4_2_11, sobot_rl_4_2_13_1, sobot_rl_4_2_13_2, sobot_rl_4_2_13_3, sobot_rl_4_2_13_4, sobot_rl_4_2_13_5, sobot_rl_4_2_13_6;
     private ImageView sobotImage428, sobotImage429, sobotImage4211, sobotImage42131, sobotImage42132, sobotImage42133, sobotImage42134, sobotImage42135, sobotImage42136;
     private boolean status428, status429, status4211, status42131, status42132, status42133, status42134, status42135, status42136;
@@ -102,6 +104,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
         sobot_et_autoSendMsgMode = findViewById(R.id.sobot_et_autoSendMsgMode);
         sobot_et_autoSendMsgcontent = findViewById(R.id.sobot_et_autoSendMsgcontent);
         sobot_et_autoSendMsgtype = findViewById(R.id.sobot_et_autoSendMsgtype);
+        sobot_et_autoSendMsg_count = findViewById(R.id.sobot_et_autoSendMsg_count);
         sobot_et_queue_First = findViewById(R.id.sobot_et_queue_First);
         sobot_et_summary_params = findViewById(R.id.sobot_et_summary_params);
         sobot_et_multi_params = findViewById(R.id.sobot_et_multi_params);
@@ -117,6 +120,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
                 sobot_et_autoSendMsgMode.setText(information.getAutoSendMsgMode().getValue() + "");
                 sobot_et_autoSendMsgcontent.setText(TextUtils.isEmpty(information.getAutoSendMsgMode().getContent()) ? "" : information.getAutoSendMsgMode().getContent() + "");
                 sobot_et_autoSendMsgtype.setText(information.getAutoSendMsgMode().getAuto_send_msgtype() + "");
+                sobot_et_autoSendMsg_count.setText(information.getAutoSendMsgMode().geIsEveryTimeAutoSend() ? "0" : "1");
             }
             sobot_et_queue_First.setText(information.is_queue_first() ? "1" : "0");
             sobot_et_summary_params.setText(TextUtils.isEmpty(information.getSummary_params()) ? "" : information.getSummary_params());
@@ -195,6 +199,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
                     String autoSendMsgMode = sobot_et_autoSendMsgMode.getText().toString().trim();
                     String autoSendMsgcontent = sobot_et_autoSendMsgcontent.getText().toString().trim();
                     String autoSendMsgtype = sobot_et_autoSendMsgtype.getText().toString().trim();
+                    String autoSendMsgCount = sobot_et_autoSendMsg_count.getText().toString().trim();
                     if (!TextUtils.isEmpty(autoSendMsgMode) && !TextUtils.isEmpty(autoSendMsgcontent) && !"0".equals(autoSendMsgMode)) {
                         SobotAutoSendMsgMode sobotAutoSendMsgMode = null;
                         if ("1".equals(autoSendMsgMode)) {
@@ -205,6 +210,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
                             sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToAll;
                         }
                         if (sobotAutoSendMsgMode != null) {
+                            sobotAutoSendMsgMode.setIsEveryTimeAutoSend("0".equals(autoSendMsgCount));
                             if (TextUtils.isEmpty(autoSendMsgtype)) {
                                 information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent));
                             } else {
@@ -216,7 +222,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
                             }
                         }
                     } else {
-                        information.setAutoSendMsgMode(SobotAutoSendMsgMode.Default.setContent(autoSendMsgcontent).setAuto_send_msgtype(0));
+                        information.setAutoSendMsgMode(SobotAutoSendMsgMode.Default.setContent(autoSendMsgcontent).setAuto_send_msgtype(0).setIsEveryTimeAutoSend("0".equals(autoSendMsgCount)));
                     }
 
                     String queue_First = sobot_et_queue_First.getText().toString().trim();

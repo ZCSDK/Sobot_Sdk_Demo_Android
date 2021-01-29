@@ -3,8 +3,12 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +22,7 @@ public class SobotStartHelpCenterFunctionActivity extends AppCompatActivity impl
 
     private RelativeLayout sobot_tv_left;
     private TextView tv_start_fun_3_5, sobot_tv_save, sobot_tv_start;
+    private EditText sobot_et_phone_title, sobot_et_phone;
     private Information information;
 
     @Override
@@ -28,14 +33,16 @@ public class SobotStartHelpCenterFunctionActivity extends AppCompatActivity impl
         }
         setContentView(R.layout.sobot_demo_starthelpcenter_func_activity);
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
-        findvViews();
+        findViews();
     }
 
-    private void findvViews() {
+    private void findViews() {
         sobot_tv_left = (RelativeLayout) findViewById(R.id.sobot_demo_tv_left);
         TextView sobot_text_title = (TextView) findViewById(R.id.sobot_demo_tv_title);
         sobot_text_title.setText("启动客户服务中心");
         sobot_tv_left.setOnClickListener(this);
+        sobot_et_phone_title = (EditText) findViewById(R.id.sobot_et_phone_title);
+        sobot_et_phone = (EditText) findViewById(R.id.sobot_et_phone);
         tv_start_fun_3_5 = (TextView) findViewById(R.id.tv_start_fun_3_5);
         tv_start_fun_3_5.setText("https://www.sobot.com/developerdocs/app_sdk/android.html#_3-4-3-启动客户服务中心");
         tv_start_fun_3_5.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +59,10 @@ public class SobotStartHelpCenterFunctionActivity extends AppCompatActivity impl
         sobot_tv_save.setVisibility(View.GONE);
         sobot_tv_start = findViewById(R.id.sobot_tv_start);
         sobot_tv_start.setOnClickListener(this);
+        if (information != null) {
+            sobot_et_phone.setText(information.getHelpCenterTel());
+            sobot_et_phone_title.setText(information.getHelpCenterTelTitle());
+        }
     }
 
     @Override
@@ -61,6 +72,9 @@ public class SobotStartHelpCenterFunctionActivity extends AppCompatActivity impl
         }
         if (v == sobot_tv_start) {
             if (information != null) {
+                information.setHelpCenterTelTitle(sobot_et_phone_title.getText().toString().trim());
+                information.setHelpCenterTel(sobot_et_phone.getText().toString().trim());
+                SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
                 ZCSobotApi.openZCServiceCenter(getContext(), information);
             }
         }

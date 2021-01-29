@@ -177,18 +177,21 @@ public class ImageUtils {
             if (isNewGooglePhotosUri(uri)) {
                 if (uri != null && !TextUtils.isEmpty(uri.getPath()) && uri.getPath().contains("video")) {
                     //如果是谷歌图库里的视频，需要复制出来，在上传
+                    BufferedOutputStream outStream = null;
+                    BufferedInputStream reader = null;
+                    InputStream inputStream = null;
                     try {
                         ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
                         FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-                        InputStream inputStream = new FileInputStream(fileDescriptor);
-                        BufferedInputStream reader = new BufferedInputStream(inputStream);
+                        inputStream = new FileInputStream(fileDescriptor);
+                        reader = new BufferedInputStream(inputStream);
                         String picDir = SobotPathManager.getInstance().getVideoDir();
                         IOUtils.createFolder(picDir);
                         String videoFileName = "v_" + System.currentTimeMillis() + ".mp4";
                         String videoPath = picDir + videoFileName;
                         LogUtils.i(videoPath);
                         //创建要保存到
-                        BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(videoPath));
+                        outStream = new BufferedOutputStream(new FileOutputStream(videoPath));
                         byte[] buf = new byte[2048];
                         int len;
                         while ((len = reader.read(buf)) > 0) {
@@ -197,6 +200,29 @@ public class ImageUtils {
                         return videoPath;
                     } catch (Exception e) {
                         e.printStackTrace();
+                    } finally {
+                        try {
+                            if (inputStream != null) {
+                                inputStream.close(); // 关闭输出流
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if (reader != null) {
+                                reader.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if (outStream != null) {
+                                outStream.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }
                 Uri imageUrlWithAuthority = getImageUrlWithAuthority(context, uri);
@@ -320,11 +346,24 @@ public class ImageUtils {
 
     public static Uri writeToTempImageAndGetPathUri(Context inContext, Bitmap inImage) {
         if (inContext.getContentResolver() != null && inImage != null) {
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "IMG" + Calendar.getInstance().getTime(), null);
-            if (path != null) {
-                return Uri.parse(path);
+            ByteArrayOutputStream bytes = null;
+            try {
+                bytes = new ByteArrayOutputStream();
+                inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "IMG" + Calendar.getInstance().getTime(), null);
+                if (path != null) {
+                    return Uri.parse(path);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (bytes != null) {
+                        bytes.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;

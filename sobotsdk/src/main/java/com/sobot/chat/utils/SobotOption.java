@@ -5,6 +5,7 @@ import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotChatStatusListener;
 import com.sobot.chat.listener.SobotConversationListCallback;
 import com.sobot.chat.listener.SobotLeaveMsgListener;
+import com.sobot.chat.listener.SobotMapCardListener;
 import com.sobot.chat.listener.SobotOrderCardListener;
 import com.sobot.chat.listener.SobotTransferOperatorInterceptor;
 import com.sobot.chat.listener.SobotViewListener;
@@ -21,4 +22,5 @@ public class SobotOption {
     public static SobotTransferOperatorInterceptor transferOperatorInterceptor;//转人工拦截器
     public static SobotOrderCardListener orderCardListener;//订单卡片的监听
     public static SobotChatStatusListener sobotChatStatusListener;//聊天状态变化的监听
+    public static SobotMapCardListener mapCardListener;//订单卡片的监听
 }

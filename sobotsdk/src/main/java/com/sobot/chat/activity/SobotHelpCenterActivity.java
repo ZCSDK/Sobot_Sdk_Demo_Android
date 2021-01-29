@@ -1,6 +1,7 @@
 package com.sobot.chat.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,6 +14,7 @@ import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.StCategoryModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
+import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ToastUtil;
 
@@ -26,6 +28,8 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
     //空态页面
     private View mEmptyView;
     private View mBottomBtn;
+    private TextView tv_sobot_layout_online_service;
+    private TextView tv_sobot_layout_online_tel;
     private GridView mGridView;
     private SobotHelpCenterAdapter mAdapter;
     private TextView tvNoData;
@@ -43,15 +47,24 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
         showLeftMenu(getResDrawableId("sobot_btn_back_grey_selector"), "", true);
         mEmptyView = findViewById(getResId("ll_empty_view"));
         mBottomBtn = findViewById(getResId("ll_bottom"));
+        tv_sobot_layout_online_service = findViewById(getResId("tv_sobot_layout_online_service"));
+        tv_sobot_layout_online_tel = findViewById(getResId("tv_sobot_layout_online_tel"));
         mGridView = findViewById(getResId("sobot_gv"));
         tvNoData = findViewById(getResId("tv_sobot_help_center_no_data"));
-        tvNoData.setText(ResourceUtils.getResString(this,"sobot_help_center_no_data"));
+        tvNoData.setText(ResourceUtils.getResString(this, "sobot_help_center_no_data"));
         tvNoDataDescribe = findViewById(getResId("tv_sobot_help_center_no_data_describe"));
-        tvNoDataDescribe.setText(ResourceUtils.getResString(this,"sobot_help_center_no_data_describe"));
+        tvNoDataDescribe.setText(ResourceUtils.getResString(this, "sobot_help_center_no_data_describe"));
         tvOnlineService = findViewById(getResId("tv_sobot_layout_online_service"));
-        tvOnlineService.setText(ResourceUtils.getResString(this,"sobot_help_center_online_service"));
-        mBottomBtn.setOnClickListener(this);
+        tvOnlineService.setText(ResourceUtils.getResString(this, "sobot_help_center_online_service"));
+        tv_sobot_layout_online_service.setOnClickListener(this);
+        tv_sobot_layout_online_tel.setOnClickListener(this);
         mGridView.setOnItemClickListener(this);
+        if (mInfo != null && !TextUtils.isEmpty(mInfo.getHelpCenterTelTitle()) && !TextUtils.isEmpty(mInfo.getHelpCenterTel())) {
+            tv_sobot_layout_online_tel.setVisibility(View.VISIBLE);
+            tv_sobot_layout_online_tel.setText(mInfo.getHelpCenterTelTitle());
+        } else {
+            tv_sobot_layout_online_tel.setVisibility(View.GONE);
+        }
         displayInNotch(mGridView);
     }
 
@@ -88,8 +101,13 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
 
     @Override
     public void onClick(View v) {
-        if (v == mBottomBtn) {
+        if (v == tv_sobot_layout_online_service) {
             SobotApi.startSobotChat(getApplicationContext(), mInfo);
+        }
+        if (v == tv_sobot_layout_online_tel) {
+            if (!TextUtils.isEmpty(mInfo.getHelpCenterTel())) {
+                CommonUtils.callUp(mInfo.getHelpCenterTel(), getSobotBaseActivity());
+            }
         }
     }
 

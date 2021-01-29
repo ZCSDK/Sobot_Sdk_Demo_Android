@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotQueryFromActivity;
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
@@ -563,6 +564,12 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                             //机器人超时下线
                             customerServiceOffline(initModel, 4);
 
+                        } else if (simpleMessage.getUstatus() == 1) {
+                            // 发送失败
+                            sendTextMessageToHandler(msgId, null, handler, 0, UPDATE_TEXT);
+                            LogUtils.i("应该是人工状态给机器人发消息拦截,连接通道，修改当前模式为人工模式");
+                            ZCSobotApi.checkIMConnected(getSobotActivity(), info.getPartnerid());
+                            current_client_model = ZhiChiConstant.client_model_customService;
                         } else {
                             isAboveZero = true;
                             simpleMessage.setId(id);
@@ -1276,7 +1283,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             //获取机器人带引导与的欢迎语
             if (1 == initModel.getGuideFlag()) {
 
-                zhiChiApi.robotGuide(SobotChatBaseFragment.this, initModel.getPartnerid(), initModel.getRobotid(),info.getFaqId(), new
+                zhiChiApi.robotGuide(SobotChatBaseFragment.this, initModel.getPartnerid(), initModel.getRobotid(), info.getFaqId(), new
                         StringResultCallBack<ZhiChiMessageBase>() {
                             @Override
                             public void onSuccess(ZhiChiMessageBase robot) {

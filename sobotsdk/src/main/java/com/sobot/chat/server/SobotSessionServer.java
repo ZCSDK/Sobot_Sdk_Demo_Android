@@ -231,7 +231,7 @@ public class SobotSessionServer extends Service {
                     intent.putExtra("noReadCount", localUnreadNum);
                     intent.putExtra("content", content);
                     intent.putExtra("sobot_appId", pushMessage.getAppId());
-                    CommonUtils.sendLocalBroadcast(getApplicationContext(), intent);
+                    CommonUtils.sendBroadcast(getApplicationContext(), intent);
                     showNotification("[" + notificationContent + "]", pushMessage);
                 }
             }

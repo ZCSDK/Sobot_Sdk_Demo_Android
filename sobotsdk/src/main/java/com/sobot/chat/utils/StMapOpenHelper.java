@@ -28,7 +28,43 @@ public class StMapOpenHelper {
                 return;
             }
         }
-        ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_not_open_map"));
+        ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_not_open_map"));
+    }
+
+    //优先打开百度地图，没有安装百度地图，再打开高德地图
+    public static void firstOpenBaiduMap(Context context, SobotLocationModel data) {
+        String packageName = context.getPackageName();
+        Intent baiduIntent = obtainBaiduMap(packageName, data);
+        Intent gaodeIntent = obtainGaoDeMap(packageName, data);
+        if (baiduIntent != null) {
+            if (openAct(context, baiduIntent)) {
+                return;
+            }
+        }
+        if (gaodeIntent != null) {
+            if (openAct(context, gaodeIntent)) {
+                return;
+            }
+        }
+        ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_not_open_map"));
+    }
+
+    //优先打开高德地图，没有安装高德，再打开百度地图
+    public static void firstOpenGaodeMap(Context context, SobotLocationModel data) {
+        String packageName = context.getPackageName();
+        Intent baiduIntent = obtainBaiduMap(packageName, data);
+        Intent gaodeIntent = obtainGaoDeMap(packageName, data);
+        if (gaodeIntent != null) {
+            if (openAct(context, gaodeIntent)) {
+                return;
+            }
+        }
+        if (baiduIntent != null) {
+            if (openAct(context, baiduIntent)) {
+                return;
+            }
+        }
+        ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_not_open_map"));
     }
 
     private static boolean openAct(Context context, Intent intent) {
