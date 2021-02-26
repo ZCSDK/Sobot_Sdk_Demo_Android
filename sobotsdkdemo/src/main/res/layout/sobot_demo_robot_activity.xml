@@ -26,7 +26,8 @@
                 android:layout_marginTop="15dp"
                 android:text="最懂业务场景的客服机器人为您服务"
                 android:textColor="#3D4966"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
                 android:layout_marginTop="5dp"
                 android:text="金牌客服永不离线，节省85%以上人力成本"
                 android:textColor="#BDC3D1"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="20dp" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -44,7 +46,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/sobot_demo_robot_img1"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +57,8 @@
                 android:layout_marginTop="15dp"
                 android:text="1.客服效率提升100%"
                 android:textColor="#3D4966"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +67,8 @@
                 android:layout_marginTop="5dp"
                 android:text="客服机器人7x24小时在线；"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +77,8 @@
                 android:layout_marginTop="5dp"
                 android:text="机器人辅助人工，人工客服效率提升100%；"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,7 +87,8 @@
                 android:layout_marginTop="5dp"
                 android:text="人工忙时机器人主动接管，客户接待0延迟。"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -89,7 +97,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/sobot_demo_robot_img2"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,7 +108,8 @@
                 android:layout_marginTop="15dp"
                 android:text="2.人力成本节约85%"
                 android:textColor="#3D4966"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,7 +118,8 @@
                 android:layout_marginTop="5dp"
                 android:text="四种接待方式，匹配不同业务场景；"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +128,8 @@
                 android:layout_marginTop="5dp"
                 android:text="五分钟配置知识库，新问题自动学习。"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -126,7 +139,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/sobot_demo_robot_img3"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,7 +150,8 @@
                 android:layout_marginTop="15dp"
                 android:text="3.客户满意度提升70%"
                 android:textColor="#3D4966"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -144,7 +160,8 @@
                 android:layout_marginTop="5dp"
                 android:text="机器人回答命中率高达97%；"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,7 +170,8 @@
                 android:layout_marginTop="5dp"
                 android:text="寒暄+业务回答，85%常见问题自主解决。"
                 android:textColor="#001F2A"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="25dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -178,7 +196,8 @@
             android:gravity="center"
             android:text="咨询客服"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:drawableStart="@drawable/sobot_demo_consult_img" />
 
     </RelativeLayout>
 

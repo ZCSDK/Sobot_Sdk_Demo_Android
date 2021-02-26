@@ -24,7 +24,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否智能转人工"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/img_open_notify"
@@ -35,7 +37,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -56,7 +60,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否排队优先"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/img_isQueueFirst"
@@ -67,7 +73,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -82,7 +90,8 @@
         android:paddingLeft="20dp"
         android:text=""
         android:textColor="@color/sobot_edittext_text_color"
-        android:textColorHint="#888888" />
+        android:textColorHint="#888888"
+        android:paddingStart="20dp" />
 
     <EditText
         android:id="@+id/sobot_demo_transferKeyWord"
@@ -95,6 +104,7 @@
         android:paddingLeft="20dp"
         android:text=""
         android:textColor="@color/sobot_edittext_text_color"
-        android:textColorHint="#888888" />
+        android:textColorHint="#888888"
+        android:paddingStart="20dp" />
 
 </LinearLayout>

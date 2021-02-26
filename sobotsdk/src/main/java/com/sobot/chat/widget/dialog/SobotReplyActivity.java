@@ -479,7 +479,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
     private ChatUtils.SobotSendFileListener sendFileListener = new ChatUtils.SobotSendFileListener() {
         @Override
         public void onSuccess(final String filePath) {
-            zhiChiApi.fileUploadForPostMsg(SobotReplyActivity.this, mCompanyId, filePath, new ResultCallBack<ZhiChiMessage>() {
+            zhiChiApi.fileUploadForPostMsg(SobotReplyActivity.this, mCompanyId, mUid,filePath, new ResultCallBack<ZhiChiMessage>() {
                 @Override
                 public void onSuccess(ZhiChiMessage zhiChiMessage) {
 

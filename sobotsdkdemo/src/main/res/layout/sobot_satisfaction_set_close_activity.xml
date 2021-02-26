@@ -23,7 +23,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否显示关闭按钮"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/img_open_close"
@@ -34,7 +36,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
     <RelativeLayout
@@ -55,7 +59,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="关闭时是否弹出满意度评价"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/img_open_notify3"
@@ -66,7 +72,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -88,7 +96,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="评价完是否结束会话"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="25dp" />
 
         <ImageView
             android:id="@+id/img_open_notify4"
@@ -99,7 +109,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 

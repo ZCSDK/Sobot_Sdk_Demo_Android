@@ -792,7 +792,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
     private ChatUtils.SobotSendFileListener sendFileListener = new ChatUtils.SobotSendFileListener() {
         @Override
         public void onSuccess(final String filePath) {
-            zhiChiApi.fileUploadForPostMsg(SobotPostMsgFragment.this, mConfig.getCompanyId(), filePath, new ResultCallBack<ZhiChiMessage>() {
+            zhiChiApi.fileUploadForPostMsg(SobotPostMsgFragment.this, mConfig.getCompanyId(),uid, filePath, new ResultCallBack<ZhiChiMessage>() {
                 @Override
                 public void onSuccess(ZhiChiMessage zhiChiMessage) {
                     SobotDialogUtils.stopProgressDialog(getSobotActivity());

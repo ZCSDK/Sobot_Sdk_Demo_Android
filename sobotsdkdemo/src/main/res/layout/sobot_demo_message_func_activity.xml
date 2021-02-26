@@ -35,7 +35,8 @@
                     android:gravity="center_vertical"
                     android:text="本地消息自动提醒"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -47,7 +48,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:当用户不处在聊天界面时，收到客服的消息，APP 可以在通知栏或者聊天入口给出提醒]" />
+                    android:text="[说明:当用户不处在聊天界面时，收到客服的消息，APP 可以在通知栏或者聊天入口给出提醒]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_5_2"
@@ -58,7 +60,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -85,7 +89,8 @@
                     android:gravity="center_vertical"
                     android:text="获取未读消息数"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -97,7 +102,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:当前客服发送的未读消息数]" />
+                    android:text="[说明:当前客服发送的未读消息数]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -107,7 +113,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_right_arrow"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -133,7 +141,8 @@
                     android:gravity="center_vertical"
                     android:text="清空未读消息数"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -145,7 +154,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:清空当前客服发送的未读消息]" />
+                    android:text="[说明:清空当前客服发送的未读消息]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -155,7 +165,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_right_arrow"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 

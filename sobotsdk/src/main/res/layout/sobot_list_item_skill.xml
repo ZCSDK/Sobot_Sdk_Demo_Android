@@ -27,6 +27,8 @@
         android:maxLines="1"
         android:textColor="@color/sobot_common_gray2"
         android:textSize="10sp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:paddingEnd="3dp"
+        android:paddingStart="3dp" />
 
 </LinearLayout>

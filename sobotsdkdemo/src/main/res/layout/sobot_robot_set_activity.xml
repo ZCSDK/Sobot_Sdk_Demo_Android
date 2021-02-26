@@ -16,7 +16,8 @@
         android:hint="指定机器人编号"
         android:inputType="number"
         android:textColor="@color/sobot_edittext_text_color"
-        android:textColorHint="#888888" />
+        android:textColorHint="#888888"
+        android:paddingStart="20dp" />
 
     <EditText
         android:paddingLeft="20dp"
@@ -27,6 +28,7 @@
         android:background="@color/sobot_btn_text_color"
         android:hint="指定机器人编号对应的别名 robot_alias"
         android:textColor="@color/sobot_edittext_text_color"
-        android:textColorHint="#888888" />
+        android:textColorHint="#888888"
+        android:paddingStart="20dp" />
 
 </LinearLayout>

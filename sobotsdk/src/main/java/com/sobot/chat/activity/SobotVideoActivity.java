@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sobot.chat.api.model.SobotCacheFile;
+import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.StVideoView;
 import com.sobot.chat.camera.listener.StVideoListener;
 import com.sobot.chat.core.HttpUtils;
@@ -71,6 +72,7 @@ public class SobotVideoActivity extends FragmentActivity implements View.OnClick
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(ResourceUtils.getResLayoutId(getApplicationContext(), "sobot_activity_video"));
+        MyApplication.getInstance().addActivity(this);
         mVideoView = (StVideoView) findViewById(ResourceUtils.getResId(getApplicationContext(), "sobot_videoview"));
         st_tv_play = (TextView) findViewById(ResourceUtils.getResId(getApplicationContext(), "st_tv_play"));
         st_iv_pic = (ImageView) findViewById(ResourceUtils.getResId(getApplicationContext(), "st_iv_pic"));
@@ -277,6 +279,7 @@ public class SobotVideoActivity extends FragmentActivity implements View.OnClick
 
     @Override
     protected void onDestroy() {
+        MyApplication.getInstance().deleteActivity(this);
         SobotDownload.getInstance().unRegister(SOBOT_TAG_DOWNLOAD_ACT_VIDEO);
         if (mTask != null && (mTask.progress.status == SobotProgress.FINISH
                 || mTask.progress.status == SobotProgress.NONE

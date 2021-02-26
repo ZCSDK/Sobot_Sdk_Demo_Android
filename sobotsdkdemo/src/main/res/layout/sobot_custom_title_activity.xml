@@ -14,7 +14,8 @@
         android:background="@color/sobot_btn_text_color"
         android:hint="请输入固定文案"
         android:textColor="@color/sobot_edittext_text_color"
-        android:textColorHint="#888888" />
+        android:textColorHint="#888888"
+        android:paddingStart="20dp" />
 
         <RadioGroup
             android:id="@+id/sobot_rg_title_value_show"

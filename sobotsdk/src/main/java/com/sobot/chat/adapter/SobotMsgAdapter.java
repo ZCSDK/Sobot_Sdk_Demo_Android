@@ -85,6 +85,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             "sobot_chat_msg_item_card_l",//商品卡片左侧信息的布局文件
             "sobot_chat_msg_item_template6_l",//机器人  多轮会话模板 6
             "sobot_chat_msg_item_system_tip",//防诈骗系统消息的布局文件
+            "sobot_chat_msg_item_video_l"//小视频左边的布局文件
     };
 
     /**
@@ -212,6 +213,11 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
      * 系统消息 防诈骗
      */
     public static final int MSG_TYPE_FRAUD_PREVENTION = 29;
+
+    /**
+     * 客服发送的视频  左侧
+     */
+    public static final int MSG_TYPE_VIDEO_L = 30;
 
     private String senderface;
     private String sendername;
@@ -532,9 +538,14 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                     }
                     break;
                 }
+                case MSG_TYPE_VIDEO_L:
                 case MSG_TYPE_VIDEO_R: {
                     holder = new VideoMessageHolder(context, convertView);
-                    holder.setRight(true);
+                    if (itemType == MSG_TYPE_VIDEO_L) {
+                        holder.setRight(false);
+                    } else {
+                        holder.setRight(true);
+                    }
                     break;
                 }
                 case MSG_TYPE_LOCATION_R: {
@@ -764,7 +775,12 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                             return MSG_TYPE_FILE_R;
                         }
                     } else if (ZhiChiConstant.message_type_video.equals(message.getAnswer().getMsgType())) {
-                        if (ZhiChiConstant.message_sender_type_customer == Integer
+                        if (ZhiChiConstant.message_sender_type_service == Integer
+                                .parseInt(message.getSenderType())) {
+                            if (message.getAnswer().getCacheFile() != null) {
+                                return MSG_TYPE_VIDEO_L;
+                            }
+                        } else if (ZhiChiConstant.message_sender_type_customer == Integer
                                 .parseInt(message.getSenderType())) {
                             if (message.getAnswer().getCacheFile() != null) {
                                 return MSG_TYPE_VIDEO_R;

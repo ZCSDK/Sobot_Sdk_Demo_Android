@@ -40,7 +40,10 @@
         android:text="保存"
         android:textColor="@color/sobot_common_green"
         android:textSize="16sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp" />
 
     <View
         android:layout_width="match_parent"

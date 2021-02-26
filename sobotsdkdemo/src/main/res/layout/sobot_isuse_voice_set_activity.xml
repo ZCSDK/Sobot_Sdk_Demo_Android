@@ -26,7 +26,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否使用语音功能"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="25dp" />
 
         <ImageView
             android:id="@+id/img_open_notify"
@@ -37,7 +39,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

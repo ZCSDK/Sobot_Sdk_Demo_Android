@@ -43,7 +43,8 @@
                     android:gravity="center_vertical"
                     android:text="是否显示标题栏昵称"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -54,7 +55,8 @@
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不显示]" />
+                    android:text="[说明:默认不显示]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_2"
@@ -65,7 +67,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
             </RelativeLayout>
 
@@ -130,7 +134,8 @@
                     android:gravity="center_vertical"
                     android:text="是否显示标题栏头像"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -141,7 +146,8 @@
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认显示]" />
+                    android:text="[说明:默认显示]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_2_2"
@@ -152,7 +158,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
             </RelativeLayout>
 
@@ -216,7 +224,8 @@
                     android:gravity="center_vertical"
                     android:text="横竖屏显示开关"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -228,7 +237,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:横竖屏显示开关;true 横屏 , false 竖屏; 默认 false 竖屏]" />
+                    android:text="[说明:横竖屏显示开关;true 横屏 , false 竖屏; 默认 false 竖屏]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_3"
@@ -239,7 +249,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -265,7 +277,8 @@
                     android:gravity="center_vertical"
                     android:text="横屏下是否打开刘海屏开关"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -277,7 +290,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="3"
-                    android:text="[说明:只有在横屏下才有用;竖屏已适配，可修改状态栏颜色;true 打开 ,false 关闭; 默认 false 关闭]" />
+                    android:text="[说明:只有在横屏下才有用;竖屏已适配，可修改状态栏颜色;true 打开 ,false 关闭; 默认 false 关闭]"
+                    android:layout_marginEnd="60dp" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_4"
@@ -288,7 +302,9 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
             </RelativeLayout>
 

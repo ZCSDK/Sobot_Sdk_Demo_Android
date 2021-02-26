@@ -24,7 +24,9 @@
             android:layout_marginTop="14dp"
             android:gravity="center"
             android:textColor="@color/sobot_common_gray1"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp" />
 
         <TextView
             android:id="@+id/sobot_dialog_content"
@@ -35,7 +37,9 @@
             android:layout_marginRight="5dp"
             android:padding="10dp"
             android:textColor="@color/sobot_common_gray1"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
 
         <View
             android:layout_width="match_parent"

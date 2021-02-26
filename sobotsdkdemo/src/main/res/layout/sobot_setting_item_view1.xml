@@ -18,7 +18,8 @@
         android:paddingTop="@dimen/sobot_list_item_padding_top"
         android:textColor="@color/sobot_demo_line_up_user_text_color_second"
         android:textSize="@dimen/sobot_text_font_small"
-        />
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="@dimen/settingItemView_left_text_margin_right" />
 
     <TextView
         android:id="@+id/tv_setting_item_mid_text"
@@ -32,7 +33,10 @@
         android:textColor="#3D4966"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:textSize="@dimen/sobot_text_font_small"/>
+        android:textSize="@dimen/sobot_text_font_small"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/tv_setting_item_left_text"
+        android:layout_toStartOf="@+id/tv_setting_item_img" />
 
     <ImageView
         android:id="@+id/tv_setting_item_img"
@@ -42,5 +46,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
         android:background="@drawable/sobot_arrow_icon"
-        android:contentDescription="@null"/>
+        android:contentDescription="@null"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

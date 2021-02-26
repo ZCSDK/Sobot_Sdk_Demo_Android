@@ -15,7 +15,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 5
-        versionName "2.9.3"
+        versionName "2.9.4"
 
         ndk {
             //设置支持的SO库架构

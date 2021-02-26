@@ -174,4 +174,9 @@ public class SobotCameraActivity extends FragmentActivity {
         jCameraView.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().deleteActivity(this);
+        super.onDestroy();
+    }
 }

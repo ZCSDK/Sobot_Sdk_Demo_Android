@@ -18,7 +18,9 @@
         android:background="@drawable/sobot_btn_bg_help_center"
         android:gravity="center"
         android:textColor="@color/sobot_common_gray1"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp" />
 
     <TextView
         android:id="@+id/tv_sobot_layout_online_tel"
@@ -33,5 +35,7 @@
         android:gravity="center"
         android:textColor="@color/sobot_common_gray1"
         android:textSize="14sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp" />
 </LinearLayout>

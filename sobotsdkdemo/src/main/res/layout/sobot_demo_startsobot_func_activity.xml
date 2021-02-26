@@ -49,6 +49,8 @@
         android:padding="6dp"
         android:text="启动客服"
         android:textColor="@color/sobot_common_gray1"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp" />
 
 </LinearLayout>

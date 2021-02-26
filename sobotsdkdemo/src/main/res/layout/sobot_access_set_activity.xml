@@ -23,7 +23,8 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/sobot_demo_item_setting_selector"
             android:gravity="center"
-            android:text="接入模式设置" />
+            android:text="接入模式设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right1"
@@ -33,14 +34,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 
     <RelativeLayout
         android:id="@+id/rl_2"
@@ -57,7 +61,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="商品信息设置" />
+            android:text="商品信息设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right2"
@@ -67,14 +72,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_marginEnd="15dp"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 
     <RelativeLayout
         android:id="@+id/rl_3"
@@ -91,7 +99,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="自动应答语设置" />
+            android:text="自动应答语设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right3"
@@ -101,14 +110,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_marginEnd="15dp"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 
     <RelativeLayout
         android:id="@+id/rl_4"
@@ -125,7 +137,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="转人工设置" />
+            android:text="转人工设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right4"
@@ -135,14 +148,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 
     <RelativeLayout
         android:id="@+id/rl_5"
@@ -159,7 +175,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="历史记录的时间范围设置" />
+            android:text="历史记录的时间范围设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right5"
@@ -169,14 +186,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 
     <RelativeLayout
         android:id="@+id/rl_6"
@@ -193,7 +213,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="是否开启语音功能设置" />
+            android:text="是否开启语音功能设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right6"
@@ -203,14 +224,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 
     <RelativeLayout
         android:id="@+id/rl_7"
@@ -227,7 +251,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="自定义标题设置" />
+            android:text="自定义标题设置"
+            android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/img_pc_right7"
@@ -237,12 +262,15 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:background="@drawable/sobot_arrow_icon"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:layout_marginEnd="15dp"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.1dip"
         android:layout_marginLeft="15dp"
-        android:background="@color/sobot_demo_line_1dp" />
+        android:background="@color/sobot_demo_line_1dp"
+        android:layout_marginStart="15dp" />
 </LinearLayout>

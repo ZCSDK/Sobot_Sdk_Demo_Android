@@ -24,7 +24,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否横屏"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="25dp" />
 
         <ImageView
             android:id="@+id/img_open_close"
@@ -35,7 +37,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -57,7 +61,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否拦截超链接"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/img_open_notify3"
@@ -68,7 +74,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -89,7 +97,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否显示聊天状态"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/sobot_image3"
@@ -100,7 +110,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -115,7 +127,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:gravity="center"
-        android:text="键盘加号下功能隐藏开关 (修改后结束会话才能生效)" />
+        android:text="键盘加号下功能隐藏开关 (修改后结束会话才能生效)"
+        android:layout_marginStart="20dp" />
 
     <RelativeLayout
         android:id="@+id/sobot_rl4"
@@ -134,7 +147,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否隐藏留言"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/sobot_image4"
@@ -145,7 +160,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -166,7 +183,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否隐藏服务评价"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="25dp" />
 
         <ImageView
             android:id="@+id/sobot_image5"
@@ -177,7 +196,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -198,7 +219,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否隐藏发送图片"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/sobot_image6"
@@ -209,7 +232,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -230,7 +255,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否隐藏视频"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/sobot_image7"
@@ -241,7 +268,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -262,7 +291,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否隐藏拍摄"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/sobot_image8"
@@ -273,7 +304,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 
@@ -294,7 +327,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="是否隐藏文件"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp" />
 
         <ImageView
             android:id="@+id/sobot_image9"
@@ -305,7 +340,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
     </RelativeLayout>
 
     <TextView
@@ -320,7 +357,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:gravity="center"
-        android:text="修改后结束会话才能生效" />
+        android:text="修改后结束会话才能生效"
+        android:layout_marginStart="20dp" />
 
     <RelativeLayout
         android:id="@+id/sobot_rl10"
@@ -339,7 +377,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
 
         <TextView
             android:id="@+id/sobot_text10"
@@ -351,7 +391,10 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="已完成留言详情界面的回复按钮是否隐藏"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="25dp"
+            android:layout_toStartOf="@id/sobot_image10" />
 
     </RelativeLayout>
 
@@ -372,7 +415,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/sobot_demo_icon_close"
             android:contentDescription="@null"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/sobot_text11"
@@ -384,7 +429,10 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:text="已完成留言详情界面第一次返回时是否弹出服务评价窗口"
-            android:textSize="@dimen/sobot_text_font_smaller" />
+            android:textSize="@dimen/sobot_text_font_smaller"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="20dp"
+            android:layout_toStartOf="@id/sobot_image11" />
 
 
     </RelativeLayout>
