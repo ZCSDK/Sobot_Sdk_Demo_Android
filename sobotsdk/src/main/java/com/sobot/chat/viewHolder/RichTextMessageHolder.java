@@ -113,6 +113,8 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         // 回复语的答复
         String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
         if (!TextUtils.isEmpty(stripeContent)) {
+            //去掉p标签
+            stripeContent=stripeContent.replace("<p>","").replace("</p>","");
             // 设置提醒的内容
             stripe.setVisibility(View.VISIBLE);
             HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());
