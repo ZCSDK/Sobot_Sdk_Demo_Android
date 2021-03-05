@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="[说明:不设置默认为https://api.sobot.com,腾讯云为https://api.sobot.com,其它根据自己服务配置域名]"
+                android:text="[说明:不设置默认为https://api.sobot.com,腾讯云为https://www.soboten.com,其它根据自己服务配置域名]"
                 android:textColor="@color/sobot_common_gray1"
                 android:textSize="14sp" />
 
