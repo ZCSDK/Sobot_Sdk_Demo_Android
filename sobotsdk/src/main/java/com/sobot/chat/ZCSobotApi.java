@@ -1,11 +1,8 @@
 package com.sobot.chat;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -151,8 +148,12 @@ public class ZCSobotApi {
      * @param isOnlyShowTicket true只显示留言记录界面，false 请您留言和留言记录界面都显示
      */
     public static void openLeave(final Context context, final Information info, final boolean isOnlyShowTicket) {
+        if (info == null) {
+            Log.e(Tag, "参数info不能为空");
+            return;
+        }
         if (context == null || TextUtils.isEmpty(info.getApp_key())) {
-            Log.e(Tag, "initSobotSDK  参数为空 context:" + context + "  appkey:" + info.getApp_key() + "  partnerid:" + info.getPartnerid());
+            Log.e(Tag, "参数info中app_key的不能为空");
             return;
         }
         //保证每次进入留言页面时partnerid时有值，不然的话，每次都会生成新的，留言记录就会不准确
@@ -162,10 +163,10 @@ public class ZCSobotApi {
         SobotMsgManager.getInstance(context).getZhiChiApi()
                 .sobotInit(context, info, new StringResultCallBack<ZhiChiInitModeBase>() {
                     @Override
-                    public void onSuccess(ZhiChiInitModeBase initModel) {
+                    public void onSuccess(final ZhiChiInitModeBase initModel) {
                         SharedPreferencesUtil.saveObject(context,
                                 ZhiChiConstant.sobot_last_current_info, info);
-                        List<SobotFieldModel> sobotFieldModels = new ArrayList<>();
+                        final List<SobotFieldModel> sobotFieldModels = new ArrayList<>();
                         if (info.getLeaveCusFieldMap() != null && info.getLeaveCusFieldMap().size() > 0) {
                             for (String key :
                                     info.getLeaveCusFieldMap().keySet()) {
@@ -177,36 +178,62 @@ public class ZCSobotApi {
                                 sobotFieldModels.add(sobotFieldModel);
                             }
                         }
-                        SobotLeaveMsgConfig config = new SobotLeaveMsgConfig();
-                        config.setEmailFlag(initModel.isEmailFlag());
-                        config.setEmailShowFlag(initModel.isEmailShowFlag());
-                        config.setEnclosureFlag(initModel.isEnclosureFlag());
-                        config.setEnclosureShowFlag(initModel.isEnclosureShowFlag());
-                        config.setTelFlag(initModel.isTelFlag());
-                        config.setTelShowFlag(initModel.isTelShowFlag());
-                        config.setTicketStartWay(initModel.isTicketStartWay());
-                        config.setTicketShowFlag(initModel.isTicketShowFlag());
-                        config.setCompanyId(initModel.getCompanyId());
-                        if (!TextUtils.isEmpty(info.getLeaveMsgTemplateContent())) {
-                            config.setMsgTmp(info.getLeaveMsgTemplateContent());
+                        if (!TextUtils.isEmpty(info.getLeaveTemplateId())) {
+                            SobotMsgManager.getInstance(context).getZhiChiApi().getMsgTemplateConfig(this, initModel.getPartnerid(), info.getLeaveTemplateId(), new StringResultCallBack<SobotLeaveMsgConfig>() {
+                                @Override
+                                public void onSuccess(SobotLeaveMsgConfig data) {
+                                    if (data != null) {
+                                        Intent intent = new Intent(context, SobotPostMsgActivity.class);
+                                        intent.putExtra(INTENT_KEY_UID, initModel.getPartnerid());
+                                        intent.putExtra(INTENT_KEY_CONFIG, data);
+                                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_COMPANYID, initModel.getCompanyId());
+                                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
+                                        intent.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, false);
+                                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
+                                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUS_FIELDS, (Serializable) sobotFieldModels);
+                                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, isOnlyShowTicket);
+                                        context.startActivity(intent);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Exception e, String des) {
+                                    e.printStackTrace();
+                                    LogUtils.i("通过配置模版id跳转到留言界面：" + des);
+                                }
+                            });
                         } else {
-                            config.setMsgTmp(initModel.getMsgTmp());
+                            SobotLeaveMsgConfig config = new SobotLeaveMsgConfig();
+                            config.setEmailFlag(initModel.isEmailFlag());
+                            config.setEmailShowFlag(initModel.isEmailShowFlag());
+                            config.setEnclosureFlag(initModel.isEnclosureFlag());
+                            config.setEnclosureShowFlag(initModel.isEnclosureShowFlag());
+                            config.setTelFlag(initModel.isTelFlag());
+                            config.setTelShowFlag(initModel.isTelShowFlag());
+                            config.setTicketStartWay(initModel.isTicketStartWay());
+                            config.setTicketShowFlag(initModel.isTicketShowFlag());
+                            config.setCompanyId(initModel.getCompanyId());
+                            if (!TextUtils.isEmpty(info.getLeaveMsgTemplateContent())) {
+                                config.setMsgTmp(info.getLeaveMsgTemplateContent());
+                            } else {
+                                config.setMsgTmp(initModel.getMsgTmp());
+                            }
+                            if (!TextUtils.isEmpty(info.getLeaveMsgGuideContent())) {
+                                config.setMsgTxt(info.getLeaveMsgGuideContent());
+                            } else {
+                                config.setMsgTxt(initModel.getMsgTxt());
+                            }
+                            Intent intent = new Intent(context, SobotPostMsgActivity.class);
+                            intent.putExtra(INTENT_KEY_UID, initModel.getPartnerid());
+                            intent.putExtra(INTENT_KEY_CONFIG, config);
+                            intent.putExtra(StPostMsgPresenter.INTENT_KEY_COMPANYID, initModel.getCompanyId());
+                            intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
+                            intent.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, false);
+                            intent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
+                            intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUS_FIELDS, (Serializable) sobotFieldModels);
+                            intent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, isOnlyShowTicket);
+                            context.startActivity(intent);
                         }
-                        if (!TextUtils.isEmpty(info.getLeaveMsgGuideContent())) {
-                            config.setMsgTxt(info.getLeaveMsgGuideContent());
-                        } else {
-                            config.setMsgTxt(initModel.getMsgTxt());
-                        }
-                        Intent intent = new Intent(context, SobotPostMsgActivity.class);
-                        intent.putExtra(INTENT_KEY_UID, initModel.getPartnerid());
-                        intent.putExtra(INTENT_KEY_CONFIG, config);
-                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_COMPANYID, initModel.getCompanyId());
-                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
-                        intent.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, false);
-                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
-                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUS_FIELDS, (Serializable) sobotFieldModels);
-                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, isOnlyShowTicket);
-                        context.startActivity(intent);
                     }
 
                     @Override
@@ -248,6 +275,29 @@ public class ZCSobotApi {
         intent.setAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_TEXT);
         intent.putExtra(ZhiChiConstant.SOBOT_SEND_DATA, content);
         intent.putExtra("sendTextTo", "user");
+        localBroadcastManager.sendBroadcast(intent);
+    }
+
+    /**
+     * 发送消息给客服
+     *
+     * @param context
+     * @param content 发送内容
+     * @param type    发送类型
+     *                type = 0; //文本
+     *                type = 1; //图片
+     *                type = 3; //视频
+     *                type = 4; //文件
+     */
+    public static void sendMessageToUser(Context context, String content, String type) {
+        if (context == null || TextUtils.isEmpty(content)) {
+            return;
+        }
+        Intent intent = new Intent();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
+        intent.setAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_OBJECT);
+        intent.putExtra(ZhiChiConstant.SOBOT_SEND_DATA, content);
+        intent.putExtra(ZhiChiConstant.SOBOT_TYPE_DATA, type);
         localBroadcastManager.sendBroadcast(intent);
     }
 
@@ -544,7 +594,7 @@ public class ZCSobotApi {
      * @param context
      * @return
      */
-    public static String readLastMessage(Context context) {
+    public static String getLastMessage(Context context) {
         return SharedPreferencesUtil.getStringData(context, ZhiChiConstant.SOBOT_LAST_MSG_CONTENT, "");
     }
 
@@ -645,16 +695,6 @@ public class ZCSobotApi {
      */
     public static void replaceWebUrlPattern(String regex) {
         HtmlTools.setWebUrl(Pattern.compile(regex));
-    }
-
-    /**
-     * 如果是android Q使用了沙盒模式，isAndroidQSandbox设置为true,默认为fasle
-     *
-     * @param context
-     * @param isAndroidQSandbox
-     */
-    public static void setIsAndroidQSandbox(Context context, boolean isAndroidQSandbox) {
-        SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_IS_ANDROID_Q, isAndroidQSandbox);
     }
 
 
@@ -1172,9 +1212,9 @@ public class ZCSobotApi {
             return;
         }
         SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_NAME, "sobot_android_strings_" + language);
-        String languageFileName = "sobot_android_strings_" + language + "_" + getVersion(context) + ".json";
+        String languageFileName = "sobot_android_strings_" + language + ".json";
         //指定语言包保存路径
-        final String languagePath = CommonUtils.getPrivatePath(context) + File.separator + getAppName(context) + File.separator + "sobot_language" + File.separator + languageFileName;
+        final String languagePath = CommonUtils.getPrivatePath(context) + File.separator + getAppName(context) + File.separator + "sobot_language" + File.separator + ZhiChiUrlApi.LANGUAGE_VERSION + File.separator + languageFileName;
         File file = new File(languagePath);
         if (isReDownload && file.exists()) {
             //如果指定语言包已存在，并且要重新下载使用最新，先删除本地已存在的
@@ -1248,25 +1288,5 @@ public class ZCSobotApi {
         }
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_HIDE_TIMEMSG, isHide);
     }
-
-
-    /**
-     * 检查存储权限
-     *
-     * @return true, 已经获取权限;false,没有权限,尝试获取
-     */
-    public static boolean checkStoragePermission(Context context) {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(context) >= 23) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //申请WRITE_EXTERNAL_STORAGE权限
-//                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-        }
-        return true;
-    }
-
 
 }

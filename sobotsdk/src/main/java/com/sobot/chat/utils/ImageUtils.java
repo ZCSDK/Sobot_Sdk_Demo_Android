@@ -1,3 +1,4 @@
+
 package com.sobot.chat.utils;
 
 import android.annotation.TargetApi;
@@ -16,6 +17,7 @@ import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
@@ -144,12 +146,18 @@ public class ImageUtils {
             }
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
+                String id = DocumentsContract.getDocumentId(uri);
+                if (!TextUtils.isEmpty(id)) {
+                    if (id.startsWith("raw:")) {
+                        return id.replaceFirst("raw:", "");
+                    }
+                    try {
+                        final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        return getDataColumn(context, contentUri, null, null);
+                    } catch (NumberFormatException e) {
+                        return null;
+                    }
+                }
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
@@ -171,6 +179,9 @@ public class ImageUtils {
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
+        }
+        if (!(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy())){
+            return uriToFileApiQ(context, uri);
         }
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
@@ -472,5 +483,54 @@ public class ImageUtils {
             }
         }
         return uri;
+    }
+
+    /**
+     * Android 10 以上适配
+     *
+     * @param context
+     * @param uri
+     * @return
+     */
+    private static String uriToFileApiQ(Context context, Uri uri) {
+        File file = null;
+        //android10以上转换
+        if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+            file = new File(uri.getPath());
+        } else if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //把文件复制到沙盒目录
+            ContentResolver contentResolver = context.getContentResolver();
+            Cursor cursor = contentResolver.query(uri, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                InputStream is = null;
+                FileOutputStream fos = null;
+                try {
+                    is = contentResolver.openInputStream(uri);
+                    File cache = new File(context.getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
+                    fos = new FileOutputStream(cache);
+                    IOUtils.copyFileWithStream(fos,is);
+                    file = cache;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (fos != null) {
+                            fos.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (is != null) {
+                            is.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return file.getAbsolutePath();
     }
 }

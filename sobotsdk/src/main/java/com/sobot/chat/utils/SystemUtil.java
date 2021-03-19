@@ -122,16 +122,4 @@ public class SystemUtil {
 
         return null;
     }
-
-    //判断当前app是否使用api29
-    //如果是是要用android Q的沙盒
-    public static boolean isAndroidQ(Context context) {
-        if (context != null) {
-            boolean isAndroidQ = SharedPreferencesUtil.getBooleanData(context, ZhiChiConstant.SOBOT_IS_ANDROID_Q, false);
-            return isAndroidQ;
-        } else {
-            return false;
-        }
-
-    }
 }

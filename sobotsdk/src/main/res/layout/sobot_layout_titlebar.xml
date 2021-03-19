@@ -110,6 +110,20 @@
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
                 android:textColor="@color/sobot_color_title_bar_menu_text"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/sobot_tv_right_third"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/sobot_DIMEN_108PX"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:drawableEnd="@drawable/sobot_phone"
+                android:drawableRight="@drawable/sobot_phone"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/sobot_color_title_bar_menu_text"
                 android:textSize="@dimen/sobot_text_title"
                 android:visibility="gone" />
 

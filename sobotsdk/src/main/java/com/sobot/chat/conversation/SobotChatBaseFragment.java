@@ -2,12 +2,14 @@ package com.sobot.chat.conversation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -817,7 +819,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
 
     }
 
-    protected void uploadVideo(File videoFile, Uri fileUri, String snapshotPath, final SobotMsgAdapter messageAdapter) {
+    protected void uploadVideo(File videoFile, Uri fileUri, final SobotMsgAdapter messageAdapter) {
         String tmpMsgId = String.valueOf(System.currentTimeMillis());
         LogUtils.i("tmpMsgId:" + tmpMsgId);
         String fName = MD5Util.encode(videoFile.getAbsolutePath());
@@ -829,8 +831,16 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_pic_type_error"));
             return;
         }
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+        media.setDataSource(filePath);//path 本地视频的路径
+        Bitmap bitmap = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+        String snapshotPath = "";
+        if (bitmap != null) {
+            snapshotPath = FileUtil.saveBitmap(100, bitmap);
+        }
+
         zhiChiApi.addUploadFileTask(true, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), filePath, snapshotPath);
-        updateUiMessage(messageAdapter, ChatUtils.getUploadVideoModel(getContext(), tmpMsgId, videoFile, snapshotPath));
+        updateUiMessage(messageAdapter, ChatUtils.getUploadVideoModel(getContext(), tmpMsgId, new File(filePath), snapshotPath));
         isAboveZero = true;
     }
 

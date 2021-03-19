@@ -57,12 +57,23 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
         orderCardContent = message.getOrderCardContent();
         if (orderCardContent != null) {
             if (orderCardContent.getGoods() != null && orderCardContent.getGoods().size() > 0) {
-                mPic.setVisibility(View.VISIBLE);
                 mTitle.setVisibility(View.VISIBLE);
                 OrderCardContentModel.Goods firstGoods = orderCardContent.getGoods().get(0);
-                SobotBitmapUtil.display(context, CommonUtils.encode(firstGoods.getPictureUrl())
-                        , mPic, defaultPicResId, defaultPicResId);
-                mTitle.setText(firstGoods.getName());
+                if (firstGoods != null) {
+                    if (TextUtils.isEmpty(firstGoods.getPictureUrl())) {
+                        mPic.setVisibility(View.GONE);
+                    } else {
+                        mPic.setVisibility(View.VISIBLE);
+                        SobotBitmapUtil.display(context, CommonUtils.encode(firstGoods.getPictureUrl())
+                                , mPic, defaultPicResId, defaultPicResId);
+                    }
+                    if (TextUtils.isEmpty(firstGoods.getName())) {
+                        mTitle.setVisibility(View.GONE);
+                    } else {
+                        mTitle.setVisibility(View.VISIBLE);
+                        mTitle.setText(firstGoods.getName());
+                    }
+                }
             } else {
                 mPic.setVisibility(View.GONE);
                 mTitle.setVisibility(View.GONE);
@@ -107,7 +118,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             }
 
             mGoodsTotalMoney.setVisibility(View.VISIBLE);
-            mGoodsTotalMoney.setText((!TextUtils.isEmpty(orderCardContent.getGoodsCount()) ? "," : "") + ResourceUtils.getResString(context, "sobot_order_total_money") + " " + getMoney(orderCardContent.getTotalFee()) + ResourceUtils.getResString(context, "sobot_money_format"));
+            mGoodsTotalMoney.setText((!TextUtils.isEmpty(orderCardContent.getGoodsCount()) ? "," : "") + ResourceUtils.getResString(context, "sobot_order_total_money") + getMoney(orderCardContent.getTotalFee()) + ResourceUtils.getResString(context, "sobot_money_format"));
 
 
             if (!TextUtils.isEmpty(orderCardContent.getGoodsCount())) {
@@ -118,14 +129,14 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             }
 
             if (!TextUtils.isEmpty(orderCardContent.getOrderCode())) {
-                mOrderNumber.setText(ResourceUtils.getResString(context, "sobot_order_code_lable") +"："+ orderCardContent.getOrderCode());
+                mOrderNumber.setText(ResourceUtils.getResString(context, "sobot_order_code_lable") + "：" + orderCardContent.getOrderCode());
                 mOrderNumber.setVisibility(View.VISIBLE);
             } else {
                 mOrderNumber.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(orderCardContent.getCreateTime())) {
-                mOrderCreatetime.setText(ResourceUtils.getResString(context, "sobot_order_time_lable") +"："+ DateUtil.longToDateStr(Long.parseLong(orderCardContent.getCreateTime()), "yyyy-MM-dd HH:mm:ss"));
+                mOrderCreatetime.setText(ResourceUtils.getResString(context, "sobot_order_time_lable") + "：" + DateUtil.longToDateStr(Long.parseLong(orderCardContent.getCreateTime()), "yyyy-MM-dd HH:mm:ss"));
                 mOrderCreatetime.setVisibility(View.VISIBLE);
             } else {
                 mOrderCreatetime.setVisibility(View.GONE);
@@ -190,7 +201,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
         if (mContext == null) {
             return "";
         }
-        return ResourceUtils.getResString(mContext, "sobot_money_format") + " " + money / 100.0f;
+        return "" + money / 100.0f;
 
 
     }

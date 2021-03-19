@@ -7,10 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -176,6 +174,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     public TextView sobot_title_conn_status;
     public LinearLayout sobot_container_conn_status;
     public TextView sobot_tv_right_second;
+    public TextView sobot_tv_right_third;
     public ProgressBar sobot_conn_loading;
     public RelativeLayout net_status_remide;
     public TextView sobot_net_not_connect;
@@ -455,6 +454,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         sobot_title_conn_status = (TextView) rootView.findViewById(getResId("sobot_title_conn_status"));
         sobot_container_conn_status = (LinearLayout) rootView.findViewById(getResId("sobot_container_conn_status"));
         sobot_tv_right_second = (TextView) rootView.findViewById(getResId("sobot_tv_right_second"));
+        sobot_tv_right_third = (TextView) rootView.findViewById(getResId("sobot_tv_right_third"));
         sobot_conn_loading = (ProgressBar) rootView.findViewById(getResId("sobot_conn_loading"));
         net_status_remide = (RelativeLayout) rootView.findViewById(getResId("sobot_net_status_remide"));
         sobot_net_not_connect = (TextView) rootView.findViewById(getResId("sobot_net_not_connect"));
@@ -821,6 +821,12 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         onRightMenuClick(v);
                     }
                 });
+
+                if (SobotUIConfig.sobot_title_right_menu1_display) {
+                    sobot_tv_right.setVisibility(View.VISIBLE);
+                } else {
+                    sobot_tv_right.setVisibility(View.GONE);
+                }
             }
             if (sobot_tv_close != null && info.isShowCloseBtn() && current_client_model == ZhiChiConstant.client_model_customService) {
                 //设置导航栏关闭按钮
@@ -848,6 +854,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         localFilter.addAction(ZhiChiConstants.receiveMessageBrocast);
         localFilter.addAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_LOCATION);
         localFilter.addAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_TEXT);
+        localFilter.addAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_OBJECT);
         localFilter.addAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_CARD);
         localFilter.addAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_ORDER_CARD);
         localFilter.addAction(ZhiChiConstant.SOBOT_BROCAST_ACTION_TRASNFER_TO_OPERATOR);
@@ -887,6 +894,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         btn_model_voice.setOnClickListener(this);
         sobot_ll_switch_robot.setOnClickListener(this);
         sobot_tv_right_second.setOnClickListener(this);
+        sobot_tv_right_third.setOnClickListener(this);
 
         //是否使用指定国际化语言 如果指定了国际化语言，转人动按钮使用固定的图标
         boolean is_sobot_use_language = SharedPreferencesUtil.getBooleanData(getSobotActivity(), ZhiChiConstant.SOBOT_USE_LANGUAGE, false);
@@ -1649,7 +1657,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             //发送视频
                             File sendFile = new File(content);
                             if (sendFile.exists()) {
-                                uploadVideo(sendFile, null, content, messageAdapter);
+                                uploadVideo(sendFile, null, messageAdapter);
                             }
                         } else if (info.getAutoSendMsgMode().getAuto_send_msgtype() == ZCMessageTypePhoto) {
                             //发送图片
@@ -2164,7 +2172,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         //发送视频
                         File sendFile = new File(content);
                         if (sendFile.exists()) {
-                            uploadVideo(sendFile, null, content, messageAdapter);
+                            uploadVideo(sendFile, null, messageAdapter);
                         }
                     } else if (info.getAutoSendMsgMode().getAuto_send_msgtype() == ZCMessageTypePhoto) {
                         //发送图片
@@ -3594,9 +3602,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                                     .getRobotLogo() : base.getSenderFace());
                         }
                         base.setAnswer(answer);
-                        base.setSugguestions(base.getSdkMsg()
-                                .getSugguestions());
-                        base.setStripe(base.getSdkMsg().getStripe());
                         base.setAnswerType(base.getSdkMsg()
                                 .getAnswerType());
                     }
@@ -3854,6 +3859,37 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             sendMsg(content);
                         }
                     }
+                } else if (ZhiChiConstant.SOBOT_BROCAST_ACTION_SEND_OBJECT.equals(intent.getAction())) {
+                    String content = intent.getStringExtra(ZhiChiConstant.SOBOT_SEND_DATA);
+                    String type = intent.getStringExtra(ZhiChiConstant.SOBOT_TYPE_DATA);
+                    if (ZhiChiConstant.client_model_customService == current_client_model) {
+                        if (TextUtils.isEmpty(content)) {
+                            LogUtils.i("发送内容不能为空");
+                            return;
+                        }
+                        if ("0".equals(type)) {
+                            //发送文本
+                            sendMsg(content);
+                        } else if ("1".equals(type)) {
+                            //发送图片
+                            File sendFile = new File(content);
+                            if (sendFile.exists()) {
+                                uploadFile(sendFile, handler, lv_message, messageAdapter, false);
+                            }
+                        } else if ("3".equals(type)) {
+                            //发送视频
+                            File sendFile = new File(content);
+                            if (sendFile.exists()) {
+                                uploadVideo(sendFile, null, messageAdapter);
+                            }
+                        } else if ("4".equals(type)) {
+                            //发送文件
+                            File sendFile = new File(content);
+                            if (sendFile.exists()) {
+                                uploadFile(sendFile, handler, lv_message, messageAdapter, false);
+                            }
+                        }
+                    }
                 } else if (ZhiChiConstant.SOBOT_BROCAST_ACTION_TRASNFER_TO_OPERATOR.equals(intent.getAction())) {
                     //外部调用转人工
                     SobotTransferOperatorParam transferParam = (SobotTransferOperatorParam) intent.getSerializableExtra(ZhiChiConstant.SOBOT_SEND_DATA);
@@ -3996,7 +4032,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                                 break;
                         }
                     } else {
-                        mTitleTextView.setVisibility(View.VISIBLE);
+                        mTitleTextView.setVisibility(View.GONE);
                         mAvatarIV.setVisibility(View.VISIBLE);
                         sobot_container_conn_status.setVisibility(View.GONE);
                     }
@@ -4153,6 +4189,14 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 CommonUtils.callUp(SobotUIConfig.sobot_title_right_menu2_call_num, getContext());
             } else {
                 btnSatisfaction();
+            }
+        }
+
+        if (view == sobot_tv_right_third) {
+            if (!TextUtils.isEmpty(SobotUIConfig.sobot_title_right_menu3_call_num)) {
+                CommonUtils.callUp(SobotUIConfig.sobot_title_right_menu3_call_num, getContext());
+            } else {
+                LogUtils.e("电话号码不能为空");
             }
         }
     }
@@ -4407,14 +4451,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                                 //SobotDialogUtils.startProgressDialog(getSobotActivity());
                                 File videoFile = new File(path);
                                 if (videoFile.exists()) {
-                                    MediaMetadataRetriever media = new MediaMetadataRetriever();
-                                    media.setDataSource(path);//path 本地视频的路径
-                                    Bitmap bitmap = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                                    String snapshotPath = "";
-                                    if (bitmap != null) {
-                                        snapshotPath = FileUtil.saveBitmap(100, bitmap);
-                                    }
-                                    uploadVideo(videoFile, selectedImage, snapshotPath, messageAdapter);
+                                    uploadVideo(videoFile, selectedImage, messageAdapter);
                                 }
 
                             } catch (IOException e) {
@@ -4503,8 +4540,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         if (actionType == SobotCameraActivity.ACTION_TYPE_VIDEO) {
                             File videoFile = new File(SobotCameraActivity.getSelectedVideo(data));
                             if (videoFile.exists()) {
-                                String snapshotPath = SobotCameraActivity.getSelectedImage(data);
-                                uploadVideo(videoFile, null, snapshotPath, messageAdapter);
+                                uploadVideo(videoFile, null, messageAdapter);
                             } else {
                                 ToastUtil.showLongToast(mAppContext, getResString("sobot_pic_select_again"));
                             }
@@ -4852,6 +4888,16 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 Drawable img = getResources().getDrawable(SobotUIConfig.sobot_title_right_menu2_bg);
                 img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                 sobot_tv_right_second.setCompoundDrawables(null, null, img, null);
+            }
+
+        }
+
+        if (SobotUIConfig.sobot_title_right_menu3_display) {
+            sobot_tv_right_third.setVisibility(View.VISIBLE);
+            if (SobotUIConfig.DEFAULT != SobotUIConfig.sobot_title_right_menu3_bg) {
+                Drawable img = getResources().getDrawable(SobotUIConfig.sobot_title_right_menu3_bg);
+                img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                sobot_tv_right_third.setCompoundDrawables(null, null, img, null);
             }
 
         }

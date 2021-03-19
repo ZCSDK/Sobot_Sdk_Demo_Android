@@ -215,7 +215,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
                                 information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent));
                             } else {
                                 if ("1".equals(autoSendMsgtype) || "12".equals(autoSendMsgtype) || "23".equals(autoSendMsgtype)) {
-                                    information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(CommonUtils.getSDCardRootPath() + File.separator + autoSendMsgcontent).setAuto_send_msgtype(Integer.parseInt(autoSendMsgtype)));
+                                    information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(CommonUtils.getSDCardRootPath(SobotManualFunctionActivity.this) + File.separator + autoSendMsgcontent).setAuto_send_msgtype(Integer.parseInt(autoSendMsgtype)));
                                 } else {
                                     information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent).setAuto_send_msgtype(0));
                                 }

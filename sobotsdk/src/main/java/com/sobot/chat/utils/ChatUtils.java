@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -176,7 +177,7 @@ public class ChatUtils {
         IOUtils.createFolder(cameraFile.getParentFile());
         Uri uri;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            if (SystemUtil.isAndroidQ(act)) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Environment.isExternalStorageLegacy()) {
                 ContentValues contentValues = new ContentValues(1);
                 contentValues.put(MediaStore.Images.Media.DATA, cameraFile.getAbsolutePath());
                 uri = act.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -246,78 +247,73 @@ public class ChatUtils {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public static void sendPicLimitBySize(String filePath, String cid, String uid,
                                           Handler handler, Context context, final ListView lv_message,
                                           final SobotMsgAdapter messageAdapter, boolean isCamera) {
-
-        Bitmap bitmap = SobotBitmapUtil.compress(filePath, context, isCamera);
-        if (bitmap != null) {
-            // if (isCamera) {
-            //判断图片是否有旋转，有的话旋转后在发送（小米手机出现选择图库相片发送后和原生的图片方向不一致）
-            try {
-                int degree = ImageUtils.readPictureDegree(filePath);
-                if (degree > 0) {
-                    bitmap = ImageUtils.rotateBitmap(bitmap, degree);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // }
-            if (!(filePath.endsWith(".gif") || filePath.endsWith(".GIF"))) {
-                String picDir = SobotPathManager.getInstance().getPicDir();
-                IOUtils.createFolder(picDir);
-                String fName = MD5Util.encode(filePath);
-                filePath = picDir + fName + "_tmp.jpg";
-                FileOutputStream fos;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Environment.isExternalStorageLegacy()) {
+            Bitmap bitmap = SobotBitmapUtil.compress(filePath, context, isCamera);
+            if (bitmap != null) {
+                //判断图片是否有旋转，有的话旋转后在发送（手机出现选择图库相片发送后和原生的图片方向不一致）
                 try {
-                    fos = new FileOutputStream(filePath);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    int degree = ImageUtils.readPictureDegree(filePath);
+                    if (degree > 0) {
+                        bitmap = ImageUtils.rotateBitmap(bitmap, degree);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return;
                 }
-            } else {
-                try {
-
+                if (!(filePath.endsWith(".gif") || filePath.endsWith(".GIF"))) {
+                    String picDir = SobotPathManager.getInstance().getPicDir();
+                    IOUtils.createFolder(picDir);
                     String fName = MD5Util.encode(filePath);
-                    Uri uri = ImageUtils.getImageContentUri(context, filePath);
-                    filePath = FileUtil.saveImageFile(context, uri, fName + FileUtil.getFileEndWith(filePath), filePath);
-
-
-//                    ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(ImageUtils.getImageContentUri(context, filePath), "r");
-//                    InputStream inputStream = new FileInputStream(pfd.getFileDescriptor());
-//                    String picDir = SobotPathManager.getInstance().getPicDir();
-//                    IOUtils.createFolder(picDir);
-//                    String fName = MD5Util.encode(filePath);
-//                    filePath = picDir + fName + "_tmp.gif";
-//                    FileOutputStream fo = new FileOutputStream(filePath);
-//
-//                    if (!IOUtils.copyFileWithStream(fo, inputStream)) {
-//                        ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
-//                        return;
-//                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return;
+                    filePath = picDir + fName + "_tmp.jpg";
+                    FileOutputStream fos;
+                    try {
+                        fos = new FileOutputStream(filePath);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                } else {
+                    try {
+                        String fName = MD5Util.encode(filePath);
+                        Uri uri = ImageUtils.getImageContentUri(context, filePath);
+                        filePath = FileUtil.saveImageFile(context, uri, fName + FileUtil.getFileEndWith(filePath), filePath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
                 }
-            }
-
-            long size = CommonUtils.getFileSize(filePath);
-
-            if (size < (20 * 1024 * 1024)) {
-                String id = System.currentTimeMillis() + "";
-                sendImageMessageToHandler(filePath, handler, id);
-                sendPicture(context, cid, uid, filePath, handler, id, lv_message,
-                        messageAdapter);
+                long size = CommonUtils.getFileSize(filePath);
+                if (size < (20 * 1024 * 1024)) {
+                    String id = System.currentTimeMillis() + "";
+                    sendImageMessageToHandler(filePath, handler, id);
+                    sendPicture(context, cid, uid, filePath, handler, id, lv_message,
+                            messageAdapter);
+                } else {
+                    ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_file_lt_8M"));
+                }
             } else {
-                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_file_lt_8M"));
+                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
             }
         } else {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
+            if (!TextUtils.isEmpty(filePath)) {
+                long size = CommonUtils.getFileSize(filePath);
+                if (size < (20 * 1024 * 1024)) {
+                    String id = System.currentTimeMillis() + "";
+                    sendImageMessageToHandler(filePath, handler, id);
+                    sendPicture(context, cid, uid, filePath, handler, id, lv_message,
+                            messageAdapter);
+                } else {
+                    ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_file_lt_8M"));
+                }
+            } else {
+                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
+            }
         }
     }
+
 
     // 图片通知
     public static void sendImageMessageToHandler(String imageUrl,
@@ -664,15 +660,15 @@ public class ChatUtils {
      * @param isBackShowEvaluate 是否是返回时弹出评价窗  true 是 false 否
      */
     public static SobotEvaluateDialog showEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitCommit, ZhiChiInitModeBase
-            initModel, int current_model, int commentType, String customName, int scroe, int isSolve, String checklables,boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
+            initModel, int current_model, int commentType, String customName, int scroe, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
         if (initModel == null) {
             return null;
         }
         SobotEvaluateDialog dialog = null;
         if (ScreenUtils.isFullScreen(context)) {
-            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables,isBackShowEvaluate, canBackWithNotEvaluation, ResourceUtils.getIdByName(context, "style", "sobot_FullScreenDialogStyle"));
+            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables, isBackShowEvaluate, canBackWithNotEvaluation, ResourceUtils.getIdByName(context, "style", "sobot_FullScreenDialogStyle"));
         } else {
-            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables,isBackShowEvaluate, canBackWithNotEvaluation);
+            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables, isBackShowEvaluate, canBackWithNotEvaluation);
         }
 
         dialog.setCanceledOnTouchOutside(true);
@@ -965,42 +961,55 @@ public class ChatUtils {
     }
 
     public static void sendPicByFilePath(Context context, String filePath, SobotSendFileListener listener, boolean isCamera) {
-
-        Bitmap bitmap = SobotBitmapUtil.compress(filePath, context, isCamera);
-        if (bitmap != null) {
-            if (isCamera) {
-                int degree = ImageUtils.readPictureDegree(filePath);
-                bitmap = ImageUtils.rotateBitmap(bitmap, degree);
-            }
-            if (!(filePath.endsWith(".gif") || filePath.endsWith(".GIF"))) {
-                String picDir = SobotPathManager.getInstance().getPicDir();
-                IOUtils.createFolder(picDir);
-                String fName = MD5Util.encode(filePath);
-                filePath = picDir + fName + "_tmp.jpg";
-                FileOutputStream fos;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Environment.isExternalStorageLegacy()) {
+            Bitmap bitmap = SobotBitmapUtil.compress(filePath, context, isCamera);
+            if (bitmap != null) {
+                //判断图片是否有旋转，有的话旋转后在发送（手机出现选择图库相片发送后和原生的图片方向不一致）
                 try {
-                    fos = new FileOutputStream(filePath);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
-                    return;
-                }
-            } else {
-                try {
-                    String fName = MD5Util.encode(filePath);
-                    Uri uri = ImageUtils.getImageContentUri(context, filePath);
-                    filePath = FileUtil.saveImageFile(context, uri, fName + FileUtil.getFileEndWith(filePath), filePath);
+                    int degree = ImageUtils.readPictureDegree(filePath);
+                    if (degree > 0) {
+                        bitmap = ImageUtils.rotateBitmap(bitmap, degree);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
-                    return;
                 }
+                if (!(filePath.endsWith(".gif") || filePath.endsWith(".GIF"))) {
+                    String picDir = SobotPathManager.getInstance().getPicDir();
+                    IOUtils.createFolder(picDir);
+                    String fName = MD5Util.encode(filePath);
+                    filePath = picDir + fName + "_tmp.jpg";
+                    FileOutputStream fos;
+                    try {
+                        fos = new FileOutputStream(filePath);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
+                        return;
+                    }
+                } else {
+                    try {
+                        String fName = MD5Util.encode(filePath);
+                        Uri uri = ImageUtils.getImageContentUri(context, filePath);
+                        filePath = FileUtil.saveImageFile(context, uri, fName + FileUtil.getFileEndWith(filePath), filePath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
+                        return;
+                    }
+                }
+                listener.onSuccess(filePath);
+            } else {
+                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
+                listener.onError();
             }
-            listener.onSuccess(filePath);
         } else {
-            ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
-            listener.onError();
+            if(!TextUtils.isEmpty(filePath)){
+                listener.onSuccess(filePath);
+            }else{
+                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
+                listener.onError();
+            }
         }
     }
 

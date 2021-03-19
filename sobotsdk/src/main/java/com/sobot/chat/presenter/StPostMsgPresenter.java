@@ -158,7 +158,7 @@ public class StPostMsgPresenter {
      * @param uid
      * @param templateId
      */
-    private void obtainTmpConfig(final String uid, final String templateId) {
+    public void obtainTmpConfig(final String uid, final String templateId) {
         mApi.getMsgTemplateConfig(mCancelTag, uid, templateId, new StringResultCallBack<SobotLeaveMsgConfig>() {
             @Override
             public void onSuccess(SobotLeaveMsgConfig data) {

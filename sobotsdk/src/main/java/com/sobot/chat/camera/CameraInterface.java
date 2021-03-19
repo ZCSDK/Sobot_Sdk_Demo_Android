@@ -32,6 +32,7 @@ import com.sobot.chat.camera.util.DeviceUtil;
 import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.camera.util.ScreenUtils;
 import com.sobot.chat.camera.util.StCmeraLog;
+import com.sobot.chat.utils.CommonUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -598,7 +599,7 @@ public class CameraInterface implements Camera.PreviewCallback {
 
         videoFileName = "v_" + System.currentTimeMillis() + ".mp4";
         if (saveVideoPath.equals("")) {
-            saveVideoPath = Environment.getExternalStorageDirectory().getPath();
+            saveVideoPath = CommonUtils.getSDCardRootPath(mContext);
         }
         videoFileAbsPath = saveVideoPath + File.separator + videoFileName;
 

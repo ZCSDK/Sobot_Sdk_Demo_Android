@@ -10,10 +10,15 @@ public class SobotUIConfig {
 
     public static int sobot_serviceImgId = DEFAULT;//修改转人工按钮的图片
     public static int sobot_titleTextColor = DEFAULT;//修改顶部文字字体颜色
-    public static boolean sobot_title_right_menu2_display = false;//toolbar右边第二个按钮是否显示（评价）
+    public static boolean sobot_title_right_menu1_display = true;//toolbar右边第一个按钮是否显示 默认显示（更多）
+    public static boolean sobot_title_right_menu2_display = false;//toolbar右边第二个按钮是否显示 默认隐藏（评价）
+    public static boolean sobot_title_right_menu3_display = false;//toolbar右边第三个个按钮是否显示（打电话） 默认隐藏 2.9.5新增
     public static int sobot_title_right_menu2_bg = DEFAULT;//修改toolbar右边第二个按钮的图片
+    public static int sobot_title_right_menu3_bg = DEFAULT;//修改toolbar右边第三个按钮的图片 2.9.5新增
     //toolbar右边第二个按钮需要拨打电话的号码
     public static String sobot_title_right_menu2_call_num = "";
+    //toolbar右边第三个按钮需要拨打电话的号码 2.9.5新增
+    public static String sobot_title_right_menu3_call_num = "";
     public static int sobot_moreBtnImgId = DEFAULT;//修改更多按钮的图片
     public static int sobot_apicloud_titleBgColor = DEFAULT;//apicloud修改顶部背景颜色
     public static int sobot_titleBgColor = DEFAULT;//修改顶部背景颜色

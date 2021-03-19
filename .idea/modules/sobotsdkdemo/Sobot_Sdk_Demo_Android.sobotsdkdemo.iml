@@ -40,9 +40,9 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: ./sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.4.jar" level="project" />
+    <orderEntry type="library" name="Gradle: ./sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.5.jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:2.4.3" level="project" />

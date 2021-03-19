@@ -946,15 +946,6 @@ public class SobotApi {
         HtmlTools.setWebUrl(Pattern.compile(regex));
     }
 
-    /**
-     * 如果是android Q使用了沙盒模式，isAndroidQSandbox设置为true,默认为fasle
-     * @param context
-     * @param isAndroidQSandbox
-     */
-    public static void setIsAndroidQSandbox(Context context, boolean isAndroidQSandbox) {
-        SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_IS_ANDROID_Q, isAndroidQSandbox);
-    }
-
 
     /**
      * 日志显示设置

@@ -118,6 +118,7 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
     private void setFailureView() {
         sobot_template4_title.setVisibility(View.VISIBLE);
         sobot_template4_thumbnail.setVisibility(View.GONE);
+        sobot_template4_temp_title.setVisibility(View.GONE);
         sobot_template4_summary.setVisibility(View.GONE);
         sobot_template4_anchor.setVisibility(View.GONE);
     }

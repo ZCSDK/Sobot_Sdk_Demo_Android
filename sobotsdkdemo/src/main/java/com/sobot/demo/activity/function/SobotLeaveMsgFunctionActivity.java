@@ -23,15 +23,16 @@ import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText sobot_et_leaveCusFieldMap, sobot_et_leaveMsgGroupId;
+    private EditText sobot_et_leaveCusFieldMap, sobot_et_leaveMsgGroupId,sobot_et_leaveTemplateId;
     private RelativeLayout sobot_tv_left, sobot_rl_4_3_5, sobot_rl_4_3_7;
     private ImageView sobotImage435, sobotImage437;
     private boolean status435, status437;
-    private TextView tv_leavemsg_fun_4_3_5, tv_leavemsg_fun_4_3_7, tv_leavemsg_fun_4_3_8, sobot_tv_save;
+    private TextView tv_leavemsg_fun_4_3_5, tv_leavemsg_fun_4_3_7, tv_leavemsg_fun_4_3_8, sobot_tv_save, sobot_start_leavemsg_tv;
     private Information information;
     private SobotDemoOtherModel otherModel;
 
@@ -61,6 +62,9 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
         sobot_tv_save.setVisibility(View.VISIBLE);
         sobot_tv_save.setOnClickListener(this);
 
+        sobot_start_leavemsg_tv = findViewById(R.id.sobot_start_leavemsg_tv);
+        sobot_start_leavemsg_tv.setOnClickListener(this);
+
         sobot_rl_4_3_5 = (RelativeLayout) findViewById(R.id.sobot_rl_4_3_5);
         sobot_rl_4_3_5.setOnClickListener(this);
         sobotImage435 = (ImageView) findViewById(R.id.sobot_image_4_3_5);
@@ -72,9 +76,10 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
 
         sobot_et_leaveCusFieldMap = findViewById(R.id.sobot_et_leaveCusFieldMap);
         sobot_et_leaveMsgGroupId = findViewById(R.id.sobot_et_leaveMsgGroupId);
-
+        sobot_et_leaveTemplateId= findViewById(R.id.sobot_et_leaveTemplateId);
         if (information != null) {
             sobot_et_leaveMsgGroupId.setText(TextUtils.isEmpty(information.getLeaveMsgGroupId()) ? "" : information.getLeaveMsgGroupId());
+            sobot_et_leaveTemplateId.setText(TextUtils.isEmpty(information.getLeaveTemplateId()) ? "" : information.getLeaveTemplateId());
             if (information.getLeaveCusFieldMap() != null) {
                 try {
                     String str = JSON.toJSONString(information.getLeaveCusFieldMap());
@@ -127,6 +132,7 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
 
                     String leaveMsgGroupId = sobot_et_leaveMsgGroupId.getText().toString().trim();
                     information.setLeaveMsgGroupId(leaveMsgGroupId);
+                    information.setLeaveTemplateId(sobot_et_leaveTemplateId.getText().toString().trim());
                     //已完成状态的留言，是否可持续回复 true 持续回复 ，false 不可继续回复 ；默认 true 用户可一直持续回复
                     ZCSobotApi.setSwitchMarkStatus(MarkConfig.LEAVE_COMPLETE_CAN_REPLY, status435);
                     SobotSPUtil.saveBooleanData(this, "leave_complete_can_reply", status435);
@@ -146,6 +152,11 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
             case R.id.sobot_rl_4_3_7:
                 status437 = !status437;
                 setImageShowStatus(status437, sobotImage437);
+                break;
+
+            case R.id.sobot_start_leavemsg_tv:
+                information.setLeaveTemplateId(sobot_et_leaveTemplateId.getText().toString().trim());
+                ZCSobotApi.openLeave(getContext(), information, false);
                 break;
 
         }

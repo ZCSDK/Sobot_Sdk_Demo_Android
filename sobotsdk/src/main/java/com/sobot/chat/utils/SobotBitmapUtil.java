@@ -3,6 +3,8 @@ package com.sobot.chat.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -104,7 +106,7 @@ public class SobotBitmapUtil {
 
     @SuppressWarnings("deprecation")
     public static Bitmap compress(String filePath, Context context,boolean isCamera) {
-        if (SystemUtil.isAndroidQ(context)||isCamera) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q|| Environment.isExternalStorageLegacy()||isCamera) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;// 设置后decode图片不会返回一个bitmap对象，但是会将图片的信息封装到Options中
             BitmapFactory.decodeFile(filePath, options);

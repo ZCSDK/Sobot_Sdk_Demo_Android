@@ -40,6 +40,13 @@ public class App extends Application {
         if (information == null) {
             SobotSPUtil.saveObject(this, "sobot_demo_infomation", new Information());
         }
+        if (information != null) {
+            if (TextUtils.isEmpty(information.getApp_key())) {
+                ToastUtil.showCustomToast(this, "appkey不能为空,请前往基础设置中设置");
+                return;
+            }
+            ZCSobotApi.initSobotSDK(this, information.getApp_key(), information.getPartnerid());
+        }
 
         SobotDemoOtherModel otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(this, "sobot_demo_otherModel");
         if (otherModel == null) {

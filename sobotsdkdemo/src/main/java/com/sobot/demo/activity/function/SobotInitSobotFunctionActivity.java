@@ -67,6 +67,7 @@ public class SobotInitSobotFunctionActivity extends AppCompatActivity implements
                     return;
                 }
                 ZCSobotApi.initSobotSDK(getContext(), information.getApp_key(), information.getPartnerid());
+                ZCSobotApi.initPlatformUnion(getContext(), "", "");
                 ToastUtil.showCustomToast(getContext(), "已初始化");
                 finish();
             }

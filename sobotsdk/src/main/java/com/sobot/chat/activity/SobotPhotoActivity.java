@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.HttpUtils.FileCallBack;
+import com.sobot.chat.utils.ImageUtils;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.MD5Util;
 import com.sobot.chat.utils.ResourceUtils;
@@ -118,6 +119,15 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
 				showGif(savePath);
 			} else {
 				bitmap = SobotBitmapUtil.compress(savePath, getApplicationContext(),true);
+				//判断图片是否有旋转，有的话旋转后再显示
+				try {
+					int degree = ImageUtils.readPictureDegree(savePath);
+					if (degree > 0) {
+						bitmap = ImageUtils.rotateBitmap(bitmap, degree);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				big_photo.setImageBitmap(bitmap);
 				mAttacher = new PhotoViewAttacher(big_photo);
 				mAttacher
@@ -218,7 +228,7 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
             
             @Override
             public void inProgress(int progress) {
-                LogUtils.i("gif图片下载进度:" + progress);
+                LogUtils.i("图片下载进度:" + progress);
             }
         });
 	}

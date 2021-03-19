@@ -625,7 +625,7 @@ public class IOUtils {
 //     * @return
 //     */
 //    public static Uri insertFileIntoMediaStore (Context context,String fileName, String fileType, String relativePath) {
-//        if (SystemUtil.isAndroidQ()) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()) {
 //            return null;
 //        }
 //        ContentResolver resolver = context.getContentResolver();
@@ -647,26 +647,26 @@ public class IOUtils {
 //        return insertUri;
 //    }
 
-    public static Uri findFileExists(Context context,String filePath) {
-        if (SystemUtil.isAndroidQ(context)) {
-            File file = new File(filePath);
-            if (file.exists()) {
-                return FileOpenHelper.getUri(SobotApp.getApplicationContext(), filePath);
-            }
-            return null;
-        } else {
-            File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + filePath);
-            if (file.exists()) {
-                return FileOpenHelper.getUri(SobotApp.getApplicationContext(), file.getPath());
-            }
+//    public static Uri findFileExists(Context context,String filePath) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()) {
+//            File file = new File(filePath);
+//            if (file.exists()) {
+//                return FileOpenHelper.getUri(SobotApp.getApplicationContext(), filePath);
+//            }
+//            return null;
+//        } else {
+//            File file = new File(CommonUtils.getSDCardRootPath(context) + File.separator + filePath);
+//            if (file.exists()) {
+//                return FileOpenHelper.getUri(SobotApp.getApplicationContext(), file.getPath());
+//            }
+//
+//            return null;
+//
+//
+//        }
 
-            return null;
 
-
-        }
-
-
-    }
+//    }
 
     public static boolean copyFile(Context context, String sourceFilePath, final Uri insertUri) {
         if (insertUri == null) {

@@ -326,7 +326,7 @@ public class SobotUtils {
 
 
             //------会话创建后自动发送消息的模式---------
-            String videoPath = CommonUtils.getSDCardRootPath() + File.separator + "1.docx";
+            String videoPath = CommonUtils.getSDCardRootPath(context) + File.separator + "1.docx";
 //                        String videoPath = CommonUtils.getSDCardRootPath() + File.separator + "2.jpg";
 //                        String videoPath = CommonUtils.getSDCardRootPath() + File.separator + "1.txt";
             info.setAutoSendMsgMode(SobotAutoSendMsgMode.SendToOperator.setContent(videoPath).setAuto_send_msgtype(SobotAutoSendMsgMode.ZCMessageTypeVideo));

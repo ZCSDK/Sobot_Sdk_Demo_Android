@@ -1,6 +1,7 @@
 package com.sobot.chat.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 
 import com.sobot.chat.api.apiUtils.SobotApp;
@@ -54,7 +55,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/video
     public String getVideoDir() {
-        if (SystemUtil.isAndroidQ(mContext)) {
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
             return getRootDir() + File.separator + VIDEO_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_MOVIES).getPath() + File.separator;
@@ -63,7 +64,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/voice
     public String getVoiceDir() {
-        if (SystemUtil.isAndroidQ(mContext)) {
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
             return getRootDir() + File.separator + VOICE_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getPath() + File.separator;
@@ -73,7 +74,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/pic
     public String getPicDir() {
-        if (SystemUtil.isAndroidQ(mContext)) {
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
             return getRootDir() + File.separator + PIC_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath() + File.separator;
@@ -83,7 +84,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/cache
     public String getCacheDir() {
-        if (SystemUtil.isAndroidQ(mContext)) {
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
             return getRootDir() + File.separator + CACHE_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator + CACHE_DIR + File.separator;

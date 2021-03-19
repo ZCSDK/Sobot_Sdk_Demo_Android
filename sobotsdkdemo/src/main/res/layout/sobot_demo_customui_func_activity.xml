@@ -38,13 +38,13 @@
                     android:id="@+id/sobot_text462"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="是否显示标题栏昵称"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -52,24 +52,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text462"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不显示]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:默认不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -129,13 +129,13 @@
                     android:id="@+id/sobot_text4622"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="是否显示标题栏头像"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -143,24 +143,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4622"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认显示]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:默认显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_2_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -219,13 +219,13 @@
                     android:id="@+id/sobot_text463"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="横竖屏显示开关"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -233,25 +233,25 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text463"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:横竖屏显示开关;true 横屏 , false 竖屏; 默认 false 竖屏]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:横竖屏显示开关;true 横屏 , false 竖屏; 默认 false 竖屏]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -272,13 +272,13 @@
                     android:id="@+id/sobot_text464"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="横屏下是否打开刘海屏开关"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -286,25 +286,161 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text464"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="3"
-                    android:text="[说明:只有在横屏下才有用;竖屏已适配，可修改状态栏颜色;true 打开 ,false 关闭; 默认 false 关闭]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:只有在横屏下才有用;竖屏已适配，可修改状态栏颜色;true 打开 ,false 关闭; 默认 false 关闭]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_6_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
+            <TextView
+                android:id="@+id/sobot_text461"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="聊天界面右上角按钮动态控制是否显示"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="16sp" />
+
+
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_6_1_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="3"
+                    android:text="[说明:右边第一个按钮（更多）是否显示，默认true显示]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_6_1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_6_1_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="3"
+                    android:text="[说明:右边第二个按钮（评价）是否显示，默认true显示]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_6_1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_6_1_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:id="@+id/sobot_tv_4_6_1_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginRight="60dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:lines="3"
+                    android:text="[说明:右边第三个按钮（打电话）是否显示，默认true显示]" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_6_1_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/sobot_et_custom_right_button_call"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/sobot_editview_stocke_bg"
+                    android:enabled="true"
+                    android:inputType="textMultiLine"
+                    android:padding="6dp"
+                    android:layout_below="@id/sobot_tv_4_6_1_3"
+                    android:hint="请输入电话号，只有右上角电话按钮显示时才有用"
+                    android:scrollbars="none"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textColorHint="@color/sobot_common_gray3"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 

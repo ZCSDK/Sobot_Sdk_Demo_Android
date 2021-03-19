@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.chat:sobotsdk-imageloader:1.0.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/44732d5a3f7814b6accd72bd9a1e3fcd/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/44732d5a3f7814b6accd72bd9a1e3fcd/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/44732d5a3f7814b6accd72bd9a1e3fcd/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fad499fc35acb165bfc4bf2e41f0b5e4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fad499fc35acb165bfc4bf2e41f0b5e4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fad499fc35acb165bfc4bf2e41f0b5e4/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

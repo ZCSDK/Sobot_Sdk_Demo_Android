@@ -97,7 +97,7 @@
                         android:id="@+id/sobot_stripe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginRight="5dp"
                         android:gravity="start"
                         android:textColor="@color/sobot_left_msg_text_color"
