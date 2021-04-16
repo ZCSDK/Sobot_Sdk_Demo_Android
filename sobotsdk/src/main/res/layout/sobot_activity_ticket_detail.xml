@@ -12,7 +12,7 @@
     <View
         android:id="@+id/sobot_title_below_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height_0_4_dp"
+        android:layout_height="@dimen/sobot_line_height_0_4_dp"
         android:layout_below="@id/sobot_layout_titlebar"
         android:background="@color/sobot_line_1dp" />
 
@@ -105,7 +105,7 @@
         android:layout_weight="1"
         android:divider="@null"
         android:listSelector="@android:color/transparent"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style" />
+        android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style" />
 
 
 </RelativeLayout>

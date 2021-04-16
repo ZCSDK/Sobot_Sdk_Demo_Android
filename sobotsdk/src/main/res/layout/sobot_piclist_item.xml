@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        app:round_corner="4dp"
+        app:sobot_round_corner="4dp"
 
 
         />

@@ -40,8 +40,8 @@
                 android:layout_marginEnd="6dp"
                 android:layout_marginRight="6dp"
                 android:visibility="gone"
-                app:stroke_color="@color/sobot_line_1dp"
-                app:stroke_width="0.4dp" />
+                app:sobot_stroke_color="@color/sobot_line_1dp"
+                app:sobot_stroke_width="0.4dp" />
 
             <TextView
                 android:id="@+id/sobot_text_title"

@@ -55,8 +55,8 @@
     <View
         android:id="@+id/sobot_activity_cusfield_listview_items_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height_0_4_dp"
-        android:layout_marginBottom="@dimen/line_height_0_4_dp"
+        android:layout_height="@dimen/sobot_line_height_0_4_dp"
+        android:layout_marginBottom="@dimen/sobot_line_height_0_4_dp"
         android:background="@color/sobot_line_1dp" />
 
 </LinearLayout>

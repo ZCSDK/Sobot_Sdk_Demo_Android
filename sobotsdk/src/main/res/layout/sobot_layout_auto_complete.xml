@@ -14,6 +14,6 @@
         android:fadingEdge="none"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="never"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style"
         android:scrollbars="none" />
 </LinearLayout>

@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">Sie können Fotos und Videos senden, um Hilfe zu erhalten, wenn Sie den Kundendienst konsultieren und eine Nachricht hinterlassen</string>
        <string name="sobot_microphone">Mikrofon</string>
        <string name="sobot_microphone_yongtu">Sie können Sprache verwenden, um schnell zu kommunizieren, wenn Sie den Kundendienst konsultieren und Nachrichten hinterlassen</string>
+       <string name="sobot_very_dissatisfied">Sehr unzufrieden</string>
 </resources>

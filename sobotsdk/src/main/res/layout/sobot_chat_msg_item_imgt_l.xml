@@ -59,10 +59,10 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:visibility="gone"
-                    app:round_corner_bottom_left="4dp"
-                    app:round_corner_bottom_right="16dp"
-                    app:round_corner_top_left="16dp"
-                    app:round_corner_top_right="16dp" />
+                    app:sobot_round_corner_bottom_left="4dp"
+                    app:sobot_round_corner_bottom_right="16dp"
+                    app:sobot_round_corner_top_left="16dp"
+                    app:sobot_round_corner_top_right="16dp" />
 
                 <TextView
                     android:id="@+id/sobot_pic_isgif"

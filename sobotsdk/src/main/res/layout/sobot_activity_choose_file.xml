@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:divider="@null"
         android:listSelector="@android:color/transparent"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style" />
+        android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style" />
 
     <View
         android:layout_width="fill_parent"

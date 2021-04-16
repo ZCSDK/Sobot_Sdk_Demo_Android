@@ -88,9 +88,9 @@ public class GifView2 extends View implements View.OnTouchListener {
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.GifView2, defStyleAttr, android.R.style.Widget);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.sobot_GifView2, defStyleAttr, android.R.style.Widget);
 
-        movieMovieResourceId = array.getResourceId(R.styleable.GifView2_gif, -1);
+        movieMovieResourceId = array.getResourceId(R.styleable.sobot_GifView2_gif, -1);
         array.recycle();
 
         if (movieMovieResourceId != -1) {

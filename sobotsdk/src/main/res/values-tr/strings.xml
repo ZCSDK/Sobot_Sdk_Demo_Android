@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">Müşteri hizmetlerine danışırken ve mesaj bırakırken yardım için fotoğraf ve video gönderebilirsiniz.</string>
        <string name="sobot_microphone">Mikrofon</string>
        <string name="sobot_microphone_yongtu">Müşteri hizmetlerine danışırken ve mesaj bırakırken hızlı iletişim kurmak için sesi kullanabilirsiniz</string>
+       <string name="sobot_very_dissatisfied">Çok tatmin olmadı.</string>
 </resources>

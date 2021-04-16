@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">Puoi inviare foto e video per chiedere aiuto quando consulti il ​​servizio clienti e lasci un messaggio</string>
        <string name="sobot_microphone">Microfono</string>
        <string name="sobot_microphone_yongtu">Puoi utilizzare la voce per comunicare rapidamente quando consulti il ​​servizio clienti e lasci messaggi</string>
+       <string name="sobot_very_dissatisfied">Molto insoddisfatto</string>
 </resources>

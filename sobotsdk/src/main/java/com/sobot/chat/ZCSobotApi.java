@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -1244,7 +1243,7 @@ public class ZCSobotApi {
 //            return;
 //        }
 
-        HttpUtils.getInstance().download("https://img.sobot.com/mobile/multilingual/android/" + languageFileName, file, null, new HttpUtils.FileCallBack() {
+        HttpUtils.getInstance().download("https://img.sobot.com/mobile/multilingual/android/" + ZhiChiUrlApi.LANGUAGE_VERSION + "/" + languageFileName, file, null, new HttpUtils.FileCallBack() {
 
             @Override
             public void onResponse(File result) {
@@ -1287,6 +1286,19 @@ public class ZCSobotApi {
             return;
         }
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_HIDE_TIMEMSG, isHide);
+    }
+
+    /**
+     * 获取启动客服时传入的参数对象 Information
+     *
+     * @return Information
+     */
+    public static Information getCurrentInfoSetting(Context context) {
+        if (context != null) {
+            Information information = (Information) SharedPreferencesUtil.getObject(context, "sobot_last_current_info");
+            return information;
+        }
+        return null;
     }
 
 }

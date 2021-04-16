@@ -42,6 +42,7 @@ import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.SobotEditTextLayout;
+import com.sobot.chat.widget.SobotTenRatingLayout;
 import com.sobot.chat.widget.dialog.base.SobotActionSheet;
 
 import java.util.ArrayList;
@@ -88,6 +89,11 @@ public class SobotEvaluateDialog extends SobotActionSheet {
     private TextView sobot_evaluate_cancel;//评价  暂不评价
     private TextView sobot_tv_evaluate_title_hint;//评价  提交后结束评价
     private RatingBar sobot_ratingBar;//评价  打分
+    private LinearLayout sobot_ten_root_ll;//评价  十分全布局
+    private TextView sobot_ten_very_dissatisfied;//评价 非常不满意
+    private TextView sobot_ten_very_satisfaction;//评价  非常满意
+    private SobotTenRatingLayout sobot_ten_rating_ll;//评价  十分 父布局 动态添加10个textview
+    private int ratingType;//评价  类型   0 5星 ；1 十分 默认5星
 
     private String evaluateChecklables;//主动邀请评价选中的标签
     private LinearLayout sobot_evaluate_ll_lable1;//评价  用来放前两个标签，标签最多可以有六个
@@ -204,6 +210,13 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         }
 
         sobot_ratingBar = (RatingBar) findViewById(getResId("sobot_ratingBar"));
+        sobot_ten_root_ll = findViewById(getResId("sobot_ten_root_ll"));
+        sobot_ten_rating_ll = findViewById(getResId("sobot_ten_rating_ll"));
+        sobot_ten_very_dissatisfied= findViewById(getResId("sobot_ten_very_dissatisfied"));
+        sobot_ten_very_satisfaction= findViewById(getResId("sobot_ten_very_satisfaction"));
+        sobot_ten_very_dissatisfied.setText(ResourceUtils.getResString(context, "sobot_very_dissatisfied"));
+        sobot_ten_very_satisfaction.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
+
         sobot_evaluate_ll_lable1 = (LinearLayout) findViewById(getResId("sobot_evaluate_ll_lable1"));
         sobot_evaluate_ll_lable2 = (LinearLayout) findViewById(getResId("sobot_evaluate_ll_lable2"));
         sobot_evaluate_ll_lable3 = (LinearLayout) findViewById(getResId("sobot_evaluate_ll_lable3"));
@@ -250,13 +263,52 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                         if (commentType == 1) {
                             //主动评价需要判断默认星级
                             if (satisFactionList.get(0) != null && satisFactionList.get(0).getDefaultType() != -1) {
-                                score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
+                                if (satisFactionList.get(0).getScoreFlag() == 0) {
+                                    //defaultType 0-默认5星,1-默认0星
+                                    score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
+                                    sobot_ten_root_ll.setVisibility(View.GONE);
+                                    sobot_ratingBar.setVisibility(View.VISIBLE);
+                                    ratingType = 0;//5星
+                                } else {
+                                    sobot_ten_root_ll.setVisibility(View.VISIBLE);
+                                    sobot_ratingBar.setVisibility(View.GONE);
+                                    ratingType = 1;//十分
+                                    // defaultType 0-默认10分,1-默认5分,2-默认0分
+                                    if (satisFactionList.get(0).getDefaultType() == 2) {
+                                        score = 0;
+                                    } else if (satisFactionList.get(0).getDefaultType() == 1) {
+                                        score = 5;
+                                    } else {
+                                        score = 10;
+                                    }
+                                }
+                            }
+                        } else {
+                            if (satisFactionList.get(0) != null && satisFactionList.get(0).getDefaultType() != -1) {
+                                if (satisFactionList.get(0).getScoreFlag() == 0) {
+                                    //defaultType 0-默认5星,1-默认0星
+                                    sobot_ten_root_ll.setVisibility(View.GONE);
+                                    sobot_ratingBar.setVisibility(View.VISIBLE);
+                                    ratingType = 0;//5星
+                                } else {
+                                    sobot_ten_root_ll.setVisibility(View.VISIBLE);
+                                    sobot_ratingBar.setVisibility(View.GONE);
+                                    ratingType = 1;//十分
+                                }
                             }
                         }
-                        if (score == -1) {
-                            score = 5;
+                        if (ratingType == 0) {
+                            if (score == -1) {
+                                score = 5;
+                            }
+                            sobot_ratingBar.setRating(score);
+                        } else {
+                            if (score == -1) {
+                                score = 10;
+                            }
+                            sobot_ten_rating_ll.init(score, true);
                         }
-                        sobot_ratingBar.setRating(score);
+
                         if (isSolve == 0) {
                             sobot_btn_ok_robot.setChecked(true);
                             sobot_btn_no_robot.setChecked(false);
@@ -266,16 +318,25 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                         }
 
                         setCustomLayoutViewVisible(score, satisFactionList);
-                        if (0 == score) {
-                            sobot_close_now.setVisibility(View.GONE);
-                            sobot_ratingBar_title.setText(ResourceUtils.getResString(getContext(), "sobot_evaluate_zero_score_des"));
-                            sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_common_gray3")));
+                        if (ratingType == 0) {
+                            if (0 == score) {
+                                sobot_close_now.setVisibility(View.GONE);
+                                sobot_ratingBar_title.setText(ResourceUtils.getResString(getContext(), "sobot_evaluate_zero_score_des"));
+                                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_common_gray3")));
+                            } else {
+                                sobot_close_now.setVisibility(View.VISIBLE);
+                                if (satisfactionSetBase != null) {
+                                    sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
+                                }
+                                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
+                            }
                         } else {
                             sobot_close_now.setVisibility(View.VISIBLE);
                             if (satisfactionSetBase != null) {
                                 sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
                             }
                             sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
+
                         }
 
                         if (satisFactionList.get(0).getIsQuestionFlag()) {
@@ -354,8 +415,17 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 CommonUtils.sendLocalBroadcast(context.getApplicationContext(), intent);
             }
         });
-
-
+        //监听10分评价选择变化
+        if (sobot_ten_rating_ll != null) {
+            sobot_ten_rating_ll.setOnClickItemListener(new SobotTenRatingLayout.OnClickItemListener() {
+                @Override
+                public void onClickItem(int selectIndex) {
+                    sobot_close_now.setVisibility(View.VISIBLE);
+                    sobot_close_now.setSelected(true);
+                    setCustomLayoutViewVisible(selectIndex, satisFactionList);
+                }
+            });
+        }
     }
 
     @Override
@@ -635,7 +705,15 @@ public class SobotEvaluateDialog extends SobotActionSheet {
     private SobotCommentParam getCommentParam() {
         SobotCommentParam param = new SobotCommentParam();
         String type = current_model == ZhiChiConstant.client_model_robot ? "0" : "1";
-        int score = (int) Math.ceil(sobot_ratingBar.getRating());
+        int score;
+        if (ratingType == 0) {
+            param.setScoreFlag(0);//5星
+            score = (int) Math.ceil(sobot_ratingBar.getRating());
+        } else {
+            param.setScoreFlag(1);//10分
+            score = sobot_ten_rating_ll.getSelectContent();
+        }
+
         String problem = checkBoxIsChecked();
         String suggest = sobot_add_content.getText().toString();
         param.setType(type);
@@ -677,7 +755,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                 }
 
                 if (satisfactionSetBase.getIsInputMust()) {
-                    if (TextUtils.isEmpty(commentParam.getSuggest())) {
+                    if (TextUtils.isEmpty(commentParam.getSuggest().trim())) {
                         ToastUtil.showToast(context, getResString("sobot_suggestions_are_required"));//建议必填
                         return false;
                     }

@@ -1338,7 +1338,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                 btn_model_edit.setVisibility(View.GONE);
                                 btn_model_voice.setVisibility(View.GONE);
                                 btn_emoticon_view.setVisibility(View.VISIBLE);
-                                setAvatar(getResDrawableId("def_admin"), true);
+                                setAvatar(getResDrawableId("sobot_def_admin"), true);
                                 setTitle("", false);
                             } else {
                                 transfer2Custom(null, null, null, true);
@@ -1374,6 +1374,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
 
             @Override
             public void onFailure(Exception e, String des) {
+                SharedPreferencesUtil.saveObject(mAppContext,
+                        ZhiChiConstant.sobot_last_current_info, info);
                 if (!isActive()) {
                     return;
                 }
@@ -1585,7 +1587,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     btn_model_voice.setVisibility(View.GONE);
                     btn_emoticon_view.setVisibility(View.VISIBLE);
                     tempMsgContent = config.tempMsgContent;
-                    setAvatar(getResDrawableId("def_admin"), true);
+                    setAvatar(getResDrawableId("sobot_def_admin"), true);
                     setTitle("", false);
                 } else {
                     transfer2Custom(null, null, null, true);
@@ -2567,7 +2569,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         if (evaluateFlag) {
             SobotCommentParam sobotCommentParam = new SobotCommentParam();
             sobotCommentParam.setType("1");
-            sobotCommentParam.setScore("5");
+            sobotCommentParam.setScore(message.getSobotEvaluateModel().getScore() + "");
+            sobotCommentParam.setScoreFlag(message.getSobotEvaluateModel().getScoreFlag());
             sobotCommentParam.setCommentType(0);
             sobotCommentParam.setProblem(sobotEvaluateModel.getProblem());
             sobotCommentParam.setIsresolve(sobotEvaluateModel.getIsResolved());
@@ -3295,6 +3298,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         if (!checkStoragePermission()) {
             return;
         }
+        hidePanelAndKeyboard(mPanelRoot);
         Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
         startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
     }
@@ -3335,8 +3339,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     intent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, isShowTicket);
                     startActivity(intent);
                     if (getSobotActivity() != null) {
-                        getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(mAppContext, "anim", "push_left_in"),
-                                ResourceUtils.getIdByName(mAppContext, "anim", "push_left_out"));
+                        getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(mAppContext, "anim", "sobot_push_left_in"),
+                                ResourceUtils.getIdByName(mAppContext, "anim", "sobot_push_left_out"));
                     }
                 }
             });
@@ -3444,6 +3448,9 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
      * @param layout
      */
     public void hidePanelAndKeyboard(KPSwitchPanelLinearLayout layout) {
+        if (layout != null) {
+            layout.setVisibility(View.GONE);
+        }
         et_sendmessage.dismissPop();
         KPSwitchConflictUtil.hidePanelAndKeyboard(layout);
         doEmoticonBtn2Blur();
@@ -3724,21 +3731,21 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                         createCustomerQueue(pushMessage.getCount(), 0, pushMessage.getQueueDoc(), isShowQueueTip);
                     } else if (ZhiChiConstant.push_message_receverNewMessage == pushMessage.getType()) {
                         // 接收到新的消息
-                        if (customerState == CustomerState.Online) {
-                            base.setMsgId(pushMessage.getMsgId());
-                            base.setSender(pushMessage.getAname());
-                            base.setSenderName(pushMessage.getAname());
-                            base.setSenderFace(pushMessage.getAface());
-                            base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
-                            base.setAnswer(pushMessage.getAnswer());
-                            stopCustomTimeTask();
-                            startUserInfoTimeTask(handler);
-                            // 更新界面的操作
-                            messageAdapter.justAddData(base);
-                            messageAdapter.notifyDataSetChanged();
-                            ChatUtils.msgLogicalProcess(initModel, messageAdapter, pushMessage);
-                            messageAdapter.notifyDataSetChanged();
-                        }
+                        base.setMsgId(pushMessage.getMsgId());
+                        base.setSender(pushMessage.getAname());
+                        base.setSenderName(pushMessage.getAname());
+                        base.setSenderFace(pushMessage.getAface());
+                        base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
+                        base.setAnswer(pushMessage.getAnswer());
+                        stopCustomTimeTask();
+                        startUserInfoTimeTask(handler);
+                        // 更新界面的操作
+                        messageAdapter.justAddData(base);
+                        messageAdapter.notifyDataSetChanged();
+                        ChatUtils.msgLogicalProcess(initModel, messageAdapter, pushMessage);
+                        messageAdapter.notifyDataSetChanged();
+                        //修改客服状态为在线
+                        customerState = CustomerState.Online;
                     } else if (ZhiChiConstant.push_message_outLine == pushMessage.getType()) {
                         // 用户被下线
                         customerServiceOffline(initModel, Integer.parseInt(pushMessage.getStatus()));
@@ -3902,8 +3909,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                         intent2.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, true);
                         startActivity(intent2);
                         if (getSobotActivity() != null) {
-                            getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(mAppContext, "anim", "push_left_in"),
-                                    ResourceUtils.getIdByName(mAppContext, "anim", "push_left_out"));
+                            getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(mAppContext, "anim", "sobot_push_left_in"),
+                                    ResourceUtils.getIdByName(mAppContext, "anim", "sobot_push_left_out"));
                         }
                     } else {
                         startToPostMsgActivty(false, false);
@@ -4088,7 +4095,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
             }
         }
 
-        if (view == btn_upload_view) {// 显示上传view
+        if (view == btn_upload_view) {
+            LogUtils.i("-------点击加号-------");
             pressSpeakSwitchPanelAndKeyboard(btn_upload_view);
             doEmoticonBtn2Blur();
             gotoLastItem();

@@ -37,5 +37,5 @@
     <dimen name="sobot_emoticon_view_indicator_padding_b">10dp</dimen>
     <dimen name="sobot_layout_lable_margin_right">12dp</dimen>
     <dimen name="sobot_btn_send_text_size">14sp</dimen>
-    <dimen name="line_height_0_4_dp">0.4dp</dimen>
+    <dimen name="sobot_line_height_0_4_dp">0.4dp</dimen>
 </resources>

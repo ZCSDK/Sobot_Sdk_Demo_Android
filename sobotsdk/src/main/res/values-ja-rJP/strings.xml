@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">カスタマーサービスに相談してメッセージを残すときに役立つ写真やビデオを送信できます</string>
        <string name="sobot_microphone">マイクロフォン</string>
        <string name="sobot_microphone_yongtu">カスタマーサービスに相談したりメッセージを残したりするときに、音声を使用してすばやく通信できます</string>
+       <string name="sobot_very_dissatisfied">非常に不満です</string>
 </resources>

@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">您可以在諮詢客服和留言時，發送拍攝的照片和視頻獲取幫助</string>
        <string name="sobot_microphone">麥克風</string>
        <string name="sobot_microphone_yongtu">您可以在諮詢客服和留言時，使用語音快速溝通</string>
+       <string name="sobot_very_dissatisfied">非常不滿意</string>
 </resources>

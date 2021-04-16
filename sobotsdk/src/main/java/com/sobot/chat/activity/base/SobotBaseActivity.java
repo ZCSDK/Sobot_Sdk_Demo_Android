@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Build;
@@ -540,8 +541,15 @@ public abstract class SobotBaseActivity extends FragmentActivity {
     }
 
     private void applyTitleUIConfig(TextView view) {
+        if (view == null) {
+            return;
+        }
         if (SobotUIConfig.DEFAULT != SobotUIConfig.sobot_titleTextColor) {
             view.setTextColor(getResources().getColor(SobotUIConfig.sobot_titleTextColor));
+        }
+        //title是否粗体
+        if (!SobotUIConfig.sobot_head_title_is_bold) {
+            view.setTypeface(null, Typeface.NORMAL);
         }
     }
 

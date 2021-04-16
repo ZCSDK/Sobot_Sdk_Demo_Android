@@ -4,8 +4,13 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bde323b98088d60da5f4707bd4ad099/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bde323b98088d60da5f4707bd4ad099/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bde323b98088d60da5f4707bd4ad099/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/70ccc54ce03f23d90dfda4fb7143def9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/70ccc54ce03f23d90dfda4fb7143def9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/70ccc54ce03f23d90dfda4fb7143def9/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsupport-glidev4/1.0.10/d127a3a8654f283f88416c573779104646893cc5/sobotsupport-glidev4-1.0.10-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsupport-glidev4/1.0.10/25272e14e3f63065e493c25bbe0d99b937821606/sobotsupport-glidev4-1.0.10-sources.jar!/" />
     </SOURCES>

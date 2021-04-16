@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">Możesz wysłać zdjęcia i filmy, aby uzyskać pomoc podczas konsultacji z obsługą klienta i pozostawienia wiadomości</string>
        <string name="sobot_microphone">Mikrofon</string>
        <string name="sobot_microphone_yongtu">Możesz używać głosu do szybkiej komunikacji podczas konsultacji z obsługą klienta i pozostawiania wiadomości</string>
+       <string name="sobot_very_dissatisfied">Bardzo niezadowolony</string>
 </resources>

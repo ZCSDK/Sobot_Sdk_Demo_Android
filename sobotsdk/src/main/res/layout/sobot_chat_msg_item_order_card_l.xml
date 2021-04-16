@@ -67,7 +67,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/sobot_icon_consulting_default_pic"
                         android:visibility="visible"
-                        app:round_corner="6dp"
+                        app:sobot_round_corner="6dp"
                         android:layout_marginEnd="6dp" />
 
                     <TextView

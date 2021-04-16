@@ -41,7 +41,7 @@
         <activity
             android:name="com.sobot.chat.activity.SobotSkillGroupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
         <activity
             android:name=".activity.SobotPostMsgActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
@@ -57,11 +57,11 @@
         <activity
             android:name=".activity.SobotCusFieldActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
         <activity
             android:name="com.sobot.chat.activity.SobotPostCategoryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
         <activity
             android:name=".activity.SobotQueryFromActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
@@ -69,7 +69,7 @@
         <activity
             android:name=".activity.SobotChooseCityActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
         <activity
             android:name=".activity.SobotChooseFileActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
@@ -102,27 +102,27 @@
         <activity
             android:name=".widget.dialog.SobotRobotListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
 
         <activity
             android:name=".widget.dialog.SobotReplyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
 
         <activity
             android:name=".widget.dialog.SobotTicketEvaluateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
 
         <activity
             android:name=".widget.dialog.SobotEvaluateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
 
         <activity
             android:name=".widget.dialog.SobotPostMsgTmpListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"
-            android:theme="@style/AppThemeDialogIsTranslucent" />
+            android:theme="@style/sobot_AppThemeDialogIsTranslucent" />
 
         <service
             android:name=".core.channel.SobotTCPServer"

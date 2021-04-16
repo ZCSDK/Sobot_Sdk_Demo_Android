@@ -10,6 +10,7 @@ public class SobotUIConfig {
 
     public static int sobot_serviceImgId = DEFAULT;//修改转人工按钮的图片
     public static int sobot_titleTextColor = DEFAULT;//修改顶部文字字体颜色
+    public static boolean sobot_head_title_is_bold = true;//修改顶部文字字体是否粗体  默认粗体
     public static boolean sobot_title_right_menu1_display = true;//toolbar右边第一个按钮是否显示 默认显示（更多）
     public static boolean sobot_title_right_menu2_display = false;//toolbar右边第二个按钮是否显示 默认隐藏（评价）
     public static boolean sobot_title_right_menu3_display = false;//toolbar右边第三个个按钮是否显示（打电话） 默认隐藏 2.9.5新增

@@ -80,10 +80,10 @@
                 android:id="@+id/st_iv_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:round_corner_bottom_left="16dp"
-                app:round_corner_bottom_right="4dp"
-                app:round_corner_top_left="16dp"
-                app:round_corner_top_right="16dp" />
+                app:sobot_round_corner_bottom_left="16dp"
+                app:sobot_round_corner_bottom_right="4dp"
+                app:sobot_round_corner_top_left="16dp"
+                app:sobot_round_corner_top_right="16dp" />
 
             <ImageView
                 android:id="@+id/st_tv_play"

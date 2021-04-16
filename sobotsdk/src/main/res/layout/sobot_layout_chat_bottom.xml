@@ -149,6 +149,7 @@
                 android:minHeight="36dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
+                android:maxLength="1000"
                 android:textColor="@color/sobot_color_bottom_msg_input_color"
                 android:textSize="14sp"
                 android:visibility="visible"

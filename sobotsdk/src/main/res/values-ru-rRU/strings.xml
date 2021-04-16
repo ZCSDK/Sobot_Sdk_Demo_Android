@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">Вы можете отправить фотографии и видео в помощь при обращении в службу поддержки клиентов и оставлении сообщения</string>
        <string name="sobot_microphone">микрофон</string>
        <string name="sobot_microphone_yongtu">Вы можете использовать голос для быстрого общения, когда консультируетесь со службой поддержки и оставляете сообщения</string>
+       <string name="sobot_very_dissatisfied">очень недовольный</string>
 </resources>

@@ -238,4 +238,7 @@
     <string name="sobot_microphone">麦克风</string>
     <string name="sobot_microphone_yongtu">您可以在咨询客服和留言时，使用语音快速沟通</string>
 
+    <!-- 2.9.6 新增-->
+    <string name="sobot_very_dissatisfied">非常不满意</string>
+
 </resources>

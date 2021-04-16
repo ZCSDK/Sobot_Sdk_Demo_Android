@@ -131,21 +131,21 @@ public class PagerSlidingTab extends HorizontalScrollView {
 
 		// get custom attrs
 
-		a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTab);
+		a = context.obtainStyledAttributes(attrs, R.styleable.sobot_PagerSlidingTab);
 
-        curTabTextColor = a.getColor(R.styleable.PagerSlidingTab_curTabTextColor, curTabTextColor);
-        tabTextColor = a.getColor(R.styleable.PagerSlidingTab_tabTextColor, tabTextColor);
-		indicatorColor = a.getColor(R.styleable.PagerSlidingTab_indicatorColor, indicatorColor);
-		underlineColor = a.getColor(R.styleable.PagerSlidingTab_underlineColor, underlineColor);
-		dividerColor = a.getColor(R.styleable.PagerSlidingTab_sobotdividerColor, dividerColor);
-		indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_indicatorHeight, indicatorHeight);
-		underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_underlineHeight, underlineHeight);
-		dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_pst_dividerPadding, dividerPadding);
-		tabPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_tabPaddingLeftRight, tabPadding);
-		tabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTab_tabBackground, tabBackgroundResId);
-		shouldExpand = a.getBoolean(R.styleable.PagerSlidingTab_shouldExpand, shouldExpand);
-		scrollOffset = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_scrollOffset, scrollOffset);
-		textAllCaps = a.getBoolean(R.styleable.PagerSlidingTab_pst_textAllCaps, textAllCaps);
+        curTabTextColor = a.getColor(R.styleable.sobot_PagerSlidingTab_curTabTextColor, curTabTextColor);
+        tabTextColor = a.getColor(R.styleable.sobot_PagerSlidingTab_tabTextColor, tabTextColor);
+		indicatorColor = a.getColor(R.styleable.sobot_PagerSlidingTab_indicatorColor, indicatorColor);
+		underlineColor = a.getColor(R.styleable.sobot_PagerSlidingTab_underlineColor, underlineColor);
+		dividerColor = a.getColor(R.styleable.sobot_PagerSlidingTab_sobotdividerColor, dividerColor);
+		indicatorHeight = a.getDimensionPixelSize(R.styleable.sobot_PagerSlidingTab_indicatorHeight, indicatorHeight);
+		underlineHeight = a.getDimensionPixelSize(R.styleable.sobot_PagerSlidingTab_underlineHeight, underlineHeight);
+		dividerPadding = a.getDimensionPixelSize(R.styleable.sobot_PagerSlidingTab_pst_dividerPadding, dividerPadding);
+		tabPadding = a.getDimensionPixelSize(R.styleable.sobot_PagerSlidingTab_tabPaddingLeftRight, tabPadding);
+		tabBackgroundResId = a.getResourceId(R.styleable.sobot_PagerSlidingTab_tabBackground, tabBackgroundResId);
+		shouldExpand = a.getBoolean(R.styleable.sobot_PagerSlidingTab_shouldExpand, shouldExpand);
+		scrollOffset = a.getDimensionPixelSize(R.styleable.sobot_PagerSlidingTab_scrollOffset, scrollOffset);
+		textAllCaps = a.getBoolean(R.styleable.sobot_PagerSlidingTab_pst_textAllCaps, textAllCaps);
 
 		a.recycle();
         tabBackgroundResId = ResourceUtils.getDrawableId(getContext(), "sobot_background_tab");

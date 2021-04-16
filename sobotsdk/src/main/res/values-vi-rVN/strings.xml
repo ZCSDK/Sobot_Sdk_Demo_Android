@@ -212,4 +212,5 @@
        <string name="sobot_camera_yongtu">Bạn có thể gửi ảnh và video để được trợ giúp khi tư vấn dịch vụ khách hàng và để lại lời nhắn</string>
        <string name="sobot_microphone">Cái mic cờ rô</string>
        <string name="sobot_microphone_yongtu">Bạn có thể sử dụng giọng nói để giao tiếp nhanh chóng khi tư vấn dịch vụ khách hàng và để lại tin nhắn</string>
+       <string name="sobot_very_dissatisfied">Rất thất vọng</string>
 </resources>

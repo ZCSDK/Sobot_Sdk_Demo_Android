@@ -51,12 +51,12 @@ public class SobotMHLinearLayout extends LinearLayout {
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SobotMHLinearLayout);
-        mMaxVRatio = a.getFloat(R.styleable.SobotMHLinearLayout_sobot_mhv_HeightRatio, DEFAULT_MAX_V_RATIO);
-        mMaxVHeight = a.getDimension(R.styleable.SobotMHLinearLayout_sobot_mhv_HeightDimen, DEFAULT_MAX_HEIGHT);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.sobot_MHLinearLayout);
+        mMaxVRatio = a.getFloat(R.styleable.sobot_MHLinearLayout_sobot_mhv_HeightRatio, DEFAULT_MAX_V_RATIO);
+        mMaxVHeight = a.getDimension(R.styleable.sobot_MHLinearLayout_sobot_mhv_HeightDimen, DEFAULT_MAX_HEIGHT);
 
-        mMaxHRatio = a.getFloat(R.styleable.SobotMHLinearLayout_sobot_mhH_HeightRatio, DEFAULT_MAX_H_RATIO);
-        mMaxHHeight = a.getDimension(R.styleable.SobotMHLinearLayout_sobot_mhH_HeightDimen, DEFAULT_MAX_HEIGHT);
+        mMaxHRatio = a.getFloat(R.styleable.sobot_MHLinearLayout_sobot_mhH_HeightRatio, DEFAULT_MAX_H_RATIO);
+        mMaxHHeight = a.getDimension(R.styleable.sobot_MHLinearLayout_sobot_mhH_HeightDimen, DEFAULT_MAX_HEIGHT);
         a.recycle();
 
     }

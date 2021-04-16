@@ -169,12 +169,18 @@
     <!--留言 选择业务 字体颜色-->
     <color name="sobot_post_msg_template_text_color">@color/sobot_color</color>
 
+    <!-- 评价、技能组、切换业务、留言弹窗 选择按钮选中背景色-->
+    <color name="sobot_dialog_btn_select">@color/sobot_color</color>
 
-    <!-- 评价 -->
+
+    <!-- 评价 标签按钮默认文字颜色-->
     <color name="sobot_chat_evaluate_question_select_textColor">@color/sobot_color</color>
+    <!--评价 提交按钮-->
     <color name="sobot_evaluate_btn_press">@color/sobot_color</color>
     <color name="sobot_evaluate_btn_nor">@color/sobot_color</color>
 
+    <!--十分评价 （方块） 选中的颜色 -->
+    <color name="sobot_ten_evaluate_select">#FFF0AC0E</color>
     <!--五星评价控件下边 对应描述的颜色-->
     <color name="sobot_color_evaluate_ratingBar_des_tv">@color/sobot_common_hese</color>
 

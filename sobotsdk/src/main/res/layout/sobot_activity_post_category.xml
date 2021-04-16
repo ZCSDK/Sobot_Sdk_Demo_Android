@@ -74,7 +74,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/line_height_0_4_dp"
+            android:layout_height="@dimen/sobot_line_height_0_4_dp"
             android:background="@color/sobot_line_1dp" />
 
         <ListView
@@ -89,7 +89,7 @@
             android:listSelector="@android:color/transparent"
             android:overScrollMode="never"
             android:scrollbarSize="10dp"
-            android:scrollbarThumbVertical="@drawable/custom_scroll_style" />
+            android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style" />
 
     </com.sobot.chat.widget.SobotMHLinearLayout>
 

@@ -65,7 +65,7 @@
         android:paddingTop="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="40dp"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style"
         android:scrollbars="none"
         android:verticalSpacing="20dp"
         android:paddingEnd="20dp"

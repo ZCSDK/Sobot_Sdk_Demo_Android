@@ -619,14 +619,14 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                 if (tempActivity != null && tempActivity instanceof SobotPostMsgActivity) {
                     tempActivity.finish();
                     tempActivity.overridePendingTransition(ResourceUtils.getIdByName(tempActivity
-                            , "anim", "push_right_in"),
-                            ResourceUtils.getIdByName(tempActivity, "anim", "push_right_out"));
+                            , "anim", "sobot_push_right_in"),
+                            ResourceUtils.getIdByName(tempActivity, "anim", "sobot_push_right_out"));
                 }
             } else {
                 getSobotActivity().finish();
                 getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(getSobotActivity()
-                        , "anim", "push_right_in"),
-                        ResourceUtils.getIdByName(getSobotActivity(), "anim", "push_right_out"));
+                        , "anim", "sobot_push_right_in"),
+                        ResourceUtils.getIdByName(getSobotActivity(), "anim", "sobot_push_right_out"));
             }
         } else {
             MyApplication.getInstance().exit();

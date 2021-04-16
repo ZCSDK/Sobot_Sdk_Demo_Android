@@ -41,8 +41,8 @@ public class RCHelper {
 
     public void initAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SobotRCAttrs);
-        mRoundAsCircle = ta.getBoolean(R.styleable.SobotRCAttrs_round_as_circle, false);
-        mStrokeColorStateList = ta.getColorStateList(R.styleable.SobotRCAttrs_stroke_color);
+        mRoundAsCircle = ta.getBoolean(R.styleable.SobotRCAttrs_sobot_round_as_circle, false);
+        mStrokeColorStateList = ta.getColorStateList(R.styleable.SobotRCAttrs_sobot_stroke_color);
         if (null != mStrokeColorStateList) {
             mStrokeColor = mStrokeColorStateList.getDefaultColor();
             mDefaultStrokeColor = mStrokeColorStateList.getDefaultColor();
@@ -50,17 +50,17 @@ public class RCHelper {
             mStrokeColor = Color.WHITE;
             mDefaultStrokeColor = Color.WHITE;
         }
-        mStrokeWidth = ta.getDimensionPixelSize(R.styleable.SobotRCAttrs_stroke_width, 0);
-        mClipBackground = ta.getBoolean(R.styleable.SobotRCAttrs_clip_background, false);
-        int roundCorner = ta.getDimensionPixelSize(R.styleable.SobotRCAttrs_round_corner, 0);
+        mStrokeWidth = ta.getDimensionPixelSize(R.styleable.SobotRCAttrs_sobot_stroke_width, 0);
+        mClipBackground = ta.getBoolean(R.styleable.SobotRCAttrs_sobot_clip_background, false);
+        int roundCorner = ta.getDimensionPixelSize(R.styleable.SobotRCAttrs_sobot_round_corner, 0);
         int roundCornerTopLeft = ta.getDimensionPixelSize(
-                R.styleable.SobotRCAttrs_round_corner_top_left, roundCorner);
+                R.styleable.SobotRCAttrs_sobot_round_corner_top_left, roundCorner);
         int roundCornerTopRight = ta.getDimensionPixelSize(
-                R.styleable.SobotRCAttrs_round_corner_top_right, roundCorner);
+                R.styleable.SobotRCAttrs_sobot_round_corner_top_right, roundCorner);
         int roundCornerBottomLeft = ta.getDimensionPixelSize(
-                R.styleable.SobotRCAttrs_round_corner_bottom_left, roundCorner);
+                R.styleable.SobotRCAttrs_sobot_round_corner_bottom_left, roundCorner);
         int roundCornerBottomRight = ta.getDimensionPixelSize(
-                R.styleable.SobotRCAttrs_round_corner_bottom_right, roundCorner);
+                R.styleable.SobotRCAttrs_sobot_round_corner_bottom_right, roundCorner);
         ta.recycle();
 
         radii[0] = roundCornerTopLeft;

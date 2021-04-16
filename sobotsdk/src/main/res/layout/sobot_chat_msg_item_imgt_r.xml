@@ -86,10 +86,10 @@
                 <com.sobot.chat.widget.image.SobotRCRelativeLayout
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:round_corner_bottom_left="16dp"
-                    app:round_corner_bottom_right="4dp"
-                    app:round_corner_top_left="16dp"
-                    app:round_corner_top_right="16dp">
+                    app:sobot_round_corner_bottom_left="16dp"
+                    app:sobot_round_corner_bottom_right="4dp"
+                    app:sobot_round_corner_top_left="16dp"
+                    app:sobot_round_corner_top_right="16dp">
                     <!--客服发送的单张图片显示控件-->
                     <com.sobot.chat.widget.image.SobotRCImageView
                         android:id="@+id/sobot_iv_picture"

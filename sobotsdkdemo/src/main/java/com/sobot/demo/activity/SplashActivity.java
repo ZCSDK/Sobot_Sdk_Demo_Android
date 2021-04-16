@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        overridePendingTransition(R.anim.sobot_push_left_in, R.anim.sobot_push_left_out);
     }
 
     private void goActivity(final Class clz, long delMin, final boolean isSuccess) {

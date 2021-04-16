@@ -112,10 +112,10 @@
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:scaleType="center"
-                    app:round_corner_bottom_left="20dp"
-                    app:round_corner_bottom_right="6dp"
-                    app:round_corner_top_left="0dp"
-                    app:round_corner_top_right="0dp"
+                    app:sobot_round_corner_bottom_left="20dp"
+                    app:sobot_round_corner_bottom_right="6dp"
+                    app:sobot_round_corner_top_left="0dp"
+                    app:sobot_round_corner_top_right="0dp"
                     android:paddingEnd="2dp"
                     android:paddingStart="2dp" />
 

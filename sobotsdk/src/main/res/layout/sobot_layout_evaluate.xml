@@ -14,7 +14,7 @@
         android:background="@color/sobot_common_gray6"
         android:clickable="true"
         android:orientation="vertical"
-        app:sobot_mhv_HeightRatio="0.7">
+        app:sobot_mhv_HeightRatio="0.75">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -26,12 +26,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginRight="60dp"
-                android:layout_marginLeft="60dp"
-                android:orientation="vertical"
                 android:layout_marginStart="60dp"
-                android:layout_marginEnd="60dp">
+                android:layout_marginLeft="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/sobot_tv_evaluate_title"
@@ -69,9 +69,9 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/sobot_icon_evaluation_cancel"
-                    android:layout_marginStart="20dp" />
+                    android:background="@drawable/sobot_icon_evaluation_cancel" />
             </LinearLayout>
 
             <TextView
@@ -79,15 +79,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|start"
-                android:gravity="center"
+                android:layout_toStartOf="@+id/sobot_ll_evaluate_title"
                 android:layout_toLeftOf="@+id/sobot_ll_evaluate_title"
+                android:gravity="center"
+                android:paddingStart="10dp"
                 android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
                 android:paddingRight="10dp"
                 android:textColor="@color/sobot_common_gray1"
-                android:visibility="visible"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_toStartOf="@+id/sobot_ll_evaluate_title" />
+                android:visibility="visible" />
         </FrameLayout>
 
         <View
@@ -139,16 +139,16 @@
                             android:id="@+id/sobot_btn_ok_robot"
                             style="@style/sobot_rb_evaluate_style"
                             android:layout_gravity="start"
+                            android:layout_marginEnd="30dp"
                             android:layout_marginRight="30dp"
-                            android:drawableLeft="@drawable/sobot_evaluate_btn_yes_selector"
                             android:drawableStart="@drawable/sobot_evaluate_btn_yes_selector"
-                            android:layout_marginEnd="30dp" />
+                            android:drawableLeft="@drawable/sobot_evaluate_btn_yes_selector" />
 
                         <RadioButton
                             android:id="@+id/sobot_btn_no_robot"
                             style="@style/sobot_rb_evaluate_style"
-                            android:drawableLeft="@drawable/sobot_evaluate_btn_no_selector"
-                            android:drawableStart="@drawable/sobot_evaluate_btn_no_selector" />
+                            android:drawableStart="@drawable/sobot_evaluate_btn_no_selector"
+                            android:drawableLeft="@drawable/sobot_evaluate_btn_no_selector" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -175,13 +175,63 @@
                     <View
                         android:id="@+id/sobot_ratingBar_split_view"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/line_height_0_4_dp"
+                        android:layout_height="@dimen/sobot_line_height_0_4_dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/sobot_line_1dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp" />
+                        android:background="@color/sobot_line_1dp" />
+
+                    <LinearLayout
+                        android:id="@+id/sobot_ten_root_ll"
+                        android:layout_width="294dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="26dp"
+                        android:layout_marginBottom="6dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/sobot_ten_very_dissatisfied"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/sobot_very_dissatisfied"
+                                android:textColor="@color/sobot_common_gray2"
+                                android:textSize="12sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/sobot_ten_very_satisfaction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="@string/sobot_great_satisfaction"
+                                android:textColor="@color/sobot_common_gray2"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <com.sobot.chat.widget.SobotTenRatingLayout
+                            android:id="@+id/sobot_ten_rating_ll"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                        </com.sobot.chat.widget.SobotTenRatingLayout>
+                    </LinearLayout>
 
                     <RatingBar
                         android:id="@+id/sobot_ratingBar"
@@ -231,6 +281,7 @@
                             android:id="@+id/sobot_evaluate_cb_lable1"
                             android:layout_width="150dp"
                             android:layout_height="36dp"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@drawable/sobot_dialog_button_selector"
                             android:button="@null"
@@ -239,8 +290,7 @@
                             android:maxEms="8"
                             android:singleLine="true"
                             android:textColor="@drawable/sobot_btn_evaluate_text_color_selector"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="15dp" />
+                            android:textSize="14sp" />
 
                         <CheckBox
                             android:id="@+id/sobot_evaluate_cb_lable2"
@@ -267,6 +317,7 @@
                             android:id="@+id/sobot_evaluate_cb_lable3"
                             android:layout_width="150dp"
                             android:layout_height="36dp"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@drawable/sobot_dialog_button_selector"
                             android:button="@null"
@@ -275,8 +326,7 @@
                             android:maxEms="8"
                             android:singleLine="true"
                             android:textColor="@drawable/sobot_btn_evaluate_text_color_selector"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="15dp" />
+                            android:textSize="14sp" />
 
                         <CheckBox
                             android:id="@+id/sobot_evaluate_cb_lable4"
@@ -303,6 +353,7 @@
                             android:id="@+id/sobot_evaluate_cb_lable5"
                             android:layout_width="150dp"
                             android:layout_height="36dp"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@drawable/sobot_dialog_button_selector"
                             android:button="@null"
@@ -311,8 +362,7 @@
                             android:maxEms="8"
                             android:singleLine="true"
                             android:textColor="@drawable/sobot_btn_evaluate_text_color_selector"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="15dp" />
+                            android:textSize="14sp" />
 
                         <CheckBox
                             android:id="@+id/sobot_evaluate_cb_lable6"
@@ -335,12 +385,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:visibility="gone"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp">
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
 
                     <EditText
                         android:id="@+id/sobot_add_content"
@@ -367,18 +417,18 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/sobot_evaluate_commit_selector"
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@drawable/sobot_text_button_color_selector"
             android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:textStyle="bold" />
 
     </com.sobot.chat.widget.SobotMHLinearLayout>
 </LinearLayout>
