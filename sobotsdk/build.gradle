@@ -4,11 +4,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 14
-    }
-
-    libraryVariants.all {
-        it.getGenerateBuildConfigProvider()
+        minSdkVersion 17
     }
 }
 
