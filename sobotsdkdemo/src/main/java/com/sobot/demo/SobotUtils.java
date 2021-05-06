@@ -134,7 +134,7 @@ public class SobotUtils {
             // 拦截范围  （帮助中心、留言、聊天、留言记录、商品卡片，订单卡片）
             SobotApi.setNewHyperlinkListener(new NewHyperlinkListener() {
                 @Override
-                public boolean onUrlClick(String url) {
+                public boolean onUrlClick(Context context,String url) {
                     ToastUtil.showToast(getApplicationContext(), "点击了超链接，url=" + url);
                     //如果url链接是百度,拦截
                     //do().....
@@ -143,13 +143,13 @@ public class SobotUtils {
                 }
 
                 @Override
-                public boolean onEmailClick(String email) {
+                public boolean onEmailClick(Context context,String email) {
                     ToastUtil.showToast(getApplicationContext(), "点击了邮件，email=" + email);
                     return false;
                 }
 
                 @Override
-                public boolean onPhoneClick(String phone) {
+                public boolean onPhoneClick(Context context,String phone) {
                     ToastUtil.showToast(getApplicationContext(), "点击了电话，phone=" + phone);
                     return false;
                 }

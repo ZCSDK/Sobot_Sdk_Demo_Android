@@ -27,7 +27,7 @@ public class PhoneSpan extends ClickableSpan {
             return;
         }
         if (SobotOption.newHyperlinkListener != null) {
-            boolean isIntercept = SobotOption.newHyperlinkListener.onPhoneClick("tel:" + phone);
+            boolean isIntercept = SobotOption.newHyperlinkListener.onPhoneClick(context,"tel:" + phone);
             if (isIntercept) {
                 return;
             }

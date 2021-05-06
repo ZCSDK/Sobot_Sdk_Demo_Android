@@ -498,7 +498,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                 public void onClick(View v) {
                                     if (SobotOption.newHyperlinkListener != null) {
                                         //如果返回true,拦截;false 不拦截
-                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(richListModel.getMsg());
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,richListModel.getMsg());
                                         if (isIntercept) {
                                             return;
                                         }

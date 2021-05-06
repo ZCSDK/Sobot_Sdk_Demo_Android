@@ -23,7 +23,6 @@
             android:layout_marginLeft="18dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="18dp"
-            android:background="@drawable/sobot_bg_default_pic_img"
             android:layout_alignParentStart="true"
             android:layout_marginStart="18dp" />
 

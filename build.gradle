@@ -1,9 +1,8 @@
 buildscript {
     repositories {
-        //添加下面三行行
+        mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
-        mavenCentral()
         jcenter()
         google()
         maven { url 'https://dl.bintray.com/umsdk/release' }
@@ -16,10 +15,9 @@ buildscript {
 
 allprojects {
     repositories {
-        //添加下面三行行
+        mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
-        mavenCentral()
         jcenter()
         google()
         maven { url 'https://dl.bintray.com/umsdk/release' }

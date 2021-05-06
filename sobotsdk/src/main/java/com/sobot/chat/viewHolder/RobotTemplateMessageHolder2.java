@@ -143,7 +143,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 if (multiDiaRespInfo != null && multiDiaRespInfo.getEndFlag() && !TextUtils.isEmpty(lablesViewModel.getAnchor())) {
                     if (SobotOption.newHyperlinkListener != null) {
                         //如果返回true,拦截;false 不拦截
-                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(lablesViewModel.getAnchor());
+                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,lablesViewModel.getAnchor());
                         if (isIntercept) {
                             return;
                         }

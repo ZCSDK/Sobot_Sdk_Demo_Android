@@ -58,7 +58,7 @@ public class MyURLSpan extends URLSpan {
                 }
                 if (SobotOption.newHyperlinkListener != null) {
                     //如果返回true,拦截;false 不拦截
-                    boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(url);
+                    boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(context,url);
                     if (isIntercept) {
                         return;
                     }
@@ -78,7 +78,7 @@ public class MyURLSpan extends URLSpan {
                     return;
                 }
                 if (SobotOption.newHyperlinkListener != null) {
-                    boolean isIntercept = SobotOption.newHyperlinkListener.onPhoneClick(url);
+                    boolean isIntercept = SobotOption.newHyperlinkListener.onPhoneClick(context,url);
                     if (isIntercept) {
                         return;
                     }
@@ -96,7 +96,7 @@ public class MyURLSpan extends URLSpan {
                 }
                 if (SobotOption.newHyperlinkListener != null) {
                     //如果返回true,拦截;false 不拦截
-                    boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(url);
+                    boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(context,url);
                     if (isIntercept) {
                         return;
                     }

@@ -91,7 +91,7 @@ public class CardMessageHolder extends MessageHolderBase implements View.OnClick
 
             if (SobotOption.newHyperlinkListener != null) {
                 //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mConsultingContent.getSobotGoodsFromUrl());
+                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,mConsultingContent.getSobotGoodsFromUrl());
                 if (isIntercept) {
                     return;
                 }

@@ -4,6 +4,7 @@ import com.sobot.chat.listener.HyperlinkListener;
 import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotChatStatusListener;
 import com.sobot.chat.listener.SobotConversationListCallback;
+import com.sobot.chat.listener.SobotFunctionClickListener;
 import com.sobot.chat.listener.SobotLeaveMsgListener;
 import com.sobot.chat.listener.SobotMapCardListener;
 import com.sobot.chat.listener.SobotOrderCardListener;
@@ -23,4 +24,5 @@ public class SobotOption {
     public static SobotOrderCardListener orderCardListener;//订单卡片的监听
     public static SobotChatStatusListener sobotChatStatusListener;//聊天状态变化的监听
     public static SobotMapCardListener mapCardListener;//订单卡片的监听
+    public static SobotFunctionClickListener functionClickListener;//智齿功能点击的监听，可用于客户埋点
 }

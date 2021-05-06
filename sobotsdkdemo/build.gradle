@@ -14,8 +14,8 @@ android {
         applicationId "com.sobot.chat.tem"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 6
-        versionName "2.9.6"
+        versionCode 7
+        versionName "2.9.7"
 
         ndk {
             //设置支持的SO库架构
@@ -50,13 +50,13 @@ dependencies {
 
     //--------------智齿相关依赖 start-----------
     implementation project(":sobotsdk")
-//    implementation  'com.sobot.chat:sobotsdk:2.9.0'
+//    implementation  'com.sobot.chat:sobotsdk:2.9.7'
     implementation 'com.squareup.okhttp3:okhttp:4.4.1'
     //目前支持常⻅的3种图片加载库，必须在下面的图片加载库中选择一个添加依赖
     // compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     // compile 'com.squareup.picasso:picasso:2.5.2'
     implementation('com.github.bumptech.glide:glide:4.9.0')
-    implementation 'com.sobot.chat:sobotsupport-glidev4:1.0.10'
+    implementation 'com.sobot.chat:sobotsupport-glidev4:2.1'
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     //--------------智齿相关依赖 end-----------

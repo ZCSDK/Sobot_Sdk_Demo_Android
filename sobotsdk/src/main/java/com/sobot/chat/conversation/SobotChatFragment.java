@@ -81,6 +81,7 @@ import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.core.http.upload.SobotUpload;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.listener.PermissionListenerImpl;
+import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.presenter.StPostMsgPresenter;
 import com.sobot.chat.server.SobotSessionServer;
 import com.sobot.chat.utils.AnimationUtil;
@@ -2673,7 +2674,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                         }
                         if (SobotOption.newHyperlinkListener != null) {
                             //如果返回true,拦截;false 不拦截
-                            boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(initModel.getAnnounceClickUrl());
+                            boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotActivity(), initModel.getAnnounceClickUrl());
                             if (isIntercept) {
                                 return;
                             }
@@ -3114,6 +3115,14 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
             sobotBackDialog.show();
         } else {
             onBackPress();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (SobotOption.functionClickListener != null) {
+            SobotOption.functionClickListener.onClickFunction(getSobotActivity(), SobotFunctionType.ZC_CloseChat);
         }
     }
 
@@ -4145,6 +4154,9 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
 
         if (view == sobot_tv_right_second) {
             if (!TextUtils.isEmpty(SobotUIConfig.sobot_title_right_menu2_call_num)) {
+                if (SobotOption.functionClickListener != null) {
+                    SobotOption.functionClickListener.onClickFunction(getSobotActivity(), SobotFunctionType.ZC_PhoneCustomerService);
+                }
                 CommonUtils.callUp(SobotUIConfig.sobot_title_right_menu2_call_num, getContext());
             } else {
                 btnSatisfaction();
@@ -4153,6 +4165,9 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
 
         if (view == sobot_tv_right_third) {
             if (!TextUtils.isEmpty(SobotUIConfig.sobot_title_right_menu3_call_num)) {
+                if (SobotOption.functionClickListener != null) {
+                    SobotOption.functionClickListener.onClickFunction(getSobotActivity(), SobotFunctionType.ZC_PhoneCustomerService);
+                }
                 CommonUtils.callUp(SobotUIConfig.sobot_title_right_menu3_call_num, getContext());
             } else {
                 LogUtils.e("电话号码不能为空");

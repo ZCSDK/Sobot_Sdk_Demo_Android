@@ -14,8 +14,10 @@ import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.StCategoryModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
+import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 
 import java.util.List;
@@ -106,6 +108,9 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
         }
         if (v == tv_sobot_layout_online_tel) {
             if (!TextUtils.isEmpty(mInfo.getHelpCenterTel())) {
+                if (SobotOption.functionClickListener != null) {
+                     SobotOption.functionClickListener.onClickFunction(getSobotBaseActivity(), SobotFunctionType.ZC_PhoneCustomerService);
+                }
                 CommonUtils.callUp(mInfo.getHelpCenterTel(), getSobotBaseActivity());
             }
         }
@@ -117,5 +122,13 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
         StCategoryModel data = datas.get(position);
         Intent intent = SobotProblemCategoryActivity.newIntent(getApplicationContext(), mInfo, data);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (SobotOption.functionClickListener != null) {
+            SobotOption.functionClickListener.onClickFunction(getSobotBaseActivity(), SobotFunctionType.ZC_CloseHelpCenter);
+        }
     }
 }

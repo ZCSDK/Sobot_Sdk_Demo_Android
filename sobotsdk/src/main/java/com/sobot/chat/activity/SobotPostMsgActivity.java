@@ -23,11 +23,13 @@ import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.fragment.SobotBaseFragment;
 import com.sobot.chat.fragment.SobotPostMsgFragment;
 import com.sobot.chat.fragment.SobotTicketInfoFragment;
+import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.presenter.StPostMsgPresenter;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.PagerSlidingTab;
 import com.sobot.chat.widget.dialog.SobotFreeAccountTipDialog;
@@ -109,7 +111,7 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
         mTvLeaveMsgCreateSuccess = (TextView) findViewById(getResId("sobot_tv_leaveMsg_create_success"));
         mTvLeaveMsgCreateSuccess.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leavemsg_success_tip"));
         mTvLeaveMsgCreateSuccessDes = (TextView) findViewById(getResId("sobot_tv_leaveMsg_create_success_des"));
-        mTvLeaveMsgCreateSuccessDes.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leavemsg_success_tip"));
+        mTvLeaveMsgCreateSuccessDes.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leaveMsg_create_success_des"));
 
         mTvTicket.setOnClickListener(this);
         mTvCompleted.setOnClickListener(this);
@@ -247,6 +249,9 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
     @Override
     protected void onDestroy() {
         LocalBroadcastManager.getInstance(getSobotBaseActivity()).unregisterReceiver(mReceiver);
+        if (SobotOption.functionClickListener != null) {
+            SobotOption.functionClickListener.onClickFunction(getSobotBaseActivity(), SobotFunctionType.ZC_CloseLeave);
+        }
         super.onDestroy();
     }
 

@@ -611,13 +611,14 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 if (switchFlag) {
                     // 说明用户端有两条或者两条以上消息未接受到，要去切换轮询
                     CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_SWITCHFLAG));
+                }else {
+                    CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
                 }
                 if (ZhiChiConstant.client_sendmsg_to_custom_fali.equals(commonModelBase.getStatus())) {
                     sendTextMessageToHandler(mid, null, handler, 0, UPDATE_TEXT);
                     customerServiceOffline(initModel, 1);
                 } else if (ZhiChiConstant.client_sendmsg_to_custom_success.equals(commonModelBase.getStatus())) {
                     if (!TextUtils.isEmpty(mid)) {
-                        CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
                         isAboveZero = true;
                         // 当发送成功的时候更新ui界面
                         sendTextMessageToHandler(mid, null, handler, 1, UPDATE_TEXT);
@@ -1413,7 +1414,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             }
             if (SobotOption.newHyperlinkListener != null) {
                 //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(v.getTag() + "");
+                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotActivity(),v.getTag() + "");
                 if (isIntercept) {
                     return;
                 }

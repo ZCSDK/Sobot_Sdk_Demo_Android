@@ -13,9 +13,11 @@ public class EmailSpan extends ClickableSpan {
 
     private String email;
     private int color;
+    private Context context;
 
     public EmailSpan(Context context, String email, int color) {
         this.email = email;
+        this.context=context;
         this.color = context.getResources().getColor(color);
     }
 
@@ -28,7 +30,7 @@ public class EmailSpan extends ClickableSpan {
 
         if (SobotOption.newHyperlinkListener != null) {
             //如果返回true,拦截;false 不拦截
-            boolean isIntercept = SobotOption.newHyperlinkListener.onEmailClick(email);
+            boolean isIntercept = SobotOption.newHyperlinkListener.onEmailClick(context,email);
             if (isIntercept) {
                 return;
             }

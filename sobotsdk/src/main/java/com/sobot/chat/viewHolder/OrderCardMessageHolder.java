@@ -85,7 +85,14 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                 mGoodsOrderSplit.setVisibility(View.GONE);
             }
 
-            if (orderCardContent.getOrderStatus() > 0) {
+            if (orderCardContent.getOrderStatus() == 0) {
+                if (!TextUtils.isEmpty(orderCardContent.getStatusCustom())) {
+                    mOrderStatus.setVisibility(View.VISIBLE);
+                    mOrderStatus.setText(Html.fromHtml(ResourceUtils.getResString(context, "sobot_order_status_lable") + "：" + "<b><font color=\'#E67F17\'>" + orderCardContent.getStatusCustom() + "</font></b>"));
+                } else {
+                    mOrderStatus.setVisibility(View.GONE);
+                }
+            } else {
                 mOrderStatus.setVisibility(View.VISIBLE);
                 //待付款: 1   待发货: 2   运输中: 3   派送中: 4   已完成: 5   待评价: 6   已取消: 7
                 String statusStr = "";
@@ -113,8 +120,6 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                         break;
                 }
                 mOrderStatus.setText(Html.fromHtml(ResourceUtils.getResString(context, "sobot_order_status_lable") + "：" + "<b><font color=\'#E67F17\'>" + statusStr + "</font></b>"));
-            } else {
-                mOrderStatus.setVisibility(View.GONE);
             }
 
             mGoodsTotalMoney.setVisibility(View.VISIBLE);
@@ -179,7 +184,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             }
             if (SobotOption.newHyperlinkListener != null) {
                 //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(orderCardContent.getOrderUrl());
+                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,orderCardContent.getOrderUrl());
                 if (isIntercept) {
                     return;
                 }

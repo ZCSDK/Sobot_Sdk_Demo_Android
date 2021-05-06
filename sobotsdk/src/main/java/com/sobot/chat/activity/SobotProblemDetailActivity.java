@@ -22,6 +22,7 @@ import com.sobot.chat.api.model.StDocModel;
 import com.sobot.chat.api.model.StHelpDocModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
+import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
@@ -198,7 +199,7 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
                 }
                 if (SobotOption.newHyperlinkListener != null) {
                     //如果返回true,拦截;false 不拦截
-                    boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(url);
+                    boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotBaseActivity(),url);
                     if (isIntercept) {
                         return true;
                     }
@@ -264,6 +265,9 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
         }
         if (v == tv_sobot_layout_online_tel) {
             if (!TextUtils.isEmpty(mInfo.getHelpCenterTel())) {
+                if (SobotOption.functionClickListener != null) {
+                    SobotOption.functionClickListener.onClickFunction(getSobotBaseActivity(), SobotFunctionType.ZC_PhoneCustomerService);
+                }
                 CommonUtils.callUp(mInfo.getHelpCenterTel(), getSobotBaseActivity());
             }
         }

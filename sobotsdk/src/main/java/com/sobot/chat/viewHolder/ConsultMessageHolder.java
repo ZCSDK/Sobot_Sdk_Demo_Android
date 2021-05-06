@@ -96,7 +96,7 @@ public class ConsultMessageHolder extends MessageHolderBase implements View.OnCl
             }
             if (SobotOption.newHyperlinkListener != null) {
                 //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mData.getUrl());
+                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,mData.getUrl());
                 if (isIntercept) {
                     return;
                 }

@@ -37,6 +37,7 @@ import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.HyperlinkListener;
 import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotChatStatusListener;
+import com.sobot.chat.listener.SobotFunctionClickListener;
 import com.sobot.chat.listener.SobotLeaveMsgListener;
 import com.sobot.chat.listener.SobotNoReadLeaveReplyListener;
 import com.sobot.chat.listener.SobotOrderCardListener;
@@ -389,13 +390,8 @@ public class ZCSobotApi {
         if (context == null || TextUtils.isEmpty(partnerId)) {
             partnerId = CommonUtils.getDeviceId(context);
         }
-        final ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
-                ZhiChiConstant.sobot_last_current_initModel);
-        String companyId = "";
-        if (initMode != null) {
-            companyId = initMode.getCompanyId();
-        }
-
+         String companyId =  SharedPreferencesUtil.getStringData(context,
+                ZhiChiConstant.SOBOT_CONFIG_COMPANYID,"");
         final List<SobotLeaveReplyModel> sobotLeaveReplyModels = new ArrayList<>();
         SobotMsgManager.getInstance(context).getZhiChiApi()
                 .getUserTicketReplyInfo(context, companyId, partnerId, new StringResultCallBack<List<SobotLeaveReplyModel>>() {
@@ -764,6 +760,14 @@ public class ZCSobotApi {
         SobotOption.newHyperlinkListener = newHyperlinkListener;
     }
 
+    /**
+     * 智齿部分功能点击的监听，可用于客户埋点
+     *
+     * @param functionClickListener
+     */
+    public static void setFunctionClickListener(SobotFunctionClickListener functionClickListener) {
+        SobotOption.functionClickListener = functionClickListener;
+    }
 
     /**
      * 设置当前聊天状态的监听

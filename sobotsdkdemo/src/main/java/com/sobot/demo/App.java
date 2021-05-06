@@ -13,6 +13,8 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.OrderCardContentModel;
 import com.sobot.chat.api.model.SobotLocationModel;
 import com.sobot.chat.listener.NewHyperlinkListener;
+import com.sobot.chat.listener.SobotFunctionClickListener;
+import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.listener.SobotMapCardListener;
 import com.sobot.chat.listener.SobotPlusMenuListener;
 import com.sobot.chat.utils.ResourceUtils;
@@ -79,7 +81,7 @@ public class App extends Application {
         // 拦截范围  （帮助中心、留言、聊天、留言记录、商品卡片，订单卡片）
         ZCSobotApi.setNewHyperlinkListener(new NewHyperlinkListener() {
             @Override
-            public boolean onUrlClick(String url) {
+            public boolean onUrlClick(Context context, String url) {
                 if (url.contains("baidu")) {
                     ToastUtil.showToast(getApplicationContext(), "点击了超链接，url=" + url);
                     //如果url链接是百度,拦截
@@ -90,13 +92,13 @@ public class App extends Application {
             }
 
             @Override
-            public boolean onEmailClick(String email) {
+            public boolean onEmailClick(Context context, String email) {
                 ToastUtil.showToast(getApplicationContext(), "点击了邮件，email=" + email);
                 return false;
             }
 
             @Override
-            public boolean onPhoneClick(String phone) {
+            public boolean onPhoneClick(Context context, String phone) {
                 ToastUtil.showToast(getApplicationContext(), "点击了电话，phone=" + phone);
                 return false;
             }
@@ -127,7 +129,8 @@ public class App extends Application {
                     //订单编号（必填）
                     orderCardContent.setOrderCode("zc32525235425");
                     //订单状态
-                    orderCardContent.setOrderStatus(1);
+                    orderCardContent.setOrderStatus(0);
+                    orderCardContent.setStatusCustom("自定义状态");
                     //订单总金额
                     orderCardContent.setTotalFee(1234);
                     //订单商品总数
@@ -160,6 +163,13 @@ public class App extends Application {
                 }
             }
         };
+        //智齿部分功能点击的监听 2.9.7
+        ZCSobotApi.setFunctionClickListener(new SobotFunctionClickListener() {
+            @Override
+            public void onClickFunction(Context context, SobotFunctionType functionType) {
+//                ToastUtil.showCustomToast(context, functionType.toString()+" 对应值：  1:留言返回,2:会话页面返回,3:帮助中心返回,4:电商消息中心页面返回,5:电话联系客服");
+            }
+        });
 
         //优先打开百度地图，没有安装百度地图，再打开高德地图；可拦截拦截位置卡片点击事件，自己处理
         SobotOption.mapCardListener = new SobotMapCardListener() {

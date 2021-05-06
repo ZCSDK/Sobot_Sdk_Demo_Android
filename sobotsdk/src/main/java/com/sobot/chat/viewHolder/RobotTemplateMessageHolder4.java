@@ -83,7 +83,7 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
                                 public void onClick(View v) {
                                     if (SobotOption.newHyperlinkListener != null) {
                                         //如果返回true,拦截;false 不拦截
-                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(interfaceRet.get("anchor"));
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,interfaceRet.get("anchor"));
                                         if (isIntercept) {
                                             return;
                                         }
