@@ -77,7 +77,6 @@ import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.api.model.ZhiChiPushMessage;
 import com.sobot.chat.api.model.ZhiChiReplyAnswer;
-import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
@@ -95,7 +94,6 @@ import com.sobot.chat.utils.CustomToast;
 import com.sobot.chat.utils.ExtAudioRecorder;
 import com.sobot.chat.utils.ImageUtils;
 import com.sobot.chat.utils.LogUtils;
-import com.sobot.chat.utils.MD5Util;
 import com.sobot.chat.utils.MediaFileUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
@@ -1266,7 +1264,10 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 showRobotLayout();
 
                 if (!TextUtils.isEmpty(initModel.getPartnerid())) {
-                    SharedPreferencesUtil.saveStringData(mAppContext, Const.SOBOT_CID, initModel.getPartnerid());
+                    SharedPreferencesUtil.saveStringData(mAppContext, Const.SOBOT_UID, initModel.getPartnerid());
+                }
+                if (!TextUtils.isEmpty(initModel.getCid())) {
+                    SharedPreferencesUtil.saveStringData(mAppContext, Const.SOBOT_CID, initModel.getCid());
                 }
                 SharedPreferencesUtil.saveIntData(mAppContext,
                         ZhiChiConstant.sobot_msg_flag, initModel.getMsgFlag());
@@ -1378,6 +1379,10 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                                 messageAdapter.addData(ChatUtils.getServiceHelloTip("", "", rebotHelloWord));
                             } else {
                                 messageAdapter.addData(ChatUtils.getServiceHelloTip("", "", initModel.getRobotHelloWord()));
+                            }
+                            //人工优先模式，开启延迟转人工后，只要自动发送消息对象不为空并且不是默认的，就触发转人工
+                            if (info.getAutoSendMsgMode() != null && info.getAutoSendMsgMode() != SobotAutoSendMsgMode.Default) {
+                                doClickTransferBtn();
                             }
                         } else {
                             //客服优先
@@ -2676,7 +2681,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         }
                         if (SobotOption.newHyperlinkListener != null) {
                             //如果返回true,拦截;false 不拦截
-                            boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotActivity(),initModel.getAnnounceClickUrl());
+                            boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotActivity(), initModel.getAnnounceClickUrl());
                             if (isIntercept) {
                                 return;
                             }
@@ -3331,12 +3336,14 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      */
     @Override
     public void chooseFile() {
-        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1)) {
-            return;
-        }
-        // 选择文件
-        if (!checkStoragePermission()) {
-            return;
+        if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
+            if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1)) {
+                return;
+            }
+            // 选择文件
+            if (!checkStoragePermission()) {
+                return;
+            }
         }
         hidePanelAndKeyboard(mPanelRoot);
         Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
@@ -4534,25 +4541,11 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             }
                             String path = ImageUtils.getPath(getSobotActivity(), selectedFileUri);
                             if (TextUtils.isEmpty(path)) {
-                                ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_pic_type_error"));
+                                ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_cannot_open_file"));
                                 return;
                             }
                             File selectedFile = new File(path);
                             LogUtils.i("tmpMsgId:" + tmpMsgId);
-                            String fName = MD5Util.encode(selectedFile.getAbsolutePath());
-                            String filePath = null;
-                            try {
-                                filePath = FileUtil.saveImageFile(getSobotActivity(), selectedFileUri, fName + FileUtil.getFileEndWith(selectedFile.getAbsolutePath()), selectedFile.getAbsolutePath());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_pic_type_error"));
-                                return;
-                            }
-                            if (TextUtils.isEmpty(filePath)) {
-                                ToastUtil.showToast(getSobotActivity(), ResourceUtils.getResString(getSobotActivity(), "sobot_pic_type_error"));
-                                return;
-                            }
-                            selectedFile = new File(filePath);
                             uploadFile(selectedFile, handler, lv_message, messageAdapter, true);
                         }
                         break;

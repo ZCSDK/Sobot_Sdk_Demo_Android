@@ -188,6 +188,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         if (initModel != null && customerState == CustomerState.Online && current_client_model == ZhiChiConstant
                 .client_model_customService) {
             restartInputListener();
+            CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
         }
         NotificationUtils.cancleAllNotification(mAppContext);
         //重新恢复连接

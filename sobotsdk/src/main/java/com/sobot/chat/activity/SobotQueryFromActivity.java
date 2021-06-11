@@ -81,13 +81,13 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
     protected void initView() {
         showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         sobot_btn_submit = (Button) findViewById(getResId("sobot_btn_submit"));
-        sobot_btn_submit.setText(ResourceUtils.getResString(SobotQueryFromActivity.this,"sobot_btn_submit_text"));
+        sobot_btn_submit.setText(ResourceUtils.getResString(SobotQueryFromActivity.this, "sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
         sobot_container = (LinearLayout) findViewById(getResId("sobot_container"));
         sobot_tv_doc = (TextView) findViewById(getResId("sobot_tv_doc"));
         if (mQueryFormModel != null) {
             setTitle(mQueryFormModel.getFormTitle());
-            HtmlTools.getInstance(getSobotBaseActivity()).setRichText(sobot_tv_doc,mQueryFormModel.getFormDoc(),ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_color_link"));
+            HtmlTools.getInstance(getSobotBaseActivity()).setRichText(sobot_tv_doc, mQueryFormModel.getFormDoc(), ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_color_link"));
         }
         displayInNotch(sobot_tv_doc);
         StCusFieldPresenter.addWorkOrderCusFields(SobotQueryFromActivity.this, SobotQueryFromActivity.this, mField, sobot_container, SobotQueryFromActivity.this);
@@ -119,8 +119,10 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
                 if (data != null && "1".equals(data.getCode())) {
                     CustomToast.makeText(getBaseContext(), ResourceUtils.getResString(getBaseContext(), "sobot_leavemsg_success_tip"), 1000,
                             ResourceUtils.getDrawableId(getBaseContext(), "sobot_iv_login_right")).show();
+                    saveIntentWithFinish();
+                } else if (data != null && "0".equals(data.getCode())) {
+                    ToastUtil.showToast(getSobotBaseActivity(), data.getMsg());
                 }
-                saveIntentWithFinish();
             }
 
             @Override
@@ -173,6 +175,13 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
                             && !TextUtils.isEmpty(field.get(i).getCusFieldConfig().getValue())
                             && !ScreenUtils.isEmail(field.get(i).getCusFieldConfig().getValue())) {
                         ToastUtil.showToast(getApplicationContext(), getResString("sobot_email_dialog_hint"));
+                        return false;
+                    }
+
+                    if ("tel".equals(field.get(i).getCusFieldConfig().getFieldId())
+                            && !TextUtils.isEmpty(field.get(i).getCusFieldConfig().getValue())
+                            && !ScreenUtils.isMobileNO(field.get(i).getCusFieldConfig().getValue())) {
+                        ToastUtil.showToast(getApplicationContext(), getResString("sobot_phone")+getResString("sobot_input_type_err"));
                         return false;
                     }
                 }

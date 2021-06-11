@@ -1,14 +1,9 @@
 package com.sobot.chat.activity.base;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,9 +14,7 @@ import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
-import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.ZhiChiConstant;
 
 /**
  * 从界面下方弹出的activity
@@ -42,47 +35,6 @@ public abstract class SobotDialogBaseActivity extends SobotBaseActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.BOTTOM;
         win.setAttributes(lp);
-    }
-
-    /**
-     * 检查相机权限
-     *
-     * @return true, 已经获取权限;false,没有权限,尝试获取
-     */
-    protected boolean checkStorageAndCameraPermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 检查存储权限
-     *
-     * @return true, 已经获取权限;false,没有权限,尝试获取
-     */
-    protected boolean checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //申请WRITE_EXTERNAL_STORAGE权限
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-        }
-        return true;
     }
 
 

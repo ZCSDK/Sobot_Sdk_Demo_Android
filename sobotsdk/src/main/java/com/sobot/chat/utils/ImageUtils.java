@@ -131,7 +131,9 @@ public class ImageUtils {
         }
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
+        if (!(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy())){
+            return uriToFileApiQ(context, uri);
+        }
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
@@ -179,9 +181,6 @@ public class ImageUtils {
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
-        }
-        if (!(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy())){
-            return uriToFileApiQ(context, uri);
         }
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {

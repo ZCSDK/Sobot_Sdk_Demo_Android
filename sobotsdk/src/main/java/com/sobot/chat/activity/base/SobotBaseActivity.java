@@ -12,7 +12,6 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
@@ -24,7 +23,6 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
@@ -43,7 +41,6 @@ import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
-import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.image.SobotRCImageView;
 import com.sobot.chat.widget.statusbar.StatusBarCompat;
@@ -387,7 +384,7 @@ public abstract class SobotBaseActivity extends FragmentActivity {
     }
 
     public String getResString(String name) {
-        return  ResourceUtils.getResString(SobotBaseActivity.this,name);
+        return ResourceUtils.getResString(SobotBaseActivity.this, name);
 //        return  ResourceUtils.getResString(SobotBaseActivity.this,name);
     }
 
@@ -443,12 +440,22 @@ public abstract class SobotBaseActivity extends FragmentActivity {
      * @return true, 已经获取权限;false,没有权限,尝试获取
      */
     protected boolean checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (Build.VERSION.SDK_INT >= 30 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) >= 30) {
+            return true;
+        }
+        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) >= 23) {
+            if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 //申请WRITE_EXTERNAL_STORAGE权限
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        , Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                return false;
+            }
+            if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                //申请READ_EXTERNAL_STORAGE权限
+                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        , Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
                 return false;
             }
         }
@@ -456,72 +463,28 @@ public abstract class SobotBaseActivity extends FragmentActivity {
     }
 
     /**
-     * 检查录音权限
-     *
-     * @return true, 已经获取权限;false,没有权限,尝试获取
-     */
-    protected boolean checkStorageAndAudioPermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 检查相机权限
+     * 检查拍照权限
      *
      * @return true, 已经获取权限;false,没有权限,尝试获取
      */
     protected boolean checkStorageAndCameraPermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                        ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
+        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity()) >= 23) {
+            if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) < 30) {
+                if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                            ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                    return false;
+                }
             }
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                this.requestPermissions(new String[]{Manifest.permission.CAMERA},
                         ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * 通过照相上传图片
-     */
-    public void selectPicFromCamera() {
-        if (!CommonUtils.isExitsSdcard()) {
-            ToastUtil.showCustomToast(getApplicationContext(), getResString("sobot_sdcard_does_not_exist"),
-                    Toast.LENGTH_SHORT);
-            return;
-        }
-
-        permissionListener = new PermissionListenerImpl() {
-            @Override
-            public void onPermissionSuccessListener() {
-                cameraFile = ChatUtils.openCamera(getSobotBaseActivity());
-            }
-        };
-
-        if (!checkStorageAndCameraPermission()) {
-            return;
-        }
-        cameraFile = ChatUtils.openCamera(this);
     }
 
     /**

@@ -67,8 +67,7 @@ public class ScreenUtils {
 	// 判断手机格式是否正确
 	public static boolean isMobileNO(String mobiles) {
 
-		Pattern p = Pattern
-				.compile("^(13[0-9]|15[0-9]|17[0135678]|18[0-9]|14[579])[0-9]{8}$");
+		Pattern p = HtmlTools.getPhoneNumberPattern();
 
 		Matcher m = p.matcher(mobiles);
 

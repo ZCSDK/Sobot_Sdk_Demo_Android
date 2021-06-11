@@ -486,6 +486,10 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
             for (int i = 0; i < message.getAnswer().getRichList().size(); i++) {
                 final ChatMessageRichListModel richListModel = message.getAnswer().getRichList().get(i);
                 if (richListModel != null) {
+                    //如果最后一个是空行，直接过滤掉不显示
+                    if (TextUtils.isEmpty(richListModel.getMsg()) && i == (message.getAnswer().getRichList().size() - 1)) {
+                       continue;
+                    }
                     // 0：文本，1：图片，2：音频，3：视频，4：文件
                     if (richListModel.getType() == 0) {
                         TextView textView = new TextView(mContext);

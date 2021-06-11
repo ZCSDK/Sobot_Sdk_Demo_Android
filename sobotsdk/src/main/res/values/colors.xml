@@ -141,7 +141,7 @@
     <!-- 删除历史记录的字体颜色 -->
     <color name="sobot_text_delete_hismsg_color">@color/sobot_common_red</color>
 
-    <!--自定义标签背景颜色-->
+    <!--输入框上边 自定义标签 整体背景颜色-->
     <color name="sobot_lable_bg_color">@color/sobot_common_gray6</color>
     <!--自定义标签边框颜色-->
     <color name="sobot_lable_stroke_color">#EDEEF0</color>
