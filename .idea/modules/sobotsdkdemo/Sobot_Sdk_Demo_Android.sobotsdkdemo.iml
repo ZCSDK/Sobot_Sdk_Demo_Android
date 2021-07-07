@@ -42,7 +42,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: ./sobotsdk/libs/sobot_sdk_mall_x_lib_2.9.7.jar" level="project" />
+    <orderEntry type="library" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_2.9.9.jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:2.4.3" level="project" />
@@ -91,6 +91,6 @@
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.umeng.umsdk:asms:1.1.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.umeng.umsdk:crash:0.0.4@aar" level="project" />
-    <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk" />
+    <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk-mall-x" />
   </component>
 </module>

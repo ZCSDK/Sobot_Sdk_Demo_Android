@@ -10,7 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/sobotsdk" />
+            <option value="$PROJECT_DIR$/sobotsdk-mall-x" />
             <option value="$PROJECT_DIR$/sobotsdkdemo" />
           </set>
         </option>

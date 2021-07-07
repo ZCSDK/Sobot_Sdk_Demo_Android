@@ -2,7 +2,9 @@ package com.sobot.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.ZCSobotApi;
+import com.sobot.chat.api.apiUtils.SobotVerControl;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
@@ -54,6 +57,11 @@ public class SobotDemoNewSettingFragment extends Fragment implements View.OnClic
         rl_2.setOnClickListener(this);
         RelativeLayout rl_3 = (RelativeLayout) view.findViewById(R.id.rl_3);
         rl_3.setOnClickListener(this);
+        if (SobotVerControl.isPlatformVer) {
+            rl_3.setVisibility(View.VISIBLE);
+        } else {
+            rl_3.setVisibility(View.GONE);
+        }
         RelativeLayout rl_4 = (RelativeLayout) view.findViewById(R.id.rl_4);
         rl_4.setOnClickListener(this);
         RelativeLayout rl_5 = (RelativeLayout) view.findViewById(R.id.rl_5);

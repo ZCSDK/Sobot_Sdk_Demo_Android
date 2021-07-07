@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.model.Information;
+import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.ToastUtil;
+import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.activity.product.SobotDemoCloudCallActivity;
 import com.sobot.demo.activity.product.SobotDemoCustomActivity;
 import com.sobot.demo.activity.product.SobotDemoRobotActivity;
@@ -64,6 +68,15 @@ public class SobotDemoWelcomeFragment extends Fragment implements View.OnClickLi
             case R.id.sobot_tv_right:
                 Information information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
                 if (information != null) {
+                    if (TextUtils.isEmpty(information.getApp_key())) {
+                        ToastUtil.showCustomToast(getActivity(), "appkey不能为空,请前往基础设置中设置");
+                        return;
+                    }
+                    boolean initSdk = SharedPreferencesUtil.getBooleanData(getActivity(), ZhiChiConstant.SOBOT_CONFIG_INITSDK, false);
+                    if (!initSdk) {
+                        ToastUtil.showCustomToast(getActivity(), "请前往基础设置中初始化后再启动");
+                        return;
+                    }
                     ZCSobotApi.openZCChat(getContext(), information);
                 }
                 break;
