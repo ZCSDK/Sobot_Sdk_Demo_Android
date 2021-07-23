@@ -62,6 +62,7 @@ public class SobotStartSobotFunctionActivity extends AppCompatActivity implement
         }
         if (v == sobot_tv_start) {
             if (information != null) {
+                information.setUseRobotVoice(true);
                 ZCSobotApi.openZCChat(getContext(), information);
             }
         }

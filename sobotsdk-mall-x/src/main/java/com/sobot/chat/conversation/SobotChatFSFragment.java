@@ -1271,7 +1271,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      * 重置用户
      */
     private void resetUser() {
-        if (!SobotVerControl.isPlatformVer) {
+        String platformID = SharedPreferencesUtil.getStringData(mAppContext, ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
+        //电商标示为fasle 或者 platformUnionCode 都认为是普通版，重置用户是都要结束会话
+        if (!SobotVerControl.isPlatformVer || TextUtils.isEmpty(platformID)) {
             zhiChiApi.disconnChannel();
         }
         clearCache();

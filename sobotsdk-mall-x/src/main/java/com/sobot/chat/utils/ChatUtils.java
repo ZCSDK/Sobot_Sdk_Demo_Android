@@ -137,8 +137,7 @@ public class ChatUtils {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("video/*");
         } else {
-            intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("video/*");
+            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         }
         try {
             if (childFragment != null) {

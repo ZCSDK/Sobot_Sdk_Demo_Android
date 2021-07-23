@@ -1,22 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.lzy.widget:view-core:0.1.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de5a2e2056ac341f1d7ba9779609436b/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de5a2e2056ac341f1d7ba9779609436b/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de5a2e2056ac341f1d7ba9779609436b/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c325960ab3e9e87dacbde21f5b20622c/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c325960ab3e9e87dacbde21f5b20622c/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c325960ab3e9e87dacbde21f5b20622c/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a335d3aa45f145933b2f92789ceaea4d/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a335d3aa45f145933b2f92789ceaea4d/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a335d3aa45f145933b2f92789ceaea4d/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3cf6b4e852a48e045b098ddd622fca7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3cf6b4e852a48e045b098ddd622fca7/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3cf6b4e852a48e045b098ddd622fca7/res" />
+      <root url="jar://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/2315498881c93bc2ff234b8befc15739/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/2315498881c93bc2ff234b8befc15739/res" />
+      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/2315498881c93bc2ff234b8befc15739/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lzy.widget/view-core/0.1.5/157846dcad0afe425e8bd566b60b572f86db9937/view-core-0.1.5-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

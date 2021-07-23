@@ -1,16 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.chat:sobotsupport-glidev4:2.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ea56ce7d5d9badc3086608cbe6e149f/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ea56ce7d5d9badc3086608cbe6e149f/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ea56ce7d5d9badc3086608cbe6e149f/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/79a0c2ce522f429324685585d983bd33/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/79a0c2ce522f429324685585d983bd33/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/79a0c2ce522f429324685585d983bd33/res" />
+      <root url="jar://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/a00ba6b5e4de62eeaeb01b8509f1f119/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/a00ba6b5e4de62eeaeb01b8509f1f119/res" />
+      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/a00ba6b5e4de62eeaeb01b8509f1f119/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsupport-glidev4/2.0/a59dd672f0a2fea11de22792c4d5135d18653938/sobotsupport-glidev4-2.0-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
