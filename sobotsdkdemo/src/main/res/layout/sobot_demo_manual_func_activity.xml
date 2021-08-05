@@ -10,7 +10,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sobot_demo_bottom_layout"
         android:layout_below="@+id/sobot_demo_titlebar"
         android:background="#ffffff"
         android:padding="10dp">
@@ -752,7 +751,7 @@
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏'+'留言按钮]"
+                    android:text="[说明:隐藏机器人和人工聊天模式下，'+'中的留言按钮]"
                     android:layout_marginEnd="25dp" />
 
                 <ImageView
@@ -767,6 +766,58 @@
                     android:visibility="visible"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
+            <RelativeLayout
+                android:id="@+id/sobot_rl_4_2_13_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/sobot_text42137"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="4.2.13 只隐藏人工聊天模式的留言功能"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="25dp" />
+
+                <TextView
+                    style="@style/TxtTitle_Des"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sobot_text42137"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="[说明:只隐藏在人工聊天模式'+'中的留言按钮]"
+                    android:layout_marginEnd="25dp" />
+
+                <ImageView
+                    android:id="@+id/sobot_image_4_2_13_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/sobot_demo_icon_close"
+                    android:contentDescription="@null"
+                    android:visibility="visible"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -980,6 +1031,8 @@
                     android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
+
+
 
             <View
                 android:layout_width="match_parent"

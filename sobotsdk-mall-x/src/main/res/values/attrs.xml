@@ -57,22 +57,28 @@
     </declare-styleable>
 
     <declare-styleable name="sobot_MHLinearLayout">
-        <attr name="sobot_mhv_HeightRatio" format="float"/>
-        <attr name="sobot_mhv_HeightDimen" format="dimension"/>
-        <attr name="sobot_mhH_HeightRatio" format="float"/>
-        <attr name="sobot_mhH_HeightDimen" format="dimension"/>
+        <attr name="sobot_mhv_HeightRatio" format="float" />
+        <attr name="sobot_mhv_HeightDimen" format="dimension" />
+        <attr name="sobot_mhH_HeightRatio" format="float" />
+        <attr name="sobot_mhH_HeightDimen" format="dimension" />
 
     </declare-styleable>
 
     <declare-styleable name="sobot_ExpandableTextView">
-        <attr name="maxCollapsedLines" format="integer"/>
-        <attr name="ExpandStrResId" format="reference"/>
-        <attr name="CollapseStrResId" format="reference"/>
+        <attr name="maxCollapsedLines" format="integer" />
+        <attr name="ExpandStrResId" format="reference" />
+        <attr name="CollapseStrResId" format="reference" />
 
     </declare-styleable>
 
     <declare-styleable name="sobot_GifView2">
         <attr name="gif" format="reference" />
         <attr name="paused" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="sobot_autoWrapLineLayout">
+        <attr name="verticalGap" format="dimension" />
+        <attr name="horizontalGap" format="dimension" />
+        <attr name="fillMode" format="integer" />
     </declare-styleable>
 </resources>

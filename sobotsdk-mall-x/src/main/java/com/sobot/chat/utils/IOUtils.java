@@ -4,11 +4,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
-
-import com.sobot.chat.api.apiUtils.SobotApp;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

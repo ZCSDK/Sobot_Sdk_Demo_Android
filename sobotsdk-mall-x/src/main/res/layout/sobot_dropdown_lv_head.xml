@@ -12,7 +12,7 @@
         android:background="@color/sobot_transparent" />
 
     <LinearLayout
-        android:id="@+id/drop_down_head"
+        android:id="@+id/sobot_drop_down_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

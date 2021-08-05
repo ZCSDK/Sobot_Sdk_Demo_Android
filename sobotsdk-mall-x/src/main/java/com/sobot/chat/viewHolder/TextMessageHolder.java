@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
-import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;

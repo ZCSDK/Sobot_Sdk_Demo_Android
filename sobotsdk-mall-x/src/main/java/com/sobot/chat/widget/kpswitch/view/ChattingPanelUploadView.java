@@ -111,7 +111,7 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
             if (!information.isHideMenuFile()) {
                 operatorList.add(fileEntity);
             }
-            if (!information.isHideMenuLeave()) {
+            if (!information.isHideMenuLeave()&& !information.isHideMenuManualLeave()) {
                 if (leaveMsg == ZhiChiConstant.sobot_msg_flag_open && !msgToTicket) {
                     operatorList.add(leavemsgEntity);
                 }

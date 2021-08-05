@@ -16,7 +16,6 @@ import com.sobot.chat.adapter.SobotFilesAdapter;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.FileOpenHelper;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SystemUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 

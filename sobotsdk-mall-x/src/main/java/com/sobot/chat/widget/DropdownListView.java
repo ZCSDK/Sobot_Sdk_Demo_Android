@@ -79,7 +79,7 @@ public class DropdownListView extends ListView implements AbsListView.OnScrollLi
         fl = (FrameLayout)inflater.inflate(ResourceUtils.getIdByName(getContext(), "layout",
                 "sobot_dropdown_lv_head"), null);
         headView = (LinearLayout) fl.findViewById(ResourceUtils.getIdByName(getContext(), "id",
-                "drop_down_head"));
+                "sobot_drop_down_head"));
 
         progressBar = (ProgressBar) fl.findViewById(ResourceUtils.getIdByName(getContext(), "id",
                 "sobot_loading"));

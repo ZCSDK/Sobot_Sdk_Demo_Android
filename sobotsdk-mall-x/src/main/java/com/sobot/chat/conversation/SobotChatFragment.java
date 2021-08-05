@@ -2877,8 +2877,12 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 }
                 sobot_txt_restart_talk.setVisibility(View.VISIBLE);
                 btn_model_edit.setVisibility(View.GONE);
-                sobot_tv_message.setVisibility(initModel.getMsgFlag() == ZhiChiConstant.sobot_msg_flag_close ? View
-                        .GONE : View.VISIBLE);
+                if (info.isHideMenuLeave()) {
+                    sobot_tv_message.setVisibility(View.GONE);
+                } else {
+                    sobot_tv_message.setVisibility(initModel.getMsgFlag() == ZhiChiConstant.sobot_msg_flag_close ? View
+                            .GONE : View.VISIBLE);
+                }
                 btn_model_voice.setVisibility(View.GONE);
                 lv_message.setSelection(messageAdapter.getCount());
                 break;

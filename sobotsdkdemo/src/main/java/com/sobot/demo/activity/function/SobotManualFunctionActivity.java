@@ -32,9 +32,9 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
 
     private EditText sobot_et_groupid, sobot_et_choose_adminid, sobot_et_tranReceptionistFlag, sobot_et_customer_fields, sobot_et_autoSendMsgMode, sobot_et_autoSendMsgcontent, sobot_et_autoSendMsgtype,
             sobot_et_queue_First, sobot_et_summary_params, sobot_et_multi_params, sobot_et_vip_level, sobot_et_user_label, sobot_et_autoSendMsg_count;
-    private RelativeLayout sobot_tv_left, sobot_rl_4_2_8, sobot_rl_4_2_9, sobot_rl_4_2_11, sobot_rl_4_2_13_1, sobot_rl_4_2_13_2, sobot_rl_4_2_13_3, sobot_rl_4_2_13_4, sobot_rl_4_2_13_5, sobot_rl_4_2_13_6;
-    private ImageView sobotImage428, sobotImage429, sobotImage4211, sobotImage42131, sobotImage42132, sobotImage42133, sobotImage42134, sobotImage42135, sobotImage42136;
-    private boolean status428, status429, status4211, status42131, status42132, status42133, status42134, status42135, status42136;
+    private RelativeLayout sobot_tv_left, sobot_rl_4_2_8, sobot_rl_4_2_9, sobot_rl_4_2_11, sobot_rl_4_2_13_1, sobot_rl_4_2_13_2, sobot_rl_4_2_13_3, sobot_rl_4_2_13_4, sobot_rl_4_2_13_5, sobot_rl_4_2_13_6, sobot_rl_4_2_13_7;
+    private ImageView sobotImage428, sobotImage429, sobotImage4211, sobotImage42131, sobotImage42132, sobotImage42133, sobotImage42134, sobotImage42135, sobotImage42136, sobotImage42137;
+    private boolean status428, status429, status4211, status42131, status42132, status42133, status42134, status42135, status42136, status42137;
     private TextView tv_manual_fun_4_2_1, tv_manual_fun_4_2_2, tv_manual_fun_4_2_8, tv_manual_fun_4_2_9, tv_manual_fun_4_2_13, sobot_tv_save;
     private Information information;
     private SobotDemoOtherModel otherModel;
@@ -95,6 +95,9 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
         sobot_rl_4_2_13_6 = (RelativeLayout) findViewById(R.id.sobot_rl_4_2_13_6);
         sobot_rl_4_2_13_6.setOnClickListener(this);
         sobotImage42136 = (ImageView) findViewById(R.id.sobot_image_4_2_13_6);
+        sobot_rl_4_2_13_7 = (RelativeLayout) findViewById(R.id.sobot_rl_4_2_13_7);
+        sobot_rl_4_2_13_7.setOnClickListener(this);
+        sobotImage42137 = (ImageView) findViewById(R.id.sobot_image_4_2_13_7);
 
 
         sobot_et_groupid = findViewById(R.id.sobot_et_groupid);
@@ -142,6 +145,8 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
             setImageShowStatus(status42135, sobotImage42135);
             status42136 = information.isHideMenuFile();
             setImageShowStatus(status42136, sobotImage42136);
+            status42137 = information.isHideMenuManualLeave();
+            setImageShowStatus(status42137, sobotImage42137);
 
 
         }
@@ -292,6 +297,7 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
                     information.setHideMenuVedio(status42134);
                     information.setHideMenuCamera(status42135);
                     information.setHideMenuFile(status42136);
+                    information.setHideMenuManualLeave(status42137);
                     SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
                 }
                 ToastUtil.showToast(getContext(), "已保存");
@@ -340,6 +346,10 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
             case R.id.sobot_rl_4_2_13_6:
                 status42136 = !status42136;
                 setImageShowStatus(status42136, sobotImage42136);
+                break;
+            case R.id.sobot_rl_4_2_13_7:
+                status42137 = !status42137;
+                setImageShowStatus(status42137, sobotImage42137);
                 break;
         }
 

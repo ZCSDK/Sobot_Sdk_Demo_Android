@@ -1,11 +1,12 @@
 package com.sobot.chat.activity;
 
 import android.content.Intent;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,8 +23,11 @@ import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.presenter.StPostMsgPresenter;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.chat.widget.attachment.SpaceItemDecoration;
+import com.sobot.chat.widget.horizontalgridpage.SobotRecyclerCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,8 @@ import java.util.List;
 public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
 
     private LinearLayout sobot_btn_cancle;
-    private GridView sobot_gv_skill;
+    private RecyclerView sobot_rcy_skill;
+
     private TextView sobot_tv_title;
     private SobotSikllAdapter sobotSikllAdapter;
     private List<ZhiChiGroupBase> list_skill = new ArrayList<ZhiChiGroupBase>();
@@ -59,18 +64,15 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
     protected void initView() {
         sobot_tv_title = (TextView) findViewById(ResourceUtils.getIdByName(
                 this, "id", "sobot_tv_title"));
-        sobot_tv_title.setText(ResourceUtils.getResString(SobotSkillGroupActivity.this, "sobot_switch_robot_title_2"));
         mPressenter = StPostMsgPresenter.newInstance(SobotSkillGroupActivity.this, SobotSkillGroupActivity.this);
         sobot_btn_cancle = (LinearLayout) findViewById(ResourceUtils.getIdByName(
                 this, "id", "sobot_btn_cancle"));
-        sobot_gv_skill = (GridView) findViewById(ResourceUtils.getIdByName(
-                this, "id", "sobot_gv_skill"));
+        sobot_rcy_skill = (RecyclerView) findViewById(ResourceUtils.getIdByName(
+                this, "id", "sobot_rcy_skill"));
 
-        sobotSikllAdapter = new SobotSikllAdapter(this, list_skill, msgFlag);
-        sobot_gv_skill.setAdapter(sobotSikllAdapter);
-        sobot_gv_skill.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        sobotSikllAdapter = new SobotSikllAdapter(this, list_skill, msgFlag, new SobotRecyclerCallBack() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClickListener(View view, int position) {
                 if (list_skill != null && list_skill.size() > 0) {
                     if ("true".equals(list_skill.get(position).isOnline())) {
                         if (!TextUtils.isEmpty(list_skill.get(position).getGroupName())) {
@@ -90,7 +92,13 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
                     }
                 }
             }
+
+            @Override
+            public void onItemLongClickListener(View view, int position) {
+
+            }
         });
+        sobot_rcy_skill.setAdapter(sobotSikllAdapter);
 
         sobot_btn_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +107,7 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
             }
         });
 
-        displayInNotch(this, sobot_gv_skill);
+        displayInNotch(this, sobot_rcy_skill);
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -109,12 +117,6 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
             }
         }
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
     }
 
     @Override
@@ -144,19 +146,37 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
         zhiChiApi.getGroupList(SobotSkillGroupActivity.this, appkey, uid, new StringResultCallBack<ZhiChiGroup>() {
             @Override
             public void onSuccess(ZhiChiGroup zhiChiGroup) {
-
                 list_skill = zhiChiGroup.getData();
-                if (list_skill != null && list_skill.size() > 0) {
-//                    if (list_skill.size() % 2 != 0) {
-//                        list_skill.add(new ZhiChiGroupBase("", ""));// 奇数时，加一个空布局，仅为展示
-//                    }
-                    sobotSikllAdapter = new SobotSikllAdapter(getApplicationContext(), list_skill, msgFlag);
-                    sobot_gv_skill.setAdapter(sobotSikllAdapter);
+                if (list_skill != null && list_skill.size() > 0 && sobotSikllAdapter != null) {
+                    if (list_skill.get(0).getGroupStyle() == 1) {
+                        GridLayoutManager gridlayoutmanager = new GridLayoutManager(SobotSkillGroupActivity.this, 4);
+                        sobot_rcy_skill.addItemDecoration(new SpaceItemDecoration(ScreenUtils.dip2px(SobotSkillGroupActivity.this, 10), ScreenUtils.dip2px(SobotSkillGroupActivity.this, 10), 0, SpaceItemDecoration.GRIDLAYOUT));
+                        sobot_rcy_skill.setLayoutManager(gridlayoutmanager);
+                    } else if (list_skill.get(0).getGroupStyle() == 2) {
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SobotSkillGroupActivity.this);
+                        sobot_rcy_skill.setLayoutManager(linearLayoutManager);
+                    } else {
+                        GridLayoutManager manager = new GridLayoutManager(SobotSkillGroupActivity.this, 2);
+                        sobot_rcy_skill.addItemDecoration(new SpaceItemDecoration(ScreenUtils.dip2px(SobotSkillGroupActivity.this, 10), ScreenUtils.dip2px(SobotSkillGroupActivity.this, 10), 0, SpaceItemDecoration.GRIDLAYOUT));
+                        sobot_rcy_skill.setLayoutManager(manager);
+                    }
+
+                    sobotSikllAdapter.setList(list_skill);
+                    sobotSikllAdapter.setMsgFlag(msgFlag);
+                    sobotSikllAdapter.notifyDataSetChanged();
+                    if (TextUtils.isEmpty(list_skill.get(0).getGroupGuideDoc())) {
+                        sobot_tv_title.setText(ResourceUtils.getResString(SobotSkillGroupActivity.this, "sobot_switch_robot_title_2"));
+                    } else {
+                        sobot_tv_title.setText(list_skill.get(0).getGroupGuideDoc());
+                    }
+                } else {
+                    sobot_tv_title.setText(ResourceUtils.getResString(SobotSkillGroupActivity.this, "sobot_switch_robot_title_2"));
                 }
             }
 
             @Override
             public void onFailure(Exception e, String des) {
+                sobot_tv_title.setText(ResourceUtils.getResString(SobotSkillGroupActivity.this, "sobot_switch_robot_title_2"));
             }
         });
     }

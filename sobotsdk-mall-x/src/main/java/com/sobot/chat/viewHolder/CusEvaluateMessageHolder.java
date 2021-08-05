@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.IdRes;
 import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -21,13 +22,16 @@ import com.sobot.chat.api.model.SobotEvaluateModel;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.core.channel.SobotMsgManager;
+import com.sobot.chat.notchlib.utils.ScreenUtil;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
+import com.sobot.chat.widget.SobotAntoLineLayout;
 import com.sobot.chat.widget.SobotTenRatingLayout;
 
 import java.util.ArrayList;
@@ -53,16 +57,8 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
     TextView sobot_submit;//提交
     View sobot_ratingBar_split_view;//如果有已解决按钮和未解决按钮就显示，否则隐藏；
     Information information;
-    private LinearLayout sobot_evaluate_ll_lable1;//评价  用来放前两个标签，标签最多可以有六个
-    private LinearLayout sobot_evaluate_ll_lable2;//评价  用来放中间两个标签
-    private LinearLayout sobot_evaluate_ll_lable3;//评价  用来放最后两个标签
-    private CheckBox sobot_evaluate_cb_lable1;//六个评价标签
-    private CheckBox sobot_evaluate_cb_lable2;
-    private CheckBox sobot_evaluate_cb_lable3;
-    private CheckBox sobot_evaluate_cb_lable4;
-    private CheckBox sobot_evaluate_cb_lable5;
-    private CheckBox sobot_evaluate_cb_lable6;
     private LinearLayout sobot_hide_layout;
+    private SobotAntoLineLayout sobot_evaluate_lable_autoline;//评价 标签 自动换行
     private List<CheckBox> checkBoxList = new ArrayList<>();
     SobotEvaluateModel sobotEvaluateModel;
     public ZhiChiMessageBase message;
@@ -89,9 +85,9 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                 "sobot_ratingBar"));
         sobot_ten_root_ll = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ten_root_ll"));
-         sobot_ten_very_dissatisfied= convertView.findViewById(ResourceUtils.getIdByName(context, "id",
+        sobot_ten_very_dissatisfied = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ten_very_dissatisfied"));
-         sobot_ten_very_satisfaction= convertView.findViewById(ResourceUtils.getIdByName(context, "id",
+        sobot_ten_very_satisfaction = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ten_very_satisfaction"));
         sobot_ten_very_dissatisfied.setText(ResourceUtils.getResString(context, "sobot_very_dissatisfied"));
         sobot_ten_very_satisfaction.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
@@ -109,21 +105,8 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         sobot_ratingBar_title.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
         sobot_hide_layout = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_hide_layout"));
-        sobot_evaluate_ll_lable1 = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_ll_lable1"));
-        sobot_evaluate_ll_lable2 = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_ll_lable2"));
-        sobot_evaluate_ll_lable3 = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_ll_lable3"));
-        sobot_evaluate_cb_lable1 = (CheckBox) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_cb_lable1"));
-        sobot_evaluate_cb_lable2 = (CheckBox) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_cb_lable2"));
-        sobot_evaluate_cb_lable3 = (CheckBox) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_cb_lable3"));
-        sobot_evaluate_cb_lable4 = (CheckBox) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_cb_lable4"));
-        sobot_evaluate_cb_lable5 = (CheckBox) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_cb_lable5"));
-        sobot_evaluate_cb_lable6 = (CheckBox) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_evaluate_cb_lable6"));
-        checkBoxList.add(sobot_evaluate_cb_lable1);
-        checkBoxList.add(sobot_evaluate_cb_lable2);
-        checkBoxList.add(sobot_evaluate_cb_lable3);
-        checkBoxList.add(sobot_evaluate_cb_lable4);
-        checkBoxList.add(sobot_evaluate_cb_lable5);
-        checkBoxList.add(sobot_evaluate_cb_lable6);
+        sobot_evaluate_lable_autoline = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
+                ("sobot_evaluate_lable_autoline")));
     }
 
     @Override
@@ -196,7 +179,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                                 sobot_ratingBar_title.setText(satisFactionList.get(4).getScoreExplain());
                                 sobot_ratingBar_title.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_color_evaluate_ratingBar_des_tv")));
                             }
-                        }else{
+                        } else {
                             //根据infomation 配置是否隐藏人工评价标签
                             if (!information.isHideManualEvaluationLabels()) {
                                 sobot_hide_layout.setVisibility(View.VISIBLE);
@@ -321,7 +304,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
 
             //未评价
             setNotEvaluatedLayout();
-            if (satisFactionList != null ) {
+            if (satisFactionList != null) {
                 sobot_submit.setVisibility(View.VISIBLE);
             }
         } else if (1 == sobotEvaluateModel.getEvaluateStatus()) {
@@ -479,84 +462,23 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
             }
         }
 
-        switch (tmpData.length) {
-            case 1:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setVisibility(View.INVISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.GONE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                break;
-            case 2:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.GONE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                break;
-            case 3:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setVisibility(View.INVISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                break;
-            case 4:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setText(tmpData[3]);
-                sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                break;
-            case 5:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setText(tmpData[3]);
-                sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable5.setText(tmpData[4]);
-                sobot_evaluate_cb_lable5.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable6.setVisibility(View.INVISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.VISIBLE);
-                break;
-            case 6:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setText(tmpData[3]);
-                sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable5.setText(tmpData[4]);
-                sobot_evaluate_cb_lable5.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable6.setText(tmpData[5]);
-                sobot_evaluate_cb_lable6.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
+        createChildLableView(sobot_evaluate_lable_autoline, tmpData);
+    }
+
+    //隐藏所有自动换行的标签
+    private void createChildLableView(SobotAntoLineLayout antoLineLayout, String tmpData[]) {
+        if (antoLineLayout != null) {
+            antoLineLayout.removeAllViews();
+            for (int i = 0; i < tmpData.length; i++) {
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                View view = inflater.inflate(ResourceUtils.getResLayoutId(mContext, "sobot_layout_evaluate_item"), null);
+                CheckBox checkBox = view.findViewById(ResourceUtils.getResId(mContext, "sobot_evaluate_cb_lable"));
+                //左侧（左间距18+内间距15+antoLineLayout 外间距20）* 2 +antoLineLayout 子控件行间距10
+                checkBox.setMinWidth((ScreenUtil.getScreenSize(mContext)[0] - ScreenUtils.dip2px(mContext, (18 + 15 + 20) * 2 + 10)) / 2);
+                checkBox.setText(tmpData[i]);
+                antoLineLayout.addView(view);
+                checkBoxList.add(checkBox);
+            }
         }
     }
 

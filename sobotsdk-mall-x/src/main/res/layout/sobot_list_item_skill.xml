@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/sobot_tv_content"
+        android:id="@+id/sobot_tv_group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -17,18 +17,18 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/sobot_tv_desc"
+        android:id="@+id/sobot_tv_group_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/sobot_common_gray2"
-        android:textSize="10sp"
-        android:visibility="visible"
+        android:paddingStart="3dp"
+        android:paddingLeft="3dp"
         android:paddingEnd="3dp"
-        android:paddingStart="3dp" />
+        android:paddingRight="3dp"
+        android:textColor="@color/sobot_common_gray1"
+        android:textSize="10sp"
+        android:visibility="visible" />
 
 </LinearLayout>

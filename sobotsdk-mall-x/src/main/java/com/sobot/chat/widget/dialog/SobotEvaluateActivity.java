@@ -7,6 +7,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.OkHttpUtils;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
+import com.sobot.chat.notchlib.utils.ScreenUtil;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
@@ -40,6 +42,7 @@ import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.chat.widget.SobotAntoLineLayout;
 import com.sobot.chat.widget.SobotEditTextLayout;
 import com.sobot.chat.widget.SobotTenRatingLayout;
 
@@ -93,15 +96,8 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
     private int ratingType;//评价  类型   0 5星 ；1 十分 默认5星
 
     private String evaluateChecklables;//主动邀请评价选中的标签
-    private LinearLayout sobot_evaluate_ll_lable1;//评价  用来放前两个标签，标签最多可以有六个
-    private LinearLayout sobot_evaluate_ll_lable2;//评价  用来放中间两个标签
-    private LinearLayout sobot_evaluate_ll_lable3;//评价  用来放最后两个标签
-    private CheckBox sobot_evaluate_cb_lable1;//六个评价标签
-    private CheckBox sobot_evaluate_cb_lable2;
-    private CheckBox sobot_evaluate_cb_lable3;
-    private CheckBox sobot_evaluate_cb_lable4;
-    private CheckBox sobot_evaluate_cb_lable5;
-    private CheckBox sobot_evaluate_cb_lable6;
+    private SobotAntoLineLayout sobot_evaluate_lable_autoline;//评价 标签 自动换行 最多可以有六个
+
     private SobotEditTextLayout setl_submit_content;//评价框
 
     private List<CheckBox> checkBoxList = new ArrayList<>();
@@ -164,21 +160,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         sobot_ten_very_dissatisfied.setText(ResourceUtils.getResString(context, "sobot_very_dissatisfied"));
         sobot_ten_very_satisfaction.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
 
-        sobot_evaluate_ll_lable1 = (LinearLayout) findViewById(getResId("sobot_evaluate_ll_lable1"));
-        sobot_evaluate_ll_lable2 = (LinearLayout) findViewById(getResId("sobot_evaluate_ll_lable2"));
-        sobot_evaluate_ll_lable3 = (LinearLayout) findViewById(getResId("sobot_evaluate_ll_lable3"));
-        sobot_evaluate_cb_lable1 = (CheckBox) findViewById(getResId("sobot_evaluate_cb_lable1"));
-        sobot_evaluate_cb_lable2 = (CheckBox) findViewById(getResId("sobot_evaluate_cb_lable2"));
-        sobot_evaluate_cb_lable3 = (CheckBox) findViewById(getResId("sobot_evaluate_cb_lable3"));
-        sobot_evaluate_cb_lable4 = (CheckBox) findViewById(getResId("sobot_evaluate_cb_lable4"));
-        sobot_evaluate_cb_lable5 = (CheckBox) findViewById(getResId("sobot_evaluate_cb_lable5"));
-        sobot_evaluate_cb_lable6 = (CheckBox) findViewById(getResId("sobot_evaluate_cb_lable6"));
-        checkBoxList.add(sobot_evaluate_cb_lable1);
-        checkBoxList.add(sobot_evaluate_cb_lable2);
-        checkBoxList.add(sobot_evaluate_cb_lable3);
-        checkBoxList.add(sobot_evaluate_cb_lable4);
-        checkBoxList.add(sobot_evaluate_cb_lable5);
-        checkBoxList.add(sobot_evaluate_cb_lable6);
+        sobot_evaluate_lable_autoline = findViewById(getResId("sobot_evaluate_lable_autoline"));
         sobot_add_content = (EditText) findViewById(getResId("sobot_add_content"));
         sobot_add_content.setHint(ResourceUtils.getResString(context, "sobot_edittext_hint"));
         sobot_btn_ok_robot = (RadioButton) findViewById(getResId("sobot_btn_ok_robot"));
@@ -381,15 +363,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
     private void setViewGone() {
         sobot_hide_layout.setVisibility(View.GONE);
         setl_submit_content.setVisibility(View.GONE);
-        sobot_evaluate_ll_lable1.setVisibility(View.GONE);
-        sobot_evaluate_ll_lable2.setVisibility(View.GONE);
-        sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-        sobot_evaluate_cb_lable1.setVisibility(View.GONE);
-        sobot_evaluate_cb_lable2.setVisibility(View.GONE);
-        sobot_evaluate_cb_lable3.setVisibility(View.GONE);
-        sobot_evaluate_cb_lable4.setVisibility(View.GONE);
-        sobot_evaluate_cb_lable5.setVisibility(View.GONE);
-        sobot_evaluate_cb_lable6.setVisibility(View.GONE);
+        sobot_evaluate_lable_autoline.removeAllViews();
 
         if (current_model == ZhiChiConstant.client_model_robot) {
             sobot_tv_evaluate_title.setText(getResString("sobot_robot_customer_service_evaluation"));
@@ -476,6 +450,24 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         return null;
     }
 
+    //隐藏所有自动换行的标签
+    private void createChildLableView(SobotAntoLineLayout antoLineLayout, String tmpData[]) {
+        if (antoLineLayout != null) {
+            antoLineLayout.removeAllViews();
+            for (int i = 0; i < tmpData.length; i++) {
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(ResourceUtils.getResLayoutId(getContext(), "sobot_layout_evaluate_item"), null);
+                CheckBox checkBox = view.findViewById(ResourceUtils.getResId(getContext(), "sobot_evaluate_cb_lable"));
+                //50 =antoLineLayout 左间距20+右间距20 +antoLineLayout 子控件行间距10
+                checkBox.setMinWidth((ScreenUtil.getScreenSize(context)[0] - ScreenUtils.dip2px(getContext(), 50)) / 2);
+                checkBox.setText(tmpData[i]);
+                antoLineLayout.addView(view);
+                checkBoxList.add(checkBox);
+            }
+        }
+    }
+
+
     //设置评价标签的显示逻辑
     private void setLableViewVisible(String tmpData[]) {
         if (tmpData == null) {
@@ -513,107 +505,8 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 }
             }
         }
-
-        switch (tmpData.length) {
-            case 1:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setVisibility(View.INVISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.GONE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
-                break;
-            case 2:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.GONE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
-                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
-                break;
-            case 3:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setVisibility(View.INVISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
-                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
-                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
-                break;
-            case 4:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setText(tmpData[3]);
-                sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.GONE);
-                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
-                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
-                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
-                checkLable(tmpData, 3, sobot_evaluate_cb_lable4);
-                break;
-            case 5:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setText(tmpData[3]);
-                sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable5.setText(tmpData[4]);
-                sobot_evaluate_cb_lable5.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable6.setVisibility(View.INVISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.VISIBLE);
-                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
-                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
-                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
-                checkLable(tmpData, 3, sobot_evaluate_cb_lable4);
-                checkLable(tmpData, 4, sobot_evaluate_cb_lable5);
-                break;
-            case 6:
-                sobot_evaluate_cb_lable1.setText(tmpData[0]);
-                sobot_evaluate_cb_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable2.setText(tmpData[1]);
-                sobot_evaluate_cb_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable1.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable3.setText(tmpData[2]);
-                sobot_evaluate_cb_lable3.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable4.setText(tmpData[3]);
-                sobot_evaluate_cb_lable4.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable2.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable5.setText(tmpData[4]);
-                sobot_evaluate_cb_lable5.setVisibility(View.VISIBLE);
-                sobot_evaluate_cb_lable6.setText(tmpData[5]);
-                sobot_evaluate_cb_lable6.setVisibility(View.VISIBLE);
-                sobot_evaluate_ll_lable3.setVisibility(View.VISIBLE);
-                checkLable(tmpData, 0, sobot_evaluate_cb_lable1);
-                checkLable(tmpData, 1, sobot_evaluate_cb_lable2);
-                checkLable(tmpData, 2, sobot_evaluate_cb_lable3);
-                checkLable(tmpData, 3, sobot_evaluate_cb_lable4);
-                checkLable(tmpData, 4, sobot_evaluate_cb_lable5);
-                checkLable(tmpData, 5, sobot_evaluate_cb_lable6);
-                break;
-            default:
-                break;
-        }
+        createChildLableView(sobot_evaluate_lable_autoline, tmpData);
+        checkLable(tmpData);
     }
 
     private int getResovled() {
@@ -747,12 +640,17 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
     }
 
     //检查标签是否选中（根据主动邀评传过来的选中标签判断）
-    private void checkLable(String tmpData[], int pos, CheckBox cb) {
-        if (tmpData != null && tmpData.length > 0 && !TextUtils.isEmpty(evaluateChecklables) && cb != null) {
-            if (evaluateChecklables.contains(tmpData[pos])) {
-                cb.setChecked(true);
-            } else {
-                cb.setChecked(false);
+    private void checkLable(String tmpData[]) {
+        if (tmpData != null && tmpData.length > 0 && !TextUtils.isEmpty(evaluateChecklables) && sobot_evaluate_lable_autoline != null) {
+            for (int i = 0; i < tmpData.length; i++) {
+                CheckBox checkBox = (CheckBox) sobot_evaluate_lable_autoline.getChildAt(i);
+                if (checkBox != null) {
+                    if (evaluateChecklables.contains(tmpData[i])) {
+                        checkBox.setChecked(true);
+                    } else {
+                        checkBox.setChecked(false);
+                    }
+                }
             }
         }
     }
