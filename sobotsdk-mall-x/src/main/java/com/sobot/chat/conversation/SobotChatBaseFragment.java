@@ -633,7 +633,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 }
                 Boolean switchFlag = Boolean.valueOf(commonModelBase.getSwitchFlag()).booleanValue();
                 //如果switchFlag 为true，就会断开通道走，轮训
-                if (switchFlag) {
+                if (true) {
                     if (!CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
                         //SobotTCPServer不存在，重启下
                         SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().reconnectChannel();

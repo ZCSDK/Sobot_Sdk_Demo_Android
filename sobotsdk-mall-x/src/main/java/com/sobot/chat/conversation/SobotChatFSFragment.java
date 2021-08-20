@@ -299,6 +299,8 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
 
     String tempMsgContent;//2.9.3 仅人工/人工优先模拟人工模式，临时保存客户真正转人工前第一次发送的消息，转人工成功后自动发送发送，发送完清除
 
+    //初始化接口是否已经结束，防止多次调用
+    private boolean isAppInitEnd = true;
 
     public static SobotChatFSFragment newInstance(Bundle info) {
         Bundle arguments = new Bundle();
@@ -480,7 +482,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 btn_reconnect.setVisibility(View.GONE);
                 loading_anim_view.setVisibility(View.VISIBLE);
                 txt_loading.setVisibility(View.VISIBLE);
-                customerInit();
+                customerInit(1);
             }
         });
 
@@ -824,7 +826,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 LogUtils.i("是否需要重新初始化：" + isReCon);
             }
         }
-        initSdk(isReCon);
+        initSdk(isReCon, 1);
         //关闭SobotSessionServer里的定时器
         Intent intent = new Intent();
         intent.setAction(ZhiChiConstants.SOBOT_TIMER_BROCAST);
@@ -1044,7 +1046,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         sobot_txt_restart_talk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                initSdk(true);
+                initSdk(true, 0);
             }
         });
 
@@ -1226,7 +1228,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      *
      * @param isReConnect 是否是重新接入
      **/
-    private void initSdk(boolean isReConnect) {
+    private void initSdk(boolean isReConnect, int isFirstEntry) {
         if (isReConnect) {
             current_client_model = ZhiChiConstant.client_model_robot;
             showTimeVisiableCustomBtn = 0;
@@ -1255,13 +1257,13 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             String last_current_dreceptionistId = SharedPreferencesUtil.getStringData(
                     mAppContext, info.getApp_key() + "_" + ZhiChiConstant.SOBOT_RECEPTIONISTID, "");
             info.setChoose_adminid(last_current_dreceptionistId);
-            resetUser();
+            resetUser(isFirstEntry);
         } else {
             //检查配置项是否发生变化
             if (ChatUtils.checkConfigChange(mAppContext, info.getApp_key(), info)) {
-                resetUser();
+                resetUser(isFirstEntry);
             } else {
-                doKeepsessionInit();
+                doKeepsessionInit(isFirstEntry);
             }
         }
         resetBtnUploadAndSend();
@@ -1270,7 +1272,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     /**
      * 重置用户
      */
-    private void resetUser() {
+    private void resetUser(int isFirstEntry) {
         String platformID = SharedPreferencesUtil.getStringData(mAppContext, ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
         //电商标示为fasle 或者 platformUnionCode 都认为是普通版，重置用户是都要结束会话
         if (!SobotVerControl.isPlatformVer || TextUtils.isEmpty(platformID)) {
@@ -1280,21 +1282,29 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
 
         SharedPreferencesUtil.saveStringData(mAppContext,
                 info.getApp_key() + "_" + ZhiChiConstant.sobot_last_login_group_id, TextUtils.isEmpty(info.getGroupid()) ? "" : info.getGroupid());
-        customerInit();
+        customerInit(isFirstEntry);
     }
 
     /**
      * 调用初始化接口
      */
-    private void customerInit() {
+    private void customerInit(int isFirstEntry) {
         LogUtils.i("customerInit初始化接口");
         if (info.getService_mode() == ZhiChiConstant.type_robot_only) {
             ChatUtils.userLogout(mAppContext);
         }
-
+        if (!isAppInitEnd) {
+            LogUtils.i("初始化接口appinit 接口还没结束，结束前不能重复调用");
+            return;
+        }
+        isAppInitEnd = false;
+        if (info != null) {
+            info.setIsFirstEntry(isFirstEntry);
+        }
         zhiChiApi.sobotInit(SobotChatFSFragment.this, info, new StringResultCallBack<ZhiChiInitModeBase>() {
             @Override
             public void onSuccess(ZhiChiInitModeBase result) {
+                isAppInitEnd = true;
                 if (!isActive()) {
                     return;
                 }
@@ -1460,16 +1470,14 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
 
             @Override
             public void onFailure(Exception e, String des) {
+                isAppInitEnd = true;
                 SharedPreferencesUtil.saveObject(mAppContext,
                         ZhiChiConstant.sobot_last_current_info, info);
                 if (!isActive()) {
                     return;
                 }
-                if (e instanceof IllegalArgumentException) {
-                    if (LogUtils.isDebug) {
-                        ToastUtil.showToast(mAppContext, ResourceUtils.getResString(getContext(), "sobot_net_work_err"));
-                    }
-                    //LogUtils.e("SobotChatFragment->customerInit Ille= "+e.toString() +des);
+                if (e instanceof IllegalArgumentException && !TextUtils.isEmpty(des)) {
+                    ToastUtil.showToast(mAppContext, des);
                     finish();
                 } else {
                     showInitError();
@@ -1495,7 +1503,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     /**
      * 会话保持初始化的逻辑
      */
-    private void doKeepsessionInit() {
+    private void doKeepsessionInit(int isFirstEntry) {
         List<ZhiChiMessageBase> tmpList = SobotMsgManager.getInstance(mAppContext).getConfig(info.getApp_key()).getMessageList();
         if (tmpList != null && SobotMsgManager.getInstance(mAppContext).getConfig(info.getApp_key()).getInitModel() != null) {
             //有数据
@@ -1508,16 +1516,16 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     if (lastUseGroupId.equals(info.getGroupid())) {
                         keepSession(tmpList);
                     } else {
-                        resetUser();
+                        resetUser(isFirstEntry);
                     }
                 } else {
                     keepSession(tmpList);
                 }
             } else {
-                resetUser();
+                resetUser(isFirstEntry);
             }
         } else {
-            resetUser();
+            resetUser(isFirstEntry);
         }
     }
 

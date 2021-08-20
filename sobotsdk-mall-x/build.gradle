@@ -6,6 +6,11 @@ android {
     defaultConfig {
         minSdkVersion 17
     }
+    sourceSets{
+        main(){
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {

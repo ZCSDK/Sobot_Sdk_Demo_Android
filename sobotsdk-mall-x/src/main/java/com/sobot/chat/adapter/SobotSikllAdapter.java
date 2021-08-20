@@ -1,6 +1,8 @@
 package com.sobot.chat.adapter;
 
 import android.content.Context;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,9 +18,6 @@ import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.horizontalgridpage.SobotRecyclerCallBack;
 
 import java.util.List;
-
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class SobotSikllAdapter extends RecyclerView.Adapter<SobotSikllAdapter.ViewHolder> {
     private int msgFlag;//留言开关

@@ -159,7 +159,8 @@
                     android:layout_height="12dp"
                     android:layout_marginLeft="4dp"
                     android:background="@drawable/sobot_right_arrow_icon"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="4dp" />
             </LinearLayout>
 
             <View

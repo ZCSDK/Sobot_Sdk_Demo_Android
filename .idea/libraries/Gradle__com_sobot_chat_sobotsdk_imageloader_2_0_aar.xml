@@ -4,8 +4,16 @@
       <root url="jar://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/53cde47dae2c2079b4e309fab70474f0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/53cde47dae2c2079b4e309fab70474f0/res" />
       <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/53cde47dae2c2079b4e309fab70474f0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9aaa961470de9e2b75e423268cfd2bb0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9aaa961470de9e2b75e423268cfd2bb0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9aaa961470de9e2b75e423268cfd2bb0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9165db0d27d2d2c0d6545100a0d8d2b2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9165db0d27d2d2c0d6545100a0d8d2b2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9165db0d27d2d2c0d6545100a0d8d2b2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsdk-imageloader/2.0/8b3c25ea97d08d1445d178d64669c25edbc03aa/sobotsdk-imageloader-2.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

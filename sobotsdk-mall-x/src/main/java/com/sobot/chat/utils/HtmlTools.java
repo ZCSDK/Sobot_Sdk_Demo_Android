@@ -14,6 +14,7 @@ import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.HttpUtils.FileCallBack;
 import com.sobot.chat.widget.LinkMovementClickMethod;
 import com.sobot.chat.widget.emoji.InputHelper;
+import com.sobot.chat.widget.html.SobotCustomTagHandler;
 import com.sobot.chat.widget.rich.EmailSpan;
 import com.sobot.chat.widget.rich.MyURLSpan;
 import com.sobot.chat.widget.rich.PhoneSpan;
@@ -250,7 +251,7 @@ public class HtmlTools {
      * @return
      */
     public Spanned formatRichTextWithPic(final TextView textView, final String htmlContent, final int color) {
-        return Html.fromHtml(htmlContent, new Html.ImageGetter() {
+        return Html.fromHtml(htmlContent.replace("span","sobotspan"), new Html.ImageGetter() {
             @Override
             public Drawable getDrawable(String source) {
                 if (!TextUtils.isEmpty(source)) {
@@ -282,7 +283,7 @@ public class HtmlTools {
                 return null;
             }
 
-        }, null);
+        }, new SobotCustomTagHandler(context,textView.getTextColors()));
     }
 
     /**

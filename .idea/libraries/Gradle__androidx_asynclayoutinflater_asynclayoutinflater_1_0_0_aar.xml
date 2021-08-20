@@ -4,8 +4,13 @@
       <root url="jar://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/8595898a3668ff2d44a600185f719d1f/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/8595898a3668ff2d44a600185f719d1f/res" />
       <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/8595898a3668ff2d44a600185f719d1f/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04acec1b8908d4966c7fa9c09302eee2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04acec1b8908d4966c7fa9c09302eee2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04acec1b8908d4966c7fa9c09302eee2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.asynclayoutinflater/asynclayoutinflater/1.0.0/ac4d50701fce5c88dcc514f58e695cd32f05134c/asynclayoutinflater-1.0.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

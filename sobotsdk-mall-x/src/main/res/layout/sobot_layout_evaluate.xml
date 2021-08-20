@@ -192,7 +192,9 @@
                         android:layout_marginRight="26dp"
                         android:layout_marginBottom="6dp"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginEnd="26dp"
+                        android:layout_marginStart="26dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -217,13 +219,15 @@
                                 android:id="@+id/sobot_ten_very_satisfaction"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="right"
+                                android:layout_gravity="end"
                                 android:layout_marginRight="20dp"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="center"
                                 android:text="@string/sobot_great_satisfaction"
                                 android:textColor="@color/sobot_common_gray2"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp" />
                         </LinearLayout>
 
                         <com.sobot.chat.widget.SobotTenRatingLayout
@@ -255,7 +259,9 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
                         android:textColor="@color/sobot_common_gray3"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -277,7 +283,9 @@
                         android:gravity="center"
                         android:textColor="@color/sobot_common_gray2"
                         android:textSize="15sp"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp" />
 
                     <com.sobot.chat.widget.SobotAntoLineLayout
                         android:id="@+id/sobot_evaluate_lable_autoline"
@@ -288,7 +296,9 @@
                         android:layout_marginTop="20dp"
                         app:fillMode="1"
                         app:verticalGap="16dp"
-                        app:horizontalGap="10dp">
+                        app:horizontalGap="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp">
                     </com.sobot.chat.widget.SobotAntoLineLayout>
                 </LinearLayout>
 

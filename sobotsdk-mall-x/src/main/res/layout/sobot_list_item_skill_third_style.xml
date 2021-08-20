@@ -10,7 +10,8 @@
         android:id="@+id/sobot_iv_group_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/sobot_tv_group_name"
@@ -19,7 +20,8 @@
         android:layout_toRightOf="@id/sobot_iv_group_img"
         android:textColor="@color/sobot_common_gray1"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/sobot_iv_group_img" />
 
     <TextView
         android:id="@+id/sobot_tv_group_desc"
@@ -29,6 +31,7 @@
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@id/sobot_iv_group_img"
         android:textColor="@color/sobot_common_gray2"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_toEndOf="@id/sobot_iv_group_img" />
 
 </RelativeLayout>
