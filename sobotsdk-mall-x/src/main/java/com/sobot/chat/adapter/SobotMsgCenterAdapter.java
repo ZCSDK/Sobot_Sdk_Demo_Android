@@ -13,7 +13,7 @@ import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.model.SobotMsgCenterModel;
 import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class SobotMsgCenterAdapter extends SobotBaseAdapter<SobotMsgCenterModel>
                 return;
             }
             this.data = model;
-            SobotBitmapUtil.displayRound(context, model.getFace(), sobot_iv_face, defaultFaceId);
+            SobotBitmapUtil.display(context, model.getFace(), sobot_iv_face, defaultFaceId, defaultFaceId);
             sobot_tv_title.setText(model.getName());
             sobot_tv_content.setText(TextUtils.isEmpty(model.getLastMsg()) ? "" : Html.fromHtml(model.getLastMsg()).toString());
             if (!TextUtils.isEmpty(model.getLastDateTime())) {

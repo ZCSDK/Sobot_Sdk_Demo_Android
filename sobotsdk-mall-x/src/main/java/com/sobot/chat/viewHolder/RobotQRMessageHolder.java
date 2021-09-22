@@ -15,8 +15,8 @@ import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.List;
 

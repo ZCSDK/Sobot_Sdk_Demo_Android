@@ -167,7 +167,6 @@ public class SobotSessionServer extends Service {
             if (config.getInitModel() != null) {
                 config.adminFace = pushMessage.getAface();
                 int type = Integer.parseInt(config.getInitModel().getType());
-                if (type == 2 || type == 3 || type == 4) {
                     ZhiChiInitModeBase initModel = config.getInitModel();
                     if (initModel != null) {
                         initModel.setAdminHelloWord(!TextUtils.isEmpty(pushMessage.getAdminHelloWord()) ? pushMessage.getAdminHelloWord() : initModel.getAdminHelloWord());
@@ -175,7 +174,6 @@ public class SobotSessionServer extends Service {
                         initModel.setAdminTipWord(!TextUtils.isEmpty(pushMessage.getServiceOutDoc()) ? pushMessage.getServiceOutDoc() : initModel.getAdminTipWord());
                     }
                     createCustomerService(pushMessage.getAppId(), pushMessage.getAname(), pushMessage.getAface(), pushMessage);
-                }
             }
         } else if (ZhiChiConstant.push_message_receverNewMessage == pushMessage
                 .getType()) {// 接收到新的消息

@@ -14,11 +14,11 @@ import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.image.SobotRCImageView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
  * 订单卡片

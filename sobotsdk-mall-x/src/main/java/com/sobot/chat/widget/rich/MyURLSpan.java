@@ -46,6 +46,10 @@ public class MyURLSpan extends URLSpan {
                 intent.putExtra("isShowTicket", true);
                 intent.setAction(ZhiChiConstants.chat_remind_post_msg);
                 CommonUtils.sendLocalBroadcast(context, intent);
+            }else if ("sobot:SobotToCustomer".equals(url)) {
+                Intent intent = new Intent();
+                intent.setAction(ZhiChiConstants.chat_remind_to_customer);
+                CommonUtils.sendLocalBroadcast(context, intent);
             }
         } else {
             if (url.endsWith(".doc") || url.endsWith(".docx") || url.endsWith(".xls")

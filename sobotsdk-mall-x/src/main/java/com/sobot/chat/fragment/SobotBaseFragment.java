@@ -38,11 +38,11 @@ import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.dialog.SobotPermissionTipDialog;
 import com.sobot.chat.widget.image.SobotRCImageView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
 

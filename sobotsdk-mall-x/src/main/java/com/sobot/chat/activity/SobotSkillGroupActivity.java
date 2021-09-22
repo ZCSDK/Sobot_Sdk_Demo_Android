@@ -86,6 +86,7 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
                         if (msgFlag == ZhiChiConstant.sobot_msg_flag_open) {
                             Intent intent = new Intent();
                             intent.putExtra("toLeaveMsg", true);
+                            intent.putExtra("groupIndex", position);
                             setResult(ZhiChiConstant.REQUEST_COCE_TO_GRROUP, intent);
                             finish();
                         }

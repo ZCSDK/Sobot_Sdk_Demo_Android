@@ -241,4 +241,8 @@
     <!-- 2.9.6 新增-->
     <string name="sobot_very_dissatisfied">非常不满意</string>
 
+    <!-- 3.0.3 新增-->
+    <string name="sobot_cant_solve_problem">未解决问题？点击</string>
+    <string name="sobot_customer_service">转人工服务</string>
+
 </resources>

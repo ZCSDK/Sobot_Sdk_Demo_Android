@@ -25,8 +25,8 @@ import com.sobot.chat.core.http.download.SobotDownloadTask;
 import com.sobot.chat.core.http.model.SobotProgress;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.SobotPathManager;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
 

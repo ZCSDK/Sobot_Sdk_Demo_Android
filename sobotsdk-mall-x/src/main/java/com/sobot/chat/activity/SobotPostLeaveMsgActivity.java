@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.api.model.BaseCode;
+import com.sobot.chat.api.model.SobotOfflineLeaveMsgModel;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.ChatUtils;
@@ -30,14 +31,12 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
     private static final String EXTRA_MSG_LEAVE_CONTENT = "EXTRA_MSG_LEAVE_CONTENT";
     public static final int EXTRA_MSG_LEAVE_REQUEST_CODE = 109;
 
-    private String mMsgLeaveTxt;
-    private String mMsgLeaveContentTxt;
     private String mUid;
     private TextView sobot_tv_post_msg;
     private EditText sobot_post_et_content;
     private TextView sobot_tv_problem_description;
     private Button sobot_btn_submit;
-
+    private String skillGroupId = "";
     private SobotFreeAccountTipDialog sobotFreeAccountTipDialog;
 
     public static Intent newIntent(Context context, String msgLeaveTxt, String msgLeaveContentTxt, String uid) {
@@ -62,8 +61,6 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
 
     protected void initBundleData(Bundle savedInstanceState) {
         if (getIntent() != null) {
-            mMsgLeaveTxt = getIntent().getStringExtra(EXTRA_MSG_LEAVE_TXT);
-            mMsgLeaveContentTxt = getIntent().getStringExtra(EXTRA_MSG_LEAVE_CONTENT_TXT);
             mUid = getIntent().getStringExtra(EXTRA_MSG_UID);
         }
     }
@@ -83,8 +80,6 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
 
     @Override
     protected void initData() {
-        sobot_tv_post_msg.setText(mMsgLeaveTxt);
-        sobot_post_et_content.setHint(mMsgLeaveContentTxt);
         ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(SobotPostLeaveMsgActivity.this,
                 ZhiChiConstant.sobot_last_current_initModel);
         if (initMode != null && ChatUtils.isFreeAccount(initMode.getAccountStatus())) {
@@ -99,6 +94,21 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
                 sobotFreeAccountTipDialog.show();
             }
         }
+        skillGroupId = SharedPreferencesUtil.getStringData(SobotPostLeaveMsgActivity.this, ZhiChiConstant.sobot_connect_group_id, "");
+        zhiChiApi.getLeavePostOfflineConfig(SobotPostLeaveMsgActivity.class, mUid, skillGroupId, new StringResultCallBack<SobotOfflineLeaveMsgModel>() {
+            @Override
+            public void onSuccess(SobotOfflineLeaveMsgModel offlineLeaveMsgModel) {
+                if (offlineLeaveMsgModel != null) {
+                    sobot_tv_post_msg.setText(TextUtils.isEmpty(offlineLeaveMsgModel.getMsgLeaveTxt()) ? "" : offlineLeaveMsgModel.getMsgLeaveTxt());
+                    sobot_post_et_content.setHint(TextUtils.isEmpty(offlineLeaveMsgModel.getMsgLeaveContentTxt()) ? "" : offlineLeaveMsgModel.getMsgLeaveContentTxt());
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e, String des) {
+                ToastUtil.showToast(getApplicationContext(), des);
+            }
+        });
     }
 
     @Override
@@ -110,7 +120,7 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
                 return;
             }
             KeyboardUtil.hideKeyboard(sobot_post_et_content);
-            zhiChiApi.leaveMsg(SobotPostLeaveMsgActivity.class, mUid, content, new StringResultCallBack<BaseCode>() {
+            zhiChiApi.leaveMsg(SobotPostLeaveMsgActivity.class, mUid, skillGroupId,content, new StringResultCallBack<BaseCode>() {
                 @Override
                 public void onSuccess(BaseCode baseCode) {
                     CustomToast.makeText(getBaseContext(), ResourceUtils.getResString(getBaseContext(), "sobot_leavemsg_success_tip"), 1000,

@@ -113,6 +113,12 @@ public class RemindMessageHolder extends MessageHolderBase {
                 center_Remind_Info.setAnimation(shakeAnimation(5));
                 message.setShake(false);
             }
+        }else if (ZhiChiConstant.action_remind_info_zhuanrengong.equals(message.getAction())) {
+            rl_not_read.setVisibility(View.GONE);
+            center_Remind_Info2.setVisibility(View.GONE);
+            center_Remind_Info.setVisibility(View.VISIBLE);
+            center_Remind_Info1.setVisibility(View.GONE);
+            setRemindToCustom(context, center_Remind_Info);
         }
     }
 
@@ -133,6 +139,17 @@ public class RemindMessageHolder extends MessageHolderBase {
                 (context, "color", "sobot_color_link_remind"));
         remindInfo.setEnabled(true);
         message.setShake(false);
+    }
+
+    /**
+     * @param context
+     * @param remindInfo
+     */
+    private void setRemindToCustom(Context context, TextView remindInfo) {
+        String content =ResourceUtils.getResString(context, "sobot_cant_solve_problem")  + "<a href='sobot:SobotToCustomer'> " + ResourceUtils.getResString(context, "sobot_customer_service") + "</a>";
+        HtmlTools.getInstance(context).setRichText(remindInfo, content, ResourceUtils.getIdByName
+                (context, "color", "sobot_color_link_remind"));
+        remindInfo.setEnabled(true);
     }
 
     public static Animation shakeAnimation(int counts) {

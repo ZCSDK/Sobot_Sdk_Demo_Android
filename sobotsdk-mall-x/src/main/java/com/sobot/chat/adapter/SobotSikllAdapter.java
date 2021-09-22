@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.sobot.chat.api.model.ZhiChiGroupBase;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.horizontalgridpage.SobotRecyclerCallBack;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.List;
 

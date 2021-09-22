@@ -10,6 +10,7 @@ public class SobotHtmlLabelBean {
     public String color;
     public String fontSize;
     public String textdecoration;
+    public String textdecorationline;
     public String backgroundColor;
     public String background;
     public String fontweight;

@@ -21,11 +21,11 @@ import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.MD5Util;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.widget.SelectPicPopupWindow;
 import com.sobot.chat.widget.gif.GifView2;
 import com.sobot.chat.widget.photoview.PhotoView;
 import com.sobot.chat.widget.photoview.PhotoViewAttacher;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -276,7 +276,7 @@ public class SobotCusFieldActivity extends SobotDialogBaseActivity {
     }
 
     private void finishPageOrSDK() {
-        String last_current_appkey = SharedPreferencesUtil.getStringData(getBaseContext(), ZhiChiConstant.sobot_last_current_appkey, "");
+        String last_current_appkey = SharedPreferencesUtil.getOnlyStringData(getBaseContext(), ZhiChiConstant.sobot_last_current_appkey, "");
         int initType = SharedPreferencesUtil.getIntData(
                 getApplicationContext(), last_current_appkey + "_" + ZhiChiConstant.initType, -1);
         if (initType == ZhiChiConstant.type_custom_only) {

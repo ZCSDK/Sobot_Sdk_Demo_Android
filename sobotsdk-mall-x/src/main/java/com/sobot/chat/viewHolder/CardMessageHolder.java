@@ -12,10 +12,10 @@ import com.sobot.chat.api.model.ConsultingContent;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
  * 商品卡片

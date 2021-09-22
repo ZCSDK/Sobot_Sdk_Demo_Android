@@ -64,13 +64,13 @@ public class StPostMsgPresenter {
     /**
      * 获取留言模板列表
      */
-    public void obtainTemplateList(final String uid, final boolean flag_exit_sdk, final boolean isShowTicket, final ObtainTemplateListDelegate delegate) {
+    public void obtainTemplateList(final String uid, String groupId, final boolean flag_exit_sdk, final boolean isShowTicket, final ObtainTemplateListDelegate delegate) {
         if (TextUtils.isEmpty(uid) || mIsRunning) {
             return;
         }
         mIsRunning = true;
         mDelegate = delegate;
-        mApi.getWsTemplate(mCancelTag, uid, new StringResultCallBack<ArrayList<SobotPostMsgTemplate>>() {
+        mApi.getWsTemplate(mCancelTag, uid, groupId, new StringResultCallBack<ArrayList<SobotPostMsgTemplate>>() {
             @Override
             public void onSuccess(ArrayList<SobotPostMsgTemplate> datas) {
                 if (!mIsActive) {

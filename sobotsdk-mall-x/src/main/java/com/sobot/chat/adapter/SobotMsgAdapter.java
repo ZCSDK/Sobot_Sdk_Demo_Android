@@ -271,6 +271,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
 
         removeByAction(message, ZhiChiConstant.action_custom_evaluate, ZhiChiConstant.action_custom_evaluate, true);
 
+        //  转人工后移除点踩后出现的转人工提示语消息
+        removeByAction(message, ZhiChiConstant.action_remind_connt_success, ZhiChiConstant
+                .action_remind_info_zhuanrengong, false);
+
         if (message.getAction() != null && message.getAction().equals(ZhiChiConstant.action_remind_past_time)
                 && message.getAnswer() != null && ZhiChiConstant.sobot_remind_type_outline == message.getAnswer().getRemindType()) {
             for (int i = 0; i < list.size(); i++) {
@@ -306,7 +310,8 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     private void removeByAction(ZhiChiMessageBase message, String when, String element, boolean
             isShake) {
         if (message.getAction() != null && message.getAction().equals(when)) {
-            for (int i = 0; i < list.size(); i++) {
+            //倒叙判断，然后删
+            for (int i = list.size()-1; i >= 0; i--) {
                 if (list.get(i).getAction() != null) {
                     if (list.get(i).getAction().equals(element)) {
                         list.remove(i);

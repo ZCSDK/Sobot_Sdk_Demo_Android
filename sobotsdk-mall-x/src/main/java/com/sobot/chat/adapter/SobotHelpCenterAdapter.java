@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.model.StCategoryModel;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.widget.SobotImageView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.List;
 

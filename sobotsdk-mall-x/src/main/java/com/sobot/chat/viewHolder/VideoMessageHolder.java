@@ -16,10 +16,10 @@ import com.sobot.chat.core.http.upload.SobotUploadListener;
 import com.sobot.chat.core.http.upload.SobotUploadTask;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.RoundProgressBar;
 import com.sobot.chat.widget.image.SobotRCImageView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
  * 小视频

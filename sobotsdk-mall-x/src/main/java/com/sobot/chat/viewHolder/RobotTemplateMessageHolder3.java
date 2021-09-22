@@ -20,7 +20,6 @@ import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.horizontalgridpage.HorizontalGridPage;
@@ -28,6 +27,7 @@ import com.sobot.chat.widget.horizontalgridpage.PageBuilder;
 import com.sobot.chat.widget.horizontalgridpage.PageCallBack;
 import com.sobot.chat.widget.horizontalgridpage.PageGridAdapter;
 import com.sobot.chat.widget.image.SobotRCImageView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.ArrayList;
 import java.util.List;

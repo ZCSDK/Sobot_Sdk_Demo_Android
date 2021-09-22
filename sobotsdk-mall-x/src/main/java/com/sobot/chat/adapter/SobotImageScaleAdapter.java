@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import com.sobot.chat.adapter.base.SobotBasePagerAdapter;
 import com.sobot.chat.api.model.ZhiChiUploadAppFileModelResult;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.widget.photoview.PhotoView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.ArrayList;
 

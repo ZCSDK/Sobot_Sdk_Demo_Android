@@ -23,10 +23,10 @@ import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.utils.CustomToast;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.zxing.Result;
 import com.sobot.chat.widget.zxing.util.CodeUtils;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

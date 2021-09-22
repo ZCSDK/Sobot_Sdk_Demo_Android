@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.sobot.chat.api.model.SobotFileModel;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
  * 自定义 附件 View

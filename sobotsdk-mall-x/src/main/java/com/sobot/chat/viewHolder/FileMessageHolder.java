@@ -19,10 +19,10 @@ import com.sobot.chat.core.http.upload.SobotUploadTask;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.SobotBitmapUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.SobotSectorProgressView;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
  * 文件消息

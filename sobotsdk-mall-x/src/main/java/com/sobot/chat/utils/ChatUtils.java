@@ -21,14 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sobot.chat.R;
-import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.apiUtils.GsonUtil;
-import com.sobot.chat.api.apiUtils.SobotVerControl;
 import com.sobot.chat.api.enumtype.SobotChatAvatarDisplayMode;
 import com.sobot.chat.api.enumtype.SobotChatTitleDisplayMode;
 import com.sobot.chat.api.model.CommonModel;
@@ -55,6 +53,7 @@ import com.sobot.chat.widget.dialog.SobotDialogUtils;
 import com.sobot.chat.widget.dialog.SobotEvaluateDialog;
 import com.sobot.chat.widget.dialog.SobotRobotListDialog;
 import com.sobot.chat.widget.dialog.SobotTicketEvaluateDialog;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -574,13 +573,11 @@ public class ChatUtils {
      * @return
      */
     public static boolean checkConfigChange(Context context, String appkey, final Information info) {
-        if (!SobotVerControl.isPlatformVer) {
-            String last_current_appkey = SharedPreferencesUtil.getStringData(context, ZhiChiConstant.sobot_last_current_appkey, "");
-            if (!last_current_appkey.equals(info.getApp_key())) {
-                SharedPreferencesUtil.removeKey(context, ZhiChiConstant.sobot_last_login_group_id);
-                SobotApi.exitSobotChat(context);
-                return true;
-            }
+        String last_current_appkey = SharedPreferencesUtil.getOnlyStringData(context, ZhiChiConstant.sobot_last_current_appkey, "");
+        if (!last_current_appkey.equals(info.getApp_key())) {
+            SharedPreferencesUtil.removeKey(context, ZhiChiConstant.sobot_last_login_group_id);
+            LogUtils.i("appkey发生了变化，重新初始化..............");
+            return true;
         }
         String last_current_partnerId = SharedPreferencesUtil.getStringData
                 (context, appkey + "_" + ZhiChiConstant.sobot_last_current_partnerId, "");
@@ -1003,9 +1000,9 @@ public class ChatUtils {
                 listener.onError();
             }
         } else {
-            if(!TextUtils.isEmpty(filePath)){
+            if (!TextUtils.isEmpty(filePath)) {
                 listener.onSuccess(filePath);
-            }else{
+            } else {
                 ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
                 listener.onError();
             }
