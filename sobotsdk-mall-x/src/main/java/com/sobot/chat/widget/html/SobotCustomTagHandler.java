@@ -142,7 +142,7 @@ public class SobotCustomTagHandler implements Html.TagHandler {
      * @param style
      */
     private void analysisStyle(SobotHtmlLabelBean bean, String style) {
-       // Log.e(TAG, "style：" + style);
+        // Log.e(TAG, "style：" + style);
         String[] attrArray = style.split(";");
         Map<String, String> attrMap = new HashMap<>();
         if (null != attrArray) {
@@ -154,11 +154,11 @@ public class SobotCustomTagHandler implements Html.TagHandler {
                 }
             }
         }
-      //  Log.i(TAG, "attrMap：" + attrMap.toString());
+        //  Log.i(TAG, "attrMap：" + attrMap.toString());
         bean.color = attrMap.get("color");
         bean.fontSize = attrMap.get("font-size");
         bean.textdecoration = attrMap.get("text-decoration");
-        bean.textdecorationline= attrMap.get("text-decoration-line");
+        bean.textdecorationline = attrMap.get("text-decoration-line");
         bean.backgroundColor = attrMap.get("background-color");
         bean.background = attrMap.get("background");
         bean.fontweight = attrMap.get("font-weight");
@@ -237,25 +237,25 @@ public class SobotCustomTagHandler implements Html.TagHandler {
 
     public void endFont(String tag, Editable output, XMLReader xmlReader) {
         int stopIndex = output.length();
-       // Log.d(TAG, "opening:关" + "tag:" + tag + "/> endIndex:" + stopIndex);
+        // Log.d(TAG, "opening:关" + "tag:" + tag + "/> endIndex:" + stopIndex);
         int lastLabelByTag = getLastLabelByTag(tag);
         if (lastLabelByTag != -1) {
             SobotHtmlLabelBean bean = labelBeanList.get(lastLabelByTag);
             bean.endIndex = stopIndex;
             optBeanRange(bean);
-         //   Log.d(TAG, "完整的TagBean解析完成:" + bean.toString());
+            //   Log.d(TAG, "完整的TagBean解析完成:" + bean.toString());
 
             for (SobotHtmlLabelRangeBean range : bean.ranges) {
                 String color = bean.color;
                 String fontSize = bean.fontSize;
                 String textdecoration = bean.textdecoration;
-                String textdecorationline=bean.textdecorationline;
+                String textdecorationline = bean.textdecorationline;
                 String backgroundColor = bean.backgroundColor;
                 String background = bean.background;
                 String fontweight = bean.fontweight;
                 String fontstyle = bean.fontstyle;
                 //斜体
-                if (!TextUtils.isEmpty(fontstyle) && ("italic".equalsIgnoreCase(fontstyle) || "oblique".equalsIgnoreCase(fontstyle))) {
+                if (!TextUtils.isEmpty(fontstyle) && (("italic".equalsIgnoreCase(fontstyle) || "oblique".equalsIgnoreCase(fontstyle)))) {
                     output.setSpan(new StyleSpan(android.graphics.Typeface.ITALIC), range.start, range.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 //粗体
@@ -371,7 +371,7 @@ public class SobotCustomTagHandler implements Html.TagHandler {
             tempRemoveLabelList.add(removeBean);
         }
 
-      //  Log.d(TAG, "已经删除的完整开关结点的集合长度:" + tempRemoveLabelList.size());
+        //  Log.d(TAG, "已经删除的完整开关结点的集合长度:" + tempRemoveLabelList.size());
     }
 
     /**
@@ -429,7 +429,7 @@ public class SobotCustomTagHandler implements Html.TagHandler {
                 return 0x000000;
             }
             return (int) color;
-        } else if (colorString.startsWith("rgb(") || colorString.startsWith("rgba(") && colorString.endsWith(")")) {
+        } else if ((colorString.startsWith("rgb(") || colorString.startsWith("rgba(")) && colorString.endsWith(")")) {
             colorString = colorString.substring(colorString.indexOf("(") + 1, colorString.indexOf(")"));
             colorString = colorString.replaceAll(" ", "");
             String[] colorArray = colorString.split(",");

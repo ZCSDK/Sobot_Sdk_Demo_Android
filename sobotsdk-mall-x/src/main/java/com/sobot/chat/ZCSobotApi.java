@@ -569,6 +569,8 @@ public class ZCSobotApi {
         SharedPreferencesUtil.saveStringData(context, Const.SOBOT_APPKEY, appkey);
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_CONFIG_INITSDK, true);
         SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_CONFIG_APPKEY, appkey);
+        //清空sdk 语言设置
+        SharedPreferencesUtil.saveObject(context, "SobotLanguage", null);
         if (!CommonUtils.inMainProcess(context.getApplicationContext())) {
             return;
         }

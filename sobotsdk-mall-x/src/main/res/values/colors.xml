@@ -32,7 +32,7 @@
     <color name="sobot_common_gray6">#FFFFFF</color>
     <!--一级背景色占次级黑背景（弹窗底色，聊天底部操作栏，cell-->
     <color name="sobot_common_gray7">#FFF2F5F7</color>
-    <!--三级级背景色 气泡中套其他内容的底色（多轮会话，商品消-->
+    <!--三级级背景色 气泡中套其他内容的底色（多轮会话，商品-->
     <color name="sobot_common_gray8">#FFF2F5F7</color>
 
     <!--文字颜色 灰色变白色-->

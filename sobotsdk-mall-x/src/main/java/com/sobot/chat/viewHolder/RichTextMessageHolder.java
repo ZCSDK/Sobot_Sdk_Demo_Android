@@ -493,6 +493,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                     // 0：文本，1：图片，2：音频，3：视频，4：文件
                     if (richListModel.getType() == 0) {
                         TextView textView = new TextView(mContext);
+                        textView.setTextSize(14);
                         textView.setLayoutParams(wlayoutParams);
                         textView.setMaxWidth(msgMaxWidth);
                         if (!TextUtils.isEmpty(richListModel.getName()) && HtmlTools.isHasPatterns(richListModel.getMsg())) {
@@ -523,7 +524,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                 ScreenUtils.dip2px(context, 200));
                         mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
                         ImageView imageView = new ImageView(mContext);
-                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(mlayoutParams);
                         SobotBitmapUtil.display(mContext, richListModel.getMsg(), imageView);
                         imageView.setOnClickListener(new ImageClickLisenter(context, richListModel.getMsg(), isRight));

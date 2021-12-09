@@ -311,7 +311,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             isShake) {
         if (message.getAction() != null && message.getAction().equals(when)) {
             //倒叙判断，然后删
-            for (int i = list.size()-1; i >= 0; i--) {
+            for (int i = list.size() - 1; i >= 0; i--) {
                 if (list.get(i).getAction() != null) {
                     if (list.get(i).getAction().equals(element)) {
                         list.remove(i);
@@ -379,6 +379,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         ZhiChiMessageBase info = getMsgInfo(id);
         if (info != null) {
             info.setSendSuccessState(data.getSendSuccessState());
+            info.setSentisive(data.getSentisive());
+            info.setSentisiveExplain(data.getSentisiveExplain());
+            info.setClickCancleSend(data.isClickCancleSend());
+            info.setShowSentisiveSeeAll(data.isShowSentisiveSeeAll());
         }
     }
 
@@ -394,6 +398,15 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     public void cancelVoiceUiById(String id) {
         ZhiChiMessageBase info = getMsgInfo(id);
         if (info != null && info.getSendSuccessState() == ZhiChiConstant.MSG_SEND_STATUS_ANIM) {
+            list.remove(info);
+        }
+    }
+
+
+    //通过msgid 移除该消息
+    public void removeByMsgId(String id) {
+        ZhiChiMessageBase info = getMsgInfo(id);
+        if (info != null) {
             list.remove(info);
         }
     }
@@ -824,43 +837,36 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                 } else {
                     return MSG_TYPE_ILLEGAL;
                 }
-            } else if (ZhiChiConstant.message_sender_type_remide_info == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_remide_info == senderType) {
                 //提醒的消息
                 return MSG_TYPE_TIP;
-            } else if (ZhiChiConstant.message_sender_type_customer_sendImage == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_customer_sendImage == senderType) {
                 // 与我的图片消息
                 return MSG_TYPE_IMG_R;
-            } else if (ZhiChiConstant.message_sender_type_send_voice == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_send_voice == senderType) {
                 // 发送语音消息
                 return MSG_TYPE_AUDIO_R;
-            } else if (ZhiChiConstant.message_sender_type_consult_info == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_consult_info == senderType) {
                 return MSG_TYPE_CONSULT;
-            } else if (ZhiChiConstant.message_sender_type_robot_guide == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_robot_guide == senderType) {
                 return MSG_TYPE_RICH;
-            } else if (ZhiChiConstant.message_sender_type_custom_evaluate == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_custom_evaluate == senderType) {
                 return MSG_TYPE_CUSTOM_EVALUATE;
-            } else if (ZhiChiConstant.message_sender_type_questionRecommend == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_questionRecommend == senderType) {
                 return MSG_TYPE_ROBOT_QUESTION_RECOMMEND;
-            } else if (ZhiChiConstant.message_sender_type_robot_welcome_msg == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_robot_welcome_msg == senderType) {
                 return MSG_TYPE_RICH;
-            } else if (ZhiChiConstant.message_sender_type_robot_keyword_msg == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_robot_keyword_msg == senderType) {
                 return MSG_TYPE_ROBOT_KEYWORD_ITEMS;
-            } else if (ZhiChiConstant.message_sender_type_notice == Integer
-                    .parseInt(message.getSenderType())) {
+            } else if (ZhiChiConstant.message_sender_type_notice == senderType) {
                 return MSG_TYPE_NOTICE;
             } else if (ZhiChiConstant.message_type_fraud_prevention == Integer
                     .parseInt(message.getAction())) {
                 //防诈骗消息
                 return MSG_TYPE_FRAUD_PREVENTION;
+            }else if (ZhiChiConstant.action_sensitive_auth_agree.equals(message.getAction())) {
+                //发送消息触发隐私，同意后的系统消息
+                return MSG_TYPE_TIP;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1009,5 +1015,11 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         void doRevaluate(final boolean revaluateFlag, final ZhiChiMessageBase message);
 
         void clickAudioItem(ZhiChiMessageBase message);
+
+        void sendMessage(String content);
+
+        void removeMessageByMsgId(String msgid);
+
+        void addMessage(ZhiChiMessageBase message);
     }
 }

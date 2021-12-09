@@ -131,7 +131,7 @@ public class ImageUtils {
         }
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        if (!(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy())){
+        if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)) {
             return uriToFileApiQ(context, uri);
         }
         // DocumentProvider
@@ -497,39 +497,50 @@ public class ImageUtils {
         if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
             file = new File(uri.getPath());
         } else if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-            //把文件复制到沙盒目录
-            ContentResolver contentResolver = context.getContentResolver();
-            Cursor cursor = contentResolver.query(uri, null, null, null, null);
-            if (cursor.moveToFirst()) {
-                String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                InputStream is = null;
-                FileOutputStream fos = null;
-                try {
-                    is = contentResolver.openInputStream(uri);
-                    File cache = new File(context.getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
-                    fos = new FileOutputStream(cache);
-                    IOUtils.copyFileWithStream(fos,is);
-                    file = cache;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
+            try {
+                //把文件复制到沙盒目录
+                ContentResolver contentResolver = context.getContentResolver();
+                Cursor cursor = contentResolver.query(uri, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    InputStream is = null;
+                    FileOutputStream fos = null;
                     try {
-                        if (fos != null) {
-                            fos.close();
-                        }
+                        is = contentResolver.openInputStream(uri);
+                        File cache = new File(context.getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
+                        fos = new FileOutputStream(cache);
+                        IOUtils.copyFileWithStream(fos, is);
+                        file = cache;
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
-                    try {
-                        if (is != null) {
-                            is.close();
+                    } finally {
+                        try {
+                            if(cursor != null){
+                                cursor.close();
+                            }
+                            if (fos != null) {
+                                fos.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        try {
+                            if (is != null) {
+                                is.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        return file.getAbsolutePath();
+        if (file == null) {
+            return null;
+        } else {
+            return file.getAbsolutePath();
+        }
     }
 }

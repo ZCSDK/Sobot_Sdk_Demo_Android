@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
 import com.sobot.chat.api.enumtype.CustomerState;
 import com.sobot.chat.api.enumtype.SobotChatStatusMode;
@@ -19,6 +20,7 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.api.model.ZhiChiPushMessage;
+import com.sobot.chat.api.model.ZhiChiReplyAnswer;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.utils.ChatUtils;
@@ -237,9 +239,24 @@ public class SobotSessionServer extends Service {
                 .getType()) {// 接收到系统消息
             if (config.getInitModel() != null) {
                 if (config.customerState == CustomerState.Online) {
+                    base.setT(Calendar.getInstance().getTime().getTime() + "");
                     base.setMsgId(pushMessage.getMsgId());
-                    base.setAction(ZhiChiConstant.message_type_fraud_prevention + "");
-                    base.setMsg(pushMessage.getContent());
+                    base.setSender(pushMessage.getAname());
+                    base.setSenderName(pushMessage.getAname());
+                    base.setSenderFace(pushMessage.getAface());
+                    if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType()))) {
+                        //客服超时提示 1
+                        //客户超时提示 2 都显示在左侧
+                        base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
+                        ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
+                        reply.setMsg(pushMessage.getContent());
+                        reply.setMsgType(ZhiChiConstant.message_type_text + "");
+                        base.setAnswer(reply);
+                    } else {
+                        base.setAction(ZhiChiConstant.message_type_fraud_prevention + "");
+                        base.setMsgId(pushMessage.getMsgId());
+                        base.setMsg(pushMessage.getContent());
+                    }
                     // 更新界面的操作
                     config.addMessage(base);
                     if (config.customerState == CustomerState.Online) {
@@ -380,7 +397,7 @@ public class SobotSessionServer extends Service {
 
         //显示人工欢迎语
         if (initModel.isAdminHelloWordFlag()) {
-            String adminHolloWord = SharedPreferencesUtil.getStringData(getApplicationContext(), ZhiChiConstant.SOBOT_ADMIN_HELLO_WORD, "");
+            String adminHolloWord = ZCSobotApi.getCurrentInfoSetting(getApplicationContext()) != null ? ZCSobotApi.getCurrentInfoSetting(getApplicationContext()).getAdmin_hello_word() : "";
             if (!TextUtils.isEmpty(adminHolloWord)) {
                 config.addMessage(ChatUtils.getServiceHelloTip(name, face, adminHolloWord));
             } else {
@@ -467,7 +484,7 @@ public class SobotSessionServer extends Service {
     private boolean isNeedShowMessage(String appkey) {
         String currentAppid = SharedPreferencesUtil.getStringData(getApplicationContext(), ZhiChiConstant.SOBOT_CURRENT_IM_APPID, "");
         return !currentAppid.equals(appkey) || (!CommonUtils.getRunningActivityName(getApplicationContext()).contains(
-                "SobotChatActivity") || !CommonUtils.isBackground(getApplicationContext()) || CommonUtils.isScreenLock(getApplicationContext()));
+                "SobotChatActivity")  || CommonUtils.isScreenLock(getApplicationContext()));
     }
 
 

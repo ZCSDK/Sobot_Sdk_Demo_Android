@@ -60,7 +60,7 @@
                     android:layout_height="44dp"
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
-                    android:textColor="@color/sobot_common_green"
+                    android:textColor="@color/sobot_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginStart="5dp" />

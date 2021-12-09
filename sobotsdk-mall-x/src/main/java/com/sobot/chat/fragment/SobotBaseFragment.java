@@ -103,7 +103,7 @@ public abstract class SobotBaseFragment extends Fragment {
                                 layoutParams.leftMargin = (rect.right > 110 ? 110 : rect.right) + 14;
                                 view.setLayoutParams(layoutParams);
                             } else {
-                                view.setPadding((rect.right > 110 ? 110 : rect.right) + view.getPaddingLeft(), view.getPaddingTop(), (rect.right > 110 ? 110 : rect.right)+view.getPaddingRight(), view.getPaddingBottom());
+                                view.setPadding((rect.right > 110 ? 110 : rect.right) + view.getPaddingLeft(), view.getPaddingTop(), (rect.right > 110 ? 110 : rect.right) + view.getPaddingRight(), view.getPaddingBottom());
                             }
                         }
                     }
@@ -286,7 +286,8 @@ public abstract class SobotBaseFragment extends Fragment {
      * @return true, 已经获取权限;false,没有权限,尝试获取
      */
     protected boolean checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 30 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 30) {
+        if (Build.VERSION.SDK_INT >= 29 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 29) {
+            //分区存储 从andrid10手机开始 TargetSdkVersion >= 29,不需要文件存储权限
             return true;
         }
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
@@ -314,7 +315,8 @@ public abstract class SobotBaseFragment extends Fragment {
      * @return true, 已经获取权限;false,没有权限
      */
     protected boolean isHasStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 30 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 30) {
+        if (Build.VERSION.SDK_INT >= 29 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 29) {
+            //分区存储 从andrid10手机开始 TargetSdkVersion >= 29,情况不需要文件存储权限
             return true;
         }
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
@@ -334,14 +336,6 @@ public abstract class SobotBaseFragment extends Fragment {
      */
     protected boolean checkStorageAndAudioPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO},
-                            ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                    return false;
-                }
-            }
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.RECORD_AUDIO)
                     != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},
@@ -359,7 +353,7 @@ public abstract class SobotBaseFragment extends Fragment {
      */
     protected boolean isHasAudioPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (!isHasStoragePermission() || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.RECORD_AUDIO)
+            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.RECORD_AUDIO)
                     != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
@@ -374,15 +368,6 @@ public abstract class SobotBaseFragment extends Fragment {
      */
     protected boolean checkStorageAudioAndCameraPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                    , Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}
-                            , ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                    return false;
-                }
-            }
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}
@@ -406,7 +391,7 @@ public abstract class SobotBaseFragment extends Fragment {
      */
     protected boolean isHasCameraPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (!isHasStoragePermission() || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.RECORD_AUDIO)
+            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.RECORD_AUDIO)
                     != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 return false;
@@ -415,6 +400,7 @@ public abstract class SobotBaseFragment extends Fragment {
         return true;
     }
 
+
     /**
      * 检查拍照权限
      *
@@ -422,14 +408,6 @@ public abstract class SobotBaseFragment extends Fragment {
      */
     protected boolean checkStorageAndCameraPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getContext()) >= 23) {
-            if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                            ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                    return false;
-                }
-            }
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.CAMERA},
@@ -447,7 +425,7 @@ public abstract class SobotBaseFragment extends Fragment {
      */
     protected boolean isHasSySCameraPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (!isHasStoragePermission() || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.CAMERA)
+            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
@@ -473,7 +451,7 @@ public abstract class SobotBaseFragment extends Fragment {
             }
         };
 
-        if (checkIsShowPermissionPop(getResString("sobot_camera"), getResString("sobot_camera_yongtu"), 3)) {
+        if (checkIsShowPermissionPop(getResString("sobot_camera") + (isHasAudioPermission() ? "" : "、" + getResString("sobot_microphone")), getResString("sobot_camera_yongtu"), 3)) {
             return;
         }
 

@@ -73,7 +73,7 @@
                 android:layout_below="@id/sobot_goods_des"
                 android:layout_marginTop="16dp"
                 android:layout_toRightOf="@id/sobot_goods_pic"
-                android:textColor="@color/sobot_common_green"
+                android:textColor="@color/sobot_color"
                 android:textSize="14sp"
                 tool:text="2120$"
                 android:layout_toEndOf="@id/sobot_goods_pic" />

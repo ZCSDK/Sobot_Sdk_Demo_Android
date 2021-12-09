@@ -1,18 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.chat:sobotsdk-imageloader:2.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/53cde47dae2c2079b4e309fab70474f0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/53cde47dae2c2079b4e309fab70474f0/res" />
-      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/53cde47dae2c2079b4e309fab70474f0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9aaa961470de9e2b75e423268cfd2bb0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9aaa961470de9e2b75e423268cfd2bb0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9aaa961470de9e2b75e423268cfd2bb0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9165db0d27d2d2c0d6545100a0d8d2b2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9165db0d27d2d2c0d6545100a0d8d2b2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9165db0d27d2d2c0d6545100a0d8d2b2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6da14e378d40f8fd1be40f63b4cd7223/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6da14e378d40f8fd1be40f63b4cd7223/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6da14e378d40f8fd1be40f63b4cd7223/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8b93ac29c7ced85521ca97e7227bd6c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8b93ac29c7ced85521ca97e7227bd6c/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8b93ac29c7ced85521ca97e7227bd6c/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

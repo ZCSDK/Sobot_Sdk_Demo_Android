@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.SobotApi;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.model.Information;
@@ -62,6 +63,7 @@ public class SobotStartSobotFunctionActivity extends AppCompatActivity implement
         }
         if (v == sobot_tv_start) {
             if (information != null) {
+                information.setUseRobotVoice(true);
                 ZCSobotApi.openZCChat(getContext(), information);
             }
         }

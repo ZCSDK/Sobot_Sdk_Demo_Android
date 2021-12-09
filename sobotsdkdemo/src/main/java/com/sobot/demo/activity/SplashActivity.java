@@ -33,25 +33,6 @@ public class SplashActivity extends AppCompatActivity {
         }
         setContentView(R.layout.sobot_splash_activity);
         goActivity(SobotDemoNewActivity.class, splashMin, true);
-        if (android.os.Build.VERSION.SDK_INT >= M) {
-            ZCPermission.with(this)
-                    .permissions(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .request(new ZCPermission.ZCPermissionCallback() {
-
-                        @Override
-                        public void permissionSuccess(int requestCode) {
-                            LogUtils.i("permissionSuccess:  授予权限成功");
-                        }
-
-                        @Override
-                        public void permissionFail(int requestCode) {
-                            LogUtils.i( "permissionFail: 授予权限失败");
-                        }
-
-                    });
-        }
     }
 
     @Override

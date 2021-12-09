@@ -217,6 +217,9 @@ public class HtmlTools {
         if (TextUtils.isEmpty(content)) {
             return;
         }
+        if (content.contains("<p>")) {
+            content = content.replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
+        }
         while (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(0, 5))) {
             content = content.substring(5, content.length());
         }
@@ -251,7 +254,7 @@ public class HtmlTools {
      * @return
      */
     public Spanned formatRichTextWithPic(final TextView textView, final String htmlContent, final int color) {
-        return Html.fromHtml(htmlContent.replace("span","sobotspan"), new Html.ImageGetter() {
+        return Html.fromHtml(htmlContent.replace("span", "sobotspan"), new Html.ImageGetter() {
             @Override
             public Drawable getDrawable(String source) {
                 if (!TextUtils.isEmpty(source)) {
@@ -283,7 +286,7 @@ public class HtmlTools {
                 return null;
             }
 
-        }, new SobotCustomTagHandler(context,textView.getTextColors()));
+        }, new SobotCustomTagHandler(context, textView.getTextColors()));
     }
 
     /**

@@ -13,6 +13,7 @@ import com.sobot.chat.api.model.OrderCardContentModel;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.DateUtil;
+import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ZhiChiConstant;
@@ -174,6 +175,10 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
     @Override
     public void onClick(View v) {
         if (v == mContainer && orderCardContent != null) {
+            if (TextUtils.isEmpty(orderCardContent.getOrderUrl())) {
+                LogUtils.i("订单卡片跳转链接为空，不跳转，不拦截");
+                return;
+            }
             if (SobotOption.orderCardListener != null) {
                 SobotOption.orderCardListener.onClickOrderCradMsg(orderCardContent);
                 return;
@@ -184,7 +189,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             }
             if (SobotOption.newHyperlinkListener != null) {
                 //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,orderCardContent.getOrderUrl());
+                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, orderCardContent.getOrderUrl());
                 if (isIntercept) {
                     return;
                 }

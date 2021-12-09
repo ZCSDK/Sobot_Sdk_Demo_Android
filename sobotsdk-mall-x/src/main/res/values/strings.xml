@@ -245,4 +245,12 @@
     <string name="sobot_cant_solve_problem">未解决问题？点击</string>
     <string name="sobot_customer_service">转人工服务</string>
 
+    <!-- 3.0.5 新增-->
+    <string name="sobot_msg_open_see_all">展开消息</string>
+    <string name="sobot_agree_sentisive_send">继续发送</string>
+    <string name="sobot_refuse_send">拒绝</string>
+    <string name="sobot_refuse_send_this_msg">您已拒绝发送此消息</string>
+    <string name="sobot_agree_sentisive_tip">您已同意发送个人敏感信息，本次授权有效期24小时</string>
+
+
 </resources>

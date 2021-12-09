@@ -1,5 +1,8 @@
 <resources>
 
+    <style name="sobot_activity_def_theme">
+    </style>
+
     <style name="sobot_roomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/sobot_rating_yellow</item>
         <item name="android:numStars">5</item>

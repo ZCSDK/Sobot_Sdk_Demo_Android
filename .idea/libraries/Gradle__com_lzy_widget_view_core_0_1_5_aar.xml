@@ -1,18 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.lzy.widget:view-core:0.1.5@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/2315498881c93bc2ff234b8befc15739/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/2315498881c93bc2ff234b8befc15739/res" />
-      <root url="file://$PROJECT_DIR$/../../softutils/androidgradle/caches/transforms-2/files-2.1/2315498881c93bc2ff234b8befc15739/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/201d25a93b96df5cfb8491a339d67d8e/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/201d25a93b96df5cfb8491a339d67d8e/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/201d25a93b96df5cfb8491a339d67d8e/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1dd85ef2fd1083459548d70644456a87/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1dd85ef2fd1083459548d70644456a87/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1dd85ef2fd1083459548d70644456a87/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/702cd718be361a73fcd2d304d18e67ec/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/702cd718be361a73fcd2d304d18e67ec/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/702cd718be361a73fcd2d304d18e67ec/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39b369d8a8d6a23fc6c4d4313a5b4061/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39b369d8a8d6a23fc6c4d4313a5b4061/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39b369d8a8d6a23fc6c4d4313a5b4061/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

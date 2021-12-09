@@ -55,7 +55,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/video
     public String getVideoDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
             return getRootDir() + File.separator + VIDEO_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_MOVIES).getPath() + File.separator;
@@ -64,7 +64,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/voice
     public String getVoiceDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
             return getRootDir() + File.separator + VOICE_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getPath() + File.separator;
@@ -74,7 +74,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/pic
     public String getPicDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
             return getRootDir() + File.separator + PIC_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath() + File.separator;
@@ -84,7 +84,7 @@ public class SobotPathManager {
 
     //sdcard/download/xxxx/cache
     public String getCacheDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy()){
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
             return getRootDir() + File.separator + CACHE_DIR + File.separator;
         } else {
             return mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator + CACHE_DIR + File.separator;

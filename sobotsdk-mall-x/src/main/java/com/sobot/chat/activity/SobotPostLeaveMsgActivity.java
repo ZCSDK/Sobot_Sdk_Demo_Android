@@ -38,6 +38,7 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
     private Button sobot_btn_submit;
     private String skillGroupId = "";
     private SobotFreeAccountTipDialog sobotFreeAccountTipDialog;
+    private TextView sobot_tv_leaveExplain;
 
     public static Intent newIntent(Context context, String msgLeaveTxt, String msgLeaveContentTxt, String uid) {
         Intent intent = new Intent(context, SobotPostLeaveMsgActivity.class);
@@ -76,6 +77,7 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
         sobot_btn_submit = (Button) findViewById(getResId("sobot_btn_submit"));
         sobot_btn_submit.setText(ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
+        sobot_tv_leaveExplain= (TextView) findViewById(getResId("sobot_tv_leaveExplain"));
     }
 
     @Override
@@ -101,6 +103,12 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
                 if (offlineLeaveMsgModel != null) {
                     sobot_tv_post_msg.setText(TextUtils.isEmpty(offlineLeaveMsgModel.getMsgLeaveTxt()) ? "" : offlineLeaveMsgModel.getMsgLeaveTxt());
                     sobot_post_et_content.setHint(TextUtils.isEmpty(offlineLeaveMsgModel.getMsgLeaveContentTxt()) ? "" : offlineLeaveMsgModel.getMsgLeaveContentTxt());
+                    if (!TextUtils.isEmpty(offlineLeaveMsgModel.getLeaveExplain())){
+                        sobot_tv_leaveExplain.setVisibility(View.VISIBLE);
+                        sobot_tv_leaveExplain.setText(offlineLeaveMsgModel.getLeaveExplain());
+                    }else{
+                        sobot_tv_leaveExplain.setVisibility(View.GONE);
+                    }
                 }
             }
 

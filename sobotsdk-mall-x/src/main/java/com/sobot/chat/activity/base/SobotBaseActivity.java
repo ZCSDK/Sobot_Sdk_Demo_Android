@@ -135,7 +135,7 @@ public abstract class SobotBaseActivity extends FragmentActivity {
                                 layoutParams.leftMargin = (rect.right > 110 ? 110 : rect.right) + 14;
                                 view.setLayoutParams(layoutParams);
                             } else {
-                                view.setPadding((rect.right > 110 ? 110 : rect.right) + view.getPaddingLeft(), view.getPaddingTop(), (rect.right > 110 ? 110 : rect.right)+view.getPaddingRight(), view.getPaddingBottom());
+                                view.setPadding((rect.right > 110 ? 110 : rect.right) + view.getPaddingLeft(), view.getPaddingTop(), (rect.right > 110 ? 110 : rect.right) + view.getPaddingRight(), view.getPaddingBottom());
                             }
                         }
                     }
@@ -147,20 +147,17 @@ public abstract class SobotBaseActivity extends FragmentActivity {
 
     public void changeAppLanguage() {
         Locale language = (Locale) SharedPreferencesUtil.getObject(SobotBaseActivity.this, "SobotLanguage");
-        if (language != null) {
-            // 本地语言设置
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = new Configuration();
-            conf.locale = language;
-            res.updateConfiguration(conf, dm);
-        } else {
-            //清除上次app 语言设置
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = new Configuration();
-            conf.locale = null;
-            res.updateConfiguration(conf, dm);
+        try {
+            if (language != null) {
+                // 本地语言设置
+                Resources res = getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = new Configuration();
+                conf.locale = language;
+                res.updateConfiguration(conf, dm);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -442,7 +439,8 @@ public abstract class SobotBaseActivity extends FragmentActivity {
      * @return true, 已经获取权限;false,没有权限,尝试获取
      */
     protected boolean checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 30 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) >= 30) {
+        if (Build.VERSION.SDK_INT >= 29 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) >= 29) {
+            //分区存储 从andrid10手机开始 TargetSdkVersion >= 29，不需要文件存储权限
             return true;
         }
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) >= 23) {
@@ -471,14 +469,6 @@ public abstract class SobotBaseActivity extends FragmentActivity {
      */
     protected boolean checkStorageAndCameraPermission() {
         if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotBaseActivity()) >= 23) {
-            if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotBaseActivity().getApplicationContext()) < 30) {
-                if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                            ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                    return false;
-                }
-            }
             if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.CAMERA},

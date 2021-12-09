@@ -879,6 +879,8 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                             SobotDialogUtils.startProgressDialog(getSobotActivity());
                             ChatUtils.sendPicByUriPost(getSobotActivity(), selectedImage, sendFileListener, false);
                         }
+                    }else{
+                        showHint(getResString("sobot_did_not_get_picture_path"));
                     }
                 } else {
                     showHint(getResString("sobot_did_not_get_picture_path"));

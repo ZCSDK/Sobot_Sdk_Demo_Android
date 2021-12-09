@@ -2,19 +2,28 @@ package com.sobot.chat.viewHolder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.adapter.SobotMsgAdapter;
+import com.sobot.chat.api.model.CommonModel;
+import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
+import com.sobot.chat.core.channel.SobotMsgManager;
+import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -27,6 +36,13 @@ public class TextMessageHolder extends MessageHolderBase {
     //离线留言信息标志
     TextView sobot_tv_icon;
 
+    RelativeLayout sobot_ll_yinsi;
+    TextView sobot_msg_temp; // 聊天的消息内容 临时的，隐私确认发送卡片时用到
+    TextView sobot_sentisiveExplain;//隐私提示语
+    TextView sobot_msg_temp_see_all;//展开消息，可以看全部
+    Button sobot_sentisive_ok_send; //继续发送
+    Button sobot_sentisive_cancle_send;//拒绝发送
+    TextView sobot_sentisive_cancle_tip;//点击拒绝发送后的提示语
 
     public TextMessageHolder(Context context, View convertView) {
         super(context, convertView);
@@ -40,7 +56,13 @@ public class TextMessageHolder extends MessageHolderBase {
         sobot_ll_dislikeBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_dislikeBtn"));
         sobot_tv_likeBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_likeBtn"));
         sobot_tv_dislikeBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_dislikeBtn"));
-
+        sobot_ll_yinsi = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_yinsi"));
+        sobot_msg_temp = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_msg_temp"));
+        sobot_sentisiveExplain = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisiveExplain"));
+        sobot_msg_temp_see_all = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_msg_temp_see_all"));
+        sobot_sentisive_ok_send = (Button) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_ok_send"));
+        sobot_sentisive_cancle_send = (Button) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_cancle_send"));
+        sobot_sentisive_cancle_tip = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_cancle_tip"));
         //102=左间距12+内间距30+右间距60
         msg.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
     }
@@ -48,7 +70,7 @@ public class TextMessageHolder extends MessageHolderBase {
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {
         if (message.getAnswer() != null && (!TextUtils.isEmpty(message.getAnswer().getMsg()) || !TextUtils.isEmpty(message.getAnswer().getMsgTransfer()))) {// 纯文本消息
-            String content = !TextUtils.isEmpty(message.getAnswer().getMsgTransfer()) ? message.getAnswer().getMsgTransfer() : message.getAnswer().getMsg();
+            final String content = !TextUtils.isEmpty(message.getAnswer().getMsgTransfer()) ? message.getAnswer().getMsgTransfer() : message.getAnswer().getMsg();
             msg.setVisibility(View.VISIBLE);
 
             HtmlTools.getInstance(context).setRichText(msg, content, isRight ? getLinkTextColor() : getLinkTextColor());
@@ -61,6 +83,109 @@ public class TextMessageHolder extends MessageHolderBase {
                     if (message.getSendSuccessState() == ZhiChiConstant.MSG_SEND_STATUS_SUCCESS) {// 成功的状态
                         msgStatus.setVisibility(View.GONE);
                         msgProgressBar.setVisibility(View.GONE);
+                        if (message.getSentisive() == 1) {
+                            sobot_ll_content.setVisibility(View.GONE);
+                            sobot_ll_yinsi.setVisibility(View.VISIBLE);
+                            sobot_msg_temp.setText(content);
+                            sobot_sentisiveExplain.setText(message.getSentisiveExplain());
+                            sobot_msg_temp.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (sobot_msg_temp.getLineCount() >= 3 && !message.isShowSentisiveSeeAll()) {
+                                        sobot_msg_temp.setMaxLines(3);
+                                        sobot_msg_temp.setPadding(ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10), 0);
+                                        sobot_msg_temp_see_all.setVisibility(View.VISIBLE);
+                                        LinearGradient mLinearGradient = new LinearGradient(0, 0, 0, sobot_msg_temp.getMeasuredHeight(), new int[]{Color.parseColor(ResourceUtils.getColorById(context, "sobot_common_gray2")), Color.parseColor(ResourceUtils.getColorById(context, "sobot_common_gray2")), Color.parseColor(ResourceUtils.getColorById(context, "sobot_common_gray3"))}, new float[]{0, 0.5f, 1.0f}, Shader.TileMode.CLAMP);
+                                        sobot_msg_temp.getPaint().setShader(mLinearGradient);
+                                        sobot_msg_temp.invalidate();
+                                    } else {
+                                        sobot_msg_temp.setPadding(ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10));
+                                        sobot_msg_temp_see_all.setVisibility(View.GONE);
+                                        sobot_msg_temp.setMaxLines(100);
+                                    }
+                                }
+                            });
+                            sobot_msg_temp_see_all.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    sobot_msg_temp.setPadding(ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10), ScreenUtils.dip2px(context, 10));
+                                    sobot_msg_temp.setMaxLines(100);
+                                    sobot_msg_temp.getPaint().setShader(null);
+                                    sobot_msg_temp_see_all.setVisibility(View.GONE);
+                                    message.setShowSentisiveSeeAll(true);
+                                }
+                            });
+                            sobot_sentisive_ok_send.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
+                                            ZhiChiConstant.sobot_last_current_initModel);
+                                    message.setMsgId(System.currentTimeMillis() + "");
+                                    message.setContent(content);
+                                    //继续发送
+                                    SobotMsgManager.getInstance(context).getZhiChiApi().authSensitive(content, initMode.getPartnerid(), "1", new StringResultCallBack<CommonModel>() {
+                                        @Override
+                                        public void onSuccess(CommonModel baseCode) {
+                                            if (baseCode.getData() != null && !TextUtils.isEmpty(baseCode.getData().getStatus())) {
+                                                //  返回值：status 1 成功 status 2 会话已结束 status 3 已授权 status 0 失败
+                                                if ("1".equals(baseCode.getData().getStatus()) || "2".equals(baseCode.getData().getStatus()) || "3".equals(baseCode.getData().getStatus())) {
+                                                    msgCallBack.removeMessageByMsgId(message.getId());
+                                                    msgCallBack.sendMessage(content);
+                                                    if (!"3".equals(baseCode.getData().getStatus())) {
+                                                        //显示系统提示 "您已同意发送个人敏感信息，本次授权有效期"
+                                                        ZhiChiMessageBase base = new ZhiChiMessageBase();
+                                                        base.setAction(ZhiChiConstant.action_sensitive_auth_agree + "");
+                                                        base.setMsgId(System.currentTimeMillis() + "");
+                                                        msgCallBack.addMessage(base);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Exception e, String des) {
+
+                                        }
+                                    });
+                                }
+                            });
+                            if (message.isClickCancleSend()) {
+                                sobot_sentisive_cancle_tip.setVisibility(View.VISIBLE);
+                                sobot_sentisive_cancle_send.setVisibility(View.GONE);
+                            } else {
+                                sobot_sentisive_cancle_tip.setVisibility(View.GONE);
+                                sobot_sentisive_cancle_send.setVisibility(View.VISIBLE);
+                            }
+                            sobot_sentisive_cancle_send.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //拒绝发送
+                                    ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
+                                            ZhiChiConstant.sobot_last_current_initModel);
+                                    SobotMsgManager.getInstance(context).getZhiChiApi().authSensitive(content, initMode.getPartnerid(), "0", new StringResultCallBack<CommonModel>() {
+                                        @Override
+                                        public void onSuccess(CommonModel baseCode) {
+                                            if (baseCode.getData() != null && !TextUtils.isEmpty(baseCode.getData().getStatus())) {
+                                                //  返回值：status 1 成功 status 2 会话已结束 status 3 已授权 status 0 失败
+                                                if (!"0".equals(baseCode.getData().getStatus())) {
+                                                    message.setClickCancleSend(true);
+                                                    sobot_sentisive_cancle_tip.setVisibility(View.VISIBLE);
+                                                    sobot_sentisive_cancle_send.setVisibility(View.GONE);
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Exception e, String des) {
+
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            sobot_ll_content.setVisibility(View.VISIBLE);
+                            sobot_ll_yinsi.setVisibility(View.GONE);
+                        }
                     } else if (message.getSendSuccessState() == ZhiChiConstant.MSG_SEND_STATUS_ERROR) {
                         msgStatus.setVisibility(View.VISIBLE);
                         msgProgressBar.setVisibility(View.GONE);

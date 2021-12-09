@@ -47,6 +47,7 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
     private LinearLayout sobot_container;
     private TextView sobot_tv_doc;
     private Button sobot_btn_submit;
+    private TextView sobot_tv_safety;
     //防止多次提交
     private boolean isSubmitting = false;
 
@@ -85,9 +86,16 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
         sobot_btn_submit.setOnClickListener(this);
         sobot_container = (LinearLayout) findViewById(getResId("sobot_container"));
         sobot_tv_doc = (TextView) findViewById(getResId("sobot_tv_doc"));
+        sobot_tv_safety= (TextView) findViewById(getResId("sobot_tv_safety"));
         if (mQueryFormModel != null) {
             setTitle(mQueryFormModel.getFormTitle());
             HtmlTools.getInstance(getSobotBaseActivity()).setRichText(sobot_tv_doc, mQueryFormModel.getFormDoc(), ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_color_link"));
+            if (!TextUtils.isEmpty(mQueryFormModel.getFormSafety())){
+                sobot_tv_safety.setVisibility(View.VISIBLE);
+                sobot_tv_safety.setText(mQueryFormModel.getFormSafety());
+            }else{
+                sobot_tv_safety.setVisibility(View.GONE);
+            }
         }
         displayInNotch(sobot_tv_doc);
         StCusFieldPresenter.addWorkOrderCusFields(SobotQueryFromActivity.this, SobotQueryFromActivity.this, mField, sobot_container, SobotQueryFromActivity.this);

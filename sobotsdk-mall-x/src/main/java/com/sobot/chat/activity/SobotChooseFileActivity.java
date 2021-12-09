@@ -46,7 +46,7 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
 
     @Override
     protected void initView() {
-        if (!(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q||Environment.isExternalStorageLegacy())){
+        if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)) {
 //            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
 //            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
 //                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -55,14 +55,14 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(intent,READ_REQUEST_CODE);
+            startActivityForResult(intent, READ_REQUEST_CODE);
 
         }
         setTitle(getResString("sobot_internal_memory"));
         showLeftMenu(getResDrawableId("sobot_btn_back_selector"), "", true);
         sobot_lv_files = (ListView) findViewById(getResId("sobot_lv_files"));
         sobot_tv_send = (TextView) findViewById(getResId("sobot_tv_send"));
-        sobot_tv_send.setText(ResourceUtils.getResString(SobotChooseFileActivity.this,"sobot_button_send"));
+        sobot_tv_send.setText(ResourceUtils.getResString(SobotChooseFileActivity.this, "sobot_button_send"));
         sobot_tv_total = (TextView) findViewById(getResId("sobot_tv_total"));
         sobot_tv_send.setOnClickListener(this);
         displayInNotch(sobot_lv_files);
@@ -157,7 +157,7 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
                             sobot_tv_send.setEnabled(true);
                         }
                         mAdapter.notifyDataSetChanged();
-                        sobot_tv_total.setText(getResString("sobot_files_selected")+"："+totalSize);
+                        sobot_tv_total.setText(getResString("sobot_files_selected") + "：" + totalSize);
                     }
                 }
             }
@@ -190,13 +190,13 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode,Intent resultData) {
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         //使用resultdata.getdata ( )提取该URI
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();
-                if (uri!=null){
+                if (uri != null) {
                     Intent data = new Intent();
                     data.setData(uri);
                     setResult(ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE, data);
