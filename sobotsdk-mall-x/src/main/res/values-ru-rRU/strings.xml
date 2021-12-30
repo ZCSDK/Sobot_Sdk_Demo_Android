@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Мусор</string>
        <string name="sobot_agree_sentisive_tip">Вы согласились отправить персональную чувствительную информацию, срок действия настоящего разрешения истекает 24 часа</string>
        <string name="sobot_refuse_send_this_msg">Вы отказались отправлять это сообщение</string>
+       <string name="sobot_no_support_call">устройство не поддерживает звонки</string>
 </resources>

@@ -73,7 +73,7 @@ public class RobotAnswerItemsMsgHolder extends MessageHolderBase implements View
             ZhiChiMessageBase msgObj = new ZhiChiMessageBase();
 
             Map<String, String> map = new HashMap<>();
-            map.put("level", multiDiaRespInfo.getLevel());
+            map.put("level", multiDiaRespInfo.getLevel()+"");
             map.put("conversationId", multiDiaRespInfo.getConversationId());
             map.putAll(tmpMap);
             msgObj.setContent(GsonUtil.map2Str(map));

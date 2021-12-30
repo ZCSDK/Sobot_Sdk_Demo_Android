@@ -40,6 +40,7 @@ import com.sobot.chat.api.model.CommonModelBase;
 import com.sobot.chat.api.model.ConsultingContent;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.OrderCardContentModel;
+import com.sobot.chat.api.model.SobotConnCusParam;
 import com.sobot.chat.api.model.SobotLocationModel;
 import com.sobot.chat.api.model.SobotQueryFormModel;
 import com.sobot.chat.api.model.SobotQuestionRecommend;
@@ -1160,21 +1161,15 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         SobotMsgManager.getInstance(mAppContext).clearAllConfig();
     }
 
-    protected void requestQueryFrom(final String groupId, final String groupName) {
-        requestQueryFrom(groupId, groupName);
-    }
-
     /**
      * 检查是否有询前表单，这个方法在转人工时 会首先检查是否需要填写询前表单，
      * 如果有那么将会弹出询前表单填写界面，之后会调用转人工
      *
-     * @param groupId
-     * @param groupName
      */
-    protected void requestQueryFrom(final String groupId, final String groupName, final int transferType, final boolean isCloseInquiryFrom) {
+    protected void requestQueryFrom(final SobotConnCusParam param, final boolean isCloseInquiryFrom) {
         if (customerState == CustomerState.Queuing || isHasRequestQueryFrom) {
             //如果在排队中就不需要填写询前表单 、或者之前弹过询前表单
-            connectCustomerService(groupId, groupName);
+            connectCustomerService(param);
             return;
         }
         if (isQueryFroming) {
@@ -1193,15 +1188,18 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     // 打开询前表单
                     Intent intent = new Intent(mAppContext, SobotQueryFromActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID, groupId);
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME, groupName);
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID, param.getGroupId());
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME, param.getGroupName());
                     bundle.putSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_FIELD, sobotQueryFormModel);
                     bundle.putSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UID, initModel.getPartnerid());
-                    bundle.putInt(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, transferType);
+                    bundle.putInt(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, param.getTransferType());
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, param.getDocId());
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, param.getUnknownQuestion());
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, param.getActiveTransfer());
                     intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA, bundle);
                     startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM);
                 } else {
-                    connectCustomerService(groupId, groupName, transferType);
+                    connectCustomerService(param);
                 }
             }
 
@@ -1410,23 +1408,27 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     //-------------以下由子类实现-----------------------
     protected abstract String getSendMessageStr();
 
-    protected void connectCustomerService(String groupId, String groupName) {
-        connectCustomerService(groupId, groupName, 0);
+//    protected void connectCustomerService(String groupId, String groupName) {
+//        connectCustomerService(groupId, groupName, 0);
+//    }
+//
+//    protected void connectCustomerService(String groupId, String groupName, boolean isShowTips) {
+//        connectCustomerService(groupId, groupName, null, null, isShowTips, 0);
+//    }
+//
+//    protected void connectCustomerService(String groupId, String groupName, final String keyword, final String keywordId, final boolean isShowTips) {
+//        connectCustomerService(groupId, groupName, keyword, keywordId, isShowTips, 0);
+//    }
+//
+//    protected void connectCustomerService(String groupId, String groupName, int transferType) {
+//        connectCustomerService(groupId, groupName, null, null, true, transferType);
+//    }
+
+    protected void connectCustomerService(SobotConnCusParam param) {
+        connectCustomerService(param, true);
     }
 
-    protected void connectCustomerService(String groupId, String groupName, boolean isShowTips) {
-        connectCustomerService(groupId, groupName, null, null, isShowTips, 0);
-    }
-
-    protected void connectCustomerService(String groupId, String groupName, final String keyword, final String keywordId, final boolean isShowTips) {
-        connectCustomerService(groupId, groupName, keyword, keywordId, isShowTips, 0);
-    }
-
-    protected void connectCustomerService(String groupId, String groupName, int transferType) {
-        connectCustomerService(groupId, groupName, null, null, true, transferType);
-    }
-
-    protected void connectCustomerService(String groupId, String groupName, String keyword, String keywordId, boolean isShowTips, int transferType) {
+    protected void connectCustomerService(SobotConnCusParam param, boolean isShowTips) {
     }
 
     protected void customerServiceOffline(ZhiChiInitModeBase initModel, int outLineType) {

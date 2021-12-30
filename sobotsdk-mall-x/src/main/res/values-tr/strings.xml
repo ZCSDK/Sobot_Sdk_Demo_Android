@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Reddetmek</string>
        <string name="sobot_agree_sentisive_tip">Kişisel duygusal bilgi göndermeye kabul ettiniz. Bu yetkili 24 saat boyunca geçerli.</string>
        <string name="sobot_refuse_send_this_msg">Bu mesajı göndermeyi reddettiniz</string>
+       <string name="sobot_no_support_call">Aygıt arama yapmayı desteklemez</string>
 </resources>

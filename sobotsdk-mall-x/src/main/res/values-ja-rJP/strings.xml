@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">ごみ</string>
        <string name="sobot_agree_sentisive_tip">個人機密情報の送信に同意しました。このライセンスの有効期間は24時間です。</string>
        <string name="sobot_refuse_send_this_msg">このメッセージの送信を拒否しました</string>
+       <string name="sobot_no_support_call">このデバイスでは電話はサポートされていません</string>
 </resources>

@@ -252,5 +252,8 @@
     <string name="sobot_refuse_send_this_msg">您已拒绝发送此消息</string>
     <string name="sobot_agree_sentisive_tip">您已同意发送个人敏感信息，本次授权有效期24小时</string>
 
+    <!-- 3.0.6 新增-->
+    <string name="sobot_no_support_call">该设备不支持拨打电话</string>
+
 
 </resources>

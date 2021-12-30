@@ -14,6 +14,7 @@ import com.sobot.chat.activity.base.SobotDialogBaseActivity;
 import com.sobot.chat.adapter.SobotSikllAdapter;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
+import com.sobot.chat.api.model.SobotConnCusParam;
 import com.sobot.chat.api.model.ZhiChiGroup;
 import com.sobot.chat.api.model.ZhiChiGroupBase;
 import com.sobot.chat.application.MyApplication;
@@ -51,6 +52,7 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
     private ZhiChiApi zhiChiApi;
     private int mType = -1;
     private int msgFlag = 0;
+    private SobotConnCusParam param;
 
     private StPostMsgPresenter mPressenter;
 
@@ -79,6 +81,11 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
                             Intent intent = new Intent();
                             intent.putExtra("groupIndex", position);
                             intent.putExtra("transferType", transferType);
+                            if (param!=null){
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, param.getDocId());
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, param.getUnknownQuestion());
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, param.getActiveTransfer());
+                            }
                             setResult(ZhiChiConstant.REQUEST_COCE_TO_GRROUP, intent);
                             finish();
                         }
@@ -142,6 +149,7 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
             msgTxt = getIntent().getStringExtra("msgTxt");
             msgFlag = getIntent().getIntExtra("msgFlag", 0);
             transferType = getIntent().getIntExtra("transferType", 0);
+            param = (SobotConnCusParam) getIntent().getSerializableExtra("sobotConnCusParam");
         }
         zhiChiApi = SobotMsgManager.getInstance(getApplicationContext()).getZhiChiApi();
         zhiChiApi.getGroupList(SobotSkillGroupActivity.this, appkey, uid, new StringResultCallBack<ZhiChiGroup>() {

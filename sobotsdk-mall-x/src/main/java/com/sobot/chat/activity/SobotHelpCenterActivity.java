@@ -15,7 +15,7 @@ import com.sobot.chat.api.model.StCategoryModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.SobotFunctionType;
-import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
@@ -111,7 +111,7 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
                 if (SobotOption.functionClickListener != null) {
                      SobotOption.functionClickListener.onClickFunction(getSobotBaseActivity(), SobotFunctionType.ZC_PhoneCustomerService);
                 }
-                CommonUtils.callUp(mInfo.getHelpCenterTel(), getSobotBaseActivity());
+                ChatUtils.callUp(mInfo.getHelpCenterTel(), getSobotBaseActivity());
             }
         }
     }

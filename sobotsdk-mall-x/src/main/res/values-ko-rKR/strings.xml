@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">거절하다</string>
        <string name="sobot_agree_sentisive_tip">귀하는 개인 민감한 정보를 발송하는 것에 동의했습니다. 이번 권한 수여 유효기간은 24시간입니다.</string>
        <string name="sobot_refuse_send_this_msg">이 메시지 보내기를 거부했습니다.</string>
+       <string name="sobot_no_support_call">이 장치는 전화를 걸 수 없습니다</string>
 </resources>

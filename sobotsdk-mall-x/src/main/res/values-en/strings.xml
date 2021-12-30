@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Refuse</string>
        <string name="sobot_agree_sentisive_tip">You have agreed to send personal sensitive information. This authorization is valid for 24 hours</string>
        <string name="sobot_refuse_send_this_msg">You have declined to send this message</string>
+       <string name="sobot_no_support_call">The device does not support making calls</string>
 </resources>

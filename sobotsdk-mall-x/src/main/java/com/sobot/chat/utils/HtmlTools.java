@@ -220,10 +220,7 @@ public class HtmlTools {
         if (content.contains("<p>")) {
             content = content.replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
         }
-        while (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(0, 5))) {
-            content = content.substring(5, content.length());
-        }
-        if (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
+        while (content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
             content = content.substring(0, content.length() - 5);
         }
         if (!TextUtils.isEmpty(content) && content.length() > 0 && "\n".equals(content.substring(content.length() - 1, content.length()))) {
@@ -238,7 +235,30 @@ public class HtmlTools {
         }
 
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br />"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
+        // 显示表情
+        span = InputHelper.displayEmoji(context.getApplicationContext(), span);
+        // 显示链接
+        parseLinkText(context, widget, span, color, false);
+    }
+
+    /**
+     * 设置富文本
+     * RichTextMessageHolder 专用的，不处理结尾的<br/>
+     *
+     * @param widget
+     * @param content
+     * @param color   要显示的颜色
+     */
+    public void setRichTextViewText(TextView widget, String content, int color) {
+        if (TextUtils.isEmpty(content)) {
+            return;
+        }
+        if (content.contains("\n")) {
+            content = content.replaceAll("\n", "<br/>");
+        }
+        widget.setMovementMethod(LinkMovementClickMethod.getInstance());
+        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接

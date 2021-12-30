@@ -294,9 +294,9 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="20dp"
-                        app:fillMode="1"
-                        app:verticalGap="16dp"
-                        app:horizontalGap="10dp"
+                        app:sobot_fillMode="1"
+                        app:sobot_verticalGap="16dp"
+                        app:sobot_horizontalGap="10dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginStart="20dp">
                     </com.sobot.chat.widget.SobotAntoLineLayout>

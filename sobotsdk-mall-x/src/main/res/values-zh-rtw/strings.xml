@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">拒絕</string>
        <string name="sobot_agree_sentisive_tip">您已同意發送個人敏感資訊，本次授權有效期24小時</string>
        <string name="sobot_refuse_send_this_msg">您已拒絕發送此消息</string>
+       <string name="sobot_no_support_call">該設備不支持撥打電話</string>
 </resources>

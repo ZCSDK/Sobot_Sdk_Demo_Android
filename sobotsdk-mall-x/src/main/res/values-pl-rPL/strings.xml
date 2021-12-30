@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Odrzucać</string>
        <string name="sobot_agree_sentisive_tip">Użytkownik zgodził się na przesłanie poufnych danych osobowych. Niniejsze zezwolenie jest ważne przez dobę godzin</string>
        <string name="sobot_refuse_send_this_msg">Odmówiłeś wysłania tej wiadomości</string>
+       <string name="sobot_no_support_call">Urządzenie nie obsługuje wykonywania połączeń</string>
 </resources>

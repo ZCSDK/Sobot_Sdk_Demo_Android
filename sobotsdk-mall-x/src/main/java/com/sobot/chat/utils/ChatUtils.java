@@ -1154,7 +1154,7 @@ public class ChatUtils {
 
     private static String formatQuestionStr(String[] outPutParam, Map<String, String> interfaceRet, SobotMultiDiaRespInfo multiDiaRespInfo) {
         if (multiDiaRespInfo != null && interfaceRet != null && interfaceRet.size() > 0) {
-            Map<String, String> map = new HashMap<>();
+            Map map = new HashMap<>();
             map.put("level", multiDiaRespInfo.getLevel());
             map.put("conversationId", multiDiaRespInfo.getConversationId());
             if (outPutParam != null && outPutParam.length > 0) {
@@ -1162,7 +1162,7 @@ public class ChatUtils {
                     map.put(outPutParam[i], interfaceRet.get(outPutParam[i]));
                 }
             }
-            return GsonUtil.map2Str(map);
+            return GsonUtil.map2JsonByObjectMap(map);
         }
         return "";
     }
@@ -1333,5 +1333,18 @@ public class ChatUtils {
             //ignor
         }
         return tmpFileType;
+    }
+
+    public static void callUp(String phone, Context context) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setData(Uri.parse("tel:" + phone));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可
+            context.startActivity(intent);
+        } catch (Exception e) {
+            ToastUtil.showCustomToast(context,context.getString(R.string.sobot_no_support_call));
+            e.printStackTrace();
+        }
     }
 }

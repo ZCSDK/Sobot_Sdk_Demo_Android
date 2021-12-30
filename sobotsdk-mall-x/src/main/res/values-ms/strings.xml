@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Menolak</string>
        <string name="sobot_agree_sentisive_tip">Anda telah setuju untuk menghantar maklumat sensitif peribadi. Pengesahan ini sah selama 24 jam</string>
        <string name="sobot_refuse_send_this_msg">Anda telah menolak untuk menghantar mesej ini</string>
+       <string name="sobot_no_support_call">Peranti tidak menyokong membuat panggilan</string>
 </resources>

@@ -182,9 +182,9 @@
                         android:id="@+id/sobot_evaluate_lable_autoline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:fillMode="1"
-                        app:verticalGap="16dp"
-                        app:horizontalGap="10dp">
+                        app:sobot_fillMode="1"
+                        app:sobot_verticalGap="16dp"
+                        app:sobot_horizontalGap="10dp">
                     </com.sobot.chat.widget.SobotAntoLineLayout>
 
                 </LinearLayout>

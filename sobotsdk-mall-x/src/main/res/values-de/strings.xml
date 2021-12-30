@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Sich weigern</string>
        <string name="sobot_agree_sentisive_tip">Sie haben zugestimmt, persönliche sensible Informationen zu senden. Diese Berechtigung ist für 24-Stunden gültig</string>
        <string name="sobot_refuse_send_this_msg">Sie haben das Senden dieser Nachricht abgelehnt</string>
+       <string name="sobot_no_support_call">Das Gerät unterstützt keine Anrufe</string>
 </resources>

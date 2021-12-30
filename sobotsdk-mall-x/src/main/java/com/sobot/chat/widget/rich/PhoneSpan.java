@@ -5,7 +5,7 @@ import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
-import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.SobotOption;
 
 public class PhoneSpan extends ClickableSpan {
@@ -32,7 +32,7 @@ public class PhoneSpan extends ClickableSpan {
                 return;
             }
         }
-        CommonUtils.callUp(phone, context);
+        ChatUtils.callUp(phone, context);
     }
 
     @Override

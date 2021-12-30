@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">ปฏิเสธ</string>
        <string name="sobot_agree_sentisive_tip">คุณได้ตกลงที่จะส่งข้อมูลที่สําคัญส่วนบุคคลนี้ได้รับอนุญาตชั่วโมง</string>
        <string name="sobot_refuse_send_this_msg">คุณได้ปฏิเสธที่จะส่งข้อความนี้</string>
+       <string name="sobot_no_support_call">อุปกรณ์นี้ไม่รองรับการโทรออก</string>
 </resources>

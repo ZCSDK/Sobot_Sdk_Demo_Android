@@ -114,7 +114,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
         if (!TextUtils.isEmpty(stripeContent)) {
             //去掉p标签
-            stripeContent=stripeContent.replace("<p>","").replace("</p>","");
+            stripeContent = stripeContent.replace("<p>", "").replace("</p>", "");
             // 设置提醒的内容
             stripe.setVisibility(View.VISIBLE);
             HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());
@@ -488,7 +488,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                 if (richListModel != null) {
                     //如果最后一个是空行，直接过滤掉不显示
                     if (TextUtils.isEmpty(richListModel.getMsg()) && i == (message.getAnswer().getRichList().size() - 1)) {
-                       continue;
+                        continue;
                     }
                     // 0：文本，1：图片，2：音频，3：视频，4：文件
                     if (richListModel.getType() == 0) {
@@ -496,6 +496,8 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         textView.setTextSize(14);
                         textView.setLayoutParams(wlayoutParams);
                         textView.setMaxWidth(msgMaxWidth);
+                        //设置行间距
+                        textView.setLineSpacing(0, 1.1f);
                         if (!TextUtils.isEmpty(richListModel.getName()) && HtmlTools.isHasPatterns(richListModel.getMsg())) {
                             textView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
                             textView.setOnClickListener(new View.OnClickListener() {
@@ -503,7 +505,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                 public void onClick(View v) {
                                     if (SobotOption.newHyperlinkListener != null) {
                                         //如果返回true,拦截;false 不拦截
-                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,richListModel.getMsg());
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, richListModel.getMsg());
                                         if (isIntercept) {
                                             return;
                                         }
@@ -516,7 +518,17 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                             textView.setText(richListModel.getName());
                         } else {
                             textView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_left_msg_text_color")));
-                            HtmlTools.getInstance(mContext).setRichText(textView, richListModel.getMsg(), getLinkTextColor());
+                            if (!TextUtils.isEmpty(richListModel.getMsg()) && i == (message.getAnswer().getRichList().size() - 1)) {
+                                //如果是richlist的最后一个，把这个的尾部的<br/>都去掉
+                                String content = richListModel.getMsg().trim();
+                                while (content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
+                                    content = content.substring(0, content.length() - 5);
+                                }
+                                HtmlTools.getInstance(mContext).setRichTextViewText(textView, content, getLinkTextColor());
+                            } else {
+                                HtmlTools.getInstance(mContext).setRichTextViewText(textView, richListModel.getMsg(), getLinkTextColor());
+                            }
+
                         }
                         sobot_rich_ll.addView(textView);
                     } else if (richListModel.getType() == 1 && HtmlTools.isHasPatterns(richListModel.getMsg())) {

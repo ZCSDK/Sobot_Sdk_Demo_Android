@@ -341,7 +341,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
         if (msgCallBack != null && message != null) {
             ZhiChiMessageBase msgObj = new ZhiChiMessageBase();
             Map<String, String> map = new HashMap<>();
-            map.put("level", multiDiaRespInfo.getLevel());
+            map.put("level", multiDiaRespInfo.getLevel()+"");
             map.put("conversationId", multiDiaRespInfo.getConversationId());
             if (outputParam != null) {
                 if (outputParam.length == 1) {

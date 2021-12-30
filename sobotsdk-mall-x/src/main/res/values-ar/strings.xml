@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">رفض</string>
        <string name="sobot_agree_sentisive_tip">كنت قد وافقت على إرسال المعلومات الشخصية الحساسة ، وهذا الترخيص ساري المفعول لمدة 24 ساعة</string>
        <string name="sobot_refuse_send_this_msg">لقد رفضت إرسال هذه الرسالة</string>
+       <string name="sobot_no_support_call">الجهاز لا يدعم إجراء المكالمات</string>
 </resources>

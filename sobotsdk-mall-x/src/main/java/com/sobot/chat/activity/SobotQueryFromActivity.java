@@ -36,6 +36,9 @@ import java.util.ArrayList;
  */
 public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotCusField, View.OnClickListener {
     private Bundle mIntentBundleData;
+    private String mDocId;
+    private String mUnknownQuestion;
+    private String mActiveTransfer;
     private String mGroupId;
     private SobotQueryFormModel mQueryFormModel;
     private String mGroupName;
@@ -71,6 +74,10 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
         mGroupId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID);
         mGroupName = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME);
         mQueryFormModel = (SobotQueryFormModel) mIntentBundleData.getSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_FIELD);
+        mDocId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID);
+        mUnknownQuestion = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION);
+        mActiveTransfer = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER);
+
         mUid = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UID);
         mTransferType = mIntentBundleData.getInt(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, 0);
         if (mQueryFormModel != null) {
@@ -86,14 +93,14 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
         sobot_btn_submit.setOnClickListener(this);
         sobot_container = (LinearLayout) findViewById(getResId("sobot_container"));
         sobot_tv_doc = (TextView) findViewById(getResId("sobot_tv_doc"));
-        sobot_tv_safety= (TextView) findViewById(getResId("sobot_tv_safety"));
+        sobot_tv_safety = (TextView) findViewById(getResId("sobot_tv_safety"));
         if (mQueryFormModel != null) {
             setTitle(mQueryFormModel.getFormTitle());
             HtmlTools.getInstance(getSobotBaseActivity()).setRichText(sobot_tv_doc, mQueryFormModel.getFormDoc(), ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_color_link"));
-            if (!TextUtils.isEmpty(mQueryFormModel.getFormSafety())){
+            if (!TextUtils.isEmpty(mQueryFormModel.getFormSafety())) {
                 sobot_tv_safety.setVisibility(View.VISIBLE);
                 sobot_tv_safety.setText(mQueryFormModel.getFormSafety());
-            }else{
+            } else {
                 sobot_tv_safety.setVisibility(View.GONE);
             }
         }
@@ -149,6 +156,9 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
             intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID, mGroupId);
             intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME, mGroupName);
             intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, mTransferType);
+            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, mDocId);
+            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, mUnknownQuestion);
+            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, mActiveTransfer);
             setResult(ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM, intent);
             finish();
         } catch (Exception e) {
@@ -189,7 +199,7 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
                     if ("tel".equals(field.get(i).getCusFieldConfig().getFieldId())
                             && !TextUtils.isEmpty(field.get(i).getCusFieldConfig().getValue())
                             && !ScreenUtils.isMobileNO(field.get(i).getCusFieldConfig().getValue())) {
-                        ToastUtil.showToast(getApplicationContext(), getResString("sobot_phone")+getResString("sobot_input_type_err"));
+                        ToastUtil.showToast(getApplicationContext(), getResString("sobot_phone") + getResString("sobot_input_type_err"));
                         return false;
                     }
                 }

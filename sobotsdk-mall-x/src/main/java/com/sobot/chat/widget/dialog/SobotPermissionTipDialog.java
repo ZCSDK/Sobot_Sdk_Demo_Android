@@ -83,7 +83,7 @@ public class SobotPermissionTipDialog extends Dialog implements View.OnClickList
     private void initView() {
         titleView = (TextView) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_dialog_title"));
         if (!TextUtils.isEmpty(title)) {
-            titleView.setText("\"" + CommonUtils.getAppName(getContext()) + "\" " + ResourceUtils.getResString(getContext(), "sobot_want_use_your") + title);
+            titleView.setText("\"" + CommonUtils.getAppName(getContext()) + "\" " + ResourceUtils.getResString(getContext(), "sobot_want_use_your") + " " + title);
         }
         contentTV = (TextView) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_dialog_content"));
         if (!TextUtils.isEmpty(mContent)) {

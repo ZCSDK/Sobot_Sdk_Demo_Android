@@ -289,9 +289,9 @@ public class StExpandableTextView extends LinearLayout implements View.OnClickLi
 
 
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.sobot_ExpandableTextView);
-        mMaxCollapsedLines = typedArray.getInt(R.styleable.sobot_ExpandableTextView_maxCollapsedLines, MAX_COLLAPSED_LINES);
-        mExpandStrResId = typedArray.getResourceId(R.styleable.sobot_ExpandableTextView_ExpandStrResId, ResourceUtils.getDrawableId(getContext(), "sobot_icon_triangle_down"));
-        mCollapseStrResId = typedArray.getResourceId(R.styleable.sobot_ExpandableTextView_CollapseStrResId, ResourceUtils.getDrawableId(getContext(), "sobot_icon_triangle_up"));
+        mMaxCollapsedLines = typedArray.getInt(R.styleable.sobot_ExpandableTextView_sobot_maxCollapsedLines, MAX_COLLAPSED_LINES);
+        mExpandStrResId = typedArray.getResourceId(R.styleable.sobot_ExpandableTextView_sobot_ExpandStrResId, ResourceUtils.getDrawableId(getContext(), "sobot_icon_triangle_down"));
+        mCollapseStrResId = typedArray.getResourceId(R.styleable.sobot_ExpandableTextView_sobot_CollapseStrResId, ResourceUtils.getDrawableId(getContext(), "sobot_icon_triangle_up"));
 //        mAnimationDuration = typedArray.getInt(R.styleable.ExpandableTextView_animDuration, DEFAULT_ANIM_DURATION);
 //        mAnimAlphaStart = typedArray.getFloat(R.styleable.ExpandableTextView_animAlphaStart, DEFAULT_ANIM_ALPHA_START);
 //        mExpandDrawable = typedArray.getDrawable(R.styleable.ExpandableTextView_expandDrawable);

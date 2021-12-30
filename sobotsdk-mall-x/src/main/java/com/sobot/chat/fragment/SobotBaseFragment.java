@@ -177,23 +177,46 @@ public abstract class SobotBaseFragment extends Fragment {
                             String permissionTitle = "sobot_no_permission_text";
                             if (permissions[i] != null && permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                                 permissionTitle = "sobot_no_write_external_storage_permission";
-//                                ToastUtil.showToast(getContext().getApplicationContext(), getResString("sobot_no_write_external_storage_permission"));
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
                                 permissionTitle = "sobot_no_write_external_storage_permission";
-//                                ToastUtil.showToast(getContext().getApplicationContext(), getResString("sobot_no_write_external_storage_permission"));
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.RECORD_AUDIO)) {
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.RECORD_AUDIO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
                                 permissionTitle = "sobot_no_record_audio_permission";
-//                                ToastUtil.showToast(getContext().getApplicationContext(), getResString("sobot_no_record_audio_permission"));
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.CAMERA)) {
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_microphone") + " , " + getResString("sobot_microphone_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.CAMERA) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
                                 permissionTitle = "sobot_no_camera_permission";
-//                                ToastUtil.showToast(getContext().getApplicationContext(), getResString("sobot_no_camera_permission"));
-                            }
-                            //调用权限失败
-                            if (permissionListener != null) {
-                                permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_camera") + " , " + getResString("sobot_camera_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
                             }
                             return;
-//                            permissionListener = null;
                         }
                     }
                     if (permissionListener != null) {

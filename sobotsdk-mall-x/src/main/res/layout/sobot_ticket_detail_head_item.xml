@@ -59,9 +59,9 @@
             android:layout_below="@id/sobot_tv_time"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
-            app:CollapseStrResId="@drawable/sobot_icon_arrow_up"
-            app:ExpandStrResId="@drawable/sobot_icon_arrow_down"
-            app:maxCollapsedLines="2">
+            app:sobot_CollapseStrResId="@drawable/sobot_icon_arrow_up"
+            app:sobot_ExpandStrResId="@drawable/sobot_icon_arrow_down"
+            app:sobot_maxCollapsedLines="2">
 
 
             <TextView

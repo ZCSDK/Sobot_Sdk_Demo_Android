@@ -275,7 +275,7 @@ public class SelectPicPopupWindow extends PopupWindow {
         Uri uri = Uri.fromFile(file);
         intent.setData(uri);
         context.sendBroadcast(intent);
-        showHint(ResourceUtils.getResString(context, "sobot_already_save_to_picture") + "\n" + file.getAbsolutePath());
+        showHint(ResourceUtils.getResString(context, "sobot_already_save_to_picture"));
     }
 
     /**

@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Refuser</string>
        <string name="sobot_agree_sentisive_tip">Vous avez accepté d\'envoyer des renseignements personnels de nature délicate et cette autorisation est valide 24 heures sur 24.</string>
        <string name="sobot_refuse_send_this_msg">Vous avez refusé d\'envoyer ce message</string>
+       <string name="sobot_no_support_call">L\'appareil ne supporte pas les appels téléphoniques</string>
 </resources>

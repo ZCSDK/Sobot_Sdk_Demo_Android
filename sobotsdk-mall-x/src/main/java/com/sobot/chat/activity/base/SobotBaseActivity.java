@@ -12,6 +12,7 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.core.channel.SobotMsgManager;
@@ -41,6 +43,7 @@ import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.image.SobotRCImageView;
 import com.sobot.chat.widget.statusbar.StatusBarCompat;
@@ -407,20 +410,46 @@ public abstract class SobotBaseActivity extends FragmentActivity {
                             String permissionTitle = "sobot_no_permission_text";
                             if (permissions[i] != null && permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                                 permissionTitle = "sobot_no_write_external_storage_permission";
-//                                ToastUtil.showToast(getApplicationContext(), getResString("sobot_no_write_external_storage_permission"));
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.RECORD_AUDIO)) {
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
+                                    ToastUtil.showCustomLongToast(this, CommonUtils.getAppName(this) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(this, getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
+                                permissionTitle = "sobot_no_write_external_storage_permission";
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                    ToastUtil.showCustomLongToast(this, CommonUtils.getAppName(this) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(this, getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.RECORD_AUDIO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
                                 permissionTitle = "sobot_no_record_audio_permission";
-//                                ToastUtil.showToast(getApplicationContext(), getResString("sobot_no_record_audio_permission"));
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.CAMERA)) {
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
+                                    ToastUtil.showCustomLongToast(this, CommonUtils.getAppName(this) + getResString("sobot_want_use_your") + getResString("sobot_microphone") + " , " + getResString("sobot_microphone_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(this, getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.CAMERA) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
                                 permissionTitle = "sobot_no_camera_permission";
-//                                ToastUtil.showToast(getApplicationContext(), getResString("sobot_no_camera_permission"));
-                            }
-                            //只有全部权限允许，我们才走回调。
-                            if (permissionListener != null) {
-                                permissionListener.onPermissionErrorListener(this, getResString(permissionTitle));
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                                    ToastUtil.showCustomLongToast(this, CommonUtils.getAppName(this) + getResString("sobot_want_use_your") + getResString("sobot_camera") + " , " + getResString("sobot_camera_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(this, getResString(permissionTitle));
+                                    }
+                                }
                             }
                             return;
-//                            permissionListener = null;
                         }
                     }
                     if (permissionListener != null) {
@@ -432,6 +461,7 @@ public abstract class SobotBaseActivity extends FragmentActivity {
                 break;
         }
     }
+
 
     /**
      * 检查存储权限

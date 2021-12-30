@@ -220,4 +220,5 @@
        <string name="sobot_refuse_send">Từ chối</string>
        <string name="sobot_agree_sentisive_tip">Bạn đã đồng ý gởi thông tin nhạy cảm cá nhân. Giấy phép này hợp lệ cả ngày.</string>
        <string name="sobot_refuse_send_this_msg">Bạn đã từ chối gửi tin nhắn này</string>
+       <string name="sobot_no_support_call">Thiết bị không hỗ trợ các cuộc gọis</string>
 </resources>

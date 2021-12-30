@@ -36,9 +36,9 @@ public class SobotAntoLineLayout extends ViewGroup {
         super(context, attrs);
         mOriginWidth = new ArrayList<>();
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sobot_autoWrapLineLayout);
-        mHorizontalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_horizontalGap, 0);
-        mVerticalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_verticalGap, 0);
-        mFillMode = ta.getInteger(R.styleable.sobot_autoWrapLineLayout_fillMode, 0);
+        mHorizontalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_sobot_horizontalGap, 0);
+        mVerticalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_sobot_verticalGap, 0);
+        mFillMode = ta.getInteger(R.styleable.sobot_autoWrapLineLayout_sobot_fillMode, 0);
         ta.recycle();
     }
 
@@ -46,9 +46,9 @@ public class SobotAntoLineLayout extends ViewGroup {
         super(context, attrs, defStyleAttr);
         mOriginWidth = new ArrayList<>();
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sobot_autoWrapLineLayout);
-        mHorizontalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_horizontalGap, 0);
-        mVerticalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_verticalGap, 0);
-        mFillMode = ta.getInteger(R.styleable.sobot_autoWrapLineLayout_fillMode, 0);
+        mHorizontalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_sobot_horizontalGap, 0);
+        mVerticalGap = ta.getDimensionPixelSize(R.styleable.sobot_autoWrapLineLayout_sobot_verticalGap, 0);
+        mFillMode = ta.getInteger(R.styleable.sobot_autoWrapLineLayout_sobot_fillMode, 0);
         ta.recycle();
     }
 
