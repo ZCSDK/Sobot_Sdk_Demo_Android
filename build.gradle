@@ -6,6 +6,7 @@ buildscript {
         jcenter()
         google()
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 
     dependencies {
@@ -21,6 +22,7 @@ allprojects {
         jcenter()
         google()
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 }
 

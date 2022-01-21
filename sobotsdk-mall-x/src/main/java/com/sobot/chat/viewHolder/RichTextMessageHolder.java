@@ -254,7 +254,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
             @Override
             public void onNoDoubleClick(View v) {
                 if (msgCallBack != null) {
-                    msgCallBack.doClickTransferBtn();
+                    msgCallBack.doClickTransferBtn(message);
                 }
             }
         });

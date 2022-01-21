@@ -2649,6 +2649,28 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      * 点击了转人工按钮
      */
     @Override
+    public void doClickTransferBtn(ZhiChiMessageBase base) {
+        //转人工按钮
+        hidePanelAndKeyboard(mPanelRoot);
+        doEmoticonBtn2Blur();
+        if(base!=null) {
+            int temptransferType = base.getTransferType();
+            if(temptransferType==0) {
+                if (Integer.parseInt(base.getAnswerType()) == 1) {
+                    temptransferType = 6;
+                }else if(Integer.parseInt(base.getAnswerType()) == 2){
+                    temptransferType = 7;
+                }else if(Integer.parseInt(base.getAnswerType()) == 3){
+                    temptransferType = 9;
+                }else if(Integer.parseInt(base.getAnswerType()) == 4){
+                    temptransferType = 8;
+                }
+            }
+            transfer2Custom(null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1");
+        }else {
+            transfer2Custom(null, null, null, true, "1");
+        }
+    }
     public void doClickTransferBtn() {
         //转人工按钮
         hidePanelAndKeyboard(mPanelRoot);
@@ -5021,7 +5043,27 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         tv.setTag(infoLists.get(i).getLableLink());
                         sobot_custom_menu_linearlayout.addView(tv);
                         if (!TextUtils.isEmpty(tv.getTag() + "")) {
-                            tv.setOnClickListener(mLableClickListener);
+                            tv.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    hidePanelAndKeyboard(mPanelRoot);
+                                    if (SobotOption.hyperlinkListener != null) {
+                                        SobotOption.hyperlinkListener.onUrlClick(v.getTag() + "");
+                                        return;
+                                    }
+                                    if (SobotOption.newHyperlinkListener != null) {
+                                        //如果返回true,拦截;false 不拦截
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotActivity(), v.getTag() + "");
+                                        if (isIntercept) {
+                                            return;
+                                        }
+                                    }
+
+                                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                    intent.putExtra("url", v.getTag() + "");
+                                    getSobotActivity().startActivity(intent);
+                                }
+                            });
                         }
                     }
                     sobot_custom_menu.setVisibility(View.VISIBLE);

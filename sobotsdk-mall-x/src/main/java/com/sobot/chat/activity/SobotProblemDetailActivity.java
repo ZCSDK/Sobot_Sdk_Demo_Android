@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -207,6 +209,91 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
                 return false;
             }
         });
+        mWebView.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+//                if (newProgress > 0 && newProgress < 100) {
+//                    mProgressBar.setVisibility(View.VISIBLE);
+//                    mProgressBar.setProgress(newProgress);
+//                } else if (newProgress == 100) {
+//                    mProgressBar.setVisibility(View.GONE);
+//                }
+            }
+
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+                uploadMessageAboveL = filePathCallback;
+                chooseAlbumPic();
+                return true;
+            }
+
+        });
+    }
+    private static final int REQUEST_CODE_ALBUM = 0x0111;
+
+    private ValueCallback<Uri> uploadMessage;
+    private ValueCallback<Uri[]> uploadMessageAboveL;
+
+    /**
+     * 选择相册照片
+     */
+    private void chooseAlbumPic() {
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("image/*");
+        startActivityForResult(Intent.createChooser(i, "Image Chooser"), REQUEST_CODE_ALBUM);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_ALBUM) {
+            if (uploadMessage == null && uploadMessageAboveL == null) {
+                return;
+            }
+            if (resultCode != RESULT_OK) {
+                //一定要返回null,否则<input file> 就是没有反应
+                if (uploadMessage != null) {
+                    uploadMessage.onReceiveValue(null);
+                    uploadMessage = null;
+                }
+                if (uploadMessageAboveL != null) {
+                    uploadMessageAboveL.onReceiveValue(null);
+                    uploadMessageAboveL = null;
+
+                }
+            }
+
+            if (resultCode == RESULT_OK) {
+                Uri imageUri = null;
+                switch (requestCode) {
+                    case REQUEST_CODE_ALBUM:
+
+                        if (data != null) {
+                            imageUri = data.getData();
+                        }
+                        break;
+                }
+
+                //上传文件
+                if (uploadMessage != null) {
+                    uploadMessage.onReceiveValue(imageUri);
+                    uploadMessage = null;
+                }
+                if (uploadMessageAboveL != null) {
+                    uploadMessageAboveL.onReceiveValue(new Uri[]{imageUri});
+                    uploadMessageAboveL = null;
+                }
+            }
+        }
     }
 
     /**

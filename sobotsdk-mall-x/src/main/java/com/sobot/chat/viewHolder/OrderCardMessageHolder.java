@@ -89,7 +89,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             if (orderCardContent.getOrderStatus() == 0) {
                 if (!TextUtils.isEmpty(orderCardContent.getStatusCustom())) {
                     mOrderStatus.setVisibility(View.VISIBLE);
-                    mOrderStatus.setText(Html.fromHtml(ResourceUtils.getResString(context, "sobot_order_status_lable") + "：" + "<b><font color=\'#E67F17\'>" + orderCardContent.getStatusCustom() + "</font></b>"));
+                    mOrderStatus.setText("：" + orderCardContent.getStatusCustom());
                 } else {
                     mOrderStatus.setVisibility(View.GONE);
                 }
@@ -120,7 +120,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                         statusStr = ResourceUtils.getResString(context, "sobot_order_status_7");
                         break;
                 }
-                mOrderStatus.setText(Html.fromHtml(ResourceUtils.getResString(context, "sobot_order_status_lable") + "：" + "<b><font color=\'#E67F17\'>" + statusStr + "</font></b>"));
+                mOrderStatus.setText("：" + statusStr);
             }
 
             mGoodsTotalMoney.setVisibility(View.VISIBLE);

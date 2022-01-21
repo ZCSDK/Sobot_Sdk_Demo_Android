@@ -1384,26 +1384,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         });
     }
 
-    protected View.OnClickListener mLableClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (SobotOption.hyperlinkListener != null) {
-                SobotOption.hyperlinkListener.onUrlClick(v.getTag() + "");
-                return;
-            }
-            if (SobotOption.newHyperlinkListener != null) {
-                //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(getSobotActivity(), v.getTag() + "");
-                if (isIntercept) {
-                    return;
-                }
-            }
-
-            Intent intent = new Intent(getContext(), WebViewActivity.class);
-            intent.putExtra("url", v.getTag() + "");
-            getSobotActivity().startActivity(intent);
-        }
-    };
 
     //-------------以下由子类实现-----------------------
     protected abstract String getSendMessageStr();

@@ -107,7 +107,7 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
             @Override
             public void onNoDoubleClick(View v) {
                 if (msgCallBack != null) {
-                    msgCallBack.doClickTransferBtn();
+                    msgCallBack.doClickTransferBtn(message);
                 }
             }
         });

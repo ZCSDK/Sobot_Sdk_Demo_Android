@@ -159,9 +159,12 @@
     <color name="sobot_goods_des_text_color">@color/sobot_common_gray2</color>
     <!--商品价格颜色-->
     <color name="sobot_goods_price_text_color">@color/sobot_color</color>
-    <!--订单卡片title颜色-->
+
+    <!--订单卡片 文字通用颜色-->
     <color name="sobot_order_label_text_color">@color/sobot_common_gray1</color>
-    <!--订单卡片商品描述颜色-->
+    <!--订单卡片 订单状态颜色-->
+    <color name="sobot_order_status_text_color">#E67F17</color>
+    <!--订单卡片 商品描述颜色-->
     <color name="sobot_order_des_text_color">@color/sobot_common_gray2</color>
 
     <!--留言记录详情时间线线条颜色-->

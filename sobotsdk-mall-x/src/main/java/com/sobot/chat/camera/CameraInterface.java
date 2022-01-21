@@ -425,7 +425,7 @@ public class CameraInterface implements Camera.PreviewCallback {
      * 销毁Camera
      */
     void doDestroyCamera() {
-        errorLisenter = null;
+
         if (null != mCamera) {
             try {
                 mCamera.setPreviewCallback(null);
@@ -434,6 +434,7 @@ public class CameraInterface implements Camera.PreviewCallback {
                 mCamera.stopPreview();
                 //这句要在stopPreview后执行，不然会卡顿或者花屏
                 mCamera.setPreviewDisplay(null);
+
                 mHolder = null;
                 isPreviewing = false;
                 mCamera.release();
@@ -442,10 +443,13 @@ public class CameraInterface implements Camera.PreviewCallback {
                 Log.i(TAG, "=== Destroy Camera ===");
             } catch (Exception e) {
                 e.printStackTrace();
+                errorLisenter.onError();
+                destroyCameraInterface();
             }
         } else {
             Log.i(TAG, "=== Camera  Null===");
         }
+
     }
 
     /**
@@ -771,7 +775,9 @@ public class CameraInterface implements Camera.PreviewCallback {
         void focusSuccess();
 
     }
-
+    interface DestoryLinsten{
+        void onDestory();
+    }
 
     void registerSensorManager(Context context) {
         if (sm == null) {
@@ -847,4 +853,5 @@ public class CameraInterface implements Camera.PreviewCallback {
 
         return inSampleSize;
     }
+
 }

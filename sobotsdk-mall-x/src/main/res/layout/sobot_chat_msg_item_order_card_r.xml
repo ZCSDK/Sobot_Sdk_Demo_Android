@@ -21,17 +21,17 @@
         <TextView
             android:id="@+id/sobot_name"
             style="@style/sobot_chatting_nickname"
+            android:layout_toStartOf="@+id/sobot_imgHead"
             android:layout_toLeftOf="@+id/sobot_imgHead"
-            android:visibility="gone"
-            android:layout_toStartOf="@+id/sobot_imgHead" />
+            android:visibility="gone" />
 
         <com.sobot.chat.widget.SobotImageView
             android:id="@+id/sobot_imgHead"
             style="@style/sobot_chatting_imghead"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:visibility="gone"
-            tools:background="@drawable/sobot_chatting_default_head"
-            android:layout_alignParentEnd="true" />
+            tools:background="@drawable/sobot_chatting_default_head" />
 
         <!-- 我的消息的内容 -->
         <LinearLayout
@@ -64,9 +64,9 @@
                 android:id="@+id/sobot_rl_hollow_container"
                 style="@style/sobot_msg_file_right_content_ll_bg_style"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp">
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp">
 
                 <RelativeLayout
                     android:id="@+id/sobot_goods_rl"
@@ -78,24 +78,24 @@
                         android:id="@+id/sobot_goods_pic"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_marginRight="6dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/sobot_icon_consulting_default_pic"
                         android:visibility="visible"
-                        app:sobot_round_corner="6dp"
-                        android:layout_marginEnd="6dp" />
+                        app:sobot_round_corner="6dp" />
 
                     <TextView
                         android:id="@+id/sobot_goods_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@id/sobot_goods_pic"
+                        android:layout_toEndOf="@id/sobot_goods_pic"
                         android:layout_toRightOf="@id/sobot_goods_pic"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textColor="@color/sobot_order_label_text_color"
-                        android:textSize="14sp"
-                        android:layout_toEndOf="@id/sobot_goods_pic" />
+                        android:textSize="14sp" />
 
 
                     <TextView
@@ -104,12 +104,12 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/sobot_goods_title"
                         android:layout_marginTop="2dp"
+                        android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
+                        android:layout_toEndOf="@id/sobot_goods_pic"
                         android:layout_toRightOf="@id/sobot_goods_pic"
                         android:textColor="@color/sobot_order_des_text_color"
-                        android:textSize="12sp"
-                        android:layout_toEndOf="@id/sobot_goods_pic"
-                        android:layout_marginEnd="4dp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/sobot_goods_total_money"
@@ -117,10 +117,10 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/sobot_goods_title"
                         android:layout_alignTop="@id/sobot_goods_count"
+                        android:layout_toEndOf="@id/sobot_goods_count"
                         android:layout_toRightOf="@id/sobot_goods_count"
                         android:textColor="@color/sobot_order_des_text_color"
-                        android:textSize="12sp"
-                        android:layout_toEndOf="@id/sobot_goods_count" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <View
@@ -132,19 +132,34 @@
                     android:layout_marginBottom="10dp"
                     android:background="@color/sobot_line_1dp" />
 
-                <TextView
-                    android:id="@+id/sobot_order_status"
+                <LinearLayout
+                    android:id="@+id/sobot_goods_order_status_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/sobot_goods_order_split"
-                    android:textColor="@color/sobot_order_label_text_color"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sobot_order_status_lable"
+                        android:textColor="@color/sobot_order_label_text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/sobot_order_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/sobot_order_status_text_color"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/sobot_order_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/sobot_order_status"
+                    android:layout_below="@id/sobot_goods_order_status_ll"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/sobot_order_label_text_color"
                     android:textSize="12sp" />

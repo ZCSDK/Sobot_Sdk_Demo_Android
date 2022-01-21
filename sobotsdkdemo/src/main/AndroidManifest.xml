@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sobot.demo">
 
+    <!--友盟需要-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@drawable/sobot_logo_icon"
+        android:icon="@drawable/sobot_demo_logo"
         android:label="@string/sobot_demo_app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"

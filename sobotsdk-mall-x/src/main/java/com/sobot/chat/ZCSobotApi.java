@@ -387,11 +387,20 @@ public class ZCSobotApi {
      * @param noReadLeaveReplyListener 留言未读回复列表回调，返回List<SobotLeaveReplyModel>
      */
     public static void getLastLeaveReplyMessage(final Context context, String partnerId, final SobotNoReadLeaveReplyListener noReadLeaveReplyListener) {
-        if (context == null || TextUtils.isEmpty(partnerId)) {
-            partnerId = CommonUtils.getDeviceId(context);
+        if (context == null) {
+            LogUtils.e("getLastLeaveReplyMessage context 为空");
+            return;
         }
-         String companyId =  SharedPreferencesUtil.getStringData(context,
-                ZhiChiConstant.SOBOT_CONFIG_COMPANYID,"");
+        if (TextUtils.isEmpty(partnerId)) {
+            LogUtils.e("getLastLeaveReplyMessage partnerId 不能为空");
+            return;
+        }
+        String companyId = SharedPreferencesUtil.getStringData(context,
+                ZhiChiConstant.SOBOT_CONFIG_COMPANYID, "");
+        if (TextUtils.isEmpty(companyId)) {
+            LogUtils.e("getLastLeaveReplyMessage companyId 不能为空,请检查是否调用初始化方法");
+            return;
+        }
         final List<SobotLeaveReplyModel> sobotLeaveReplyModels = new ArrayList<>();
         SobotMsgManager.getInstance(context).getZhiChiApi()
                 .getUserTicketReplyInfo(context, companyId, partnerId, new StringResultCallBack<List<SobotLeaveReplyModel>>() {

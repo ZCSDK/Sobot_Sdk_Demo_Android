@@ -1008,7 +1008,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
 
         void sendMessageToRobot(ZhiChiMessageBase base, int type, int questionFlag, String docId, String multiRoundMsg);
 
-        void doClickTransferBtn();
+        void doClickTransferBtn(ZhiChiMessageBase base);
 
         void hidePanelAndKeyboard();
 

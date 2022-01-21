@@ -91,8 +91,6 @@ public class SobotCameraActivity extends FragmentActivity {
             @Override
             public void onError() {
                 //错误监听
-                Intent intent = new Intent();
-                setResult(RESULT_CODE, intent);
                 finish();
             }
 
