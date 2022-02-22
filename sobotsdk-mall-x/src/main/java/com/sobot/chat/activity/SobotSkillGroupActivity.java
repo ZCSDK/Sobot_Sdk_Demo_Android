@@ -18,9 +18,8 @@ import com.sobot.chat.api.model.SobotConnCusParam;
 import com.sobot.chat.api.model.ZhiChiGroup;
 import com.sobot.chat.api.model.ZhiChiGroupBase;
 import com.sobot.chat.application.MyApplication;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.presenter.StPostMsgPresenter;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
@@ -29,6 +28,7 @@ import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.attachment.SpaceItemDecoration;
 import com.sobot.chat.widget.horizontalgridpage.SobotRecyclerCallBack;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +130,7 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
     @Override
     protected void onDestroy() {
         mPressenter.destory();
-        OkHttpUtils.getInstance().cancelTag(SobotSkillGroupActivity.this);
+        HttpUtils.getInstance().cancelTag(SobotSkillGroupActivity.this);
         MyApplication.getInstance().deleteActivity(this);
         super.onDestroy();
     }

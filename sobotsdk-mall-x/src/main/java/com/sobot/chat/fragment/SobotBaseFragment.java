@@ -28,8 +28,8 @@ import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.api.ZhiChiApi;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
 import com.sobot.chat.listener.PermissionListener;
 import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.notchlib.INotchScreen;
@@ -116,8 +116,8 @@ public abstract class SobotBaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        OkHttpUtils.getInstance().cancelTag(SobotBaseFragment.this);
-        OkHttpUtils.getInstance().cancelTag(ZhiChiConstant.SOBOT_GLOBAL_REQUEST_CANCEL_TAG);
+        HttpUtils.getInstance().cancelTag(SobotBaseFragment.this);
+        HttpUtils.getInstance().cancelTag(ZhiChiConstant.SOBOT_GLOBAL_REQUEST_CANCEL_TAG);
         super.onDestroyView();
     }
 

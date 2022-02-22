@@ -17,15 +17,15 @@ import com.sobot.chat.api.model.SobotCacheFile;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.StVideoView;
 import com.sobot.chat.camera.listener.StVideoListener;
-import com.sobot.chat.core.HttpUtils;
-import com.sobot.chat.core.http.db.SobotDownloadManager;
-import com.sobot.chat.core.http.download.SobotDownload;
-import com.sobot.chat.core.http.download.SobotDownloadListener;
-import com.sobot.chat.core.http.download.SobotDownloadTask;
-import com.sobot.chat.core.http.model.SobotProgress;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotPathManager;
+import com.sobot.network.http.HttpUtils;
+import com.sobot.network.http.db.SobotDownloadManager;
+import com.sobot.network.http.download.SobotDownload;
+import com.sobot.network.http.download.SobotDownloadListener;
+import com.sobot.network.http.download.SobotDownloadTask;
+import com.sobot.network.http.model.SobotProgress;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
@@ -180,7 +180,7 @@ public class SobotVideoActivity extends FragmentActivity implements View.OnClick
                 mTask.remove(true);
             }
         }
-        mTask = HttpUtils.getInstance().addDownloadFileTask(mCacheFile.getMsgId(), mCacheFile.getUrl(), mCacheFile.getFileName(), null);
+        mTask = HttpUtils.getInstance().addDownloadFileTask(mCacheFile.getMsgId(), mCacheFile.getUrl(), mCacheFile.getFileName(), null,null);
         if (mTask != null) {
             mTask.register(mDownloadListener).start();
         }

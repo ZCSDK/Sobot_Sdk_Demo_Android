@@ -45,12 +45,12 @@ import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.viewHolder.ImageMessageHolder;
 import com.sobot.chat.widget.dialog.SobotDialogUtils;
 import com.sobot.chat.widget.dialog.SobotEvaluateDialog;
 import com.sobot.chat.widget.dialog.SobotRobotListDialog;
 import com.sobot.chat.widget.dialog.SobotTicketEvaluateDialog;
+import com.sobot.network.http.callback.StringResultCallBack;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;

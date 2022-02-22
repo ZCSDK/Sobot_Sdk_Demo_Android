@@ -14,11 +14,11 @@ import android.widget.TextView;
 import com.sobot.chat.activity.SobotTicketDetailActivity;
 import com.sobot.chat.adapter.SobotTicketInfoAdapter;
 import com.sobot.chat.api.model.SobotUserTicketInfo;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.presenter.StPostMsgPresenter;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 import java.util.List;

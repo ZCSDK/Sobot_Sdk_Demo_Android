@@ -13,7 +13,6 @@ import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.api.model.BaseCode;
 import com.sobot.chat.api.model.SobotOfflineLeaveMsgModel;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CustomToast;
 import com.sobot.chat.utils.ResourceUtils;
@@ -22,6 +21,7 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.dialog.SobotFreeAccountTipDialog;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View.OnClickListener {
 

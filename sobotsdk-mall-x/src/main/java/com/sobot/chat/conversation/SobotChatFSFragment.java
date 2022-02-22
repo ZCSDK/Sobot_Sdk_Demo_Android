@@ -78,8 +78,6 @@ import com.sobot.chat.api.model.ZhiChiPushMessage;
 import com.sobot.chat.api.model.ZhiChiReplyAnswer;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
-import com.sobot.chat.core.http.upload.SobotUpload;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.listener.SobotFunctionType;
@@ -134,6 +132,8 @@ import com.sobot.chat.widget.kpswitch.view.ChattingPanelEmoticonView;
 import com.sobot.chat.widget.kpswitch.view.ChattingPanelUploadView;
 import com.sobot.chat.widget.kpswitch.view.CustomeViewFactory;
 import com.sobot.chat.widget.kpswitch.widget.KPSwitchFSPanelLinearLayout;
+import com.sobot.network.http.callback.StringResultCallBack;
+import com.sobot.network.http.upload.SobotUpload;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
@@ -4052,9 +4052,17 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         messageAdapter.notifyDataSetChanged();
                         //修改客服状态为在线
                         customerState = CustomerState.Online;
-                    } else if (ZhiChiConstant.push_message_outLine == pushMessage.getType()) {
-                        // 用户被下线
-                        customerServiceOffline(initModel, Integer.parseInt(pushMessage.getStatus()));
+                    } else if (ZhiChiConstant.push_message_outLine == pushMessage.getType() && customerState == CustomerState.Online) {
+                        if (6 == Integer.parseInt(pushMessage.getStatus())) {
+                            // 打开新窗口 单独处理
+                            String puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
+                            if (!TextUtils.isEmpty(puid) && !TextUtils.isEmpty(pushMessage.getPuid()) && puid.equals(pushMessage.getPuid())) {
+                                customerServiceOffline(initModel, Integer.parseInt(pushMessage.getStatus()));
+                            }
+                        } else {
+                            // 用户被下线
+                            customerServiceOffline(initModel, Integer.parseInt(pushMessage.getStatus()));
+                        }
                     } else if (ZhiChiConstant.push_message_transfer == pushMessage.getType()) {
                         LogUtils.i("用户被转接--->" + pushMessage.getName());
                         //替换标题 转接后客服头像取face 和name

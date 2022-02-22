@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.sobot.chat.SobotApi;
@@ -13,12 +12,13 @@ import com.sobot.chat.adapter.SobotHelpCenterAdapter;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.StCategoryModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
+import com.sobot.chat.widget.SobotAutoGridView;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
     private View mBottomBtn;
     private TextView tv_sobot_layout_online_service;
     private TextView tv_sobot_layout_online_tel;
-    private GridView mGridView;
+    private SobotAutoGridView mGridView;
     private SobotHelpCenterAdapter mAdapter;
     private TextView tvNoData;
     private TextView tvNoDataDescribe;

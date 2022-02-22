@@ -35,7 +35,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
-import static com.sobot.chat.core.http.OkHttpUtils.runOnUiThread;
+import static com.sobot.network.http.SobotOkHttpUtils.runOnUiThread;
+
 
 @SuppressLint("ViewConstructor")
 public class SelectPicPopupWindow extends PopupWindow {

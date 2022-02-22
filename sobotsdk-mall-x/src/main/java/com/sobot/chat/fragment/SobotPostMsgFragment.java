@@ -39,7 +39,6 @@ import com.sobot.chat.api.model.ZhiChiMessage;
 import com.sobot.chat.api.model.ZhiChiUploadAppFileModelResult;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.util.FileUtil;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.ISobotCusField;
 import com.sobot.chat.presenter.StCusFieldPresenter;
 import com.sobot.chat.presenter.StPostMsgPresenter;
@@ -63,6 +62,7 @@ import com.sobot.chat.widget.dialog.SobotDeleteWorkOrderDialog;
 import com.sobot.chat.widget.dialog.SobotDialogUtils;
 import com.sobot.chat.widget.dialog.SobotSelectPicDialog;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.File;
 import java.io.IOException;

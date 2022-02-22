@@ -23,13 +23,13 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.StDocModel;
 import com.sobot.chat.api.model.StHelpDocModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 /**
  * 帮助中心问题详情

@@ -20,9 +20,8 @@ import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.SobotMsgCenterModel;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.handler.SobotMsgCenterHandler;
 import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.receiver.SobotMsgCenterReceiver;
@@ -31,6 +30,7 @@ import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.SobotCompareNewMsgTime;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -238,7 +238,7 @@ public class SobotConsultationListActivity extends SobotBaseActivity implements 
 
     @Override
     public void onDestroy() {
-        OkHttpUtils.getInstance().cancelTag(SobotConsultationListActivity.this);
+        HttpUtils.getInstance().cancelTag(SobotConsultationListActivity.this);
         // 取消广播接受者
         if (localBroadcastManager != null) {
             localBroadcastManager.unregisterReceiver(receiver);

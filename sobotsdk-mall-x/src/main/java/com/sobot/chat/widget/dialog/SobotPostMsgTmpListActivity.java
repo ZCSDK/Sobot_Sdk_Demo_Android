@@ -12,9 +12,9 @@ import com.sobot.chat.adapter.SobotPostMsgTmpListAdapter;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
 import com.sobot.chat.api.model.SobotLeaveMsgConfig;
 import com.sobot.chat.api.model.SobotPostMsgTemplate;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 

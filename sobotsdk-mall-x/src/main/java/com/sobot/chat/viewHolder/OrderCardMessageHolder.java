@@ -3,7 +3,6 @@ package com.sobot.chat.viewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;

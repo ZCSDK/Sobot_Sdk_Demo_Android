@@ -25,9 +25,8 @@ import com.sobot.chat.SobotApi;
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.SobotRobotGuess;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
@@ -35,6 +34,7 @@ import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.emoji.InputHelper;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +114,7 @@ public class ContainsEmojiEditText extends EditText implements View.OnFocusChang
         if (TextUtils.isEmpty(s)) {
             dismissPop();
         } else {
-            OkHttpUtils.getInstance().cancelTag(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG);
+            HttpUtils.getInstance().cancelTag(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG);
             ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(getContext()).getZhiChiApi();
             zhiChiApi.robotGuess(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG, mUid, mRobotFlag, s, new StringResultCallBack<SobotRobotGuess>() {
                 @Override
@@ -355,7 +355,7 @@ public class ContainsEmojiEditText extends EditText implements View.OnFocusChang
     public void setAutoCompleteEnable(boolean flag) {
         mIsAutoComplete = flag;
         if (!mIsAutoComplete) {
-            OkHttpUtils.getInstance().cancelTag(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG);
+            HttpUtils.getInstance().cancelTag(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG);
             dismissPop();
         }
     }
@@ -363,7 +363,7 @@ public class ContainsEmojiEditText extends EditText implements View.OnFocusChang
     @Override
     protected void onDetachedFromWindow() {
         removeTextChangedListener(myWatcher);
-        OkHttpUtils.getInstance().cancelTag(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG);
+        HttpUtils.getInstance().cancelTag(SOBOT_AUTO_COMPLETE_REQUEST_CANCEL_TAG);
         dismissPop();
         autoCompleteListener = null;
         mContentView = null;

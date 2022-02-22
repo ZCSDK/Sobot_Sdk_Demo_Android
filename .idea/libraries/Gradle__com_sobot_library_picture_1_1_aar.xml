@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.sobot.library:picture:1.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3d33ebab998192439c0b3959a6c1418e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3d33ebab998192439c0b3959a6c1418e/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3d33ebab998192439c0b3959a6c1418e/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sobot.library/picture/1.1/9ad0f692ea63939ad6ab54eb3623c547d072d148/picture-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

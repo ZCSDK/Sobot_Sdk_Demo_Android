@@ -31,9 +31,8 @@ import com.sobot.chat.api.model.SatisfactionSet;
 import com.sobot.chat.api.model.SatisfactionSetBase;
 import com.sobot.chat.api.model.SobotCommentParam;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.notchlib.utils.ScreenUtil;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
@@ -45,6 +44,7 @@ import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.SobotAntoLineLayout;
 import com.sobot.chat.widget.SobotEditTextLayout;
 import com.sobot.chat.widget.SobotTenRatingLayout;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -671,7 +671,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
 
     @Override
     public void onDetachedFromWindow() {
-        OkHttpUtils.getInstance().cancelTag(CANCEL_TAG);
+        HttpUtils.getInstance().cancelTag(CANCEL_TAG);
         super.onDetachedFromWindow();
     }
 

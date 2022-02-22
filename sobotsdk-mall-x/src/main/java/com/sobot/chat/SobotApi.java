@@ -30,7 +30,6 @@ import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.conversation.SobotChatActivity;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.HyperlinkListener;
 import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotChatStatusListener;
@@ -47,6 +46,8 @@ import com.sobot.chat.utils.SobotCache;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StServiceUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.apiUtils.SobotHttpUtils;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class SobotApi {
             Log.e(Tag, "initSobotSDK  参数为空 context:" + context + "  appkey:" + appkey);
             return;
         }
-
+        SobotHttpUtils.init(context);
         SobotApp.setApplicationContext(context);
         SharedPreferencesUtil.saveAppKey(context, appkey);
 

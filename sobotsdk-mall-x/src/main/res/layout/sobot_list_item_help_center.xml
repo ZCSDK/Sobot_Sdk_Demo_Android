@@ -3,8 +3,8 @@
     android:id="@+id/sobot_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/sobot_line_1dp"
-    android:gravity="center"
+    android:background="@color/sobot_common_gray7"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="0.4dp"
     android:visibility="visible">
@@ -12,8 +12,7 @@
     <RelativeLayout
         android:id="@+id/sobot_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/sobot_common_gray7">
+        android:layout_height="wrap_content">
 
         <com.sobot.chat.widget.SobotImageView
             android:id="@+id/sobot_tv_icon"

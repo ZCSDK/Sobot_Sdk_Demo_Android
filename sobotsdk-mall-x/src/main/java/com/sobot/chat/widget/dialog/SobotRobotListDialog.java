@@ -10,11 +10,11 @@ import android.widget.TextView;
 import com.sobot.chat.adapter.SobotRobotListAdapter;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.SobotRobot;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.widget.dialog.base.SobotActionSheet;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.List;
 
@@ -114,7 +114,7 @@ public class SobotRobotListDialog extends SobotActionSheet implements AdapterVie
 
     @Override
     public void onDetachedFromWindow() {
-        OkHttpUtils.getInstance().cancelTag(CANCEL_TAG);
+        HttpUtils.getInstance().cancelTag(CANCEL_TAG);
         super.onDetachedFromWindow();
     }
 

@@ -23,7 +23,7 @@ import com.sobot.chat.api.model.SobotCusFieldConfig;
 import com.sobot.chat.api.model.SobotCusFieldDataInfo;
 import com.sobot.chat.api.model.SobotFieldModel;
 import com.sobot.chat.application.MyApplication;
-import com.sobot.chat.core.http.OkHttpUtils;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
@@ -197,7 +197,7 @@ public class SobotCusFieldActivity extends SobotDialogBaseActivity {
 
     @Override
     protected void onDestroy() {
-        OkHttpUtils.getInstance().cancelTag(SobotCusFieldActivity.this);
+        HttpUtils.getInstance().cancelTag(SobotCusFieldActivity.this);
         MyApplication.getInstance().deleteActivity(this);
         super.onDestroy();
     }

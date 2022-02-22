@@ -16,11 +16,11 @@ import com.sobot.chat.api.model.SobotCityResult;
 import com.sobot.chat.api.model.SobotCusFieldConfig;
 import com.sobot.chat.api.model.SobotProvinInfo;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.dialog.SobotDialogUtils;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 import java.util.List;

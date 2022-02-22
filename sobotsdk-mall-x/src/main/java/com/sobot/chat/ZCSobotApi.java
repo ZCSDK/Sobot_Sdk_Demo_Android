@@ -33,7 +33,6 @@ import com.sobot.chat.conversation.SobotChatActivity;
 import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.HyperlinkListener;
 import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotChatStatusListener;
@@ -54,6 +53,8 @@ import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StServiceUtils;
 import com.sobot.chat.utils.SystemUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.apiUtils.SobotHttpUtils;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.File;
 import java.io.Serializable;
@@ -90,7 +91,7 @@ public class ZCSobotApi {
         }
         boolean initSdk = SharedPreferencesUtil.getBooleanData(context, ZhiChiConstant.SOBOT_CONFIG_INITSDK, false);
         if (!initSdk) {
-            Log.e(Tag, "请在Application中调用【SobotApi.initSobotSDK()】来初始化SDK!");
+            Log.e(Tag, "请在Application中调用【ZCSobotApi.initSobotSDK()】来初始化SDK!");
             return;
         }
         Intent intent = new Intent(context, SobotChatActivity.class);
@@ -572,6 +573,7 @@ public class ZCSobotApi {
             return;
         }
 
+        SobotHttpUtils.init(context);
         SobotApp.setApplicationContext(context);
         SharedPreferencesUtil.saveAppKey(context, appkey);
 

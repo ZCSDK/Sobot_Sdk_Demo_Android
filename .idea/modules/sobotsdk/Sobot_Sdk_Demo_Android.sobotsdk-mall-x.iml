@@ -42,7 +42,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.0.7.jar" level="project" />
+    <orderEntry type="library" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.0.8.jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.12.0" level="project" />
     <orderEntry type="library" name="Gradle: com.nostra13.universalimageloader:universal-image-loader:1.9.5" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:glide:3.8.0" level="project" />
@@ -52,7 +52,8 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.sobot.library:picture:1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.sobot.library:picture:1.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.sobot.library:net:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-v4:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.sobot.chat:sobotsupport-glidev4:2.0@aar" level="project" />

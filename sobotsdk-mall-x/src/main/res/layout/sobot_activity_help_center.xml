@@ -37,7 +37,7 @@
 
     </LinearLayout>
 
-    <GridView
+    <com.sobot.chat.widget.SobotAutoGridView
         android:id="@+id/sobot_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

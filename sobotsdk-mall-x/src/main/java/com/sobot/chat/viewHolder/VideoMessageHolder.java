@@ -7,18 +7,18 @@ import android.widget.ImageView;
 
 import com.sobot.chat.activity.SobotVideoActivity;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
-import com.sobot.chat.api.model.CommonModelBase;
 import com.sobot.chat.api.model.SobotCacheFile;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
-import com.sobot.chat.core.http.model.SobotProgress;
-import com.sobot.chat.core.http.upload.SobotUpload;
-import com.sobot.chat.core.http.upload.SobotUploadListener;
-import com.sobot.chat.core.http.upload.SobotUploadTask;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.RoundProgressBar;
 import com.sobot.chat.widget.image.SobotRCImageView;
+import com.sobot.network.http.model.SobotProgress;
+import com.sobot.network.http.upload.SobotUpload;
+import com.sobot.network.http.upload.SobotUploadListener;
+import com.sobot.network.http.upload.SobotUploadModelBase;
+import com.sobot.network.http.upload.SobotUploadTask;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
@@ -187,7 +187,7 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
         }
 
         @Override
-        public void onFinish(CommonModelBase result, SobotProgress progress) {
+        public void onFinish(SobotUploadModelBase result, SobotProgress progress) {
             if (tag == holder.getTag()) {
                 holder.refreshUploadUi(progress);
             }

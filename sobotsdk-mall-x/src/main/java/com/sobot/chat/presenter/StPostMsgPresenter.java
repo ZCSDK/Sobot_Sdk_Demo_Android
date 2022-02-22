@@ -12,12 +12,12 @@ import com.sobot.chat.activity.SobotPostMsgActivity;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.SobotLeaveMsgConfig;
 import com.sobot.chat.api.model.SobotPostMsgTemplate;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.dialog.SobotPostMsgTmpListActivity;
 import com.sobot.chat.widget.dialog.SobotPostMsgTmpListDialog;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 
@@ -203,6 +203,6 @@ public class StPostMsgPresenter {
             mDialog.dismiss();
         }
         mIsActive = false;
-        OkHttpUtils.getInstance().cancelTag(mCancelTag);
+        HttpUtils.getInstance().cancelTag(mCancelTag);
     }
 }

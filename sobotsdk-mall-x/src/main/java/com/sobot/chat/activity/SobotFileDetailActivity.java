@@ -11,17 +11,17 @@ import android.widget.TextView;
 import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.api.model.SobotCacheFile;
 import com.sobot.chat.core.HttpUtils;
-import com.sobot.chat.core.http.db.SobotDownloadManager;
-import com.sobot.chat.core.http.download.SobotDownload;
-import com.sobot.chat.core.http.download.SobotDownloadListener;
-import com.sobot.chat.core.http.download.SobotDownloadTask;
-import com.sobot.chat.core.http.model.SobotProgress;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.FileOpenHelper;
 import com.sobot.chat.utils.FileSizeUtil;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotPathManager;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.http.db.SobotDownloadManager;
+import com.sobot.network.http.download.SobotDownload;
+import com.sobot.network.http.download.SobotDownloadListener;
+import com.sobot.network.http.download.SobotDownloadTask;
+import com.sobot.network.http.model.SobotProgress;
 
 import java.io.File;
 
@@ -66,9 +66,6 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
         mProgressStr = getResString("sobot_file_downloading");
         sobot_btn_start.setOnClickListener(this);
         sobot_btn_cancel.setOnClickListener(this);
-        if (!checkStoragePermission()) {
-            return;
-        }
 
         mDownloadListener = new SobotDownloadListener(SobotDownload.CancelTagType.SOBOT_TAG_DOWNLOAD_ACT) {
             @Override
@@ -220,6 +217,9 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
         }
 
         if (v == sobot_btn_start) {
+            if (!checkStoragePermission()) {
+                return;
+            }
             if (sobot_btn_start.isSelected()) {
                 //打开文件
                 if (mCacheFile != null) {

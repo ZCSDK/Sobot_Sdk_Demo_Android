@@ -20,7 +20,6 @@ import com.sobot.chat.api.model.SobotUserTicketEvaluate;
 import com.sobot.chat.api.model.SobotUserTicketInfo;
 import com.sobot.chat.api.model.StUserDealTicketInfo;
 import com.sobot.chat.api.model.ZhiChiUploadAppFileModelResult;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.CustomToast;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
@@ -28,6 +27,7 @@ import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.dialog.SobotReplyActivity;
 import com.sobot.chat.widget.dialog.SobotTicketEvaluateActivity;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.Serializable;
 import java.util.ArrayList;

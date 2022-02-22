@@ -31,8 +31,8 @@ import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.application.MyApplication;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
 import com.sobot.chat.listener.PermissionListener;
 import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.notchlib.INotchScreen;
@@ -311,7 +311,7 @@ public abstract class SobotBaseActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        OkHttpUtils.getInstance().cancelTag(SobotBaseActivity.this);
+        HttpUtils.getInstance().cancelTag(SobotBaseActivity.this);
         MyApplication.getInstance().deleteActivity(this);
         super.onDestroy();
     }

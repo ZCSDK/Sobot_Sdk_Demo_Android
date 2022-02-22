@@ -28,7 +28,6 @@ import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotQueryFromActivity;
-import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.apiUtils.SobotVerControl;
@@ -50,11 +49,10 @@ import com.sobot.chat.api.model.ZhiChiMessage;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.api.model.ZhiChiReplyAnswer;
 import com.sobot.chat.camera.util.FileUtil;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.LimitQueue;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.fragment.SobotBaseFragment;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
@@ -66,10 +64,10 @@ import com.sobot.chat.utils.MD5Util;
 import com.sobot.chat.utils.NotificationUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
-import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.Util;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -1609,7 +1607,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     @Override
     public void onDestroy() {
         stopPolling();
-        OkHttpUtils.getInstance().cancelTag(SobotChatBaseFragment.this);
+        HttpUtils.getInstance().cancelTag(SobotChatBaseFragment.this);
         super.onDestroy();
     }
 }

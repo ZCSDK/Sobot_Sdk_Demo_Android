@@ -16,7 +16,6 @@ import com.sobot.chat.api.model.SobotCusFieldConfig;
 import com.sobot.chat.api.model.SobotFieldModel;
 import com.sobot.chat.api.model.SobotProvinInfo;
 import com.sobot.chat.api.model.SobotQueryFormModel;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.listener.ISobotCusField;
 import com.sobot.chat.presenter.StCusFieldPresenter;
 import com.sobot.chat.utils.CustomToast;
@@ -28,6 +27,7 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.dialog.SobotDialogUtils;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.ArrayList;
 

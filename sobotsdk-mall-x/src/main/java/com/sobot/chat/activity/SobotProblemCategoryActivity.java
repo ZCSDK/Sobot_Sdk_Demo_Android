@@ -15,10 +15,10 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.StCategoryModel;
 import com.sobot.chat.api.model.StDocModel;
 import com.sobot.chat.core.channel.SobotMsgManager;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.util.List;
 

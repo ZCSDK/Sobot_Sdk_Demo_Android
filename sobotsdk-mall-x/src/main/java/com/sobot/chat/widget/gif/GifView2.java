@@ -502,7 +502,7 @@ public class GifView2 extends View implements View.OnTouchListener {
 
             @Override
             public void inProgress(int progress) {
-                LogUtils.i("gif图片下载进度:" + progress);
+                //LogUtils.i("gif图片下载进度:" + progress);
             }
         });
     }

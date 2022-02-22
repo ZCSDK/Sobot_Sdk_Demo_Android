@@ -34,8 +34,7 @@ import com.sobot.chat.api.model.ZhiChiMessage;
 import com.sobot.chat.api.model.ZhiChiUploadAppFileModelResult;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.util.FileUtil;
-import com.sobot.chat.core.http.OkHttpUtils;
-import com.sobot.chat.core.http.callback.StringResultCallBack;
+import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.listener.PermissionListener;
 import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.notchlib.INotchScreen;
@@ -55,6 +54,7 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.attachment.FileTypeConfig;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
+import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.File;
 import java.io.IOException;
@@ -410,7 +410,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
 
     @Override
     protected void onDestroy() {
-        OkHttpUtils.getInstance().cancelTag(SobotReplyActivity.this);
+        HttpUtils.getInstance().cancelTag(SobotReplyActivity.this);
         MyApplication.getInstance().deleteActivity(this);
         super.onDestroy();
     }
