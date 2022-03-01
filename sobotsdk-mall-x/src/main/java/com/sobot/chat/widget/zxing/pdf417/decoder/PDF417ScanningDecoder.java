@@ -56,10 +56,10 @@ public final class PDF417ScanningDecoder {
                                      ResultPoint imageBottomRight,
                                      int minCodewordWidth,
                                      int maxCodewordWidth) throws NotFoundException, FormatException, ChecksumException {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox = new com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox(image, imageTopLeft, imageBottomLeft, imageTopRight, imageBottomRight);
+    BoundingBox boundingBox = new BoundingBox(image, imageTopLeft, imageBottomLeft, imageTopRight, imageBottomRight);
     DetectionResultRowIndicatorColumn leftRowIndicatorColumn = null;
     DetectionResultRowIndicatorColumn rightRowIndicatorColumn = null;
-    com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult detectionResult;
+    DetectionResult detectionResult;
     for (boolean firstPass = true; ; firstPass = false) {
       if (imageTopLeft != null) {
         leftRowIndicatorColumn = getRowIndicatorColumn(image, boundingBox, imageTopLeft, true, minCodewordWidth,
@@ -73,7 +73,7 @@ public final class PDF417ScanningDecoder {
       if (detectionResult == null) {
         throw NotFoundException.getNotFoundInstance();
       }
-      com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox resultBox = detectionResult.getBoundingBox();
+      BoundingBox resultBox = detectionResult.getBoundingBox();
       if (firstPass && resultBox != null &&
           (resultBox.getMinY() < boundingBox.getMinY() || resultBox.getMaxY() > boundingBox.getMaxY())) {
         boundingBox = resultBox;
@@ -93,11 +93,11 @@ public final class PDF417ScanningDecoder {
         // This will be the case for the opposite row indicator column, which doesn't need to be decoded again.
         continue;
       }
-      com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultColumn detectionResultColumn;
+      DetectionResultColumn detectionResultColumn;
       if (barcodeColumn == 0 || barcodeColumn == maxBarcodeColumn) {
         detectionResultColumn = new DetectionResultRowIndicatorColumn(boundingBox, barcodeColumn == 0);
       } else {
-        detectionResultColumn = new com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultColumn(boundingBox);
+        detectionResultColumn = new DetectionResultColumn(boundingBox);
       }
       detectionResult.setDetectionResultColumn(barcodeColumn, detectionResultColumn);
       int startColumn = -1;
@@ -111,7 +111,7 @@ public final class PDF417ScanningDecoder {
           }
           startColumn = previousStartColumn;
         }
-        com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = detectCodeword(image, boundingBox.getMinX(), boundingBox.getMaxX(), leftToRight,
+        Codeword codeword = detectCodeword(image, boundingBox.getMinX(), boundingBox.getMaxX(), leftToRight,
             startColumn, imageRow, minCodewordWidth, maxCodewordWidth);
         if (codeword != null) {
           detectionResultColumn.setCodeword(imageRow, codeword);
@@ -124,22 +124,22 @@ public final class PDF417ScanningDecoder {
     return createDecoderResult(detectionResult);
   }
 
-  private static com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult merge(DetectionResultRowIndicatorColumn leftRowIndicatorColumn,
+  private static DetectionResult merge(DetectionResultRowIndicatorColumn leftRowIndicatorColumn,
                                                                        DetectionResultRowIndicatorColumn rightRowIndicatorColumn)
       throws NotFoundException {
     if (leftRowIndicatorColumn == null && rightRowIndicatorColumn == null) {
       return null;
     }
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata = getBarcodeMetadata(leftRowIndicatorColumn, rightRowIndicatorColumn);
+    BarcodeMetadata barcodeMetadata = getBarcodeMetadata(leftRowIndicatorColumn, rightRowIndicatorColumn);
     if (barcodeMetadata == null) {
       return null;
     }
-    com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox = com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox.merge(adjustBoundingBox(leftRowIndicatorColumn),
+    BoundingBox boundingBox = BoundingBox.merge(adjustBoundingBox(leftRowIndicatorColumn),
         adjustBoundingBox(rightRowIndicatorColumn));
-    return new com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult(barcodeMetadata, boundingBox);
+    return new DetectionResult(barcodeMetadata, boundingBox);
   }
 
-  private static com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox adjustBoundingBox(DetectionResultRowIndicatorColumn rowIndicatorColumn)
+  private static BoundingBox adjustBoundingBox(DetectionResultRowIndicatorColumn rowIndicatorColumn)
       throws NotFoundException {
     if (rowIndicatorColumn == null) {
       return null;
@@ -156,7 +156,7 @@ public final class PDF417ScanningDecoder {
         break;
       }
     }
-    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = rowIndicatorColumn.getCodewords();
+    Codeword[] codewords = rowIndicatorColumn.getCodewords();
     for (int row = 0; missingStartRows > 0 && codewords[row] == null; row++) {
       missingStartRows--;
     }
@@ -182,14 +182,14 @@ public final class PDF417ScanningDecoder {
     return maxValue;
   }
 
-  private static com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata getBarcodeMetadata(DetectionResultRowIndicatorColumn leftRowIndicatorColumn,
+  private static BarcodeMetadata getBarcodeMetadata(DetectionResultRowIndicatorColumn leftRowIndicatorColumn,
                                                                                     DetectionResultRowIndicatorColumn rightRowIndicatorColumn) {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata leftBarcodeMetadata;
+    BarcodeMetadata leftBarcodeMetadata;
     if (leftRowIndicatorColumn == null ||
         (leftBarcodeMetadata = leftRowIndicatorColumn.getBarcodeMetadata()) == null) {
       return rightRowIndicatorColumn == null ? null : rightRowIndicatorColumn.getBarcodeMetadata();
     }
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata rightBarcodeMetadata;
+    BarcodeMetadata rightBarcodeMetadata;
     if (rightRowIndicatorColumn == null ||
         (rightBarcodeMetadata = rightRowIndicatorColumn.getBarcodeMetadata()) == null) {
       return leftBarcodeMetadata;
@@ -204,7 +204,7 @@ public final class PDF417ScanningDecoder {
   }
 
   private static DetectionResultRowIndicatorColumn getRowIndicatorColumn(BitMatrix image,
-                                                                         com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox,
+                                                                         BoundingBox boundingBox,
                                                                          ResultPoint startPoint,
                                                                          boolean leftToRight,
                                                                          int minCodewordWidth,
@@ -216,7 +216,7 @@ public final class PDF417ScanningDecoder {
       int startColumn = (int) startPoint.getX();
       for (int imageRow = (int) startPoint.getY(); imageRow <= boundingBox.getMaxY() &&
           imageRow >= boundingBox.getMinY(); imageRow += increment) {
-        com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = detectCodeword(image, 0, image.getWidth(), leftToRight, startColumn, imageRow,
+        Codeword codeword = detectCodeword(image, 0, image.getWidth(), leftToRight, startColumn, imageRow,
             minCodewordWidth, maxCodewordWidth);
         if (codeword != null) {
           rowIndicatorColumn.setCodeword(imageRow, codeword);
@@ -231,9 +231,9 @@ public final class PDF417ScanningDecoder {
     return rowIndicatorColumn;
   }
 
-  private static void adjustCodewordCount(com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult detectionResult, com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue[][] barcodeMatrix)
+  private static void adjustCodewordCount(DetectionResult detectionResult, BarcodeValue[][] barcodeMatrix)
       throws NotFoundException {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue barcodeMatrix01 = barcodeMatrix[0][1];
+    BarcodeValue barcodeMatrix01 = barcodeMatrix[0][1];
     int[] numberOfCodewords = barcodeMatrix01.getValue();
     int calculatedNumberOfCodewords = detectionResult.getBarcodeColumnCount() *
         detectionResult.getBarcodeRowCount() -
@@ -249,9 +249,9 @@ public final class PDF417ScanningDecoder {
     }
   }
 
-  private static DecoderResult createDecoderResult(com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult detectionResult) throws FormatException,
+  private static DecoderResult createDecoderResult(DetectionResult detectionResult) throws FormatException,
       ChecksumException, NotFoundException {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue[][] barcodeMatrix = createBarcodeMatrix(detectionResult);
+    BarcodeValue[][] barcodeMatrix = createBarcodeMatrix(detectionResult);
     adjustCodewordCount(detectionResult, barcodeMatrix);
     Collection<Integer> erasures = new ArrayList<>();
     int[] codewords = new int[detectionResult.getBarcodeRowCount() * detectionResult.getBarcodeColumnCount()];
@@ -328,19 +328,19 @@ public final class PDF417ScanningDecoder {
     throw ChecksumException.getChecksumInstance();
   }
 
-  private static com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue[][] createBarcodeMatrix(com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult detectionResult) {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue[][] barcodeMatrix =
-        new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue[detectionResult.getBarcodeRowCount()][detectionResult.getBarcodeColumnCount() + 2];
+  private static BarcodeValue[][] createBarcodeMatrix(DetectionResult detectionResult) {
+    BarcodeValue[][] barcodeMatrix =
+        new BarcodeValue[detectionResult.getBarcodeRowCount()][detectionResult.getBarcodeColumnCount() + 2];
     for (int row = 0; row < barcodeMatrix.length; row++) {
       for (int column = 0; column < barcodeMatrix[row].length; column++) {
-        barcodeMatrix[row][column] = new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue();
+        barcodeMatrix[row][column] = new BarcodeValue();
       }
     }
 
     int column = 0;
-    for (com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultColumn detectionResultColumn : detectionResult.getDetectionResultColumns()) {
+    for (DetectionResultColumn detectionResultColumn : detectionResult.getDetectionResultColumns()) {
       if (detectionResultColumn != null) {
-        for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword : detectionResultColumn.getCodewords()) {
+        for (Codeword codeword : detectionResultColumn.getCodewords()) {
           if (codeword != null) {
             int rowNumber = codeword.getRowNumber();
             if (rowNumber >= 0) {
@@ -358,16 +358,16 @@ public final class PDF417ScanningDecoder {
     return barcodeMatrix;
   }
 
-  private static boolean isValidBarcodeColumn(com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult detectionResult, int barcodeColumn) {
+  private static boolean isValidBarcodeColumn(DetectionResult detectionResult, int barcodeColumn) {
     return barcodeColumn >= 0 && barcodeColumn <= detectionResult.getBarcodeColumnCount() + 1;
   }
 
-  private static int getStartColumn(com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResult detectionResult,
+  private static int getStartColumn(DetectionResult detectionResult,
                                     int barcodeColumn,
                                     int imageRow,
                                     boolean leftToRight) {
     int offset = leftToRight ? 1 : -1;
-    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = null;
+    Codeword codeword = null;
     if (isValidBarcodeColumn(detectionResult, barcodeColumn - offset)) {
       codeword = detectionResult.getDetectionResultColumn(barcodeColumn - offset).getCodeword(imageRow);
     }
@@ -388,7 +388,7 @@ public final class PDF417ScanningDecoder {
 
     while (isValidBarcodeColumn(detectionResult, barcodeColumn - offset)) {
       barcodeColumn -= offset;
-      for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword previousRowCodeword : detectionResult.getDetectionResultColumn(barcodeColumn).getCodewords()) {
+      for (Codeword previousRowCodeword : detectionResult.getDetectionResultColumn(barcodeColumn).getCodewords()) {
         if (previousRowCodeword != null) {
           return (leftToRight ? previousRowCodeword.getEndX() : previousRowCodeword.getStartX()) +
               offset *
@@ -401,7 +401,7 @@ public final class PDF417ScanningDecoder {
     return leftToRight ? detectionResult.getBoundingBox().getMinX() : detectionResult.getBoundingBox().getMaxX();
   }
 
-  private static com.sobot.chat.widget.zxing.pdf417.decoder.Codeword detectCodeword(BitMatrix image,
+  private static Codeword detectCodeword(BitMatrix image,
                                                                          int minColumn,
                                                                          int maxColumn,
                                                                          boolean leftToRight,
@@ -451,12 +451,12 @@ public final class PDF417ScanningDecoder {
       return null;
     }
 
-    int decodedValue = com.sobot.chat.widget.zxing.pdf417.decoder.PDF417CodewordDecoder.getDecodedValue(moduleBitCount);
+    int decodedValue = PDF417CodewordDecoder.getDecodedValue(moduleBitCount);
     int codeword = PDF417Common.getCodeword(decodedValue);
     if (codeword == -1) {
       return null;
     }
-    return new com.sobot.chat.widget.zxing.pdf417.decoder.Codeword(startColumn, endColumn, getCodewordBucketNumber(decodedValue), codeword);
+    return new Codeword(startColumn, endColumn, getCodewordBucketNumber(decodedValue), codeword);
   }
 
   private static int[] getModuleBitCount(BitMatrix image,
@@ -609,12 +609,12 @@ public final class PDF417ScanningDecoder {
     return (moduleBitCount[0] - moduleBitCount[2] + moduleBitCount[4] - moduleBitCount[6] + 9) % 9;
   }
 
-  public static String toString(com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue[][] barcodeMatrix) {
+  public static String toString(BarcodeValue[][] barcodeMatrix) {
     try (Formatter formatter = new Formatter()) {
       for (int row = 0; row < barcodeMatrix.length; row++) {
         formatter.format("Row %2d: ", row);
         for (int column = 0; column < barcodeMatrix[row].length; column++) {
-          com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue barcodeValue = barcodeMatrix[row][column];
+          BarcodeValue barcodeValue = barcodeMatrix[row][column];
           if (barcodeValue.getValue().length == 0) {
             formatter.format("        ", (Object[]) null);
           } else {

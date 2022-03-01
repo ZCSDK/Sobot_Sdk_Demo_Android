@@ -47,7 +47,7 @@ public final class HybridBinarizer extends GlobalHistogramBinarizer {
   private static final int MINIMUM_DIMENSION = BLOCK_SIZE * 5;
   private static final int MIN_DYNAMIC_RANGE = 24;
 
-  private com.sobot.chat.widget.zxing.common.BitMatrix matrix;
+  private BitMatrix matrix;
 
   public HybridBinarizer(LuminanceSource source) {
     super(source);
@@ -59,7 +59,7 @@ public final class HybridBinarizer extends GlobalHistogramBinarizer {
    * profiling easier, and not doing heavy lifting when callers don't expect it.
    */
   @Override
-  public com.sobot.chat.widget.zxing.common.BitMatrix getBlackMatrix() throws NotFoundException {
+  public BitMatrix getBlackMatrix() throws NotFoundException {
     if (matrix != null) {
       return matrix;
     }
@@ -78,7 +78,7 @@ public final class HybridBinarizer extends GlobalHistogramBinarizer {
       }
       int[][] blackPoints = calculateBlackPoints(luminances, subWidth, subHeight, width, height);
 
-      com.sobot.chat.widget.zxing.common.BitMatrix newMatrix = new com.sobot.chat.widget.zxing.common.BitMatrix(width, height);
+      BitMatrix newMatrix = new BitMatrix(width, height);
       calculateThresholdForBlock(luminances, subWidth, subHeight, width, height, blackPoints, newMatrix);
       matrix = newMatrix;
     } else {
@@ -104,7 +104,7 @@ public final class HybridBinarizer extends GlobalHistogramBinarizer {
                                                  int width,
                                                  int height,
                                                  int[][] blackPoints,
-                                                 com.sobot.chat.widget.zxing.common.BitMatrix matrix) {
+                                                 BitMatrix matrix) {
     int maxYOffset = height - BLOCK_SIZE;
     int maxXOffset = width - BLOCK_SIZE;
     for (int y = 0; y < subHeight; y++) {

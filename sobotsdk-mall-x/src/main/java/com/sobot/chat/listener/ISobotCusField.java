@@ -15,5 +15,5 @@ public interface ISobotCusField {
      * @param fieldType  自定义字段的类型
      * @param cusField 点击这个字段的bean
      */
-    void onClickCusField(View view , int fieldType, SobotFieldModel cusField);
+    void onClickCusField(View view, int fieldType, SobotFieldModel cusField);
 }

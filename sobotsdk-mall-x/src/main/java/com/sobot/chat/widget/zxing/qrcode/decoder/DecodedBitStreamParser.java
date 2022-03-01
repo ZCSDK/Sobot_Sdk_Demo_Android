@@ -62,14 +62,14 @@ final class DecodedBitStreamParser {
     try {
       CharacterSetECI currentCharacterSetECI = null;
       boolean fc1InEffect = false;
-      com.sobot.chat.widget.zxing.qrcode.decoder.Mode mode;
+      Mode mode;
       do {
         // While still another segment to read...
         if (bits.available() < 4) {
           // OK, assume we're done. Really, a TERMINATOR mode should have been recorded here
-          mode = com.sobot.chat.widget.zxing.qrcode.decoder.Mode.TERMINATOR;
+          mode = Mode.TERMINATOR;
         } else {
-          mode = com.sobot.chat.widget.zxing.qrcode.decoder.Mode.forBits(bits.readBits(4)); // mode is encoded by 4 bits
+          mode = Mode.forBits(bits.readBits(4)); // mode is encoded by 4 bits
         }
         switch (mode) {
           case TERMINATOR:

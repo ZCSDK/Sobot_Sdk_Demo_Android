@@ -203,10 +203,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
         }
         NotificationUtils.cancleAllNotification(mAppContext);
-        //重新恢复连接
-        if (customerState == CustomerState.Online || customerState == CustomerState.Queuing) {
-            zhiChiApi.reconnectChannel();
-        }
 
         if (_sensorManager != null) {
             _sensorManager.registerListener(this, mProximiny, SensorManager.SENSOR_DELAY_NORMAL);
@@ -1104,7 +1100,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     public void onSensorChanged(SensorEvent event) {
         /* 获取当前手机品牌 过滤掉小米手机 */
         try {
-            String phoneName = android.os.Build.MODEL.toLowerCase();
+            String phoneName = Build.MODEL.toLowerCase();
 //            LogUtils.i("当前手机品牌是" + phoneName);
             // 模式的转化
             // 当前传感器距离

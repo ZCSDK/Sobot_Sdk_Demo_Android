@@ -16,7 +16,7 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-final class ASCIIEncoder implements com.sobot.chat.widget.zxing.datamatrix.encoder.Encoder {
+final class ASCIIEncoder implements Encoder {
 
   @Override
   public int getEncodingMode() {

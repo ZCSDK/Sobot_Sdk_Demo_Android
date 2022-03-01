@@ -22,17 +22,17 @@ import com.sobot.chat.widget.zxing.pdf417.PDF417Common;
 /**
  * @author Guenther Grau
  */
-final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxing.pdf417.decoder.DetectionResultColumn {
+final class DetectionResultRowIndicatorColumn extends DetectionResultColumn {
 
   private final boolean isLeft;
 
-  DetectionResultRowIndicatorColumn(com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox, boolean isLeft) {
+  DetectionResultRowIndicatorColumn(BoundingBox boundingBox, boolean isLeft) {
     super(boundingBox);
     this.isLeft = isLeft;
   }
 
   private void setRowNumbers() {
-    for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword : getCodewords()) {
+    for (Codeword codeword : getCodewords()) {
       if (codeword != null) {
         codeword.setRowNumberAsRowIndicatorColumn();
       }
@@ -43,11 +43,11 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
   // TODO maybe we should add missing codewords to store the correct row number to make
   // finding row numbers for other columns easier
   // use row height count to make detection of invalid row numbers more reliable
-  void adjustCompleteIndicatorColumnRowNumbers(com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata) {
-    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = getCodewords();
+  void adjustCompleteIndicatorColumnRowNumbers(BarcodeMetadata barcodeMetadata) {
+    Codeword[] codewords = getCodewords();
     setRowNumbers();
     removeIncorrectCodewords(codewords, barcodeMetadata);
-    com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox = getBoundingBox();
+    BoundingBox boundingBox = getBoundingBox();
     ResultPoint top = isLeft ? boundingBox.getTopLeft() : boundingBox.getTopRight();
     ResultPoint bottom = isLeft ? boundingBox.getBottomLeft() : boundingBox.getBottomRight();
     int firstRow = imageRowToCodewordIndex((int) top.getY());
@@ -62,7 +62,7 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
       if (codewords[codewordsRow] == null) {
         continue;
       }
-      com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = codewords[codewordsRow];
+      Codeword codeword = codewords[codewordsRow];
 
       //      float expectedRowNumber = (codewordsRow - firstRow) / averageRowHeight;
       //      if (Math.abs(codeword.getRowNumber() - expectedRowNumber) > 2) {
@@ -111,13 +111,13 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
   }
 
   int[] getRowHeights() {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata = getBarcodeMetadata();
+    BarcodeMetadata barcodeMetadata = getBarcodeMetadata();
     if (barcodeMetadata == null) {
       return null;
     }
     adjustIncompleteIndicatorColumnRowNumbers(barcodeMetadata);
     int[] result = new int[barcodeMetadata.getRowCount()];
-    for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword : getCodewords()) {
+    for (Codeword codeword : getCodewords()) {
       if (codeword != null) {
         int rowNumber = codeword.getRowNumber();
         if (rowNumber >= result.length) {
@@ -133,14 +133,14 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
   // TODO maybe we should add missing codewords to store the correct row number to make
   // finding row numbers for other columns easier
   // use row height count to make detection of invalid row numbers more reliable
-  private void adjustIncompleteIndicatorColumnRowNumbers(com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata) {
-    com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox = getBoundingBox();
+  private void adjustIncompleteIndicatorColumnRowNumbers(BarcodeMetadata barcodeMetadata) {
+    BoundingBox boundingBox = getBoundingBox();
     ResultPoint top = isLeft ? boundingBox.getTopLeft() : boundingBox.getTopRight();
     ResultPoint bottom = isLeft ? boundingBox.getBottomLeft() : boundingBox.getBottomRight();
     int firstRow = imageRowToCodewordIndex((int) top.getY());
     int lastRow = imageRowToCodewordIndex((int) bottom.getY());
     //float averageRowHeight = (lastRow - firstRow) / (float) barcodeMetadata.getRowCount();
-    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = getCodewords();
+    Codeword[] codewords = getCodewords();
     int barcodeRow = -1;
     int maxRowHeight = 1;
     int currentRowHeight = 0;
@@ -148,7 +148,7 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
       if (codewords[codewordsRow] == null) {
         continue;
       }
-      com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = codewords[codewordsRow];
+      Codeword codeword = codewords[codewordsRow];
 
       codeword.setRowNumberAsRowIndicatorColumn();
 
@@ -172,13 +172,13 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
     //return (int) (averageRowHeight + 0.5);
   }
 
-  com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata getBarcodeMetadata() {
-    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = getCodewords();
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue barcodeColumnCount = new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue();
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue barcodeRowCountUpperPart = new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue();
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue barcodeRowCountLowerPart = new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue();
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue barcodeECLevel = new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeValue();
-    for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword : codewords) {
+  BarcodeMetadata getBarcodeMetadata() {
+    Codeword[] codewords = getCodewords();
+    BarcodeValue barcodeColumnCount = new BarcodeValue();
+    BarcodeValue barcodeRowCountUpperPart = new BarcodeValue();
+    BarcodeValue barcodeRowCountLowerPart = new BarcodeValue();
+    BarcodeValue barcodeECLevel = new BarcodeValue();
+    for (Codeword codeword : codewords) {
       if (codeword == null) {
         continue;
       }
@@ -211,17 +211,17 @@ final class DetectionResultRowIndicatorColumn extends com.sobot.chat.widget.zxin
         barcodeRowCountUpperPart.getValue()[0] + barcodeRowCountLowerPart.getValue()[0] > PDF417Common.MAX_ROWS_IN_BARCODE) {
       return null;
     }
-    com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata = new com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata(barcodeColumnCount.getValue()[0],
+    BarcodeMetadata barcodeMetadata = new BarcodeMetadata(barcodeColumnCount.getValue()[0],
         barcodeRowCountUpperPart.getValue()[0], barcodeRowCountLowerPart.getValue()[0], barcodeECLevel.getValue()[0]);
     removeIncorrectCodewords(codewords, barcodeMetadata);
     return barcodeMetadata;
   }
 
-  private void removeIncorrectCodewords(com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords, com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata) {
+  private void removeIncorrectCodewords(Codeword[] codewords, BarcodeMetadata barcodeMetadata) {
     // Remove codewords which do not match the metadata
     // TODO Maybe we should keep the incorrect codewords for the start and end positions?
     for (int codewordRow = 0; codewordRow < codewords.length; codewordRow++) {
-      com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = codewords[codewordRow];
+      Codeword codeword = codewords[codewordRow];
       if (codewords[codewordRow] == null) {
         continue;
       }

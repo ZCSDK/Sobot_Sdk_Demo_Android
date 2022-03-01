@@ -25,7 +25,7 @@ import com.sobot.chat.widget.zxing.common.BitMatrix;
 final class BitMatrixParser {
 
   private final BitMatrix bitMatrix;
-  private com.sobot.chat.widget.zxing.qrcode.decoder.Version parsedVersion;
+  private Version parsedVersion;
   private FormatInformation parsedFormatInfo;
   private boolean mirror;
 
@@ -89,11 +89,11 @@ final class BitMatrixParser {
   /**
    * <p>Reads version information from one of its two locations within the QR Code.</p>
    *
-   * @return {@link com.sobot.chat.widget.zxing.qrcode.decoder.Version} encapsulating the QR Code's version
+   * @return {@link Version} encapsulating the QR Code's version
    * @throws FormatException if both version information locations cannot be parsed as
    * the valid encoding of version information
    */
-  com.sobot.chat.widget.zxing.qrcode.decoder.Version readVersion() throws FormatException {
+  Version readVersion() throws FormatException {
 
     if (parsedVersion != null) {
       return parsedVersion;
@@ -103,7 +103,7 @@ final class BitMatrixParser {
 
     int provisionalVersion = (dimension - 17) / 4;
     if (provisionalVersion <= 6) {
-      return com.sobot.chat.widget.zxing.qrcode.decoder.Version.getVersionForNumber(provisionalVersion);
+      return Version.getVersionForNumber(provisionalVersion);
     }
 
     // Read top-right version info: 3 wide by 6 tall
@@ -115,7 +115,7 @@ final class BitMatrixParser {
       }
     }
 
-    com.sobot.chat.widget.zxing.qrcode.decoder.Version theParsedVersion = com.sobot.chat.widget.zxing.qrcode.decoder.Version.decodeVersionInformation(versionBits);
+    Version theParsedVersion = Version.decodeVersionInformation(versionBits);
     if (theParsedVersion != null && theParsedVersion.getDimensionForVersion() == dimension) {
       parsedVersion = theParsedVersion;
       return theParsedVersion;
@@ -129,7 +129,7 @@ final class BitMatrixParser {
       }
     }
 
-    theParsedVersion = com.sobot.chat.widget.zxing.qrcode.decoder.Version.decodeVersionInformation(versionBits);
+    theParsedVersion = Version.decodeVersionInformation(versionBits);
     if (theParsedVersion != null && theParsedVersion.getDimensionForVersion() == dimension) {
       parsedVersion = theParsedVersion;
       return theParsedVersion;
@@ -157,7 +157,7 @@ final class BitMatrixParser {
 
     // Get the data mask for the format used in this QR Code. This will exclude
     // some bits from reading as we wind through the bit matrix.
-    com.sobot.chat.widget.zxing.qrcode.decoder.DataMask dataMask = com.sobot.chat.widget.zxing.qrcode.decoder.DataMask.values()[formatInfo.getDataMask()];
+    DataMask dataMask = DataMask.values()[formatInfo.getDataMask()];
     int dimension = bitMatrix.getHeight();
     dataMask.unmaskBitMatrix(bitMatrix, dimension);
 
@@ -211,7 +211,7 @@ final class BitMatrixParser {
     if (parsedFormatInfo == null) {
       return; // We have no format information, and have no data mask
     }
-    com.sobot.chat.widget.zxing.qrcode.decoder.DataMask dataMask = com.sobot.chat.widget.zxing.qrcode.decoder.DataMask.values()[parsedFormatInfo.getDataMask()];
+    DataMask dataMask = DataMask.values()[parsedFormatInfo.getDataMask()];
     int dimension = bitMatrix.getHeight();
     dataMask.unmaskBitMatrix(bitMatrix, dimension);
   }

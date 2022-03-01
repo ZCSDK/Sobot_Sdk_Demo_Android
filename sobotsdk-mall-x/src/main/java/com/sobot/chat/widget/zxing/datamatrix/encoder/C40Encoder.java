@@ -16,7 +16,7 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-class C40Encoder implements com.sobot.chat.widget.zxing.datamatrix.encoder.Encoder {
+class C40Encoder implements Encoder {
 
   @Override
   public int getEncodingMode() {

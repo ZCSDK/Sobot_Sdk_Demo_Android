@@ -64,15 +64,15 @@ public final class Encoder {
   /**
    * @param content text to encode
    * @param ecLevel error correction level to use
-   * @return {@link com.sobot.chat.widget.zxing.qrcode.encoder.QRCode} representing the encoded QR code
+   * @return {@link QRCode} representing the encoded QR code
    * @throws WriterException if encoding can't succeed, because of for example invalid content
    *   or configuration
    */
-  public static com.sobot.chat.widget.zxing.qrcode.encoder.QRCode encode(String content, ErrorCorrectionLevel ecLevel) throws WriterException {
+  public static QRCode encode(String content, ErrorCorrectionLevel ecLevel) throws WriterException {
     return encode(content, ecLevel, null);
   }
 
-  public static com.sobot.chat.widget.zxing.qrcode.encoder.QRCode encode(String content,
+  public static QRCode encode(String content,
                                                               ErrorCorrectionLevel ecLevel,
                                                               Map<EncodeHintType,?> hints) throws WriterException {
 
@@ -146,7 +146,7 @@ public final class Encoder {
                                                numDataBytes,
                                                ecBlocks.getNumBlocks());
 
-    com.sobot.chat.widget.zxing.qrcode.encoder.QRCode qrCode = new com.sobot.chat.widget.zxing.qrcode.encoder.QRCode();
+    QRCode qrCode = new QRCode();
 
     qrCode.setECLevel(ecLevel);
     qrCode.setMode(mode);
@@ -160,7 +160,7 @@ public final class Encoder {
     int maskPattern = -1;
     if (hints != null && hints.containsKey(EncodeHintType.QR_MASK_PATTERN)) {
       int hintMaskPattern = Integer.parseInt(hints.get(EncodeHintType.QR_MASK_PATTERN).toString());
-      maskPattern = com.sobot.chat.widget.zxing.qrcode.encoder.QRCode.isValidMaskPattern(hintMaskPattern) ? hintMaskPattern : -1;
+      maskPattern = QRCode.isValidMaskPattern(hintMaskPattern) ? hintMaskPattern : -1;
     }
 
     if (maskPattern == -1) {

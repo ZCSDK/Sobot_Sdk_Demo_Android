@@ -26,7 +26,7 @@ public class SobotProvinAdapter extends SobotBaseAdapter<SobotProvinInfo.SobotPr
 
     private Context mContext;
     private Activity mActivity;
-    private SobotProvinAdapter.ViewHolder myViewHolder;
+    private ViewHolder myViewHolder;
 
     public SobotProvinAdapter(Activity activity, Context context, List list) {
         super(context, list);
@@ -38,10 +38,10 @@ public class SobotProvinAdapter extends SobotBaseAdapter<SobotProvinInfo.SobotPr
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = View.inflate(mContext, ResourceUtils.getIdByName(mContext, "layout", "sobot_activity_post_category_items"), null);
-            myViewHolder = new SobotProvinAdapter.ViewHolder(mActivity, mContext, convertView);
+            myViewHolder = new ViewHolder(mActivity, mContext, convertView);
             convertView.setTag(myViewHolder);
         } else {
-            myViewHolder = (SobotProvinAdapter.ViewHolder) convertView.getTag();
+            myViewHolder = (ViewHolder) convertView.getTag();
         }
         myViewHolder.bindData(list.get(position));
 

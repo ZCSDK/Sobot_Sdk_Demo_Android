@@ -149,7 +149,7 @@ public class SobotImageView extends ImageView {
         if (mIsCircle || mIsSquare) {
             setMeasuredDimension(getDefaultSize(0, widthMeasureSpec), getDefaultSize(0, heightMeasureSpec));
             int childWidthSize = getMeasuredWidth();
-            heightMeasureSpec = widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(childWidthSize, View.MeasureSpec.EXACTLY);
+            heightMeasureSpec = widthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

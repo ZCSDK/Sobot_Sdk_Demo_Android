@@ -107,7 +107,7 @@ public class ChatUtils {
             intent.setType("image/*");
         } else {
             intent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         try {
             if (childFragment != null) {

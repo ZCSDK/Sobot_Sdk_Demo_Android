@@ -30,21 +30,21 @@ public final class Result {
   private final byte[] rawBytes;
   private final int numBits;
   private ResultPoint[] resultPoints;
-  private final com.sobot.chat.widget.zxing.BarcodeFormat format;
+  private final BarcodeFormat format;
   private Map<ResultMetadataType,Object> resultMetadata;
   private final long timestamp;
 
   public Result(String text,
                 byte[] rawBytes,
                 ResultPoint[] resultPoints,
-                com.sobot.chat.widget.zxing.BarcodeFormat format) {
+                BarcodeFormat format) {
     this(text, rawBytes, resultPoints, format, System.currentTimeMillis());
   }
 
   public Result(String text,
                 byte[] rawBytes,
                 ResultPoint[] resultPoints,
-                com.sobot.chat.widget.zxing.BarcodeFormat format,
+                BarcodeFormat format,
                 long timestamp) {
     this(text, rawBytes, rawBytes == null ? 0 : 8 * rawBytes.length,
          resultPoints, format, timestamp);
@@ -54,7 +54,7 @@ public final class Result {
                 byte[] rawBytes,
                 int numBits,
                 ResultPoint[] resultPoints,
-                com.sobot.chat.widget.zxing.BarcodeFormat format,
+                BarcodeFormat format,
                 long timestamp) {
     this.text = text;
     this.rawBytes = rawBytes;
@@ -97,7 +97,7 @@ public final class Result {
   }
 
   /**
-   * @return {@link com.sobot.chat.widget.zxing.BarcodeFormat} representing the format of the barcode that was decoded
+   * @return {@link BarcodeFormat} representing the format of the barcode that was decoded
    */
   public BarcodeFormat getBarcodeFormat() {
     return format;

@@ -29,7 +29,7 @@ final class EncoderContext {
   private final StringBuilder codewords;
   int pos;
   private int newEncoding;
-  private com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolInfo symbolInfo;
+  private SymbolInfo symbolInfo;
   private int skipAtEnd;
 
   EncoderContext(String msg) {
@@ -114,7 +114,7 @@ final class EncoderContext {
     return getTotalMessageCharCount() - pos;
   }
 
-  public com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolInfo getSymbolInfo() {
+  public SymbolInfo getSymbolInfo() {
     return symbolInfo;
   }
 

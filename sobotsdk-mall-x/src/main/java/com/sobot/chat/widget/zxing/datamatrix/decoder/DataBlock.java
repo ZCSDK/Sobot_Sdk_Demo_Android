@@ -44,14 +44,14 @@ final class DataBlock {
    *         Data Matrix Code
    */
   static DataBlock[] getDataBlocks(byte[] rawCodewords,
-                                   com.sobot.chat.widget.zxing.datamatrix.decoder.Version version) {
+                                   Version version) {
     // Figure out the number and size of data blocks used by this version
-    com.sobot.chat.widget.zxing.datamatrix.decoder.Version.ECBlocks ecBlocks = version.getECBlocks();
+    Version.ECBlocks ecBlocks = version.getECBlocks();
 
     // First count the total number of data blocks
     int totalBlocks = 0;
-    com.sobot.chat.widget.zxing.datamatrix.decoder.Version.ECB[] ecBlockArray = ecBlocks.getECBlocks();
-    for (com.sobot.chat.widget.zxing.datamatrix.decoder.Version.ECB ecBlock : ecBlockArray) {
+    Version.ECB[] ecBlockArray = ecBlocks.getECBlocks();
+    for (Version.ECB ecBlock : ecBlockArray) {
        totalBlocks += ecBlock.getCount();
     }
 

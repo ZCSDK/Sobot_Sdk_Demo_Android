@@ -29,7 +29,7 @@ import com.sobot.chat.widget.zxing.ChecksumException;
  */
 public final class ErrorCorrection {
 
-  private final com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusGF field;
+  private final ModulusGF field;
 
   public ErrorCorrection() {
     this.field = ModulusGF.PDF417_GF;
@@ -46,7 +46,7 @@ public final class ErrorCorrection {
                     int numECCodewords,
                     int[] erasures) throws ChecksumException {
 
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly poly = new com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly(field, received);
+    ModulusPoly poly = new ModulusPoly(field, received);
     int[] S = new int[numECCodewords];
     boolean error = false;
     for (int i = numECCodewords; i > 0; i--) {
@@ -61,23 +61,23 @@ public final class ErrorCorrection {
       return 0;
     }
 
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly knownErrors = field.getOne();
+    ModulusPoly knownErrors = field.getOne();
     if (erasures != null) {
       for (int erasure : erasures) {
         int b = field.exp(received.length - 1 - erasure);
         // Add (1 - bx) term:
-        com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly term = new com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly(field, new int[]{field.subtract(0, b), 1});
+        ModulusPoly term = new ModulusPoly(field, new int[]{field.subtract(0, b), 1});
         knownErrors = knownErrors.multiply(term);
       }
     }
 
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly syndrome = new com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly(field, S);
+    ModulusPoly syndrome = new ModulusPoly(field, S);
     //syndrome = syndrome.multiply(knownErrors);
 
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly[] sigmaOmega =
+    ModulusPoly[] sigmaOmega =
         runEuclideanAlgorithm(field.buildMonomial(numECCodewords, 1), syndrome, numECCodewords);
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly sigma = sigmaOmega[0];
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly omega = sigmaOmega[1];
+    ModulusPoly sigma = sigmaOmega[0];
+    ModulusPoly omega = sigmaOmega[1];
 
     //sigma = sigma.multiply(knownErrors);
 
@@ -94,24 +94,24 @@ public final class ErrorCorrection {
     return errorLocations.length;
   }
 
-  private com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly[] runEuclideanAlgorithm(com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly a, com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly b, int R)
+  private ModulusPoly[] runEuclideanAlgorithm(ModulusPoly a, ModulusPoly b, int R)
       throws ChecksumException {
     // Assume a's degree is >= b's
     if (a.getDegree() < b.getDegree()) {
-      com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly temp = a;
+      ModulusPoly temp = a;
       a = b;
       b = temp;
     }
 
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly rLast = a;
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly r = b;
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly tLast = field.getZero();
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly t = field.getOne();
+    ModulusPoly rLast = a;
+    ModulusPoly r = b;
+    ModulusPoly tLast = field.getZero();
+    ModulusPoly t = field.getOne();
 
     // Run Euclidean algorithm until r's degree is less than R/2
     while (r.getDegree() >= R / 2) {
-      com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly rLastLast = rLast;
-      com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly tLastLast = tLast;
+      ModulusPoly rLastLast = rLast;
+      ModulusPoly tLastLast = tLast;
       rLast = r;
       tLast = t;
 
@@ -121,7 +121,7 @@ public final class ErrorCorrection {
         throw ChecksumException.getChecksumInstance();
       }
       r = rLastLast;
-      com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly q = field.getZero();
+      ModulusPoly q = field.getZero();
       int denominatorLeadingTerm = rLast.getCoefficient(rLast.getDegree());
       int dltInverse = field.inverse(denominatorLeadingTerm);
       while (r.getDegree() >= rLast.getDegree() && !r.isZero()) {
@@ -140,12 +140,12 @@ public final class ErrorCorrection {
     }
 
     int inverse = field.inverse(sigmaTildeAtZero);
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly sigma = t.multiply(inverse);
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly omega = r.multiply(inverse);
-    return new com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly[]{sigma, omega};
+    ModulusPoly sigma = t.multiply(inverse);
+    ModulusPoly omega = r.multiply(inverse);
+    return new ModulusPoly[]{sigma, omega};
   }
 
-  private int[] findErrorLocations(com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly errorLocator) throws ChecksumException {
+  private int[] findErrorLocations(ModulusPoly errorLocator) throws ChecksumException {
     // This is a direct application of Chien's search
     int numErrors = errorLocator.getDegree();
     int[] result = new int[numErrors];
@@ -162,8 +162,8 @@ public final class ErrorCorrection {
     return result;
   }
 
-  private int[] findErrorMagnitudes(com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly errorEvaluator,
-                                    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly errorLocator,
+  private int[] findErrorMagnitudes(ModulusPoly errorEvaluator,
+                                    ModulusPoly errorLocator,
                                     int[] errorLocations) {
     int errorLocatorDegree = errorLocator.getDegree();
     int[] formalDerivativeCoefficients = new int[errorLocatorDegree];
@@ -171,7 +171,7 @@ public final class ErrorCorrection {
       formalDerivativeCoefficients[errorLocatorDegree - i] =
           field.multiply(i, errorLocator.getCoefficient(i));
     }
-    com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly formalDerivative = new com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusPoly(field, formalDerivativeCoefficients);
+    ModulusPoly formalDerivative = new ModulusPoly(field, formalDerivativeCoefficients);
 
     // This is directly applying Forney's Formula
     int s = errorLocations.length;

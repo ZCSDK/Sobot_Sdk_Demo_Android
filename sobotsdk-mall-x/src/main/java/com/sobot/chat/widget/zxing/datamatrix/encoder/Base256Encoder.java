@@ -16,7 +16,7 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-final class Base256Encoder implements com.sobot.chat.widget.zxing.datamatrix.encoder.Encoder {
+final class Base256Encoder implements Encoder {
 
   @Override
   public int getEncodingMode() {

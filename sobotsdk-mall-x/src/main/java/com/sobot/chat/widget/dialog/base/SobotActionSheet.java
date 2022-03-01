@@ -22,7 +22,7 @@ import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
 
 public abstract class SobotActionSheet extends Dialog {
 
-    protected SobotActionSheet.DialogOnClickListener listener;
+    protected DialogOnClickListener listener;
     private final int screenHeight;
     protected View sobot_container;
 
@@ -98,7 +98,7 @@ public abstract class SobotActionSheet extends Dialog {
 
     protected abstract void initView();
 
-    public void setOnClickListener(SobotActionSheet.DialogOnClickListener listener) {
+    public void setOnClickListener(DialogOnClickListener listener) {
         this.listener = listener;
     }
 

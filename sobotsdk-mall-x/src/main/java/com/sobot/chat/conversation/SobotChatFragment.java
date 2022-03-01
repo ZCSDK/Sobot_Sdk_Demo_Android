@@ -378,6 +378,23 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         intent.putExtra(ZhiChiConstant.SOBOT_CURRENT_IM_PARTNERID, info.getPartnerid());
         StServiceUtils.safeStartService(mAppContext, intent);
         SobotMsgManager.getInstance(mAppContext).getConfig(info.getApp_key()).clearCache();
+        //人工状态，检查连接
+        if (customerState == CustomerState.Online || customerState == CustomerState.Queuing) {
+            //获取tcp服务被杀死的时间，如果是0，不进行初始化，直接检查通道就行
+            long lastHideTime = SharedPreferencesUtil.getLongData(mAppContext, ZhiChiConstant.SOBOT_HIDE_CHATPAGE_TIME, System.currentTimeMillis());
+            if (lastHideTime != 0 && !CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
+                //LogUtils.i((System.currentTimeMillis() + "-------------" + lastHideTime + "==========" + (System.currentTimeMillis() - lastHideTime)));
+                // LogUtils.i("----人工状态 SobotTCPServer 被杀死了");
+                if ((System.currentTimeMillis() - lastHideTime) > 30 * 60 * 1000) {
+                    //   LogUtils.i("----由于SobotTCPServer 被杀死了超过30分钟，需要重新初始化---------");
+                    initSdk(true, 0);
+                } else {
+                    zhiChiApi.reconnectChannel();
+                }
+            } else {
+                zhiChiApi.reconnectChannel();
+            }
+        }
     }
 
     @Override
@@ -545,7 +562,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     public Handler handler = new Handler() {
 
         @SuppressWarnings("unchecked")
-        public void handleMessage(final android.os.Message msg) {
+        public void handleMessage(final Message msg) {
             if (!isActive()) {
                 return;
             }

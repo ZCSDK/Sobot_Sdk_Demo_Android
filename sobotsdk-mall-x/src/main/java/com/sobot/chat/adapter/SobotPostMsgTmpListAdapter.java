@@ -27,11 +27,11 @@ public class SobotPostMsgTmpListAdapter extends SobotBaseGvAdapter<SobotPostMsgT
     }
 
     @Override
-    protected SobotBaseGvAdapter.BaseViewHolder getViewHolder(Context context, View view) {
-        return new SobotPostMsgTmpListAdapter.ViewHolder(context,view);
+    protected BaseViewHolder getViewHolder(Context context, View view) {
+        return new ViewHolder(context,view);
     }
 
-    private static class ViewHolder extends SobotBaseGvAdapter.BaseViewHolder<SobotPostMsgTemplate> {
+    private static class ViewHolder extends BaseViewHolder<SobotPostMsgTemplate> {
         private TextView sobot_tv_content;
         private LinearLayout sobot_ll_content;
 

@@ -9,5 +9,5 @@ import com.sobot.chat.api.model.SobotTransferOperatorParam;
  * @author Created by jinxl on 2019/4/24.
  */
 public interface SobotTransferOperatorInterceptor {
-    void onTransferStart(Context context,SobotTransferOperatorParam param);
+    void onTransferStart(Context context, SobotTransferOperatorParam param);
 }
