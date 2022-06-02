@@ -35,7 +35,7 @@ public final class GeoResultParser extends ResultParser {
       Pattern.compile("geo:([\\-0-9.]+),([\\-0-9.]+)(?:,([\\-0-9.]+))?(?:\\?(.*))?", Pattern.CASE_INSENSITIVE);
   
   @Override
-  public GeoParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.GeoParsedResult parse(Result result) {
     CharSequence rawText = getMassagedText(result);
     Matcher matcher = GEO_URL_PATTERN.matcher(rawText);
     if (!matcher.matches()) {

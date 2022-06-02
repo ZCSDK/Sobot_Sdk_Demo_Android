@@ -139,7 +139,7 @@ public final class HighLevelEncoder {
    * @return the encoded message (the char values range from 0 to 255)
    */
   public static String encodeHighLevel(String msg) {
-    return encodeHighLevel(msg, SymbolShapeHint.FORCE_NONE, null, null);
+    return encodeHighLevel(msg, com.sobot.chat.widget.zxing.datamatrix.encoder.SymbolShapeHint.FORCE_NONE, null, null);
   }
 
   /**
@@ -158,12 +158,12 @@ public final class HighLevelEncoder {
                                        Dimension minSize,
                                        Dimension maxSize) {
     //the codewords 0..255 are encoded as Unicode characters
-    Encoder[] encoders = {
-        new ASCIIEncoder(), new C40Encoder(), new TextEncoder(),
-        new X12Encoder(), new EdifactEncoder(),  new Base256Encoder()
+    com.sobot.chat.widget.zxing.datamatrix.encoder.Encoder[] encoders = {
+        new com.sobot.chat.widget.zxing.datamatrix.encoder.ASCIIEncoder(), new com.sobot.chat.widget.zxing.datamatrix.encoder.C40Encoder(), new com.sobot.chat.widget.zxing.datamatrix.encoder.TextEncoder(),
+        new com.sobot.chat.widget.zxing.datamatrix.encoder.X12Encoder(), new com.sobot.chat.widget.zxing.datamatrix.encoder.EdifactEncoder(),  new com.sobot.chat.widget.zxing.datamatrix.encoder.Base256Encoder()
     };
 
-    EncoderContext context = new EncoderContext(msg);
+    com.sobot.chat.widget.zxing.datamatrix.encoder.EncoderContext context = new com.sobot.chat.widget.zxing.datamatrix.encoder.EncoderContext(msg);
     context.setSymbolShape(shape);
     context.setSizeConstraints(minSize, maxSize);
 

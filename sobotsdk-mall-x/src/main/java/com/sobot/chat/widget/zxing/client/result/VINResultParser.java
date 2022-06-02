@@ -32,7 +32,7 @@ public final class VINResultParser extends ResultParser {
   private static final Pattern AZ09 = Pattern.compile("[A-Z0-9]{17}");
 
   @Override
-  public VINParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.VINParsedResult parse(Result result) {
     if (result.getBarcodeFormat() != BarcodeFormat.CODE_39) {
       return null;
     }

@@ -49,6 +49,7 @@ import com.sobot.chat.utils.MD5Util;
 import com.sobot.chat.utils.MediaFileUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
@@ -291,6 +292,11 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                                 SobotReplyActivity.this.startActivity(intent);
                                 return;
                             }
+                            //如果返回true,拦截;false 不拦截
+                            boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(getSobotBaseContext(),TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
+                            if (isIntercept) {
+                                return;
+                            }
                             Intent intent = new Intent(SobotReplyActivity.this, SobotPhotoActivity.class);
                             intent.putExtra("imageUrL", TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
                             startActivity(intent);
@@ -352,7 +358,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                         }
                     }
                 };
-                if (!checkStorageAndCameraPermission()) {
+                if (!checkCameraPermission()) {
                     return;
                 }
                 cameraFile = ChatUtils.openCamera(SobotReplyActivity.this);

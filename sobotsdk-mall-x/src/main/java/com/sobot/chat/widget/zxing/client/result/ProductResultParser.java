@@ -29,7 +29,7 @@ public final class ProductResultParser extends ResultParser {
 
   // Treat all UPC and EAN variants as UPCs, in the sense that they are all product barcodes.
   @Override
-  public ProductParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.ProductParsedResult parse(Result result) {
     BarcodeFormat format = result.getBarcodeFormat();
     if (!(format == BarcodeFormat.UPC_A || format == BarcodeFormat.UPC_E ||
           format == BarcodeFormat.EAN_8 || format == BarcodeFormat.EAN_13)) {

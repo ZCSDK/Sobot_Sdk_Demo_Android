@@ -16,7 +16,7 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-final class TextEncoder extends C40Encoder {
+final class TextEncoder extends com.sobot.chat.widget.zxing.datamatrix.encoder.C40Encoder {
 
   @Override
   public int getEncodingMode() {

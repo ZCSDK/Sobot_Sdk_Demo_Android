@@ -165,7 +165,7 @@ public final class Code128Writer extends OneDimensionalCodeWriter {
       }
 
       // Get the pattern
-      patterns.add(Code128Reader.CODE_PATTERNS[patternIndex]);
+      patterns.add(com.sobot.chat.widget.zxing.oned.Code128Reader.CODE_PATTERNS[patternIndex]);
 
       // Compute checksum
       checkSum += patternIndex * checkWeight;
@@ -176,7 +176,7 @@ public final class Code128Writer extends OneDimensionalCodeWriter {
 
     // Compute and append checksum
     checkSum %= 103;
-    patterns.add(Code128Reader.CODE_PATTERNS[checkSum]);
+    patterns.add(com.sobot.chat.widget.zxing.oned.Code128Reader.CODE_PATTERNS[checkSum]);
 
     // Append stop code
     patterns.add(Code128Reader.CODE_PATTERNS[CODE_STOP]);

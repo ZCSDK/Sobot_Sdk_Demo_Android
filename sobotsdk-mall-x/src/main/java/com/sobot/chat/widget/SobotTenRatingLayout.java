@@ -46,12 +46,12 @@ public class SobotTenRatingLayout extends LinearLayout {
             TextView textView = (TextView) LayoutInflater.from(getContext()).inflate(ResourceUtils.getIdByName(getContext(), "layout", "sobot_ten_rating_item"), null);
             textView.setText(i + "");
             if (i != 10) {
-                lp = new LayoutParams(0,
-                        LayoutParams.MATCH_PARENT, 1f);
+                lp = new LinearLayout.LayoutParams(0,
+                        LinearLayout.LayoutParams.MATCH_PARENT, 1f);
                 lp.rightMargin = ScreenUtils.dip2px(getContext(), 6f);
             } else {
-                lp = new LayoutParams(0,
-                        LayoutParams.MATCH_PARENT, 1f);
+                lp = new LinearLayout.LayoutParams(0,
+                        LinearLayout.LayoutParams.MATCH_PARENT, 1f);
                 lp.rightMargin = 0;
             }
             textView.setLayoutParams(lp);

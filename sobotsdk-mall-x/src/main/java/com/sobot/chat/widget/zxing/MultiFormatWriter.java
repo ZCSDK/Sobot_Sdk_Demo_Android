@@ -43,7 +43,7 @@ public final class MultiFormatWriter implements Writer {
 
   @Override
   public BitMatrix encode(String contents,
-                          BarcodeFormat format,
+                          com.sobot.chat.widget.zxing.BarcodeFormat format,
                           int width,
                           int height) throws WriterException {
     return encode(contents, format, width, height, null);

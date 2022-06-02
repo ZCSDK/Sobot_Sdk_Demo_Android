@@ -85,6 +85,8 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
                                 intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, param.getDocId());
                                 intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, param.getUnknownQuestion());
                                 intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, param.getActiveTransfer());
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD, param.getKeyword());
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID, param.getKeywordId());
                             }
                             setResult(ZhiChiConstant.REQUEST_COCE_TO_GRROUP, intent);
                             finish();

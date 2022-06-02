@@ -45,7 +45,7 @@ public enum EncodeHintType {
   DATA_MATRIX_SHAPE,
 
   /**
-   * Specifies a minimum barcode size (type {@link Dimension}). Only applicable to Data Matrix now.
+   * Specifies a minimum barcode size (type {@link com.sobot.chat.widget.zxing.Dimension}). Only applicable to Data Matrix now.
    *
    * @deprecated use width/height params in
    * {@link com.sobot.chat.widget.zxing.datamatrix.DataMatrixWriter#encode(String, BarcodeFormat, int, int)}

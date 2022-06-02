@@ -41,6 +41,7 @@ import com.sobot.chat.viewHolder.RobotTemplateMessageHolder4;
 import com.sobot.chat.viewHolder.RobotTemplateMessageHolder5;
 import com.sobot.chat.viewHolder.RobotTemplateMessageHolder6;
 import com.sobot.chat.viewHolder.SobotChatMsgItemSDKHistoryR;
+import com.sobot.chat.viewHolder.SobotMuitiLeavemsgMessageHolder;
 import com.sobot.chat.viewHolder.SystemMessageHolder;
 import com.sobot.chat.viewHolder.TextMessageHolder;
 import com.sobot.chat.viewHolder.VideoMessageHolder;
@@ -85,7 +86,9 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             "sobot_chat_msg_item_card_l",//商品卡片左侧信息的布局文件
             "sobot_chat_msg_item_template6_l",//机器人  多轮会话模板 6
             "sobot_chat_msg_item_system_tip",//防诈骗系统消息的布局文件
-            "sobot_chat_msg_item_video_l"//小视频左边的布局文件
+            "sobot_chat_msg_item_video_l",//小视频左边的布局文件
+            "sobot_chat_msg_item_muiti_leave_msg"//小视频左边的布局文件
+
     };
 
     /**
@@ -219,16 +222,17 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
      */
     public static final int MSG_TYPE_VIDEO_L = 30;
 
-    private String senderface;
-    private String sendername;
+    /**
+     * 多伦节点留言
+     */
+    public static final int MSG_TYPE_MUITI_LEAVE_MSG_R = 31;
+
 
     private SobotMsgCallBack mMsgCallBack;
 
     public SobotMsgAdapter(Context context, List<ZhiChiMessageBase> list, SobotMsgCallBack msgCallBack) {
         super(context, list);
         mMsgCallBack = msgCallBack;
-        senderface = SharedPreferencesUtil.getStringData(context, "sobot_current_sender_face", "");
-        sendername = SharedPreferencesUtil.getStringData(context, "sobot_current_sender_name", "");
     }
 
     public void addData(List<ZhiChiMessageBase> moreList) {
@@ -383,6 +387,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             info.setSentisiveExplain(data.getSentisiveExplain());
             info.setClickCancleSend(data.isClickCancleSend());
             info.setShowSentisiveSeeAll(data.isShowSentisiveSeeAll());
+            info.setDesensitizationWord(data.getDesensitizationWord());
         }
     }
 
@@ -456,7 +461,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             MessageHolderBase holder = (MessageHolderBase) convertView.getTag();
             holder.setMsgCallBack(mMsgCallBack);
             handerRemindTiem(holder, position);
-            holder.initNameAndFace(itemType, context, message, senderface, sendername);
+            holder.initNameAndFace(itemType);
             holder.applyCustomUI();//设置UI
             holder.bindZhiChiMessageBase(message);//设置message
             holder.bindData(context, message);
@@ -596,6 +601,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                 }
                 case MSG_TYPE_FRAUD_PREVENTION: {
                     holder = new SystemMessageHolder(context, convertView);
+                    break;
+                }
+                case MSG_TYPE_MUITI_LEAVE_MSG_R: {
+                    holder = new SobotMuitiLeavemsgMessageHolder(context, convertView);
                     break;
                 }
                 default: {
@@ -833,6 +842,8 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                                 return MSG_TYPE_ROBOT_ORDERCARD_R;
                             }
                         }
+                    } else if (ZhiChiConstant.message_type_muiti_leave_msg.equals(message.getAnswer().getMsgType())) {
+                        return MSG_TYPE_MUITI_LEAVE_MSG_R;
                     }
                 } else {
                     return MSG_TYPE_ILLEGAL;
@@ -864,7 +875,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                     .parseInt(message.getAction())) {
                 //防诈骗消息
                 return MSG_TYPE_FRAUD_PREVENTION;
-            }else if (ZhiChiConstant.action_sensitive_auth_agree.equals(message.getAction())) {
+            } else if (ZhiChiConstant.action_sensitive_auth_agree.equals(message.getAction())) {
                 //发送消息触发隐私，同意后的系统消息
                 return MSG_TYPE_TIP;
             }
@@ -1021,5 +1032,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         void removeMessageByMsgId(String msgid);
 
         void addMessage(ZhiChiMessageBase message);
+
+        void mulitDiaToLeaveMsg(String leaveTemplateId);
     }
 }

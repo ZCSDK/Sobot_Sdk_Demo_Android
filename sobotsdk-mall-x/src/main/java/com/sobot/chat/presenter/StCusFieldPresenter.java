@@ -73,6 +73,7 @@ public class StCusFieldPresenter {
                         && !StringUtils.isEmpty(cusFieldConfig.getValue())) {
                     model.put("id", field.get(i).getCusFieldConfig().getFieldId());
                     model.put("value", field.get(i).getCusFieldConfig().getValue());
+                    model.put("text", field.get(i).getCusFieldConfig().getShowName());
                     listModel.add(model);
                 }
             }
@@ -82,6 +83,28 @@ public class StCusFieldPresenter {
             return jsonArray.toString();
         }
         return null;
+    }
+
+
+    /**
+     * 获取要提交给接口的自定义字段的json
+     * 留言接口使用
+     *
+     * @param field
+     * @return
+     */
+    public static Map getSaveFieldNameAndVal(ArrayList<SobotFieldModel> field) {
+        if (field != null && field.size() > 0) {
+            Map<String, String> model = new HashMap<>();
+            for (int i = 0; i < field.size(); i++) {
+                SobotCusFieldConfig cusFieldConfig = field.get(i).getCusFieldConfig();
+                if (cusFieldConfig != null) {
+                    model.put(field.get(i).getCusFieldConfig().getFieldName(),TextUtils.isEmpty(field.get(i).getCusFieldConfig().getShowName())?field.get(i).getCusFieldConfig().getValue():field.get(i).getCusFieldConfig().getShowName());
+                }
+            }
+            return model;
+        }
+       return null;
     }
 
     /**
@@ -211,6 +234,7 @@ public class StCusFieldPresenter {
                         View view = post_customer_field.findViewWithTag(model.getFieldId());
                         TextView textClick = (TextView) view.findViewById(ResourceUtils.getIdByName(context, "id", "work_order_customer_date_text_click"));
                         textClick.setText(value.endsWith(",") ? value.substring(0, value.length() - 1) : value);
+                        model.setShowName(value.endsWith(",") ? value.substring(0, value.length() - 1) : value);
                         TextView fieldName = (TextView) view.findViewById(ResourceUtils.getIdByName(context, "id", "work_order_customer_field_text_lable"));
                         LinearLayout work_order_customer_field_ll = (LinearLayout) view.findViewById(ResourceUtils.getIdByName(context, "id", "work_order_customer_field_ll"));
                         work_order_customer_field_ll.setVisibility(View.VISIBLE);

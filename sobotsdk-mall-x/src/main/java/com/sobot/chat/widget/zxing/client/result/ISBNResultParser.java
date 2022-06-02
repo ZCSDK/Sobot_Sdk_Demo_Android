@@ -30,7 +30,7 @@ public final class ISBNResultParser extends ResultParser {
    * See <a href="http://www.bisg.org/isbn-13/for.dummies.html">ISBN-13 For Dummies</a>
    */
   @Override
-  public ISBNParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.ISBNParsedResult parse(Result result) {
     BarcodeFormat format = result.getBarcodeFormat();
     if (format != BarcodeFormat.EAN_13) {
       return null;

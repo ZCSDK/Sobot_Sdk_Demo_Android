@@ -25,16 +25,16 @@ class DetectionResultColumn {
 
   private static final int MAX_NEARBY_DISTANCE = 5;
 
-  private final BoundingBox boundingBox;
-  private final Codeword[] codewords;
+  private final com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox;
+  private final com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords;
 
-  DetectionResultColumn(BoundingBox boundingBox) {
-    this.boundingBox = new BoundingBox(boundingBox);
-    codewords = new Codeword[boundingBox.getMaxY() - boundingBox.getMinY() + 1];
+  DetectionResultColumn(com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox) {
+    this.boundingBox = new com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox(boundingBox);
+    codewords = new com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[boundingBox.getMaxY() - boundingBox.getMinY() + 1];
   }
 
-  final Codeword getCodewordNearby(int imageRow) {
-    Codeword codeword = getCodeword(imageRow);
+  final com.sobot.chat.widget.zxing.pdf417.decoder.Codeword getCodewordNearby(int imageRow) {
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = getCodeword(imageRow);
     if (codeword != null) {
       return codeword;
     }
@@ -61,19 +61,19 @@ class DetectionResultColumn {
     return imageRow - boundingBox.getMinY();
   }
 
-  final void setCodeword(int imageRow, Codeword codeword) {
+  final void setCodeword(int imageRow, com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword) {
     codewords[imageRowToCodewordIndex(imageRow)] = codeword;
   }
 
-  final Codeword getCodeword(int imageRow) {
+  final com.sobot.chat.widget.zxing.pdf417.decoder.Codeword getCodeword(int imageRow) {
     return codewords[imageRowToCodewordIndex(imageRow)];
   }
 
-  final BoundingBox getBoundingBox() {
+  final com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox getBoundingBox() {
     return boundingBox;
   }
 
-  final Codeword[] getCodewords() {
+  final com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] getCodewords() {
     return codewords;
   }
 
@@ -81,7 +81,7 @@ class DetectionResultColumn {
   public String toString() {
     try (Formatter formatter = new Formatter()) {
       int row = 0;
-      for (Codeword codeword : codewords) {
+      for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword : codewords) {
         if (codeword == null) {
           formatter.format("%3d:    |   %n", row++);
           continue;

@@ -243,7 +243,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                         satisFactionList = satisfactionSet.getData();
                         if (commentType == 1) {
                             //主动评价需要判断默认星级
-                            if (satisFactionList.get(0) != null && satisFactionList.get(0).getDefaultType() != -1) {
+                            if (satisFactionList.get(0) != null) {
                                 if (satisFactionList.get(0).getScoreFlag() == 0) {
                                     //defaultType 0-默认5星,1-默认0星
                                     score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
@@ -263,9 +263,11 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                                         score = 10;
                                     }
                                 }
+                            } else {
+                                return;
                             }
                         } else {
-                            if (satisFactionList.get(0) != null && satisFactionList.get(0).getDefaultType() != -1) {
+                            if (satisFactionList.get(0) != null) {
                                 if (satisFactionList.get(0).getScoreFlag() == 0) {
                                     //defaultType 0-默认5星,1-默认0星
                                     sobot_ten_root_ll.setVisibility(View.GONE);
@@ -276,6 +278,8 @@ public class SobotEvaluateDialog extends SobotActionSheet {
                                     sobot_ratingBar.setVisibility(View.GONE);
                                     ratingType = 1;//十分
                                 }
+                            } else {
+                                return;
                             }
                         }
                         if (ratingType == 0) {

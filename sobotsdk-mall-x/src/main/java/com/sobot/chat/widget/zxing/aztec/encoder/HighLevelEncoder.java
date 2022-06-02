@@ -157,7 +157,7 @@ public final class HighLevelEncoder {
    * @return text represented by this encoder encoded as a {@link BitArray}
    */
   public BitArray encode() {
-    Collection<State> states = Collections.singletonList(State.INITIAL_STATE);
+    Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> states = Collections.singletonList(com.sobot.chat.widget.zxing.aztec.encoder.State.INITIAL_STATE);
     for (int index = 0; index < text.length; index++) {
       int pairCode;
       int nextChar = index + 1 < text.length ? text[index + 1] : 0;
@@ -188,9 +188,9 @@ public final class HighLevelEncoder {
       }
     }
     // We are left with a set of states.  Find the shortest one.
-    State minState = Collections.min(states, new Comparator<State>() {
+    com.sobot.chat.widget.zxing.aztec.encoder.State minState = Collections.min(states, new Comparator<com.sobot.chat.widget.zxing.aztec.encoder.State>() {
       @Override
-      public int compare(State a, State b) {
+      public int compare(com.sobot.chat.widget.zxing.aztec.encoder.State a, com.sobot.chat.widget.zxing.aztec.encoder.State b) {
         return a.getBitCount() - b.getBitCount();
       }
     });
@@ -201,9 +201,9 @@ public final class HighLevelEncoder {
   // We update a set of states for a new character by updating each state
   // for the new character, merging the results, and then removing the
   // non-optimal states.
-  private Collection<State> updateStateListForChar(Iterable<State> states, int index) {
-    Collection<State> result = new LinkedList<>();
-    for (State state : states) {
+  private Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> updateStateListForChar(Iterable<com.sobot.chat.widget.zxing.aztec.encoder.State> states, int index) {
+    Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> result = new LinkedList<>();
+    for (com.sobot.chat.widget.zxing.aztec.encoder.State state : states) {
       updateStateForChar(state, index, result);
     }
     return simplifyStates(result);
@@ -212,10 +212,10 @@ public final class HighLevelEncoder {
   // Return a set of states that represent the possible ways of updating this
   // state for the next character.  The resulting set of states are added to
   // the "result" list.
-  private void updateStateForChar(State state, int index, Collection<State> result) {
+  private void updateStateForChar(com.sobot.chat.widget.zxing.aztec.encoder.State state, int index, Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> result) {
     char ch = (char) (text[index] & 0xFF);
     boolean charInCurrentTable = CHAR_MAP[state.getMode()][ch] > 0;
-    State stateNoBinary = null;
+    com.sobot.chat.widget.zxing.aztec.encoder.State stateNoBinary = null;
     for (int mode = 0; mode <= MODE_PUNCT; mode++) {
       int charInMode = CHAR_MAP[mode][ch];
       if (charInMode > 0) {
@@ -229,14 +229,14 @@ public final class HighLevelEncoder {
           // any other mode except possibly digit (which uses only 4 bits).  Any
           // other latch would be equally successful *after* this character, and
           // so wouldn't save any bits.
-          State latchState = stateNoBinary.latchAndAppend(mode, charInMode);
+          com.sobot.chat.widget.zxing.aztec.encoder.State latchState = stateNoBinary.latchAndAppend(mode, charInMode);
           result.add(latchState);
         }
         // Try generating the character by switching to its mode.
         if (!charInCurrentTable && SHIFT_TABLE[state.getMode()][mode] >= 0) {
           // It never makes sense to temporarily shift to another mode if the
           // character exists in the current mode.  That can never save bits.
-          State shiftState = stateNoBinary.shiftAndAppend(mode, charInMode);
+          com.sobot.chat.widget.zxing.aztec.encoder.State shiftState = stateNoBinary.shiftAndAppend(mode, charInMode);
           result.add(shiftState);
         }
       }
@@ -245,21 +245,21 @@ public final class HighLevelEncoder {
       // It's never worthwhile to go into binary shift mode if you're not already
       // in binary shift mode, and the character exists in your current mode.
       // That can never save bits over just outputting the char in the current mode.
-      State binaryState = state.addBinaryShiftChar(index);
+      com.sobot.chat.widget.zxing.aztec.encoder.State binaryState = state.addBinaryShiftChar(index);
       result.add(binaryState);
     }
   }
 
-  private static Collection<State> updateStateListForPair(Iterable<State> states, int index, int pairCode) {
-    Collection<State> result = new LinkedList<>();
-    for (State state : states) {
+  private static Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> updateStateListForPair(Iterable<com.sobot.chat.widget.zxing.aztec.encoder.State> states, int index, int pairCode) {
+    Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> result = new LinkedList<>();
+    for (com.sobot.chat.widget.zxing.aztec.encoder.State state : states) {
       updateStateForPair(state, index, pairCode, result);
     }
     return simplifyStates(result);
   }
 
-  private static void updateStateForPair(State state, int index, int pairCode, Collection<State> result) {
-    State stateNoBinary = state.endBinaryShift(index);
+  private static void updateStateForPair(com.sobot.chat.widget.zxing.aztec.encoder.State state, int index, int pairCode, Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> result) {
+    com.sobot.chat.widget.zxing.aztec.encoder.State stateNoBinary = state.endBinaryShift(index);
     // Possibility 1.  Latch to MODE_PUNCT, and then append this code
     result.add(stateNoBinary.latchAndAppend(MODE_PUNCT, pairCode));
     if (state.getMode() != MODE_PUNCT) {
@@ -269,7 +269,7 @@ public final class HighLevelEncoder {
     }
     if (pairCode == 3 || pairCode == 4) {
       // both characters are in DIGITS.  Sometimes better to just add two digits
-      State digitState = stateNoBinary
+      com.sobot.chat.widget.zxing.aztec.encoder.State digitState = stateNoBinary
           .latchAndAppend(MODE_DIGIT, 16 - pairCode)  // period or comma in DIGIT
           .latchAndAppend(MODE_DIGIT, 1);             // space in DIGIT
       result.add(digitState);
@@ -277,17 +277,17 @@ public final class HighLevelEncoder {
     if (state.getBinaryShiftByteCount() > 0) {
       // It only makes sense to do the characters as binary if we're already
       // in binary mode.
-      State binaryState = state.addBinaryShiftChar(index).addBinaryShiftChar(index + 1);
+      com.sobot.chat.widget.zxing.aztec.encoder.State binaryState = state.addBinaryShiftChar(index).addBinaryShiftChar(index + 1);
       result.add(binaryState);
     }
   }
 
-  private static Collection<State> simplifyStates(Iterable<State> states) {
-    Collection<State> result = new LinkedList<>();
-    for (State newState : states) {
+  private static Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> simplifyStates(Iterable<com.sobot.chat.widget.zxing.aztec.encoder.State> states) {
+    Collection<com.sobot.chat.widget.zxing.aztec.encoder.State> result = new LinkedList<>();
+    for (com.sobot.chat.widget.zxing.aztec.encoder.State newState : states) {
       boolean add = true;
-      for (Iterator<State> iterator = result.iterator(); iterator.hasNext();) {
-        State oldState = iterator.next();
+      for (Iterator<com.sobot.chat.widget.zxing.aztec.encoder.State> iterator = result.iterator(); iterator.hasNext();) {
+        com.sobot.chat.widget.zxing.aztec.encoder.State oldState = iterator.next();
         if (oldState.isBetterThanOrEqualTo(newState)) {
           add = false;
           break;

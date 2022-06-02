@@ -6,26 +6,25 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
+import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.StCameraView;
 import com.sobot.chat.camera.listener.StCameraListener;
 import com.sobot.chat.camera.listener.StClickListener;
 import com.sobot.chat.camera.listener.StErrorListener;
 import com.sobot.chat.camera.util.FileUtil;
+import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotPathManager;
-import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.statusbar.StatusBarCompat;
 
 /**
  * @author Created by jinxl on 2018/12/3.
  */
-public class SobotCameraActivity extends FragmentActivity {
+public class SobotCameraActivity extends SobotBaseActivity {
     private static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
     private static final String EXTRA_IMAGE_FILE_PATH = "EXTRA_IMAGE_FILE_PATH";
     private static final String EXTRA_VIDEO_FILE_PATH = "EXTRA_VIDEO_FILE_PATH";
@@ -79,64 +78,8 @@ public class SobotCameraActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(ResourceUtils.getIdByName(SobotCameraActivity.this, "layout", "sobot_activity_camera"));
-        MyApplication.getInstance().addActivity(this);
-        jCameraView = (StCameraView) findViewById(ResourceUtils.getIdByName(SobotCameraActivity.this, "id", "sobot_cameraview"));
-        //设置视频保存路径
-        jCameraView.setSaveVideoPath(SobotPathManager.getInstance().getVideoDir());
-        jCameraView.setFeatures(StCameraView.BUTTON_STATE_BOTH);
-        jCameraView.setTip(ResourceUtils.getResString(SobotCameraActivity.this,"sobot_tap_hold_camera"));
-        jCameraView.setMediaQuality(StCameraView.MEDIA_QUALITY_MIDDLE);
-        jCameraView.setErrorLisenter(new StErrorListener() {
-            @Override
-            public void onError() {
-                //错误监听
-                finish();
-            }
-
-            @Override
-            public void AudioPermissionError() {
-                ToastUtil.showCustomToast(SobotCameraActivity.this, ResourceUtils.getResString(SobotCameraActivity.this,"sobot_no_voice_permission"), Toast.LENGTH_SHORT);
-            }
-        });
-        //JCameraView监听
-        jCameraView.setJCameraLisenter(new StCameraListener() {
-            @Override
-            public void captureSuccess(Bitmap bitmap) {
-                //获取图片bitmap
-                Intent intent = new Intent();
-                intent.putExtra(EXTRA_ACTION_TYPE, ACTION_TYPE_PHOTO);
-                if (bitmap != null) {
-                    String path = FileUtil.saveBitmap(100, bitmap);
-                    intent.putExtra(EXTRA_IMAGE_FILE_PATH, path);
-                }
-                setResult(RESULT_CODE, intent);
-                finish();
-            }
-
-            @Override
-            public void recordSuccess(String url, Bitmap firstFrame) {
-                //获取视频路径
-                Intent intent = new Intent();
-                intent.putExtra(EXTRA_ACTION_TYPE, ACTION_TYPE_VIDEO);
-                if (firstFrame != null) {
-                    String path = FileUtil.saveBitmap(80, firstFrame);
-                    intent.putExtra(EXTRA_IMAGE_FILE_PATH, path);
-                }
-                intent.putExtra(EXTRA_VIDEO_FILE_PATH, url);
-                setResult(RESULT_CODE, intent);
-                finish();
-            }
-        });
-
-        jCameraView.setLeftClickListener(new StClickListener() {
-            @Override
-            public void onClick() {
-                SobotCameraActivity.this.finish();
-            }
-        });
-
-        StatusBarCompat.setNavigationBarColor(this,0x33000000);
+        //setContentView(ResourceUtils.getIdByName(SobotCameraActivity.this, "layout", "sobot_activity_camera"));
+        //MyApplication.getInstance().addActivity(this);
 
     }
 
@@ -177,4 +120,81 @@ public class SobotCameraActivity extends FragmentActivity {
         MyApplication.getInstance().deleteActivity(this);
         super.onDestroy();
     }
+
+    @Override
+    protected int getContentViewResId() {
+        return getResLayoutId("sobot_activity_camera");
+    }
+
+    @Override
+    protected void initView() {
+        jCameraView = (StCameraView) findViewById(ResourceUtils.getIdByName(SobotCameraActivity.this, "id", "sobot_cameraview"));
+        //设置视频保存路径
+        jCameraView.setSaveVideoPath(SobotPathManager.getInstance().getVideoDir());
+        jCameraView.setFeatures(StCameraView.BUTTON_STATE_BOTH);
+        jCameraView.setTip(ResourceUtils.getResString(SobotCameraActivity.this, "sobot_tap_hold_camera"));
+        jCameraView.setMediaQuality(StCameraView.MEDIA_QUALITY_MIDDLE);
+        jCameraView.setErrorLisenter(new StErrorListener() {
+            @Override
+            public void onError() {
+                //错误监听
+                finish();
+            }
+
+            @Override
+            public void AudioPermissionError() {
+                permissionListener = new PermissionListenerImpl() {
+                };
+                if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2)) {
+                } else {
+                    if (!checkAudioPermission()) {
+                    }
+                }
+            }
+        });
+        //JCameraView监听
+        jCameraView.setJCameraLisenter(new StCameraListener() {
+            @Override
+            public void captureSuccess(Bitmap bitmap) {
+                //获取图片bitmap
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_ACTION_TYPE, ACTION_TYPE_PHOTO);
+                if (bitmap != null) {
+                    String path = FileUtil.saveBitmap(100, bitmap);
+                    intent.putExtra(EXTRA_IMAGE_FILE_PATH, path);
+                }
+                setResult(RESULT_CODE, intent);
+                finish();
+            }
+
+            @Override
+            public void recordSuccess(String url, Bitmap firstFrame) {
+                //获取视频路径
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_ACTION_TYPE, ACTION_TYPE_VIDEO);
+                if (firstFrame != null) {
+                    String path = FileUtil.saveBitmap(80, firstFrame);
+                    intent.putExtra(EXTRA_IMAGE_FILE_PATH, path);
+                }
+                intent.putExtra(EXTRA_VIDEO_FILE_PATH, url);
+                setResult(RESULT_CODE, intent);
+                finish();
+            }
+        });
+
+        jCameraView.setLeftClickListener(new StClickListener() {
+            @Override
+            public void onClick() {
+                SobotCameraActivity.this.finish();
+            }
+        });
+
+        StatusBarCompat.setNavigationBarColor(this, 0x33000000);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
 }

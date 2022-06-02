@@ -31,8 +31,16 @@ public class NotificationUtils {
             detailIntent.putExtra("sobot_appId", pushMessage.getAppId());
         }
         detailIntent.setPackage(context.getPackageName());
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 0,
-                detailIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = null;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            // Create a PendingIntent using FLAG_IMMUTABLE
+            pendingIntent2 = PendingIntent.getBroadcast(context, 0,
+                    detailIntent, PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent2 = PendingIntent.getBroadcast(context, 0,
+                    detailIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
         int smallicon = SharedPreferencesUtil.getIntData(context, ZhiChiConstant
                 .SOBOT_NOTIFICATION_SMALL_ICON, ResourceUtils.getIdByName(context, "drawable", "sobot_logo_small_icon"));
         int largeicon = SharedPreferencesUtil.getIntData(context, ZhiChiConstant
@@ -40,13 +48,14 @@ public class NotificationUtils {
 
         BitmapDrawable bd = (BitmapDrawable) context.getResources().getDrawable(largeicon);
         Bitmap bitmap = bd.getBitmap();
+       String contentTemp= HtmlTools.getInstance(context).getHTMLStr(content);
         Notification.Builder builder = new Notification.Builder(context)
                 .setSmallIcon(smallicon) // 设置状态栏中的小图片，尺寸一般建议在24×24，这个图片同样也是在下拉状态栏中所显示，如果在那里需要更换更大的图片，可以使用setLargeIcon(Bitmap
                 // icon)
                // .setLargeIcon(bitmap)
                 .setTicker(ticker)
-                .setContentTitle(title)
-                .setContentText(content)
+//                .setContentTitle(title)
+                .setContentText(contentTemp)
                 .setContentIntent(pendingIntent2);
 
         boolean compatFlag = CommonUtils.getTargetSdkVersion(context) >= 26;

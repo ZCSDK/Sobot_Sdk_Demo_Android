@@ -23,7 +23,7 @@ package com.sobot.chat.widget.zxing;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Betaminos
  */
-public final class RGBLuminanceSource extends LuminanceSource {
+public final class RGBLuminanceSource extends com.sobot.chat.widget.zxing.LuminanceSource {
 
   private final byte[] luminances;
   private final int dataWidth;

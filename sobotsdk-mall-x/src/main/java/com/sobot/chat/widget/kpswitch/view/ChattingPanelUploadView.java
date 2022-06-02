@@ -201,7 +201,7 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
      * @param plusClickListener 点击表情的回调
      * @return
      */
-    public PlusDisplayListener<Object> getPlusItemDisplayListener(final SobotPlusClickListener plusClickListener) {
+    public PlusDisplayListener<Object> getPlusItemDisplayListener(final ChattingPanelUploadView.SobotPlusClickListener plusClickListener) {
         return new PlusDisplayListener<Object>() {
             @Override
             public void onBindView(int position, ViewGroup parent, PlusAdapter.ViewHolder viewHolder, Object object) {
@@ -254,8 +254,8 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
 
     @Override
     public void setListener(SobotBasePanelListener listener) {
-        if (listener != null && listener instanceof SobotPlusClickListener) {
-            mListener = (SobotPlusClickListener) listener;
+        if (listener != null && listener instanceof ChattingPanelUploadView.SobotPlusClickListener) {
+            mListener = (ChattingPanelUploadView.SobotPlusClickListener) listener;
         }
     }
 

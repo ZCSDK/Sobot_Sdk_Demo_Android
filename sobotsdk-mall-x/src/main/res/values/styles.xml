@@ -386,12 +386,12 @@
         <item name="android:background">@drawable/sobot_chat_msg_hollow_bg_right</item>
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginEnd">12dp</item>
-        <item name="android:layout_marginLeft">30dp</item>
-        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginLeft">60dp</item>
+        <item name="android:layout_marginStart">60dp</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingTop">15dp</item>
         <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingBottom">15dp</item>
     </style>
 
     <!--文件消息左侧气泡背景 空心边框-->

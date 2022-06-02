@@ -33,10 +33,10 @@ import com.sobot.chat.widget.zxing.Result;
  *
  * @author Sean Owen
  */
-public final class AddressBookDoCoMoResultParser extends AbstractDoCoMoResultParser {
+public final class AddressBookDoCoMoResultParser extends com.sobot.chat.widget.zxing.client.result.AbstractDoCoMoResultParser {
 
   @Override
-  public AddressBookParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.AddressBookParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (!rawText.startsWith("MECARD:")) {
       return null;

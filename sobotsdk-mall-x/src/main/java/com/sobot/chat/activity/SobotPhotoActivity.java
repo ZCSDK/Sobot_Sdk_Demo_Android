@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,10 +23,11 @@ import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.MD5Util;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.widget.RoundProgressBar;
 import com.sobot.chat.widget.SelectPicPopupWindow;
 import com.sobot.chat.widget.gif.GifView2;
-import com.sobot.chat.widget.photoview.PhotoView;
-import com.sobot.chat.widget.photoview.PhotoViewAttacher;
+import com.sobot.chat.widget.subscaleview.ImageSource;
+import com.sobot.chat.widget.subscaleview.SobotScaleImageView;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
@@ -33,8 +36,8 @@ import java.io.FileNotFoundException;
 
 public class SobotPhotoActivity extends Activity implements View.OnLongClickListener {
 
-    private PhotoView big_photo;
-    private PhotoViewAttacher mAttacher;
+    private SobotScaleImageView mImageView;
+
     private GifView2 sobot_image_view;
     private RelativeLayout sobot_rl_gif;
     private SelectPicPopupWindow menuWindow;
@@ -42,6 +45,7 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
     Bitmap bitmap;
     boolean isRight;
     String sdCardPath;
+    private RoundProgressBar sobot_progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,13 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
         setContentView(ResourceUtils.getIdByName(this, "layout",
                 "sobot_photo_activity"));
         MyApplication.getInstance().addActivity(this);
-        big_photo = (PhotoView) findViewById(ResourceUtils.getIdByName(this,
+        sobot_progress = (RoundProgressBar) findViewById(ResourceUtils.getResId(this, "sobot_pic_progress_round"));
+        sobot_progress.setRoundWidth(10);//设置圆环的宽度
+        sobot_progress.setCricleProgressColor(Color.WHITE);
+        sobot_progress.setTextColor(Color.WHITE);
+        sobot_progress.setTextDisplayable(true);
+        sobot_progress.setVisibility(View.GONE);
+        mImageView = (SobotScaleImageView) findViewById(ResourceUtils.getIdByName(this,
                 "id", "sobot_big_photo"));
         sobot_image_view = (GifView2) findViewById(ResourceUtils.getIdByName(
                 this, "id", "sobot_image_view"));
@@ -69,6 +79,7 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
                 showView(pathAbsolute);
             }
         });
+
         initBundleData(savedInstanceState);
 
         LogUtils.i("SobotPhotoActivity-------" + imageUrL);
@@ -131,22 +142,36 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                big_photo.setImageBitmap(bitmap);
-                mAttacher = new PhotoViewAttacher(big_photo);
-                mAttacher
-                        .setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-                            @Override
-                            public void onPhotoTap(View view, float x, float y) {
-                                LogUtils.i("点击图片的时间：" + view + " x:" + x
-                                        + "  y:" + y);
-                                finish();
-                            }
-                        });
-                mAttacher.update();
-                big_photo.setVisibility(View.VISIBLE);
-                mAttacher.setOnLongClickListener(this);
+                mImageView.setImage(ImageSource.bitmap(bitmap));
+                mImageView.setVisibility(View.VISIBLE);
+
+                mImageView.setMinimumDpi(50);
+                mImageView.setMinimumTileDpi(240);
+                mImageView.setDoubleTapZoomStyle(SobotScaleImageView.ZOOM_FOCUS_FIXED);
+                mImageView.setDoubleTapZoomScale(2F);
+                mImageView.setPanLimit(SobotScaleImageView.PAN_LIMIT_INSIDE);
+                mImageView.setPanEnabled(true);
+                mImageView.setZoomEnabled(true);
+                mImageView.setQuickScaleEnabled(true);
+
+                mImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mImageView.playSoundEffect(SoundEffectConstants.CLICK);
+                        finish();
+                    }
+                });
+                mImageView.setOnLongClickListener(gifLongClickListener);
+
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mImageView.playSoundEffect(SoundEffectConstants.CLICK);
+        finish();
     }
 
     private void showGif(String savePath) {
@@ -213,6 +238,7 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
     };
 
     public void displayImage(String url, File saveFile, final GifView2 gifView) {
+        sobot_progress.setVisibility(View.VISIBLE);
         // 下载图片
         HttpUtils.getInstance().download(url, saveFile, null, new FileCallBack() {
 
@@ -222,6 +248,8 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
                         + file.getAbsolutePath());
                 // 把图片文件打开为文件流，然后解码为bitmap
                 showView(file.getAbsolutePath());
+                sobot_progress.setProgress(100);
+                sobot_progress.setVisibility(View.GONE);
             }
 
             @Override
@@ -232,6 +260,7 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
             @Override
             public void inProgress(int progress) {
                 //LogUtils.i("图片下载进度:" + progress);
+                sobot_progress.setProgress(progress);
             }
         });
     }

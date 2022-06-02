@@ -21,10 +21,10 @@ import com.sobot.chat.widget.zxing.Result;
 /**
  * @author Sean Owen
  */
-public final class BookmarkDoCoMoResultParser extends AbstractDoCoMoResultParser {
+public final class BookmarkDoCoMoResultParser extends com.sobot.chat.widget.zxing.client.result.AbstractDoCoMoResultParser {
 
   @Override
-  public URIParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.URIParsedResult parse(Result result) {
     String rawText = result.getText();
     if (!rawText.startsWith("MEBKM:")) {
       return null;

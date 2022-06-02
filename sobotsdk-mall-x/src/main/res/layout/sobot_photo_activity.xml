@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sobot_photo_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
@@ -19,12 +20,16 @@
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
-    <com.sobot.chat.widget.photoview.PhotoView
+    <com.sobot.chat.widget.subscaleview.SobotScaleImageView
         android:id="@+id/sobot_big_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
         android:visibility="gone" />
+    <com.sobot.chat.widget.RoundProgressBar
+        android:id="@+id/sobot_pic_progress_round"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        />
 </RelativeLayout>

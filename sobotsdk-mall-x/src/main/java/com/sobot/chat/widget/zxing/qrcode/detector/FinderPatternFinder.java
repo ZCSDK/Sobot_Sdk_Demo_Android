@@ -45,7 +45,7 @@ public class FinderPatternFinder {
   protected static final int MAX_MODULES = 97; // support up to version 20 for mobile clients
 
   private final BitMatrix image;
-  private final List<FinderPattern> possibleCenters;
+  private final List<com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern> possibleCenters;
   private boolean hasSkipped;
   private final int[] crossCheckStateCount;
   private final ResultPointCallback resultPointCallback;
@@ -70,11 +70,11 @@ public class FinderPatternFinder {
     return image;
   }
 
-  protected final List<FinderPattern> getPossibleCenters() {
+  protected final List<com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern> getPossibleCenters() {
     return possibleCenters;
   }
 
-  final FinderPatternInfo find(Map<DecodeHintType,?> hints) throws NotFoundException {
+  final com.sobot.chat.widget.zxing.qrcode.detector.FinderPatternInfo find(Map<DecodeHintType,?> hints) throws NotFoundException {
     boolean tryHarder = hints != null && hints.containsKey(DecodeHintType.TRY_HARDER);
     int maxI = image.getHeight();
     int maxJ = image.getWidth();
@@ -161,7 +161,7 @@ public class FinderPatternFinder {
       }
     }
 
-    FinderPattern[] patternInfo = selectBestPatterns();
+    com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern[] patternInfo = selectBestPatterns();
     ResultPoint.orderBestPatterns(patternInfo);
 
     return new FinderPatternInfo(patternInfo);
@@ -507,7 +507,7 @@ public class FinderPatternFinder {
         float estimatedModuleSize = stateCountTotal / 7.0f;
         boolean found = false;
         for (int index = 0; index < possibleCenters.size(); index++) {
-          FinderPattern center = possibleCenters.get(index);
+          com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern center = possibleCenters.get(index);
           // Look for about the same center and module size:
           if (center.aboutEquals(estimatedModuleSize, centerI, centerJ)) {
             possibleCenters.set(index, center.combineEstimate(centerI, centerJ, estimatedModuleSize));
@@ -516,7 +516,7 @@ public class FinderPatternFinder {
           }
         }
         if (!found) {
-          FinderPattern point = new FinderPattern(centerJ, centerI, estimatedModuleSize);
+          com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern point = new com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern(centerJ, centerI, estimatedModuleSize);
           possibleCenters.add(point);
           if (resultPointCallback != null) {
             resultPointCallback.foundPossibleResultPoint(point);
@@ -540,7 +540,7 @@ public class FinderPatternFinder {
       return 0;
     }
     ResultPoint firstConfirmedCenter = null;
-    for (FinderPattern center : possibleCenters) {
+    for (com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern center : possibleCenters) {
       if (center.getCount() >= CENTER_QUORUM) {
         if (firstConfirmedCenter == null) {
           firstConfirmedCenter = center;
@@ -568,7 +568,7 @@ public class FinderPatternFinder {
     int confirmedCount = 0;
     float totalModuleSize = 0.0f;
     int max = possibleCenters.size();
-    for (FinderPattern pattern : possibleCenters) {
+    for (com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern pattern : possibleCenters) {
       if (pattern.getCount() >= CENTER_QUORUM) {
         confirmedCount++;
         totalModuleSize += pattern.getEstimatedModuleSize();
@@ -583,7 +583,7 @@ public class FinderPatternFinder {
     // 5% of the total module size estimates, it's too much.
     float average = totalModuleSize / max;
     float totalDeviation = 0.0f;
-    for (FinderPattern pattern : possibleCenters) {
+    for (com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern pattern : possibleCenters) {
       totalDeviation += Math.abs(pattern.getEstimatedModuleSize() - average);
     }
     return totalDeviation <= 0.05f * totalModuleSize;
@@ -592,18 +592,18 @@ public class FinderPatternFinder {
   /**
    * Get square of distance between a and b.
    */
-  private static double squaredDistance(FinderPattern a, FinderPattern b) {
+  private static double squaredDistance(com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern a, com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern b) {
     double x = a.getX() - b.getX();
     double y = a.getY() - b.getY();
     return x * x + y * y;
   }
 
   /**
-   * @return the 3 best {@link FinderPattern}s from our list of candidates. The "best" are
+   * @return the 3 best {@link com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern}s from our list of candidates. The "best" are
    *         those have similar module size and form a shape closer to a isosceles right triangle.
    * @throws NotFoundException if 3 such finder patterns do not exist
    */
-  private FinderPattern[] selectBestPatterns() throws NotFoundException {
+  private com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern[] selectBestPatterns() throws NotFoundException {
 
     int startSize = possibleCenters.size();
     if (startSize < 3) {
@@ -615,18 +615,18 @@ public class FinderPatternFinder {
 
     double distortion = Double.MAX_VALUE;
     double[] squares = new double[3];
-    FinderPattern[] bestPatterns = new FinderPattern[3];
+    com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern[] bestPatterns = new com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern[3];
 
     for (int i = 0; i < possibleCenters.size() - 2; i++) {
-      FinderPattern fpi = possibleCenters.get(i);
+      com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern fpi = possibleCenters.get(i);
       float minModuleSize = fpi.getEstimatedModuleSize();
 
       for (int j = i + 1; j < possibleCenters.size() - 1; j++) {
-        FinderPattern fpj = possibleCenters.get(j);
+        com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern fpj = possibleCenters.get(j);
         double squares0 = squaredDistance(fpi, fpj);
 
         for (int k = j + 1; k < possibleCenters.size(); k++) {
-          FinderPattern fpk = possibleCenters.get(k);
+          com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern fpk = possibleCenters.get(k);
           float maxModuleSize = fpk.getEstimatedModuleSize();
           if (maxModuleSize > minModuleSize * 1.4f) {
             // module size is not similar
@@ -662,11 +662,11 @@ public class FinderPatternFinder {
   }
 
   /**
-   * <p>Orders by {@link FinderPattern#getEstimatedModuleSize()}</p>
+   * <p>Orders by {@link com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern#getEstimatedModuleSize()}</p>
    */
-  private static final class EstimatedModuleComparator implements Comparator<FinderPattern>, Serializable {
+  private static final class EstimatedModuleComparator implements Comparator<com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern>, Serializable {
     @Override
-    public int compare(FinderPattern center1, FinderPattern center2) {
+    public int compare(com.sobot.chat.widget.zxing.qrcode.detector.FinderPattern center1, FinderPattern center2) {
       return Float.compare(center1.getEstimatedModuleSize(), center2.getEstimatedModuleSize());
     }
   }

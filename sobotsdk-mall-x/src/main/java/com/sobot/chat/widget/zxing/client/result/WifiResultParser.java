@@ -38,7 +38,7 @@ import com.sobot.chat.widget.zxing.Result;
 public final class WifiResultParser extends ResultParser {
 
   @Override
-  public WifiParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.WifiParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (!rawText.startsWith("WIFI:")) {
       return null;

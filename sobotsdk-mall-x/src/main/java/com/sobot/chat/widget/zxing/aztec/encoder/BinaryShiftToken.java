@@ -18,12 +18,12 @@ package com.sobot.chat.widget.zxing.aztec.encoder;
 
 import com.sobot.chat.widget.zxing.common.BitArray;
 
-final class BinaryShiftToken extends Token {
+final class BinaryShiftToken extends com.sobot.chat.widget.zxing.aztec.encoder.Token {
 
   private final short binaryShiftStart;
   private final short binaryShiftByteCount;
 
-  BinaryShiftToken(Token previous,
+  BinaryShiftToken(com.sobot.chat.widget.zxing.aztec.encoder.Token previous,
                    int binaryShiftStart,
                    int binaryShiftByteCount) {
     super(previous);

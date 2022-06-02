@@ -27,7 +27,7 @@ import com.sobot.chat.widget.zxing.common.BitMatrix;
  */
 public final class BinaryBitmap {
 
-  private final Binarizer binarizer;
+  private final com.sobot.chat.widget.zxing.Binarizer binarizer;
   private BitMatrix matrix;
 
   public BinaryBitmap(Binarizer binarizer) {

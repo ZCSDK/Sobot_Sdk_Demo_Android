@@ -22,7 +22,7 @@ public class SobotEditTextLayout extends LinearLayout {
 
     public void setEditeText(EditText editText) {
         this.editText = editText;
-        LayoutParams lp = (LayoutParams) editText.getLayoutParams();
+        SobotEditTextLayout.LayoutParams lp = (SobotEditTextLayout.LayoutParams) editText.getLayoutParams();
         showLineMax = lp.height / editText.getLineHeight();
     }
 

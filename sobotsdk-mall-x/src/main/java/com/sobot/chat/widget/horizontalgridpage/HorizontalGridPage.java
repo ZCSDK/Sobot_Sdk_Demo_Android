@@ -55,7 +55,7 @@ public class HorizontalGridPage extends LinearLayout {
         int[] indicatorRes = new int[]{R.drawable.sobot_indicator_oval_normal_bg, R.drawable.sobot_indicator_oval_focus_bg};
         int gravity = builder.getIndicatorGravity();
         indicatorView = new PageIndicatorView(getContext(), indicatorSize, margins, indicatorRes, gravity);
-        indicatorView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        indicatorView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         indicatorView.initIndicator(grid[1]);
         gridView.setIndicator(indicatorView);
         gridView.addItemDecoration(new SpaceItemDecoration(0, dip2px(builder.getSpace())));//设置间距

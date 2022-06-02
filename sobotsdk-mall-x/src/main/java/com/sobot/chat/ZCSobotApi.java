@@ -13,6 +13,7 @@ import com.sobot.chat.activity.SobotHelpCenterActivity;
 import com.sobot.chat.activity.SobotPostMsgActivity;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.apiUtils.SobotApp;
+import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.api.apiUtils.ZhiChiUrlApi;
 import com.sobot.chat.api.enumtype.SobotChatAvatarDisplayMode;
 import com.sobot.chat.api.enumtype.SobotChatStatusMode;
@@ -37,6 +38,7 @@ import com.sobot.chat.listener.HyperlinkListener;
 import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotChatStatusListener;
 import com.sobot.chat.listener.SobotFunctionClickListener;
+import com.sobot.chat.listener.SobotImagePreviewListener;
 import com.sobot.chat.listener.SobotLeaveMsgListener;
 import com.sobot.chat.listener.SobotNoReadLeaveReplyListener;
 import com.sobot.chat.listener.SobotOrderCardListener;
@@ -573,7 +575,7 @@ public class ZCSobotApi {
             return;
         }
 
-        SobotHttpUtils.init(context);
+        SobotHttpUtils.init(context, SobotBaseUrl.getApi_Host());
         SobotApp.setApplicationContext(context);
         SharedPreferencesUtil.saveAppKey(context, appkey);
 
@@ -618,6 +620,8 @@ public class ZCSobotApi {
         if (context == null) {
             return;
         }
+        //开启离线消息通道前，先清理未读消息数
+        clearUnReadNumber(context, partnerid);
         context = context.getApplicationContext();
         SharedPreferencesUtil.removeKey(context, Const.SOBOT_WAYHTTP);
         SobotMsgManager.getInstance(context).getZhiChiApi().reconnectChannel();
@@ -808,6 +812,17 @@ public class ZCSobotApi {
      */
     public static void setSobotLeaveMsgListener(SobotLeaveMsgListener sobotLeaveMsgListener) {
         SobotOption.sobotLeaveMsgListener = sobotLeaveMsgListener;
+    }
+
+    /**
+     * 3.1.2 新增
+     * 设置点击图片预览的事件监听
+     * 根据返回值客户可动态设置是否拦截，拦截后，客户可自己处理
+     *
+     * @param imagePreviewListener
+     */
+    public static void setImagePreviewListener(SobotImagePreviewListener imagePreviewListener) {
+        SobotOption.imagePreviewListener = imagePreviewListener;
     }
 
 
@@ -1230,7 +1245,7 @@ public class ZCSobotApi {
         SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_NAME, "sobot_android_strings_" + language);
         String languageFileName = "sobot_android_strings_" + language + ".json";
         //指定语言包保存路径
-        final String languagePath = CommonUtils.getPrivatePath(context) + File.separator + getAppName(context) + File.separator + "sobot_language" + File.separator + ZhiChiUrlApi.LANGUAGE_VERSION + File.separator + languageFileName;
+        final String languagePath = CommonUtils.getPrivatePath(context) + File.separator + getAppName(context)  + "sobot_language" + File.separator + ZhiChiUrlApi.LANGUAGE_VERSION + File.separator + languageFileName;
         File file = new File(languagePath);
         if (isReDownload && file.exists()) {
             //如果指定语言包已存在，并且要重新下载使用最新，先删除本地已存在的

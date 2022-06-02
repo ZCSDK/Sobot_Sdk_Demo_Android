@@ -147,7 +147,7 @@ public class HtmlTools {
             .compile("\\[[(0-9)]+\\]");
 
 
-    private String textImagePath = ZhiChiConstant.imagePositionPath;
+    private String textImagePath ;
     private Context context;
 
     private HtmlTools(Context context) {
@@ -278,6 +278,7 @@ public class HtmlTools {
             @Override
             public Drawable getDrawable(String source) {
                 if (!TextUtils.isEmpty(source)) {
+                    textImagePath= CommonUtils.getSDCardRootPath(context);
                     Drawable drawable = null;
                     String fileString = textImagePath
                             + String.valueOf(source.hashCode());
@@ -389,5 +390,21 @@ public class HtmlTools {
             LogUtils.i("URL 非法，请输入有效的URL链接:" + url);
             return false;
         }
+    }
+
+    public String getHTMLStr(String htmlStr) {
+        if (TextUtils.isEmpty(htmlStr)) {
+            return "";
+        }
+
+        //先将换行符保留，然后过滤标签
+        Pattern p_enter = Pattern.compile("<br/>", Pattern.CASE_INSENSITIVE);
+        Matcher m_enter = p_enter.matcher(htmlStr);
+        htmlStr = m_enter.replaceAll("\n");
+
+        //过滤html标签
+        Pattern p_html = Pattern.compile("<[^>]+>", Pattern.CASE_INSENSITIVE);
+        Matcher m_html = p_html.matcher(htmlStr);
+        return m_html.replaceAll("");
     }
 }

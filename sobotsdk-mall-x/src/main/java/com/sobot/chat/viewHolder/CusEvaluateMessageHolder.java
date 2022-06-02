@@ -134,7 +134,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                         int score = 0;
                         if (satisFactionList.get(0).getScoreFlag() == 0) {
                             //defaultType 0-默认5星,1-默认0星
-                            if (satisFactionList.get(0) != null && satisFactionList.get(0).getDefaultType() != -1) {
+                            if (satisFactionList.get(0) != null) {
                                 score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
                                 deftaultScore = score;
                             }

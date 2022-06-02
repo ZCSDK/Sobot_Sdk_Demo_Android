@@ -16,7 +16,7 @@
 
 package com.sobot.chat.widget.zxing.datamatrix.encoder;
 
-final class EdifactEncoder implements Encoder {
+final class EdifactEncoder implements com.sobot.chat.widget.zxing.datamatrix.encoder.Encoder {
 
   @Override
   public int getEncodingMode() {

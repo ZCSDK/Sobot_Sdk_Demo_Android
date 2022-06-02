@@ -45,7 +45,7 @@ final class DataBlock {
    *         QR Code
    */
   static DataBlock[] getDataBlocks(byte[] rawCodewords,
-                                   Version version,
+                                   com.sobot.chat.widget.zxing.qrcode.decoder.Version version,
                                    ErrorCorrectionLevel ecLevel) {
 
     if (rawCodewords.length != version.getTotalCodewords()) {
@@ -54,12 +54,12 @@ final class DataBlock {
 
     // Figure out the number and size of data blocks used by this version and
     // error correction level
-    Version.ECBlocks ecBlocks = version.getECBlocksForLevel(ecLevel);
+    com.sobot.chat.widget.zxing.qrcode.decoder.Version.ECBlocks ecBlocks = version.getECBlocksForLevel(ecLevel);
 
     // First count the total number of data blocks
     int totalBlocks = 0;
-    Version.ECB[] ecBlockArray = ecBlocks.getECBlocks();
-    for (Version.ECB ecBlock : ecBlockArray) {
+    com.sobot.chat.widget.zxing.qrcode.decoder.Version.ECB[] ecBlockArray = ecBlocks.getECBlocks();
+    for (com.sobot.chat.widget.zxing.qrcode.decoder.Version.ECB ecBlock : ecBlockArray) {
       totalBlocks += ecBlock.getCount();
     }
 

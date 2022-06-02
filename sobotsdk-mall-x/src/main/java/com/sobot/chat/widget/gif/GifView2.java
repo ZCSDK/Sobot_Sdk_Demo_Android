@@ -123,10 +123,10 @@ public class GifView2 extends View implements View.OnTouchListener {
                     .getScreenWH(getContext());
             Log.e( "onMeasure: ","\n"+movieMeasuredMovieWidth+"\t"+movieMeasuredMovieHeight+"\n"+screen[0]+"\t"+screen[1] );
 
-            int measureModeWidth = MeasureSpec.getMode(widthMeasureSpec);
+            int measureModeWidth = View.MeasureSpec.getMode(widthMeasureSpec);
 
-            if (measureModeWidth != MeasureSpec.UNSPECIFIED) {
-                int maximumWidth = MeasureSpec.getSize(widthMeasureSpec);
+            if (measureModeWidth != View.MeasureSpec.UNSPECIFIED) {
+                int maximumWidth = View.MeasureSpec.getSize(widthMeasureSpec);
                 if (movieMeasuredMovieWidth > screen[0]) {
                     scaleW = movieMeasuredMovieWidth * 1.0f / screen[0];
                     movieMeasuredMovieHeight = (int) (movieMeasuredMovieHeight / scaleW);
@@ -137,10 +137,10 @@ public class GifView2 extends View implements View.OnTouchListener {
              * calculate vertical scaling
              */
             float scaleH = 1f;
-            int measureModeHeight = MeasureSpec.getMode(heightMeasureSpec);
+            int measureModeHeight = View.MeasureSpec.getMode(heightMeasureSpec);
 
-            if (measureModeHeight != MeasureSpec.UNSPECIFIED) {
-                int maximumHeight = MeasureSpec.getSize(heightMeasureSpec);
+            if (measureModeHeight != View.MeasureSpec.UNSPECIFIED) {
+                int maximumHeight = View.MeasureSpec.getSize(heightMeasureSpec);
                 if (movieMeasuredMovieHeight > screen[1]) {
                     scaleH = movieMeasuredMovieHeight * 1.0f / screen[1];
                     movieMeasuredMovieWidth = (int) (movieMeasuredMovieWidth/ scaleH);

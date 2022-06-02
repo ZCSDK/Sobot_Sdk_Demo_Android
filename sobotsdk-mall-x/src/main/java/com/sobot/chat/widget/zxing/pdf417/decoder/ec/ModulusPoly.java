@@ -21,7 +21,7 @@ package com.sobot.chat.widget.zxing.pdf417.decoder.ec;
  */
 final class ModulusPoly {
 
-  private final ModulusGF field;
+  private final com.sobot.chat.widget.zxing.pdf417.decoder.ec.ModulusGF field;
   private final int[] coefficients;
 
   ModulusPoly(ModulusGF field, int[] coefficients) {

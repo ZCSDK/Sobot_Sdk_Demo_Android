@@ -18,13 +18,13 @@ package com.sobot.chat.widget.zxing.aztec.encoder;
 
 import com.sobot.chat.widget.zxing.common.BitArray;
 
-final class SimpleToken extends Token {
+final class SimpleToken extends com.sobot.chat.widget.zxing.aztec.encoder.Token {
 
   // For normal words, indicates value and bitCount
   private final short value;
   private final short bitCount;
 
-  SimpleToken(Token previous, int value, int bitCount) {
+  SimpleToken(com.sobot.chat.widget.zxing.aztec.encoder.Token previous, int value, int bitCount) {
     super(previous);
     this.value = (short) value;
     this.bitCount = (short) bitCount;

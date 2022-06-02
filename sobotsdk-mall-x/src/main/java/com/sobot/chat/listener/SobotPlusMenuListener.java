@@ -8,5 +8,5 @@ import android.view.View;
  */
 public interface SobotPlusMenuListener {
 
-    void onClick(View view, String action);
+    void onClick(View view,String action);
 }

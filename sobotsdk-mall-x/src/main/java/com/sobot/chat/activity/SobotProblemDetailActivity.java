@@ -124,7 +124,7 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
                             "    <body>" + answerDesc + "  </body>\n" +
                             "</html>";
                     //显示文本内容
-                    String html = DEFAULT_STYLE + answerDesc;
+                    String html = DEFAULT_STYLE + answerDesc.replace("<p> </p>","<br/>").replace("<p></p>","<br/>");
                     mWebView.loadDataWithBaseURL("about:blank", html, "text/html", "utf-8", null);
                 }
             }
@@ -177,6 +177,11 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
         if (Build.VERSION.SDK_INT >= 21) {
             mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
+
+        //Android 4.4 以下的系统中存在一共三个有远程代码执行漏洞的隐藏接口
+        mWebView.removeJavascriptInterface("searchBoxJavaBridge_");
+        mWebView.removeJavascriptInterface("accessibility");
+        mWebView.removeJavascriptInterface("accessibilityTraversal");
 
         // 应用可以有数据库
         mWebView.getSettings().setDatabaseEnabled(true);

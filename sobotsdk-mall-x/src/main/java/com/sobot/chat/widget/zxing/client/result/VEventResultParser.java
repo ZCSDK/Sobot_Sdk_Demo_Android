@@ -92,7 +92,7 @@ public final class VEventResultParser extends ResultParser {
   private static String matchSingleVCardPrefixedField(CharSequence prefix,
                                                       String rawText,
                                                       boolean trim) {
-    List<String> values = VCardResultParser.matchSingleVCardPrefixedField(prefix, rawText, trim, false);
+    List<String> values = com.sobot.chat.widget.zxing.client.result.VCardResultParser.matchSingleVCardPrefixedField(prefix, rawText, trim, false);
     return values == null || values.isEmpty() ? null : values.get(0);
   }
 

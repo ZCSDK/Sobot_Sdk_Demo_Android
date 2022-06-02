@@ -63,16 +63,16 @@ public class PlusAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        PlusAdapter.ViewHolder viewHolder;
         if (convertView == null) {
-            viewHolder = new ViewHolder();
+            viewHolder = new PlusAdapter.ViewHolder();
             convertView = mInflater.inflate(getResLayoutId("sobot_list_item_plus_menu"), null);
             viewHolder.rootView = convertView;
             viewHolder.ly_root = (LinearLayout) convertView.findViewById(getResId("sobot_ly_root"));
             viewHolder.mMenu = (TextView) convertView.findViewById(getResId("sobot_plus_menu"));
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (PlusAdapter.ViewHolder) convertView.getTag();
         }
 
         bindView(position, parent, viewHolder);
@@ -80,14 +80,14 @@ public class PlusAdapter<T> extends BaseAdapter {
         return convertView;
     }
 
-    protected void bindView(int position, ViewGroup parent, ViewHolder viewHolder) {
+    protected void bindView(int position, ViewGroup parent, PlusAdapter.ViewHolder viewHolder) {
         if (mOnDisPlayListener != null) {
             mOnDisPlayListener.onBindView(position, parent, viewHolder, mData.get(position));
         }
     }
 
 
-    protected void updateUI(ViewHolder viewHolder, ViewGroup parent) {
+    protected void updateUI(PlusAdapter.ViewHolder viewHolder, ViewGroup parent) {
         if(mDefalutItemHeight != mItemHeight){
             viewHolder.mMenu.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mItemHeight));
         }

@@ -27,12 +27,12 @@ final class DetectionResult {
 
   private static final int ADJUST_ROW_NUMBER_SKIP = 2;
 
-  private final BarcodeMetadata barcodeMetadata;
+  private final com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata;
   private final DetectionResultColumn[] detectionResultColumns;
-  private BoundingBox boundingBox;
+  private com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox;
   private final int barcodeColumnCount;
 
-  DetectionResult(BarcodeMetadata barcodeMetadata, BoundingBox boundingBox) {
+  DetectionResult(com.sobot.chat.widget.zxing.pdf417.decoder.BarcodeMetadata barcodeMetadata, com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox) {
     this.barcodeMetadata = barcodeMetadata;
     this.barcodeColumnCount = barcodeMetadata.getColumnCount();
     this.boundingBox = boundingBox;
@@ -71,7 +71,7 @@ final class DetectionResult {
       return 0;
     }
     for (int barcodeColumn = 1; barcodeColumn < barcodeColumnCount + 1; barcodeColumn++) {
-      Codeword[] codewords = detectionResultColumns[barcodeColumn].getCodewords();
+      com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = detectionResultColumns[barcodeColumn].getCodewords();
       for (int codewordsRow = 0; codewordsRow < codewords.length; codewordsRow++) {
         if (codewords[codewordsRow] == null) {
           continue;
@@ -98,14 +98,14 @@ final class DetectionResult {
     if (detectionResultColumns[0] == null || detectionResultColumns[barcodeColumnCount + 1] == null) {
       return;
     }
-    Codeword[] LRIcodewords = detectionResultColumns[0].getCodewords();
-    Codeword[] RRIcodewords = detectionResultColumns[barcodeColumnCount + 1].getCodewords();
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] LRIcodewords = detectionResultColumns[0].getCodewords();
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] RRIcodewords = detectionResultColumns[barcodeColumnCount + 1].getCodewords();
     for (int codewordsRow = 0; codewordsRow < LRIcodewords.length; codewordsRow++) {
       if (LRIcodewords[codewordsRow] != null &&
           RRIcodewords[codewordsRow] != null &&
           LRIcodewords[codewordsRow].getRowNumber() == RRIcodewords[codewordsRow].getRowNumber()) {
         for (int barcodeColumn = 1; barcodeColumn <= barcodeColumnCount; barcodeColumn++) {
-          Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
+          com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
           if (codeword == null) {
             continue;
           }
@@ -123,7 +123,7 @@ final class DetectionResult {
       return 0;
     }
     int unadjustedCount = 0;
-    Codeword[] codewords = detectionResultColumns[barcodeColumnCount + 1].getCodewords();
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = detectionResultColumns[barcodeColumnCount + 1].getCodewords();
     for (int codewordsRow = 0; codewordsRow < codewords.length; codewordsRow++) {
       if (codewords[codewordsRow] == null) {
         continue;
@@ -131,7 +131,7 @@ final class DetectionResult {
       int rowIndicatorRowNumber = codewords[codewordsRow].getRowNumber();
       int invalidRowCounts = 0;
       for (int barcodeColumn = barcodeColumnCount + 1; barcodeColumn > 0 && invalidRowCounts < ADJUST_ROW_NUMBER_SKIP; barcodeColumn--) {
-        Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
+        com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
         if (codeword != null) {
           invalidRowCounts = adjustRowNumberIfValid(rowIndicatorRowNumber, invalidRowCounts, codeword);
           if (!codeword.hasValidRowNumber()) {
@@ -148,7 +148,7 @@ final class DetectionResult {
       return 0;
     }
     int unadjustedCount = 0;
-    Codeword[] codewords = detectionResultColumns[0].getCodewords();
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords = detectionResultColumns[0].getCodewords();
     for (int codewordsRow = 0; codewordsRow < codewords.length; codewordsRow++) {
       if (codewords[codewordsRow] == null) {
         continue;
@@ -156,7 +156,7 @@ final class DetectionResult {
       int rowIndicatorRowNumber = codewords[codewordsRow].getRowNumber();
       int invalidRowCounts = 0;
       for (int barcodeColumn = 1; barcodeColumn < barcodeColumnCount + 1 && invalidRowCounts < ADJUST_ROW_NUMBER_SKIP; barcodeColumn++) {
-        Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
+        com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
         if (codeword != null) {
           invalidRowCounts = adjustRowNumberIfValid(rowIndicatorRowNumber, invalidRowCounts, codeword);
           if (!codeword.hasValidRowNumber()) {
@@ -168,7 +168,7 @@ final class DetectionResult {
     return unadjustedCount;
   }
 
-  private static int adjustRowNumberIfValid(int rowIndicatorRowNumber, int invalidRowCounts, Codeword codeword) {
+  private static int adjustRowNumberIfValid(int rowIndicatorRowNumber, int invalidRowCounts, com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword) {
     if (codeword == null) {
       return invalidRowCounts;
     }
@@ -183,15 +183,15 @@ final class DetectionResult {
     return invalidRowCounts;
   }
 
-  private void adjustRowNumbers(int barcodeColumn, int codewordsRow, Codeword[] codewords) {
-    Codeword codeword = codewords[codewordsRow];
-    Codeword[] previousColumnCodewords = detectionResultColumns[barcodeColumn - 1].getCodewords();
-    Codeword[] nextColumnCodewords = previousColumnCodewords;
+  private void adjustRowNumbers(int barcodeColumn, int codewordsRow, com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] codewords) {
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = codewords[codewordsRow];
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] previousColumnCodewords = detectionResultColumns[barcodeColumn - 1].getCodewords();
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] nextColumnCodewords = previousColumnCodewords;
     if (detectionResultColumns[barcodeColumn + 1] != null) {
       nextColumnCodewords = detectionResultColumns[barcodeColumn + 1].getCodewords();
     }
 
-    Codeword[] otherCodewords = new Codeword[14];
+    com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[] otherCodewords = new com.sobot.chat.widget.zxing.pdf417.decoder.Codeword[14];
 
     otherCodewords[2] = previousColumnCodewords[codewordsRow];
     otherCodewords[3] = nextColumnCodewords[codewordsRow];
@@ -216,7 +216,7 @@ final class DetectionResult {
       otherCodewords[12] = previousColumnCodewords[codewordsRow + 2];
       otherCodewords[13] = nextColumnCodewords[codewordsRow + 2];
     }
-    for (Codeword otherCodeword : otherCodewords) {
+    for (com.sobot.chat.widget.zxing.pdf417.decoder.Codeword otherCodeword : otherCodewords) {
       if (adjustRowNumber(codeword, otherCodeword)) {
         return;
       }
@@ -226,7 +226,7 @@ final class DetectionResult {
   /**
    * @return true, if row number was adjusted, false otherwise
    */
-  private static boolean adjustRowNumber(Codeword codeword, Codeword otherCodeword) {
+  private static boolean adjustRowNumber(com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword, com.sobot.chat.widget.zxing.pdf417.decoder.Codeword otherCodeword) {
     if (otherCodeword == null) {
       return false;
     }
@@ -249,11 +249,11 @@ final class DetectionResult {
     return barcodeMetadata.getErrorCorrectionLevel();
   }
 
-  void setBoundingBox(BoundingBox boundingBox) {
+  void setBoundingBox(com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox boundingBox) {
     this.boundingBox = boundingBox;
   }
 
-  BoundingBox getBoundingBox() {
+  com.sobot.chat.widget.zxing.pdf417.decoder.BoundingBox getBoundingBox() {
     return boundingBox;
   }
 
@@ -279,7 +279,7 @@ final class DetectionResult {
             formatter.format("    |   ");
             continue;
           }
-          Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
+          com.sobot.chat.widget.zxing.pdf417.decoder.Codeword codeword = detectionResultColumns[barcodeColumn].getCodewords()[codewordsRow];
           if (codeword == null) {
             formatter.format("    |   ");
             continue;

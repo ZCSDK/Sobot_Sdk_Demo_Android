@@ -23,7 +23,7 @@ package com.sobot.chat.widget.zxing.pdf417.encoder;
  */
 public final class BarcodeMatrix {
 
-  private final BarcodeRow[] matrix;
+  private final com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeRow[] matrix;
   private int currentRow;
   private final int height;
   private final int width;
@@ -33,10 +33,10 @@ public final class BarcodeMatrix {
    * @param width  the width of the matrix (Cols)
    */
   BarcodeMatrix(int height, int width) {
-    matrix = new BarcodeRow[height];
+    matrix = new com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeRow[height];
     //Initializes the array to the correct width
     for (int i = 0, matrixLength = matrix.length; i < matrixLength; i++) {
-      matrix[i] = new BarcodeRow((width + 4) * 17 + 1);
+      matrix[i] = new com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeRow((width + 4) * 17 + 1);
     }
     this.width = width * 17;
     this.height = height;
@@ -57,7 +57,7 @@ public final class BarcodeMatrix {
     ++currentRow;
   }
 
-  BarcodeRow getCurrentRow() {
+  com.sobot.chat.widget.zxing.pdf417.encoder.BarcodeRow getCurrentRow() {
     return matrix[currentRow];
   }
 

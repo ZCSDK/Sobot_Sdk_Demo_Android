@@ -8,6 +8,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioAttributes;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -30,6 +32,7 @@ import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotQueryFromActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.ResultCallBack;
+import com.sobot.chat.api.apiUtils.GsonUtil;
 import com.sobot.chat.api.apiUtils.SobotVerControl;
 import com.sobot.chat.api.enumtype.CustomerState;
 import com.sobot.chat.api.enumtype.SobotAutoSendMsgMode;
@@ -56,6 +59,7 @@ import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.fragment.SobotBaseFragment;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
+import com.sobot.chat.utils.AudioTools;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.FileOpenHelper;
@@ -147,16 +151,18 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
 
     //语音相关
     // 听筒模式转换
-    private AudioManager audioManager = null; // 声音管理器
-    private SensorManager _sensorManager = null; // 传感器管理器
-    private Sensor mProximiny = null; // 传感器实例
+    public AudioManager audioManager = null; // 声音管理器
+    private AudioFocusRequest mFocusRequest;
+    private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener;
+    private AudioAttributes mAttribute;
+    public SensorManager _sensorManager = null; // 传感器管理器
+    public Sensor mProximiny = null; // 传感器实例
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mAppContext = getContext().getApplicationContext();
-        initAudioManager();
         if (SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && SobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH)) {
             // 支持显示到刘海区域
             NotchScreenManager.getInstance().setDisplayInNotch(getActivity());
@@ -207,14 +213,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         if (_sensorManager != null) {
             _sensorManager.registerListener(this, mProximiny, SensorManager.SENSOR_DELAY_NORMAL);
         }
-    }
-
-    @Override
-    public void onPause() {
-        stopInputListener();
-        // 取消注册传感器
-        _sensorManager.unregisterListener(this);
-        super.onPause();
     }
 
     protected void finish() {
@@ -454,7 +452,8 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         params.put("tranFlag", info.getTranReceptionistFlag() + "");//是否必转该指定客服
         params.put("groupId", info.getGroupid());//指定技能组
         params.put("transferAction", info.getTransferAction());//指定溢出策略
-        if (SobotVerControl.isPlatformVer) {
+        String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
+        if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
             String flowCompanyId = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_FLOW_COMPANYID, "");
             if (!TextUtils.isEmpty(flowCompanyId)) {
                 //是否可以溢出
@@ -504,7 +503,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                                 current_client_model = ZhiChiConstant.client_model_customService;
                             } else {
                                 // 机械人的回答语
-                                sendTextMessageToHandler(msgId, null, handler, 1, UPDATE_TEXT);
+                                sendTextMessageToHandler(msgId, null,simpleMessage.getDesensitizationWord(), handler, 1, UPDATE_TEXT,0, "");
                                 isAboveZero = true;
                                 simpleMessage.setId(id);
                                 simpleMessage.setSenderName(initModel.getRobotName());
@@ -540,22 +539,42 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     return;
                 }
                 Boolean switchFlag = Boolean.valueOf(commonModelBase.getSwitchFlag()).booleanValue();
-                //如果switchFlag 为true，就会断开通道走轮训
+                //如果switchFlag 为true，就会断开通道走轮询
                 if (switchFlag) {
+                    Map<String, String> map = new HashMap<>();
+                    if (!CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
+                        map.put("TCPServer 运行情况", "没运行，直接走fragment 界面的轮询");
+                    } else {
+                        map.put("TCPServer 运行情况", "在运行");
+                    }
+                    map.put("commonModelBase", commonModelBase.toString());
+                    LogUtils.i2Local("开启轮询 fragment ", "switchFlag=" + switchFlag + " " + map.toString());
                     //不管是什么方式（service 还是定时器里边的轮询），至少先执行一次轮询接口
                     pollingMsgForOne();
+                    try {
+                        //上传日志
+                        SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
+                    } catch (Exception e) {
+                    }
                     if (!CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
+                        LogUtils.i2Local("开启轮询", "SobotTCPServer 没运行，直接走fragment 界面的轮询");
                         SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().disconnChannel();
-                        //SobotTCPServer不存在，直接走定时器轮训
+                        //SobotTCPServer不存在，直接走定时器轮询
                         if (!inPolling) {
                             startPolling();
                         }
                     } else {
+                        LogUtils.i2Local("开启轮询", "SobotTCPServer 在运行");
                         // SobotTCPServer存在，通过广播方式告知要切换轮询
                         CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_SWITCHFLAG));
                     }
                 } else {
-                    CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
+                    if (!CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
+//                        LogUtils.i("----人工状态 SobotTCPServer 被杀死了");
+                        zhiChiApi.reconnectChannel();
+                    } else {
+                        CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
+                    }
                 }
                 if (commonModelBase.getSentisive() == 1) {
                     isAboveZero = true;
@@ -568,7 +587,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                         if (!TextUtils.isEmpty(mid)) {
                             isAboveZero = true;
                             // 当发送成功的时候更新ui界面
-                            sendTextMessageToHandler(mid, null, handler, 1, UPDATE_TEXT);
+                            sendTextMessageToHandler(mid, null,commonModelBase.getDesensitizationWord(), handler, 1, UPDATE_TEXT,0, "");
                         }
                     }
                 }
@@ -726,8 +745,8 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     }
 
     protected void sendLocation(String msgId, SobotLocationModel data, final Handler handler, boolean isNewMsg) {
-        if (!isActive() || initModel != null
-                && current_client_model != ZhiChiConstant.client_model_customService) {
+        if (!isActive() || initModel == null
+                || current_client_model != ZhiChiConstant.client_model_customService) {
             return;
         }
         if (isNewMsg) {
@@ -755,6 +774,40 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                         updateMsgToHandler(finalMsgId, handler, ZhiChiConstant.MSG_SEND_STATUS_SUCCESS);
                     }
                 }
+            }
+
+            @Override
+            public void onFailure(Exception e, String des) {
+                if (!isActive()) {
+                    return;
+                }
+                updateMsgToHandler(finalMsgId, handler, ZhiChiConstant.MSG_SEND_STATUS_ERROR);
+            }
+        });
+
+    }
+
+    protected void sendMuitidiaLeaveMsg(String msgId, String data, final Handler handler, boolean isNewMsg) {
+        if (!isActive() || initModel == null) {
+            return;
+        }
+        if (isNewMsg) {
+            msgId = System.currentTimeMillis() + "";
+            sendNewMsgToHandler(ChatUtils.getMuitidiaLeaveMsgModel(msgId, data), handler, ZhiChiConstant.MSG_SEND_STATUS_LOADING);
+        } else {
+            if (TextUtils.isEmpty(msgId)) {
+                return;
+            }
+            updateMsgToHandler(msgId, handler, ZhiChiConstant.MSG_SEND_STATUS_LOADING);
+        }
+        final String finalMsgId = msgId;
+        zhiChiApi.insertSysMsg(SobotChatBaseFragment.this, initModel.getCid(), initModel.getPartnerid(), data.replace("\n", "<br/>"), "多轮对话工单提交确认提示", new StringResultCallBack<BaseCode>() {
+            @Override
+            public void onSuccess(BaseCode baseCode) {
+                if (!isActive()) {
+                    return;
+                }
+                updateMsgToHandler(finalMsgId, handler, ZhiChiConstant.MSG_SEND_STATUS_SUCCESS);
             }
 
             @Override
@@ -819,6 +872,21 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
      */
     protected void sendTextMessageToHandler(String id, String msgContent,
                                             Handler handler, int isSendStatus, int updateStatus, int sentisive, String sentisiveExplain) {
+        sendTextMessageToHandler(id, msgContent,"",
+                handler, isSendStatus, updateStatus, sentisive, sentisiveExplain);
+    }
+
+    /**
+     * 文本通知
+     *
+     * @param id
+     * @param msgContent
+     * @param handler
+     * @param isSendStatus 0 失败  1成功  2 正在发送
+     * @param updateStatus
+     */
+    protected void sendTextMessageToHandler(String id, String msgContent,String desensitizationWord,
+                                            Handler handler, int isSendStatus, int updateStatus, int sentisive, String sentisiveExplain) {
         ZhiChiMessageBase myMessage = new ZhiChiMessageBase();
         myMessage.setId(id);
         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
@@ -831,6 +899,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         }
         reply.setMsgType(ZhiChiConstant.message_type_text + "");
         myMessage.setAnswer(reply);
+        myMessage.setDesensitizationWord(desensitizationWord);
         myMessage.setSenderName(info.getUser_nick());
         myMessage.setSenderFace(info.getFace());
         myMessage.setSenderType(ZhiChiConstant.message_sender_type_customer + "");
@@ -1088,11 +1157,91 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     }
 
     // 设置听筒模式或者是正常模式的转换
-    private void initAudioManager() {
-        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
-        _sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+    public void initAudioManager() {
+        if (audioManager == null)
+            audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        if (_sensorManager == null)
+            _sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         if (_sensorManager != null) {
             mProximiny = _sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        }
+        audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+            @Override
+            public void onAudioFocusChange(int focusChange) {
+                switch (focusChange) {
+                    case AudioManager.AUDIOFOCUS_GAIN:
+                        // TBD 继续播放
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS:
+                        // TBD 停止播放
+                        if (AudioTools.getInstance().isPlaying()) {
+                            AudioTools.getInstance().stop();
+                        }
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        // TBD 暂停播放
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                        // TBD 混音播放
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        };
+        //android 版本 5.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mAttribute = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build();
+        }
+        //android 版本 8.0
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            mFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                    .setWillPauseWhenDucked(true)
+                    .setAcceptsDelayedFocusGain(true)
+                    .setOnAudioFocusChangeListener(audioFocusChangeListener, new Handler())
+                    .setAudioAttributes(mAttribute)
+                    .build();
+        }
+    }
+
+    //请求音频焦点
+    public void requestAudioFocus() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
+            return;
+        }
+        if (audioManager == null)
+            audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (mFocusRequest != null)
+                    audioManager.requestAudioFocus(mFocusRequest);
+            } else {
+                if (audioFocusChangeListener != null)
+                    //AUDIOFOCUS_GAIN_TRANSIENT 只是短暂获得，一会就释放焦点
+                    audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+            }
+        }
+
+    }
+
+    //放弃音频焦点
+    public void abandonAudioFocus() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
+            return;
+        }
+        if (audioManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (mFocusRequest != null)
+                    audioManager.abandonAudioFocusRequest(mFocusRequest);
+            } else {
+                if (audioFocusChangeListener != null)
+                    audioManager.abandonAudioFocus(audioFocusChangeListener);
+            }
+            audioManager = null;
         }
     }
 
@@ -1100,37 +1249,68 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     public void onSensorChanged(SensorEvent event) {
         /* 获取当前手机品牌 过滤掉小米手机 */
         try {
-            String phoneName = Build.MODEL.toLowerCase();
+            String phoneName = android.os.Build.MODEL.toLowerCase();
 //            LogUtils.i("当前手机品牌是" + phoneName);
-            // 模式的转化
-            // 当前传感器距离
-            float f_proximiny = event.values[0];
-//            LogUtils.i("监听模式的转换：" + f_proximiny + " 听筒的模式：");
-            // + mProximiny.getMaximumRange());
-            if (!phoneName.contains("mi")) {
-                if (f_proximiny == mProximiny.getMaximumRange()) {
+//            LogUtils.i("监听模式的转换：" + f_proximiny + " 听筒的模式：" + mProximiny.getMaximumRange());
+            if (!phoneName.contains("mi") && audioManager != null) {
+                // 当前传感器距离
+                float f_proximiny = event.values[0];
+                if (f_proximiny >= mProximiny.getMaximumRange()) {
                     audioManager.setSpeakerphoneOn(true);// 打开扬声器
                     audioManager.setMode(AudioManager.MODE_NORMAL);
+                    //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,
+                            audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM), AudioManager.FX_KEY_CLICK);
 //                    LogUtils.i("监听模式的转换：" + "正常模式");
                 } else {
                     audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-                    if (getSobotActivity() != null) {
-                        getSobotActivity().setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
-                    }
                     // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
                     //5.0以上
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                        //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+                        audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                                audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
                     } else {
                         audioManager.setMode(AudioManager.MODE_IN_CALL);
+                        //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+                        audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                                audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
                     }
-//                    LogUtils.i("监听模式的转换：" + "听筒模式");
+                    //LogUtils.i("监听模式的转换：" + "听筒模式");
                 }
             }
         } catch (Exception e) {
 //			e.printStackTrace();
         }
     }
+
+    /**
+     * 设置播放模式
+     */
+    public void setAudioStreamType(boolean speaker) {
+        if (speaker) {
+            audioManager.setSpeakerphoneOn(true);
+            audioManager.setMode(AudioManager.MODE_NORMAL);
+            //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,
+                    audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM), AudioManager.FX_KEY_CLICK);
+        } else {
+            audioManager.setSpeakerphoneOn(false);//关闭扬声器
+            //5.0以上
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                        audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+            } else {
+                audioManager.setMode(AudioManager.MODE_IN_CALL);
+                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                        audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+            }
+        }
+    }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -1158,7 +1338,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     /**
      * 检查是否有询前表单，这个方法在转人工时 会首先检查是否需要填写询前表单，
      * 如果有那么将会弹出询前表单填写界面，之后会调用转人工
-     *
      */
     protected void requestQueryFrom(final SobotConnCusParam param, final boolean isCloseInquiryFrom) {
         if (customerState == CustomerState.Queuing || isHasRequestQueryFrom) {
@@ -1190,6 +1369,8 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, param.getDocId());
                     bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, param.getUnknownQuestion());
                     bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, param.getActiveTransfer());
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD, param.getKeyword());
+                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID, param.getKeywordId());
                     intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA, bundle);
                     startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM);
                 } else {
@@ -1446,11 +1627,18 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
         getPollingHandler().removeCallbacks(pollingRun);
         getPollingHandler().postDelayed(pollingRun, 5 * 1000);
+        String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
+        if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
+            LogUtils.i2Local("开启轮询", "SobotChatBaseFragment 轮询开始：参数" + "{platformUserId:" + uid + "}");
+        } else {
+            LogUtils.i2Local("开启轮询", "SobotChatBaseFragment 轮询开始：参数" + "{uid:" + uid + ",puid:" + puid + "}");
+        }
     }
 
     private String uid;
     private String puid;
     public boolean inPolling = false;//表示轮询接口是否在跑
+    public boolean isWritePollingLog = true;//轮询只把第一次结果写到日志里
 
     private Runnable pollingRun = new Runnable() {
         @Override
@@ -1461,27 +1649,38 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     };
 
     private void pollingMsg() {
-        if (SobotVerControl.isPlatformVer) {
+        String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
+        if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
             pollingParams.put("platformUserId", uid);
         } else {
             pollingParams.put("uid", uid);
             pollingParams.put("puid", puid);
         }
         pollingParams.put("tnk", System.currentTimeMillis() + "");
-        String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
         zhiChiApi.pollingMsg(SobotChatBaseFragment.this, pollingParams, platformUnionCode, new StringResultCallBack<BaseCode>() {
 
             @Override
             public void onSuccess(BaseCode baseCode) {
-                LogUtils.i("fragment 轮训请求结果:" + baseCode.getData().toString());
+                if (isWritePollingLog) {
+                    LogUtils.i2Local("SobotChatBaseFragment 轮询结果", baseCode.toString());
+                    try {
+                        //上传日志
+                        SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
+                    } catch (Exception e) {
+                    }
+                }
+                isWritePollingLog = false;
+                LogUtils.i("fragment pollingMsg 轮询请求结果:" + baseCode.getData().toString());
                 getPollingHandler().removeCallbacks(pollingRun);
                 if (baseCode != null) {
                     if ("0".equals(baseCode.getCode()) && "210021".equals(baseCode.getData())) {
                         //{"code":0,"data":"210021","msg":"当前用户被验证为非法用户，不能接入客服中心"}
-                        //非法用户，停止轮训
+                        //非法用户，停止轮询
+                        LogUtils.i2Local("fragment 轮询结果异常", baseCode.toString() + " 非法用户，停止轮询");
                     } else if ("0".equals(baseCode.getCode()) && "200003".equals(baseCode.getData())) {
                         //{"code":0,"data":"200003","msg":"访客信息不存在"}
-                        //找不到用户，停止轮训
+                        //找不到用户，停止轮询
+                        LogUtils.i2Local("fragment 轮询结果异常", baseCode.toString() + " 找不到用户，停止轮询");
                     } else {
                         getPollingHandler().postDelayed(pollingRun, 5 * 1000);
                         if (baseCode.getData() != null) {
@@ -1496,34 +1695,42 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 getPollingHandler().removeCallbacks(pollingRun);
                 getPollingHandler().postDelayed(pollingRun, 10 * 1000);
                 LogUtils.i("msg::::" + des);
+                LogUtils.i2Local("轮询接口失败", "SobotChatBaseFragment 轮询:" + "请求参数 " + pollingParams != null ? GsonUtil.map2Json(pollingParams) : "" + e.toString());
+                try {
+                    //上传日志
+                    SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
+                } catch (Exception exception) {
+                }
             }
         });
     }
 
-    //只请求一次轮训接口
-    private void pollingMsgForOne() {
+    //只请求一次轮询接口
+    public void pollingMsgForOne() {
         uid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_UID, "");
         puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
-        if (SobotVerControl.isPlatformVer) {
+        String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
+        if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
             pollingParams.put("platformUserId", uid);
         } else {
             pollingParams.put("uid", uid);
             pollingParams.put("puid", puid);
         }
         pollingParams.put("tnk", System.currentTimeMillis() + "");
-        String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
+        LogUtils.i2Local("开启轮询", "SobotChatBaseFragment 至少只请求一次轮询接口 参数:" + pollingParams.toString());
         zhiChiApi.pollingMsg(SobotChatBaseFragment.this, pollingParams, platformUnionCode, new StringResultCallBack<BaseCode>() {
 
             @Override
             public void onSuccess(BaseCode baseCode) {
-                LogUtils.i("fragment 轮训请求结果:" + baseCode.getData().toString());
+                LogUtils.i2Local("SobotChatBaseFragment至少只请求一次轮询接口", " 轮询请求结果:" + baseCode.toString());
+                LogUtils.i("fragment pollingMsgForOne 轮询请求结果:" + baseCode.getData().toString());
                 if (baseCode != null) {
                     if ("0".equals(baseCode.getCode()) && "210021".equals(baseCode.getData())) {
                         //{"code":0,"data":"210021","msg":"当前用户被验证为非法用户，不能接入客服中心"}
-                        //非法用户，停止轮训
+                        //非法用户，停止轮询
                     } else if ("0".equals(baseCode.getCode()) && "200003".equals(baseCode.getData())) {
                         //{"code":0,"data":"200003","msg":"访客信息不存在"}
-                        //找不到用户，停止轮训
+                        //找不到用户，停止轮询
                     } else {
                         if (baseCode.getData() != null) {
                             responseAck(getSobotActivity(), baseCode.getData().toString());
@@ -1535,6 +1742,12 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             @Override
             public void onFailure(Exception e, String des) {
                 LogUtils.i("msg::::" + des);
+                LogUtils.i2Local("轮询接口失败", "请求参数 " + pollingParams != null ? GsonUtil.map2Json(pollingParams) : "" + e.toString());
+                try {
+                    //上传日志
+                    SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
+                } catch (Exception exception) {
+                }
             }
         });
     }

@@ -78,7 +78,7 @@ public class SobotSikllAdapter extends RecyclerView.Adapter<SobotSikllAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(SobotSikllAdapter.ViewHolder viewHolder, int position) {
         viewHolder.itemView.setTag(position);
         ZhiChiGroupBase zhiChiSkillIModel = (ZhiChiGroupBase) list.get(position);
         if (zhiChiSkillIModel != null) {

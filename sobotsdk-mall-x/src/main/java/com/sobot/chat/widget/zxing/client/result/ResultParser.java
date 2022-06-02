@@ -71,13 +71,13 @@ public abstract class ResultParser {
 
   /**
    * Attempts to parse the raw {@link Result}'s contents as a particular type
-   * of information (email, URL, etc.) and return a {@link ParsedResult} encapsulating
+   * of information (email, URL, etc.) and return a {@link com.sobot.chat.widget.zxing.client.result.ParsedResult} encapsulating
    * the result of parsing.
    *
    * @param theResult the raw {@link Result} to parse
-   * @return {@link ParsedResult} encapsulating the parsing result
+   * @return {@link com.sobot.chat.widget.zxing.client.result.ParsedResult} encapsulating the parsing result
    */
-  public abstract ParsedResult parse(Result theResult);
+  public abstract com.sobot.chat.widget.zxing.client.result.ParsedResult parse(Result theResult);
 
   protected static String getMassagedText(Result result) {
     String text = result.getText();
@@ -87,7 +87,7 @@ public abstract class ResultParser {
     return text;
   }
 
-  public static ParsedResult parseResult(Result theResult) {
+  public static com.sobot.chat.widget.zxing.client.result.ParsedResult parseResult(Result theResult) {
     for (ResultParser parser : PARSERS) {
       ParsedResult result = parser.parse(theResult);
       if (result != null) {

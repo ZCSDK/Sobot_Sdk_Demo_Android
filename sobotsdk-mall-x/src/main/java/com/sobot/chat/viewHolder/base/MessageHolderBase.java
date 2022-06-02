@@ -22,6 +22,7 @@ import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.ReSendDialog;
 import com.sobot.chat.widget.SobotImageView;
@@ -92,8 +93,7 @@ public abstract class MessageHolderBase {
      *
      * @param itemType
      */
-    public void initNameAndFace(int itemType, Context context, final ZhiChiMessageBase message,
-                                String senderface, String sendername) {
+    public void initNameAndFace(int itemType) {
         switch (itemType) {
             case SobotMsgAdapter.MSG_TYPE_IMG_R:
             case SobotMsgAdapter.MSG_TYPE_TXT_R:
@@ -292,6 +292,13 @@ public abstract class MessageHolderBase {
             if (TextUtils.isEmpty(imageUrl)) {
                 ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_pic_type_error"));
                 return;
+            }
+            if (SobotOption.imagePreviewListener != null) {
+                //如果返回true,拦截;false 不拦截
+                boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(context,imageUrl);
+                if (isIntercept) {
+                    return;
+                }
             }
             Intent intent = new Intent(context, SobotPhotoActivity.class);
             intent.putExtra("imageUrL", imageUrl);

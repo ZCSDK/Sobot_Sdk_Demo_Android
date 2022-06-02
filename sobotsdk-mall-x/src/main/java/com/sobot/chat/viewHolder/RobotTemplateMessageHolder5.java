@@ -46,7 +46,7 @@ public class RobotTemplateMessageHolder5 extends MessageHolderBase {
         if (message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null) {
             checkShowTransferBtn();
             final SobotMultiDiaRespInfo multiDiaRespInfo = message.getAnswer().getMultiDiaRespInfo();
-            sobot_template5_msg.setText(ChatUtils.getMultiMsgTitle(multiDiaRespInfo));
+            HtmlTools.getInstance(context).setRichText(sobot_template5_msg, ChatUtils.getMultiMsgTitle(multiDiaRespInfo).replaceAll("\n", "<br/>"), getLinkTextColor());
             applyTextViewUIConfig(sobot_template5_msg);
             final List<Map<String, String>> interfaceRetList = multiDiaRespInfo.getInterfaceRetList();
             if ("000000".equals(multiDiaRespInfo.getRetCode()) && interfaceRetList != null && interfaceRetList.size() > 0) {

@@ -105,7 +105,7 @@ public class VoiceMessageHolder extends MessageHolderBase {
         }
     }
 
-    private void checkBackground() {
+    public void checkBackground() {
         if (message.isVoideIsPlaying()) {
             resetAnim();
         } else {

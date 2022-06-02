@@ -107,7 +107,7 @@ public class ChatUtils {
             intent.setType("image/*");
         } else {
             intent = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         try {
             if (childFragment != null) {
@@ -117,6 +117,37 @@ public class ChatUtils {
             }
         } catch (Exception e) {
             ToastUtil.showToast(act.getApplicationContext(), ResourceUtils.getResString(act, "sobot_not_open_album"));
+        }
+    }
+
+    /**
+     * 打开选择视频界面
+     *
+     * @param act
+     */
+    public static void openSelectVedio(Activity act) {
+        if (act == null) {
+            return;
+        }
+        Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("video/*");
+        } else {
+            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+            intent.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*");
+        }
+        try {
+            act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
+        } catch (Exception e) {
+            e.printStackTrace();
+            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+            try {
+                act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                ToastUtil.showToast(act.getApplicationContext(), ResourceUtils.getResString(act, "sobot_not_open_album"));
+            }
         }
     }
 
@@ -145,7 +176,17 @@ public class ChatUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtil.showToast(act.getApplicationContext(), ResourceUtils.getResString(act, "sobot_not_open_album"));
+            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+            try {
+                if (childFragment != null) {
+                    childFragment.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
+                } else {
+                    act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                ToastUtil.showToast(act.getApplicationContext(), ResourceUtils.getResString(act, "sobot_not_open_album"));
+            }
         }
     }
 
@@ -442,7 +483,7 @@ public class ChatUtils {
         base.setSenderName(TextUtils.isEmpty(pushMessage.getAname()) ? ResourceUtils.getResString(MyApplication.getInstance(), "sobot_cus_service") : pushMessage.getAname());
         SobotEvaluateModel sobotEvaluateModel = new SobotEvaluateModel();
         sobotEvaluateModel.setIsQuestionFlag(pushMessage.getIsQuestionFlag());
-        sobotEvaluateModel.setIsResolved(pushMessage.getIsQuestionFlag() ? 0 : -1);
+        sobotEvaluateModel.setIsResolved((pushMessage.getIsQuestionFlag() == 1) ? 0 : -1);
         base.setSobotEvaluateModel(sobotEvaluateModel);
         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
         base.setSenderType(ZhiChiConstant.message_sender_type_custom_evaluate + "");
@@ -476,7 +517,19 @@ public class ChatUtils {
         zhichiMessage.setAnswer(reply);
         zhichiMessage.setId(tmpMsgId);
         zhichiMessage.setT(Calendar.getInstance().getTime().getTime() + "");
-        reply.setMsgType(ZhiChiConstant.message_type_location);
+        reply.setMsgType(ZhiChiConstant.message_type_text+"");
+        zhichiMessage.setSenderType(ZhiChiConstant.message_sender_type_customer + "");
+        return zhichiMessage;
+    }
+
+    public static ZhiChiMessageBase getMuitidiaLeaveMsgModel(String tmpMsgId, String data) {
+        ZhiChiMessageBase zhichiMessage = new ZhiChiMessageBase();
+        ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
+        reply.setMsg(data);
+        zhichiMessage.setAnswer(reply);
+        zhichiMessage.setId(tmpMsgId);
+        zhichiMessage.setT(Calendar.getInstance().getTime().getTime() + "");
+        reply.setMsgType(ZhiChiConstant.message_type_muiti_leave_msg);
         zhichiMessage.setSenderType(ZhiChiConstant.message_sender_type_customer + "");
         return zhichiMessage;
     }
@@ -553,15 +606,6 @@ public class ChatUtils {
      */
     public static void saveOptionSet(Context context, Information info) {
         SharedPreferencesUtil.saveIntData(context, "robot_current_themeImg", info.getTitleImgId());
-        SharedPreferencesUtil.saveStringData(context, "sobot_current_sender_face", TextUtils.isEmpty
-                (info.getFace()) ? "" : info.getFace());
-        SharedPreferencesUtil.saveStringData(context, "sobot_current_sender_name", TextUtils.isEmpty
-                (info.getUser_nick()) ? "" : info.getUser_nick());
-        SharedPreferencesUtil.saveStringData(context, "sobot_user_phone", TextUtils.isEmpty
-                (info.getUser_tels()) ? "" : info.getUser_tels());
-        SharedPreferencesUtil.saveStringData(context, "sobot_user_email", TextUtils.isEmpty
-                (info.getUser_emails()) ? "" : info.getUser_emails());
-
         if (TextUtils.isEmpty(info.getPartnerid())) {
             info.setEquipmentId(CommonUtils.getPartnerId(context));
         }
@@ -1040,7 +1084,7 @@ public class ChatUtils {
      */
     public static boolean isQuestionFlag(SobotEvaluateModel evaluateModel) {
         if (evaluateModel != null) {
-            return evaluateModel.getIsQuestionFlag();
+            return (evaluateModel.getIsQuestionFlag() == 1);
         }
         return false;
     }
@@ -1343,7 +1387,7 @@ public class ChatUtils {
             intent.setData(Uri.parse("tel:" + phone));// mobile为你要拨打的电话号码，模拟器中为模拟器编号也可
             context.startActivity(intent);
         } catch (Exception e) {
-            ToastUtil.showCustomToast(context,context.getString(R.string.sobot_no_support_call));
+            ToastUtil.showCustomToast(context, context.getString(R.string.sobot_no_support_call));
             e.printStackTrace();
         }
     }

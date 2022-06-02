@@ -40,6 +40,7 @@ import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.StExpandableTextView;
@@ -113,6 +114,13 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
 
         @Override
         public void previewPic(String fileUrl, String fileName, int position) {
+            if (SobotOption.imagePreviewListener != null) {
+                //如果返回true,拦截;false 不拦截
+                boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(mContext,fileUrl);
+                if (isIntercept) {
+                    return;
+                }
+            }
             Intent intent = new Intent(context, SobotPhotoActivity.class);
             intent.putExtra("imageUrL", fileUrl);
             context.startActivity(intent);

@@ -47,7 +47,7 @@ public final class UPCEWriter extends UPCEANWriter {
         // No check digit present, calculate it and add it
         int check;
         try {
-          check = UPCEANReader.getStandardUPCEANChecksum(UPCEReader.convertUPCEtoUPCA(contents));
+          check = UPCEANReader.getStandardUPCEANChecksum(com.sobot.chat.widget.zxing.oned.UPCEReader.convertUPCEtoUPCA(contents));
         } catch (FormatException fe) {
           throw new IllegalArgumentException(fe);
         }
@@ -55,7 +55,7 @@ public final class UPCEWriter extends UPCEANWriter {
         break;
       case 8:
         try {
-          if (!UPCEANReader.checkStandardUPCEANChecksum(UPCEReader.convertUPCEtoUPCA(contents))) {
+          if (!UPCEANReader.checkStandardUPCEANChecksum(com.sobot.chat.widget.zxing.oned.UPCEReader.convertUPCEtoUPCA(contents))) {
             throw new IllegalArgumentException("Contents do not pass checksum");
           }
         } catch (FormatException ignored) {

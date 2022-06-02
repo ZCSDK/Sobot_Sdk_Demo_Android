@@ -28,7 +28,7 @@ import com.sobot.chat.widget.zxing.Result;
 public final class URLTOResultParser extends ResultParser {
 
   @Override
-  public URIParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.URIParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (!rawText.startsWith("urlto:") && !rawText.startsWith("URLTO:")) {
       return null;

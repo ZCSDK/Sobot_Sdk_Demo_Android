@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -542,11 +543,23 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         imageView.setOnClickListener(new ImageClickLisenter(context, richListModel.getMsg(), isRight));
                         sobot_rich_ll.addView(imageView);
                     } else if (richListModel.getType() == 3 && HtmlTools.isHasPatterns(richListModel.getMsg())) {
+                        /*显示默认图片 -gqf2022.03.29
                         TextView videoView = new TextView(mContext);
                         videoView.setMaxWidth(msgMaxWidth);
                         HtmlTools.getInstance(mContext).setRichText(videoView, TextUtils.isEmpty(richListModel.getName()) ? richListModel.getMsg() : richListModel.getName(), getLinkTextColor());
                         videoView.setLayoutParams(wlayoutParams);
-                        videoView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
+                        videoView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));*/
+
+//                        LinearLayout.LayoutParams mlayoutParams = new LinearLayout.LayoutParams(msgMaxWidth,
+//                                ScreenUtils.dip2px(context, 200));
+//                        mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
+//                        ImageView videoView = new ImageView(mContext);
+//                        videoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                        videoView.setLayoutParams(mlayoutParams);
+//                        SobotBitmapUtil.display(mContext, ResourceUtils.getDrawableId(mContext,"sobot_rich_item_vedoi_default"), videoView);
+//                        SobotBitmapUtil.display(mContext, ResourceUtils.getDrawableId(mContext,"sobot_ic_play"), videoView);
+                        View videoView = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext,"sobot_chat_msg_item_rich_vedio_view"), null);
+
                         sobot_rich_ll.addView(videoView);
                         videoView.setOnClickListener(new View.OnClickListener() {
                             @Override

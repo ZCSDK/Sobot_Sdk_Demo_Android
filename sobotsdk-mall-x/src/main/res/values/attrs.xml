@@ -81,4 +81,13 @@
         <attr name="sobot_horizontalGap" format="dimension" />
         <attr name="sobot_fillMode" format="integer" />
     </declare-styleable>
+    <declare-styleable name="sobot_SubsamplingScaleImageView">
+        <attr name="sobot_src" format="reference"/>
+        <attr name="sobot_assetName" format="string"/>
+        <attr name="sobot_panEnabled" format="boolean"/>
+        <attr name="sobot_zoomEnabled" format="boolean"/>
+        <attr name="sobot_quickScaleEnabled" format="boolean"/>
+        <attr name="sobot_tileBackgroundColor" format="color"/>
+    </declare-styleable>
+
 </resources>

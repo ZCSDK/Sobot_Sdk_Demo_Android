@@ -2,6 +2,7 @@ package com.sobot.chat.viewHolder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
         sobot_template6_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template6_title"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
-        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context,"sobot_transfer_to_customer_service"));
+        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
         //102=左间距12+内间距30+右间距60
         sobot_template6_title.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
         sobot_template6_msg.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
@@ -44,14 +45,19 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
         if (message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null) {
             checkShowTransferBtn();
             final SobotMultiDiaRespInfo multiDiaRespInfo = message.getAnswer().getMultiDiaRespInfo();
-            sobot_template6_msg.setText(ChatUtils.getMultiMsgTitle(multiDiaRespInfo));
+            HtmlTools.getInstance(context).setRichText(sobot_template6_msg, ChatUtils.getMultiMsgTitle(multiDiaRespInfo).replaceAll("\n", "<br/>"), getLinkTextColor());
             applyTextViewUIConfig(sobot_template6_msg);
             final List<Map<String, String>> interfaceRetList = multiDiaRespInfo.getInterfaceRetList();
             if ("000000".equals(multiDiaRespInfo.getRetCode()) && interfaceRetList != null && interfaceRetList.size() > 0) {
                 final Map<String, String> interfaceRet = interfaceRetList.get(0);
                 if (interfaceRet != null && interfaceRet.size() > 0) {
                     setSuccessView();
-                    HtmlTools.getInstance(context).setRichText(sobot_template6_title, interfaceRet.get("tempStr").replace("<div>", "").replace("</div>", "").replace("<p>", "").replace("</p>", "<br/>"), getLinkTextColor());
+                    if (TextUtils.isEmpty(interfaceRet.get("tempStr"))) {
+                        sobot_template6_title.setVisibility(View.GONE);
+                    } else {
+                        sobot_template6_title.setVisibility(View.VISIBLE);
+                        HtmlTools.getInstance(context).setRichText(sobot_template6_title, interfaceRet.get("tempStr").replace("<div>", "").replace("</div>", "").replace("<p>", "").replace("</p>", "<br/>"), getLinkTextColor());
+                    }
                 }
             } else {
                 setFailureView();

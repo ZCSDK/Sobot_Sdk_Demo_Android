@@ -41,7 +41,7 @@ import java.util.Map;
 public final class SMSMMSResultParser extends ResultParser {
 
   @Override
-  public SMSParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.SMSParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (!(rawText.startsWith("sms:") || rawText.startsWith("SMS:") ||
           rawText.startsWith("mms:") || rawText.startsWith("MMS:"))) {

@@ -49,25 +49,25 @@ public class Code93Writer extends OneDimensionalCodeWriter {
     boolean[] result = new boolean[codeWidth];
 
     //start character (*)
-    int pos = appendPattern(result, 0, Code93Reader.ASTERISK_ENCODING);
+    int pos = appendPattern(result, 0, com.sobot.chat.widget.zxing.oned.Code93Reader.ASTERISK_ENCODING);
 
     for (int i = 0; i < length; i++) {
-      int indexInString = Code93Reader.ALPHABET_STRING.indexOf(contents.charAt(i));
-      pos += appendPattern(result, pos, Code93Reader.CHARACTER_ENCODINGS[indexInString]);
+      int indexInString = com.sobot.chat.widget.zxing.oned.Code93Reader.ALPHABET_STRING.indexOf(contents.charAt(i));
+      pos += appendPattern(result, pos, com.sobot.chat.widget.zxing.oned.Code93Reader.CHARACTER_ENCODINGS[indexInString]);
     }
 
     //add two checksums
     int check1 = computeChecksumIndex(contents, 20);
-    pos += appendPattern(result, pos, Code93Reader.CHARACTER_ENCODINGS[check1]);
+    pos += appendPattern(result, pos, com.sobot.chat.widget.zxing.oned.Code93Reader.CHARACTER_ENCODINGS[check1]);
 
     //append the contents to reflect the first checksum added
-    contents += Code93Reader.ALPHABET_STRING.charAt(check1);
+    contents += com.sobot.chat.widget.zxing.oned.Code93Reader.ALPHABET_STRING.charAt(check1);
 
     int check2 = computeChecksumIndex(contents, 15);
-    pos += appendPattern(result, pos, Code93Reader.CHARACTER_ENCODINGS[check2]);
+    pos += appendPattern(result, pos, com.sobot.chat.widget.zxing.oned.Code93Reader.CHARACTER_ENCODINGS[check2]);
 
     //end character (*)
-    pos += appendPattern(result, pos, Code93Reader.ASTERISK_ENCODING);
+    pos += appendPattern(result, pos, com.sobot.chat.widget.zxing.oned.Code93Reader.ASTERISK_ENCODING);
 
     //termination bar (single black bar)
     result[pos] = true;

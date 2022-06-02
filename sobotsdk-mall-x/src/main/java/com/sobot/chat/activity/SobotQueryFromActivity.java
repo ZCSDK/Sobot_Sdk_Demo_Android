@@ -39,6 +39,8 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
     private String mDocId;
     private String mUnknownQuestion;
     private String mActiveTransfer;
+    private String mKeywordId;
+    private String mKeyword;
     private String mGroupId;
     private SobotQueryFormModel mQueryFormModel;
     private String mGroupName;
@@ -77,6 +79,8 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
         mDocId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID);
         mUnknownQuestion = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION);
         mActiveTransfer = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER);
+        mKeywordId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID);
+        mKeyword = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD);
 
         mUid = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UID);
         mTransferType = mIntentBundleData.getInt(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, 0);
@@ -159,6 +163,8 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
             intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, mDocId);
             intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, mUnknownQuestion);
             intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, mActiveTransfer);
+            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD, mKeyword);
+            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID, mKeywordId);
             setResult(ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM, intent);
             finish();
         } catch (Exception e) {

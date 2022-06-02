@@ -22,5 +22,5 @@ dependencies {
     compileOnly 'com.github.bumptech.glide:glide:3.8.0'
     compileOnly 'com.squareup.picasso:picasso:2.5.2'
     api 'com.sobot.library:picture:1.1'
-    api 'com.sobot.library:net:1.1.0'
+    api 'com.sobot.library:net:1.1.1'
 }

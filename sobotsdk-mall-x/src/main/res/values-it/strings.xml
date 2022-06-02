@@ -221,4 +221,5 @@
        <string name="sobot_agree_sentisive_tip">Hai accettato di inviare informazioni sensibili personali. Questa autorizzazione è valida per il 24 ore</string>
        <string name="sobot_refuse_send_this_msg">Hai rifiutato di inviare questo messaggio</string>
        <string name="sobot_no_support_call">Il dispositivo non supporta le chiamate</string>
+       <string name="sobot_enclosure_string">recinzione</string>
 </resources>

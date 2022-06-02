@@ -82,7 +82,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         sobot_btn_reconnect.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_reunicon"));
         sobot_btn_reconnect.setOnClickListener(this);
         sobot_textReConnect = (TextView) findViewById(getResId("sobot_textReConnect"));
-        sobot_textReConnect.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_network_unavailable"));
+        sobot_textReConnect.setText(ResourceUtils.getResString(WebViewActivity.this, "sobot_try_again"));
         sobot_txt_loading = (TextView) findViewById(getResId("sobot_txt_loading"));
         sobot_webview_goback = (ImageView) findViewById(getResId("sobot_webview_goback"));
         sobot_webview_forward = (ImageView) findViewById(getResId("sobot_webview_forward"));
@@ -122,7 +122,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
                     "    <body>" + mUrl + "  </body>\n" +
                     "</html>";
             //显示文本内容
-            mWebView.loadDataWithBaseURL("about:blank", mUrl, "text/html", "utf-8", null);
+            mWebView.loadDataWithBaseURL("about:blank", mUrl.replace("<p> </p>","<br/>").replace("<p></p>","<br/>"), "text/html", "utf-8", null);
         }
         LogUtils.i("webViewActivity---" + mUrl);
     }
@@ -229,6 +229,11 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         if (Build.VERSION.SDK_INT >= 21) {
             mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
+
+        //Android 4.4 以下的系统中存在一共三个有远程代码执行漏洞的隐藏接口
+        mWebView.removeJavascriptInterface("searchBoxJavaBridge_");
+        mWebView.removeJavascriptInterface("accessibility");
+        mWebView.removeJavascriptInterface("accessibilityTraversal");
 
 
         // 应用可以有数据库

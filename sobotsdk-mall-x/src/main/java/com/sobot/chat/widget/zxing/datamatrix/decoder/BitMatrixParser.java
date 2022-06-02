@@ -26,7 +26,7 @@ final class BitMatrixParser {
 
   private final BitMatrix mappingBitMatrix;
   private final BitMatrix readMappingMatrix;
-  private final Version version;
+  private final com.sobot.chat.widget.zxing.datamatrix.decoder.Version version;
 
   /**
    * @param bitMatrix {@link BitMatrix} to parse
@@ -43,7 +43,7 @@ final class BitMatrixParser {
     this.readMappingMatrix = new BitMatrix(this.mappingBitMatrix.getWidth(), this.mappingBitMatrix.getHeight());
   }
 
-  Version getVersion() {
+  com.sobot.chat.widget.zxing.datamatrix.decoder.Version getVersion() {
     return version;
   }
 
@@ -54,11 +54,11 @@ final class BitMatrixParser {
    * <p>See ISO 16022:2006 Table 7 - ECC 200 symbol attributes</p>
    *
    * @param bitMatrix Original {@link BitMatrix} including alignment patterns
-   * @return {@link Version} encapsulating the Data Matrix Code's "version"
+   * @return {@link com.sobot.chat.widget.zxing.datamatrix.decoder.Version} encapsulating the Data Matrix Code's "version"
    * @throws FormatException if the dimensions of the mapping matrix are not valid
    * Data Matrix dimensions.
    */
-  private static Version readVersion(BitMatrix bitMatrix) throws FormatException {
+  private static com.sobot.chat.widget.zxing.datamatrix.decoder.Version readVersion(BitMatrix bitMatrix) throws FormatException {
     int numRows = bitMatrix.getHeight();
     int numColumns = bitMatrix.getWidth();
     return Version.getVersionForDimensions(numRows, numColumns);

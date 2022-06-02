@@ -43,7 +43,7 @@ public final class Code39Writer extends OneDimensionalCodeWriter {
     }
 
     for (int i = 0; i < length; i++) {
-      int indexInString = Code39Reader.ALPHABET_STRING.indexOf(contents.charAt(i));
+      int indexInString = com.sobot.chat.widget.zxing.oned.Code39Reader.ALPHABET_STRING.indexOf(contents.charAt(i));
       if (indexInString < 0) {
         contents = tryToConvertToExtendedMode(contents);
         length = contents.length();
@@ -58,14 +58,14 @@ public final class Code39Writer extends OneDimensionalCodeWriter {
     int[] widths = new int[9];
     int codeWidth = 24 + 1 + (13 * length);
     boolean[] result = new boolean[codeWidth];
-    toIntArray(Code39Reader.ASTERISK_ENCODING, widths);
+    toIntArray(com.sobot.chat.widget.zxing.oned.Code39Reader.ASTERISK_ENCODING, widths);
     int pos = appendPattern(result, 0, widths, true);
     int[] narrowWhite = {1};
     pos += appendPattern(result, pos, narrowWhite, false);
     //append next character to byte matrix
     for (int i = 0; i < length; i++) {
-      int indexInString = Code39Reader.ALPHABET_STRING.indexOf(contents.charAt(i));
-      toIntArray(Code39Reader.CHARACTER_ENCODINGS[indexInString], widths);
+      int indexInString = com.sobot.chat.widget.zxing.oned.Code39Reader.ALPHABET_STRING.indexOf(contents.charAt(i));
+      toIntArray(com.sobot.chat.widget.zxing.oned.Code39Reader.CHARACTER_ENCODINGS[indexInString], widths);
       pos += appendPattern(result, pos, widths, true);
       pos += appendPattern(result, pos, narrowWhite, false);
     }

@@ -20,7 +20,7 @@ import com.sobot.chat.camera.listener.StVideoListener;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotPathManager;
-import com.sobot.network.http.HttpUtils;
+import com.sobot.network.http.HttpBaseUtils;
 import com.sobot.network.http.db.SobotDownloadManager;
 import com.sobot.network.http.download.SobotDownload;
 import com.sobot.network.http.download.SobotDownloadListener;
@@ -180,7 +180,7 @@ public class SobotVideoActivity extends FragmentActivity implements View.OnClick
                 mTask.remove(true);
             }
         }
-        mTask = HttpUtils.getInstance().addDownloadFileTask(mCacheFile.getMsgId(), mCacheFile.getUrl(), mCacheFile.getFileName(), null,null);
+        mTask = HttpBaseUtils.getInstance().addDownloadFileTask(mCacheFile.getMsgId(), mCacheFile.getUrl(), mCacheFile.getFileName(), null,null);
         if (mTask != null) {
             mTask.register(mDownloadListener).start();
         }

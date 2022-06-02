@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import java.io.File;
 import java.util.Locale;
 
 public class SystemUtil {
@@ -115,11 +116,15 @@ public class SystemUtil {
             //获取albelRes
             int labelRes = applicationInfo.labelRes;
             //返回App的名称
-            return context.getResources().getString(labelRes);
+            if(labelRes>0){
+                return context.getResources().getString(labelRes)+ File.separator;
+            }else {
+                return "";
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return "";
     }
 }

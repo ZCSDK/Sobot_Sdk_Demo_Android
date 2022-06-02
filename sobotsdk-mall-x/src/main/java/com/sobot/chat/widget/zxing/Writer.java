@@ -37,7 +37,7 @@ public interface Writer {
    * @return {@link BitMatrix} representing encoded barcode image
    * @throws WriterException if contents cannot be encoded legally in a format
    */
-  BitMatrix encode(String contents, BarcodeFormat format, int width, int height)
+  BitMatrix encode(String contents, com.sobot.chat.widget.zxing.BarcodeFormat format, int width, int height)
       throws WriterException;
 
   /**

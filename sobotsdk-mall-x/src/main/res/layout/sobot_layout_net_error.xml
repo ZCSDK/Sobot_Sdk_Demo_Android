@@ -11,9 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dip"
-        android:textSize="20sp"
-        android:visibility="invisible" />
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/sobot_textReConnect"
@@ -21,9 +21,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sobot_txt_loading"
         android:layout_centerInParent="true"
-        android:layout_marginTop="20dip"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         android:textColor="@color/sobot_common_gray1"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/sobot_icon_nonet"
@@ -31,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/sobot_textReConnect"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dip"
+        android:layout_marginTop="20dp"
         android:contentDescription="@null"
         android:src="@drawable/sobot_icon_nonet" />
 
@@ -41,11 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sobot_textReConnect"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dip"
+        android:layout_marginTop="15dp"
         android:background="@drawable/sobot_button_style"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/sobot_common_gray1"
+        android:textSize="12sp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
 </RelativeLayout>

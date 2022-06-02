@@ -32,7 +32,7 @@ public final class EmailAddressResultParser extends ResultParser {
   private static final Pattern COMMA = Pattern.compile(",");
 
   @Override
-  public EmailAddressParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.EmailAddressParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (rawText.startsWith("mailto:") || rawText.startsWith("MAILTO:")) {
       // If it starts with mailto:, assume it is definitely trying to be an email address
@@ -73,7 +73,7 @@ public final class EmailAddressResultParser extends ResultParser {
         subject = nameValues.get("subject");
         body = nameValues.get("body");
       }
-      return new EmailAddressParsedResult(tos, ccs, bccs, subject, body);
+      return new com.sobot.chat.widget.zxing.client.result.EmailAddressParsedResult(tos, ccs, bccs, subject, body);
     } else {
       if (!EmailDoCoMoResultParser.isBasicallyValidEmailAddress(rawText)) {
         return null;

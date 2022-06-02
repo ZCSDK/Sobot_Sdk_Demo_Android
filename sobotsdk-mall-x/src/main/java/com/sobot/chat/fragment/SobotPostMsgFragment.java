@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.activity.SobotPhotoActivity;
+import com.sobot.chat.activity.SobotPostCascadeActivity;
 import com.sobot.chat.activity.SobotPostCategoryActivity;
 import com.sobot.chat.activity.SobotPostMsgActivity;
 import com.sobot.chat.activity.SobotVideoActivity;
@@ -54,6 +55,7 @@ import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.SobotJsonUtils;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
@@ -326,7 +328,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
 
         sobot_phone_line.setVisibility(mConfig.isTelShowFlag() ? View.VISIBLE : View.GONE);
 
-        String sobotUserPhone = SharedPreferencesUtil.getStringData(getSobotActivity(), "sobot_user_phone", "");
+        String sobotUserPhone = (information != null ? information.getUser_tels() : "");
         if (mConfig.isTelShowFlag() && !TextUtils.isEmpty(sobotUserPhone)) {
             sobot_post_phone.setVisibility(View.VISIBLE);
             sobot_post_phone.setText(sobotUserPhone);
@@ -334,7 +336,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             sobot_post_phone_lable.setTextColor(ContextCompat.getColor(getSobotActivity(), ResourceUtils.getResColorId(getSobotActivity(), "sobot_common_gray2")));
             sobot_post_phone_lable.setTextSize(12);
         }
-        String sobotUserEmail = SharedPreferencesUtil.getStringData(getSobotActivity(), "sobot_user_email", "");
+        String sobotUserEmail = (information != null ? information.getUser_emails() : "");
         if (mConfig.isEmailShowFlag() && !TextUtils.isEmpty(sobotUserEmail)) {
             sobot_post_email.setVisibility(View.VISIBLE);
             sobot_post_email.setText(sobotUserEmail);
@@ -555,6 +557,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         postParam.setCompanyId(mConfig.getCompanyId());
         postParam.setFileStr(getFileStr());
         postParam.setGroupId(mGroupId);
+        postParam.setTicketFrom("4");
         if (information != null && information.getLeaveParamsExtends() != null) {
             postParam.setParamsExtends(SobotJsonUtils.toJson(information.getLeaveParamsExtends()));
         }
@@ -687,6 +690,13 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                                     getSobotActivity().startActivity(intent);
                                     return;
                                 }
+                                if (SobotOption.imagePreviewListener != null) {
+                                    //如果返回true,拦截;false 不拦截
+                                    boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(getSobotActivity(), TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
+                                    if (isIntercept) {
+                                        return;
+                                    }
+                                }
                                 Intent intent = new Intent(getSobotActivity(), SobotPhotoActivity.class);
                                 intent.putExtra("imageUrL", TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
                                 getSobotActivity().startActivity(intent);
@@ -791,7 +801,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
     private ChatUtils.SobotSendFileListener sendFileListener = new ChatUtils.SobotSendFileListener() {
         @Override
         public void onSuccess(final String filePath) {
-            zhiChiApi.fileUploadForPostMsg(SobotPostMsgFragment.this, mConfig.getCompanyId(),uid, filePath, new ResultCallBack<ZhiChiMessage>() {
+            zhiChiApi.fileUploadForPostMsg(SobotPostMsgFragment.this, mConfig.getCompanyId(), uid, filePath, new ResultCallBack<ZhiChiMessage>() {
                 @Override
                 public void onSuccess(ZhiChiMessage zhiChiMessage) {
                     SobotDialogUtils.stopProgressDialog(getSobotActivity());
@@ -879,7 +889,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                             SobotDialogUtils.startProgressDialog(getSobotActivity());
                             ChatUtils.sendPicByUriPost(getSobotActivity(), selectedImage, sendFileListener, false);
                         }
-                    }else{
+                    } else {
                         showHint(getResString("sobot_did_not_get_picture_path"));
                     }
                 } else {
@@ -953,6 +963,16 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             case ZhiChiConstant.WORK_ORDER_CUSTOMER_FIELD_RADIO_TYPE:
             case ZhiChiConstant.WORK_ORDER_CUSTOMER_FIELD_CHECKBOX_TYPE:
                 StCusFieldPresenter.startSobotCusFieldActivity(getSobotActivity(), SobotPostMsgFragment.this, cusField);
+                break;
+            case ZhiChiConstant.WORK_ORDER_CUSTOMER_FIELD_CASCADE_TYPE:
+                if (cusField != null && cusField.getCusFieldDataInfoList() != null && cusField.getCusFieldDataInfoList().size() > 0) {
+                    Intent intent = new Intent(getSobotActivity(), SobotPostCascadeActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("cusField", cusField);
+                    bundle.putSerializable("fieldId", cusField.getCusFieldConfig().getFieldId());
+                    intent.putExtra("bundle", bundle);
+                    startActivityForResult(intent, ZhiChiConstant.work_order_list_display_type_category);
+                }
                 break;
             default:
                 break;

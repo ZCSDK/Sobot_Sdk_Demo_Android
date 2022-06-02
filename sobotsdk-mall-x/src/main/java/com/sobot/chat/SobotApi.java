@@ -13,6 +13,7 @@ import com.sobot.chat.activity.SobotHelpCenterActivity;
 import com.sobot.chat.activity.SobotPostMsgActivity;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.apiUtils.SobotApp;
+import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.api.enumtype.SobotChatAvatarDisplayMode;
 import com.sobot.chat.api.enumtype.SobotChatStatusMode;
 import com.sobot.chat.api.enumtype.SobotChatTitleDisplayMode;
@@ -76,7 +77,7 @@ public class SobotApi {
             Log.e(Tag, "initSobotSDK  参数为空 context:" + context + "  appkey:" + appkey);
             return;
         }
-        SobotHttpUtils.init(context);
+        SobotHttpUtils.init(context, SobotBaseUrl.getApi_Host());
         SobotApp.setApplicationContext(context);
         SharedPreferencesUtil.saveAppKey(context, appkey);
 
@@ -183,6 +184,8 @@ public class SobotApi {
         if (context == null) {
             return;
         }
+        //开启离线消息通道前，先清理未读消息数
+        clearAllUnreadCount(context, uid);
         context = context.getApplicationContext();
         SharedPreferencesUtil.removeKey(context, Const.SOBOT_WAYHTTP);
         SobotMsgManager.getInstance(context).getZhiChiApi().reconnectChannel();

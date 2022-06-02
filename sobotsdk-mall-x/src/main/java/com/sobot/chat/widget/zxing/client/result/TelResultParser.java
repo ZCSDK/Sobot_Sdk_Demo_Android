@@ -26,7 +26,7 @@ import com.sobot.chat.widget.zxing.Result;
 public final class TelResultParser extends ResultParser {
 
   @Override
-  public TelParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.TelParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (!rawText.startsWith("tel:") && !rawText.startsWith("TEL:")) {
       return null;

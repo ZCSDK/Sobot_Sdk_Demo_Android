@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
+import com.sobot.chat.activity.SobotMuItiPostMsgActivty;
 import com.sobot.chat.activity.SobotPostMsgActivity;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.SobotLeaveMsgConfig;
@@ -172,6 +173,29 @@ public class StPostMsgPresenter {
                     }
                 }
                 mIsRunning = false;
+            }
+
+            @Override
+            public void onFailure(Exception e, String des) {
+                processReqFailure(e, des);
+            }
+        });
+    }
+
+    /**
+     * 获取留言模板的配置,然后启动多轮工单节点留言弹窗
+     *
+     * @param uid
+     * @param templateId
+     */
+    public void obtainTmpConfigToMuItiPostMsg(final String uid, final String templateId) {
+        mApi.getMsgTemplateConfig(mCancelTag, uid, templateId, new StringResultCallBack<SobotLeaveMsgConfig>() {
+            @Override
+            public void onSuccess(SobotLeaveMsgConfig data) {
+                Intent intent = new Intent(mContext, SobotMuItiPostMsgActivty.class);
+                intent.putExtra(INTENT_KEY_UID, uid);
+                intent.putExtra(INTENT_KEY_CONFIG, data);
+                mContext.startActivity(intent);
             }
 
             @Override

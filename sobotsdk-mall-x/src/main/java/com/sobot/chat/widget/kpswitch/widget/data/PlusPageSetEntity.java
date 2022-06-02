@@ -53,43 +53,43 @@ public class PlusPageSetEntity<T> extends PageSetEntity<EmoticonPageEntity>{
         public Builder() {
         }
 
-        public Builder setLine(int line) {
+        public PlusPageSetEntity.Builder setLine(int line) {
             this.line = line;
             return this;
         }
 
-        public Builder setRow(int row) {
+        public PlusPageSetEntity.Builder setRow(int row) {
             this.row = row;
             return this;
         }
 
 
-        public Builder setDataList(List<T> dataList) {
+        public PlusPageSetEntity.Builder setDataList(List<T> dataList) {
             this.dataList = dataList;
             return this;
         }
 
-        public Builder setIPageViewInstantiateItem(PageViewInstantiateListener pageViewInstantiateListener) {
+        public PlusPageSetEntity.Builder setIPageViewInstantiateItem(PageViewInstantiateListener pageViewInstantiateListener) {
             this.pageViewInstantiateListener = pageViewInstantiateListener;
             return this;
         }
 
-        public Builder setShowIndicator(boolean showIndicator) {
+        public PlusPageSetEntity.Builder setShowIndicator(boolean showIndicator) {
             isShowIndicator = showIndicator;
             return this;
         }
 
-        public Builder setIconUri(String iconUri) {
+        public PlusPageSetEntity.Builder setIconUri(String iconUri) {
             this.iconUri = iconUri;
             return this;
         }
 
-        public Builder setIconUri(int iconUri) {
+        public PlusPageSetEntity.Builder setIconUri(int iconUri) {
             this.iconUri = "" + iconUri;
             return this;
         }
 
-        public Builder setSetName(String setName) {
+        public PlusPageSetEntity.Builder setSetName(String setName) {
             this.setName = setName;
             return this;
         }

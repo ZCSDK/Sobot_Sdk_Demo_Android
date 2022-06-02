@@ -12,5 +12,5 @@ import com.sobot.chat.api.model.Information;
 
 public interface SobotConversationListCallback {
 
-    void onConversationInit(Context context, Information information);
+    void onConversationInit(Context context,Information information);
 }

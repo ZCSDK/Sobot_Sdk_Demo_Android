@@ -37,7 +37,7 @@ import com.sobot.chat.widget.zxing.common.BitArray;
 final class GeneralAppIdDecoder {
 
   private final BitArray information;
-  private final CurrentParsingState current = new CurrentParsingState();
+  private final com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.CurrentParsingState current = new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.CurrentParsingState();
   private final StringBuilder buffer = new StringBuilder();
 
   GeneralAppIdDecoder(BitArray information) {
@@ -48,8 +48,8 @@ final class GeneralAppIdDecoder {
     int currentPosition = initialPosition;
     String remaining = null;
     do {
-      DecodedInformation info = this.decodeGeneralPurposeField(currentPosition, remaining);
-      String parsedFields = FieldParser.parseFieldsInGeneralPurpose(info.getNewString());
+      com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation info = this.decodeGeneralPurposeField(currentPosition, remaining);
+      String parsedFields = com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.FieldParser.parseFieldsInGeneralPurpose(info.getNewString());
       if (parsedFields != null) {
         buff.append(parsedFields);
       }
@@ -84,20 +84,20 @@ final class GeneralAppIdDecoder {
     return this.information.get(pos + 3);
   }
 
-  private DecodedNumeric decodeNumeric(int pos) throws FormatException {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric decodeNumeric(int pos) throws FormatException {
     if (pos + 7 > this.information.getSize()) {
       int numeric = extractNumericValueFromBitArray(pos, 4);
       if (numeric == 0) {
-        return new DecodedNumeric(this.information.getSize(), DecodedNumeric.FNC1, DecodedNumeric.FNC1);
+        return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric(this.information.getSize(), com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric.FNC1, com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric.FNC1);
       }
-      return new DecodedNumeric(this.information.getSize(), numeric - 1, DecodedNumeric.FNC1);
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric(this.information.getSize(), numeric - 1, com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric.FNC1);
     }
     int numeric = extractNumericValueFromBitArray(pos, 7);
 
     int digit1  = (numeric - 8) / 11;
     int digit2  = (numeric - 8) % 11;
 
-    return new DecodedNumeric(pos + 7, digit1, digit2);
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric(pos + 7, digit1, digit2);
   }
 
   int extractNumericValueFromBitArray(int pos, int bits) {
@@ -115,7 +115,7 @@ final class GeneralAppIdDecoder {
     return value;
   }
 
-  DecodedInformation decodeGeneralPurposeField(int pos, String remaining) throws FormatException {
+  com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation decodeGeneralPurposeField(int pos, String remaining) throws FormatException {
     this.buffer.setLength(0);
 
     if (remaining != null) {
@@ -124,17 +124,17 @@ final class GeneralAppIdDecoder {
 
     this.current.setPosition(pos);
 
-    DecodedInformation lastDecoded = parseBlocks();
+    com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation lastDecoded = parseBlocks();
     if (lastDecoded != null && lastDecoded.isRemaining()) {
-      return new DecodedInformation(this.current.getPosition(),
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(this.current.getPosition(),
         this.buffer.toString(), lastDecoded.getRemainingValue());
     }
-    return new DecodedInformation(this.current.getPosition(), this.buffer.toString());
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(this.current.getPosition(), this.buffer.toString());
   }
 
-  private DecodedInformation parseBlocks() throws FormatException {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation parseBlocks() throws FormatException {
     boolean isFinished;
-    BlockParsedResult result;
+    com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult result;
     do {
       int initialPosition = current.getPosition();
 
@@ -158,25 +158,25 @@ final class GeneralAppIdDecoder {
     return result.getDecodedInformation();
   }
 
-  private BlockParsedResult parseNumericBlock() throws FormatException {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult parseNumericBlock() throws FormatException {
     while (isStillNumeric(current.getPosition())) {
-      DecodedNumeric numeric = decodeNumeric(current.getPosition());
+      com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedNumeric numeric = decodeNumeric(current.getPosition());
       current.setPosition(numeric.getNewPosition());
 
       if (numeric.isFirstDigitFNC1()) {
-        DecodedInformation information;
+        com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation information;
         if (numeric.isSecondDigitFNC1()) {
-          information = new DecodedInformation(current.getPosition(), buffer.toString());
+          information = new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(current.getPosition(), buffer.toString());
         } else {
-          information = new DecodedInformation(current.getPosition(), buffer.toString(), numeric.getSecondDigit());
+          information = new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(current.getPosition(), buffer.toString(), numeric.getSecondDigit());
         }
-        return new BlockParsedResult(information, true);
+        return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(information, true);
       }
       buffer.append(numeric.getFirstDigit());
 
       if (numeric.isSecondDigitFNC1()) {
-        DecodedInformation information = new DecodedInformation(current.getPosition(), buffer.toString());
-        return new BlockParsedResult(information, true);
+        com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation information = new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(current.getPosition(), buffer.toString());
+        return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(information, true);
       }
       buffer.append(numeric.getSecondDigit());
     }
@@ -185,17 +185,17 @@ final class GeneralAppIdDecoder {
       current.setAlpha();
       current.incrementPosition(4);
     }
-    return new BlockParsedResult(false);
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(false);
   }
 
-  private BlockParsedResult parseIsoIec646Block() throws FormatException {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult parseIsoIec646Block() throws FormatException {
     while (isStillIsoIec646(current.getPosition())) {
-      DecodedChar iso = decodeIsoIec646(current.getPosition());
+      com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar iso = decodeIsoIec646(current.getPosition());
       current.setPosition(iso.getNewPosition());
 
       if (iso.isFNC1()) {
-        DecodedInformation information = new DecodedInformation(current.getPosition(), buffer.toString());
-        return new BlockParsedResult(information, true);
+        com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation information = new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(current.getPosition(), buffer.toString());
+        return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(information, true);
       }
       buffer.append(iso.getValue());
     }
@@ -212,17 +212,17 @@ final class GeneralAppIdDecoder {
 
       current.setAlpha();
     }
-    return new BlockParsedResult(false);
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(false);
   }
 
-  private BlockParsedResult parseAlphaBlock() {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult parseAlphaBlock() {
     while (isStillAlpha(current.getPosition())) {
-      DecodedChar alpha = decodeAlphanumeric(current.getPosition());
+      com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar alpha = decodeAlphanumeric(current.getPosition());
       current.setPosition(alpha.getNewPosition());
 
       if (alpha.isFNC1()) {
-        DecodedInformation information = new DecodedInformation(current.getPosition(), buffer.toString());
-        return new BlockParsedResult(information, true); //end of the char block
+        com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation information = new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedInformation(current.getPosition(), buffer.toString());
+        return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(information, true); //end of the char block
       }
 
       buffer.append(alpha.getValue());
@@ -240,7 +240,7 @@ final class GeneralAppIdDecoder {
 
       current.setIsoIec646();
     }
-    return new BlockParsedResult(false);
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.BlockParsedResult(false);
   }
 
   private boolean isStillIsoIec646(int pos) {
@@ -271,24 +271,24 @@ final class GeneralAppIdDecoder {
 
   }
 
-  private DecodedChar decodeIsoIec646(int pos) throws FormatException {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar decodeIsoIec646(int pos) throws FormatException {
     int fiveBitValue = extractNumericValueFromBitArray(pos, 5);
     if (fiveBitValue == 15) {
-      return new DecodedChar(pos + 5, DecodedChar.FNC1);
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 5, com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar.FNC1);
     }
 
     if (fiveBitValue >= 5 && fiveBitValue < 15) {
-      return new DecodedChar(pos + 5, (char) ('0' + fiveBitValue - 5));
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 5, (char) ('0' + fiveBitValue - 5));
     }
 
     int sevenBitValue = extractNumericValueFromBitArray(pos, 7);
 
     if (sevenBitValue >= 64 && sevenBitValue < 90) {
-      return new DecodedChar(pos + 7, (char) (sevenBitValue + 1));
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 7, (char) (sevenBitValue + 1));
     }
 
     if (sevenBitValue >= 90 && sevenBitValue < 116) {
-      return new DecodedChar(pos + 7, (char) (sevenBitValue + 7));
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 7, (char) (sevenBitValue + 7));
     }
 
     int eightBitValue = extractNumericValueFromBitArray(pos, 8);
@@ -360,7 +360,7 @@ final class GeneralAppIdDecoder {
       default:
         throw FormatException.getFormatInstance();
     }
-    return new DecodedChar(pos + 8, c);
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 8, c);
   }
 
   private boolean isStillAlpha(int pos) {
@@ -382,20 +382,20 @@ final class GeneralAppIdDecoder {
     return sixBitValue >= 16 && sixBitValue < 63; // 63 not included
   }
 
-  private DecodedChar decodeAlphanumeric(int pos) {
+  private com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar decodeAlphanumeric(int pos) {
     int fiveBitValue = extractNumericValueFromBitArray(pos, 5);
     if (fiveBitValue == 15) {
-      return new DecodedChar(pos + 5, DecodedChar.FNC1);
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 5, com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar.FNC1);
     }
 
     if (fiveBitValue >= 5 && fiveBitValue < 15) {
-      return new DecodedChar(pos + 5, (char) ('0' + fiveBitValue - 5));
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 5, (char) ('0' + fiveBitValue - 5));
     }
 
     int sixBitValue =  extractNumericValueFromBitArray(pos, 6);
 
     if (sixBitValue >= 32 && sixBitValue < 58) {
-      return new DecodedChar(pos + 6, (char) (sixBitValue + 33));
+      return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 6, (char) (sixBitValue + 33));
     }
 
     char c;
@@ -418,7 +418,7 @@ final class GeneralAppIdDecoder {
       default:
         throw new IllegalStateException("Decoding invalid alphanumeric value: " + sixBitValue);
     }
-    return new DecodedChar(pos + 6, c);
+    return new com.sobot.chat.widget.zxing.oned.rss.expanded.decoders.DecodedChar(pos + 6, c);
   }
 
   private boolean isAlphaTo646ToAlphaLatch(int pos) {

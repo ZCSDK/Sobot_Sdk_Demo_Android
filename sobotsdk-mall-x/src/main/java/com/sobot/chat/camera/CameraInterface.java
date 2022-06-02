@@ -502,6 +502,9 @@ public class CameraInterface implements Camera.PreviewCallback {
 
     //启动录像
     public void startRecord(Surface surface, float screenProp, ErrorCallback callback) {
+        if (mCamera == null) {
+            openCamera(SELECTED_CAMERA);
+        }
         mCamera.stopPreview();
         mCamera.setPreviewCallback(null);
         final int nowAngle = (angle + 90) % 360;
@@ -696,6 +699,7 @@ public class CameraInterface implements Camera.PreviewCallback {
             return;
         }
         final Camera.Parameters params = mCamera.getParameters();
+        if(params==null) return;
         Rect focusRect = calculateTapArea(x, y, 1f, context);
         mCamera.cancelAutoFocus();
         if (params.getMaxNumFocusAreas() > 0) {

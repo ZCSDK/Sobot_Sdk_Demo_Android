@@ -23,6 +23,7 @@ import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -81,12 +82,19 @@ public class TextMessageHolder extends MessageHolderBase {
                 try {
                     msgStatus.setClickable(true);
                     if (message.getSendSuccessState() == ZhiChiConstant.MSG_SEND_STATUS_SUCCESS) {// 成功的状态
+                        if (!StringUtils.isEmpty(message.getDesensitizationWord())) {
+                            HtmlTools.getInstance(context).setRichText(msg, message.getDesensitizationWord(), isRight ? getLinkTextColor() : getLinkTextColor());
+                        }
                         msgStatus.setVisibility(View.GONE);
                         msgProgressBar.setVisibility(View.GONE);
                         if (message.getSentisive() == 1) {
                             sobot_ll_content.setVisibility(View.GONE);
                             sobot_ll_yinsi.setVisibility(View.VISIBLE);
-                            sobot_msg_temp.setText(content);
+                             if (!StringUtils.isEmpty(message.getDesensitizationWord())) {
+                                 HtmlTools.getInstance(context).setRichText(sobot_msg_temp, message.getDesensitizationWord(), getLinkTextColor());
+                             }else{
+                                 HtmlTools.getInstance(context).setRichText(sobot_msg_temp, content, getLinkTextColor());
+                             }
                             sobot_sentisiveExplain.setText(message.getSentisiveExplain());
                             sobot_msg_temp.post(new Runnable() {
                                 @Override

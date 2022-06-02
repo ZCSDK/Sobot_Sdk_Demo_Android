@@ -41,7 +41,7 @@ import java.util.Map;
 public final class ExpandedProductResultParser extends ResultParser {
 
   @Override
-  public ExpandedProductParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.ExpandedProductParsedResult parse(Result result) {
     BarcodeFormat format = result.getBarcodeFormat();
     if (format != BarcodeFormat.RSS_EXPANDED) {
       // ExtendedProductParsedResult NOT created. Not a RSS Expanded barcode
@@ -110,7 +110,7 @@ public final class ExpandedProductResultParser extends ResultParser {
         case "3108":
         case "3109":
           weight = value;
-          weightType = ExpandedProductParsedResult.KILOGRAM;
+          weightType = com.sobot.chat.widget.zxing.client.result.ExpandedProductParsedResult.KILOGRAM;
           weightIncrement = ai.substring(3);
           break;
         case "3200":
@@ -124,7 +124,7 @@ public final class ExpandedProductResultParser extends ResultParser {
         case "3208":
         case "3209":
           weight = value;
-          weightType = ExpandedProductParsedResult.POUND;
+          weightType = com.sobot.chat.widget.zxing.client.result.ExpandedProductParsedResult.POUND;
           weightIncrement = ai.substring(3);
           break;
         case "3920":

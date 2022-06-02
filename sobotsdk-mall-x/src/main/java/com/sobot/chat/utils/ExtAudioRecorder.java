@@ -32,7 +32,7 @@ public class ExtAudioRecorder {
 						AudioFormat.ENCODING_PCM_16BIT);
 
 			} while ((++i < sampleRates.length)
-					& !(result.getState() == State.INITIALIZING));
+					& !(result.getState() == ExtAudioRecorder.State.INITIALIZING));
 		}
 		return result;
 	}
@@ -203,7 +203,7 @@ public class ExtAudioRecorder {
 				audioRecorder.setPositionNotificationPeriod(framePeriod);
 			} else { // RECORDING_COMPRESSED
 				mediaRecorder = new MediaRecorder();
-				mediaRecorder.setAudioSource(AudioSource.MIC);
+				mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 				mediaRecorder
 						.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 				mediaRecorder
@@ -414,7 +414,7 @@ public class ExtAudioRecorder {
 							nChannels + 1, aFormat, bufferSize);
 				} else {
 					mediaRecorder = new MediaRecorder();
-					mediaRecorder.setAudioSource(AudioSource.MIC);
+					mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 					mediaRecorder
 							.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 					mediaRecorder

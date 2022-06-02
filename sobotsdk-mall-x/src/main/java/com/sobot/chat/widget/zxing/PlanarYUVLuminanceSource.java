@@ -26,7 +26,7 @@ package com.sobot.chat.widget.zxing;
  *
  * @author dswitkin@google.com (Daniel Switkin)
  */
-public final class PlanarYUVLuminanceSource extends LuminanceSource {
+public final class PlanarYUVLuminanceSource extends com.sobot.chat.widget.zxing.LuminanceSource {
 
   private static final int THUMBNAIL_SCALE_FACTOR = 2;
 

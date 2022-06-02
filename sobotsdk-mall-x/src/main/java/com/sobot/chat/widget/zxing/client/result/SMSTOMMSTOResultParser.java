@@ -31,7 +31,7 @@ import com.sobot.chat.widget.zxing.Result;
 public final class SMSTOMMSTOResultParser extends ResultParser {
 
   @Override
-  public SMSParsedResult parse(Result result) {
+  public com.sobot.chat.widget.zxing.client.result.SMSParsedResult parse(Result result) {
     String rawText = getMassagedText(result);
     if (!(rawText.startsWith("smsto:") || rawText.startsWith("SMSTO:") ||
           rawText.startsWith("mmsto:") || rawText.startsWith("MMSTO:"))) {

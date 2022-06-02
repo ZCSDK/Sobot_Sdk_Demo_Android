@@ -37,26 +37,26 @@ import java.util.Map;
  */
 public final class MultiFormatUPCEANReader extends OneDReader {
 
-  private static final UPCEANReader[] EMPTY_READER_ARRAY = new UPCEANReader[0];
+  private static final com.sobot.chat.widget.zxing.oned.UPCEANReader[] EMPTY_READER_ARRAY = new com.sobot.chat.widget.zxing.oned.UPCEANReader[0];
 
-  private final UPCEANReader[] readers;
+  private final com.sobot.chat.widget.zxing.oned.UPCEANReader[] readers;
 
   public MultiFormatUPCEANReader(Map<DecodeHintType,?> hints) {
     @SuppressWarnings("unchecked")
     Collection<BarcodeFormat> possibleFormats = hints == null ? null :
         (Collection<BarcodeFormat>) hints.get(DecodeHintType.POSSIBLE_FORMATS);
-    Collection<UPCEANReader> readers = new ArrayList<>();
+    Collection<com.sobot.chat.widget.zxing.oned.UPCEANReader> readers = new ArrayList<>();
     if (possibleFormats != null) {
       if (possibleFormats.contains(BarcodeFormat.EAN_13)) {
-        readers.add(new EAN13Reader());
+        readers.add(new com.sobot.chat.widget.zxing.oned.EAN13Reader());
       } else if (possibleFormats.contains(BarcodeFormat.UPC_A)) {
         readers.add(new UPCAReader());
       }
       if (possibleFormats.contains(BarcodeFormat.EAN_8)) {
-        readers.add(new EAN8Reader());
+        readers.add(new com.sobot.chat.widget.zxing.oned.EAN8Reader());
       }
       if (possibleFormats.contains(BarcodeFormat.UPC_E)) {
-        readers.add(new UPCEReader());
+        readers.add(new com.sobot.chat.widget.zxing.oned.UPCEReader());
       }
     }
     if (readers.isEmpty()) {
@@ -73,7 +73,7 @@ public final class MultiFormatUPCEANReader extends OneDReader {
                           BitArray row,
                           Map<DecodeHintType,?> hints) throws NotFoundException {
     // Compute this location once and reuse it on multiple implementations
-    int[] startGuardPattern = UPCEANReader.findStartGuardPattern(row);
+    int[] startGuardPattern = com.sobot.chat.widget.zxing.oned.UPCEANReader.findStartGuardPattern(row);
     for (UPCEANReader reader : readers) {
       try {
         Result result = reader.decodeRow(rowNumber, row, startGuardPattern, hints);
