@@ -38,7 +38,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7131948a-cca0-4901-8f33-175813d1b00c" name="Default Changelist" comment="升级3.0.2">
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.2.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotMuItiPostMsgActivty.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotPostCascadeActivity.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotPostCascadeAdapter.java" afterDir="false" />
@@ -87,7 +86,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.0.8.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/arm64-v8a/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/arm64-v8a/libsobot.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi-v7a/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi-v7a/libsobot.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi/libsobot.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.0.8.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86/libsobot.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86_64/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86_64/libsobot.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/SobotApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/SobotApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/ZCSobotApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/ZCSobotApi.java" afterDir="false" />
@@ -331,7 +335,7 @@
     <property name="android-custom-view/Users/znw/Documents/sobot-sdk-history/Sobot_Sdk_Demo_Android/sobotsdk/src/main/java/com/sobot/chat/widget/ContainsEmojiEditText.java_SELECTED" value="ContainsEmojiEditText" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1653535490576" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1654153308386" />
     <property name="multi-representation-preview/Users/edy/Documents/sobotproject_git/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotImageView.java_selected" value="Custom views" />
     <property name="multi-representation-preview/Users/znw/Documents/sobot-sdk-history/Sobot_Sdk_Demo_Android/sobotsdk/src/main/java/com/sobot/chat/widget/ContainsEmojiEditText.java_selected" value="Custom views" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -577,7 +581,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646117362159</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="升级 3.1.2">
+      <created>1654153899024</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654153899024</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -635,7 +646,8 @@
     <MESSAGE value="发布3.0.6" />
     <MESSAGE value="更新新版本3.0.7" />
     <MESSAGE value="升级3.0.8" />
-    <option name="LAST_COMMIT_MESSAGE" value="升级3.0.8" />
+    <MESSAGE value="升级 3.1.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="升级 3.1.2" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1555" height="95" key="GridCell.Tab.0.bottom" timestamp="1652076738493">
