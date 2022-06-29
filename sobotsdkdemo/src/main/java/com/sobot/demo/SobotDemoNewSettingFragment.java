@@ -20,6 +20,7 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.activity.function.SobotBaseFunctionActivity;
 import com.sobot.demo.activity.function.SobotCustomUiFunctionActivity;
+import com.sobot.demo.activity.function.SobotDuolunActivity;
 import com.sobot.demo.activity.function.SobotEndSobotFunctionActivity;
 import com.sobot.demo.activity.function.SobotInfomationFunctionActivity;
 import com.sobot.demo.activity.function.SobotInitPlatformSobotFunctionActivity;
@@ -86,6 +87,8 @@ public class SobotDemoNewSettingFragment extends Fragment implements View.OnClic
         rl_14.setOnClickListener(this);
         RelativeLayout rl_15 = (RelativeLayout) view.findViewById(R.id.rl_15);
         rl_15.setOnClickListener(this);
+        RelativeLayout rl_16 = (RelativeLayout) view.findViewById(R.id.rl_16);
+        rl_16.setOnClickListener(this);
 
     }
 
@@ -180,6 +183,10 @@ public class SobotDemoNewSettingFragment extends Fragment implements View.OnClic
                 break;
             case R.id.rl_15://结束会话
                 intent = new Intent(getActivity(), SobotEndSobotFunctionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_16://多轮会话
+                intent = new Intent(getActivity(), SobotDuolunActivity.class);
                 startActivity(intent);
                 break;
             default:

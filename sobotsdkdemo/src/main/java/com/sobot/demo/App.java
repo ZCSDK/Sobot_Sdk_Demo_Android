@@ -82,7 +82,7 @@ public class App extends Application {
         ZCSobotApi.setNewHyperlinkListener(new NewHyperlinkListener() {
             @Override
             public boolean onUrlClick(Context context, String url) {
-                if (url.contains("baidu")) {
+                if (url.contains("baidu1")) {
                     ToastUtil.showToast(getApplicationContext(), "点击了超链接，url=" + url);
                     //如果url链接是百度,拦截
                     //do().....

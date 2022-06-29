@@ -82,6 +82,7 @@
         <activity android:name=".activity.function.SobotInitSobotFunctionActivity" />
         <activity android:name=".activity.function.SobotCustomUiFunctionActivity" />
         <activity android:name=".activity.function.SobotInfomationFunctionActivity" />
+        <activity android:name=".activity.function.SobotDuolunActivity" />
     </application>
 
 </manifest>
