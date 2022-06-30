@@ -84,8 +84,8 @@
 
                 <!-- 显示图片的信息 -->
                 <com.sobot.chat.widget.image.SobotRCRelativeLayout
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="@dimen/sobot_msg_picture_width"
+                    android:layout_height="@dimen/sobot_msg_picture_heigh"
                     app:sobot_round_corner_bottom_left="16dp"
                     app:sobot_round_corner_bottom_right="4dp"
                     app:sobot_round_corner_top_left="16dp"
@@ -93,8 +93,8 @@
                     <!--客服发送的单张图片显示控件-->
                     <com.sobot.chat.widget.image.SobotRCImageView
                         android:id="@+id/sobot_iv_picture"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="@dimen/sobot_msg_picture_width"
+                        android:layout_height="@dimen/sobot_msg_picture_heigh"
                         android:scaleType="centerCrop"
                         android:visibility="gone" />
                     <!-- 上传图片的加载的进度显示 -->

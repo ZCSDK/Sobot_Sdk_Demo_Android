@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Você se recusou a enviar esta mensagem</string>
        <string name="sobot_no_support_call">O dispositivo não suporta fazer chamadas</string>
        <string name="sobot_enclosure_string">invólucro</string>
+       <string name="sobot_write_info_string">Preencher as informações</string>
+       <string name="sobot_line_up_close_chat">Terminar a sessão após a desconexão automática em fila</string>
 </resources>

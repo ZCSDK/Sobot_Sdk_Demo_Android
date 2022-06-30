@@ -151,7 +151,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
     protected void initView() {
         sobot_tv_title = (TextView) findViewById(ResourceUtils.getIdByName(
                 this, "id", "sobot_tv_title"));
-        sobot_tv_title.setText("填写信息");
+        sobot_tv_title.setText(getResString("sobot_write_info_string"));
         sobot_btn_cancle = (LinearLayout) findViewById(ResourceUtils.getIdByName(
                 this, "id", "sobot_btn_cancle"));
         sobot_btn_cancle.setOnClickListener(new View.OnClickListener() {

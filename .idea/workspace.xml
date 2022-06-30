@@ -37,28 +37,14 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7131948a-cca0-4901-8f33-175813d1b00c" name="Default Changelist" comment="升级3.0.2">
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotMuItiPostMsgActivty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotPostCascadeActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotPostCascadeAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotImagePreviewListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/SobotSerializableMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/SobotMuitiLeavemsgMessageHolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/ImageSource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/ImageViewState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/SobotScaleImageView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/CompatDecoderFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/DecoderFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/ImageDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/ImageRegionDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/SkiaImageDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/SkiaImageRegionDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/subscaleview/decoder/SkiaPooledImageRegionDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/drawable-xhdpi/sobot_icon_nonet2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/drawable-xhdpi/sobot_rich_item_vedoi_default.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_activity_muit_post_msg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_muiti_leave_msg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_rich_vedio_view.xml" afterDir="false" />
+    <list default="true" id="7131948a-cca0-4901-8f33-175813d1b00c" name="Default Changelist" comment="demo 添加 多轮体验">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.androidTest.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.unitTest.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.androidTest.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.unitTest.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.3.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -70,189 +56,36 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_mall_x_libs_sobot_sdk_mall_x_lib_3_0_8_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_mall_x_libs_sobot_sdk_mall_x_lib_3_1_2_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_mall_x_libs_sobot_sdk_mall_x_lib_3_1_2_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_mall_x_libs_sobot_sdk_mall_x_lib_3_1_3_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lzy_widget_view_core_0_1_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lzy_widget_view_core_0_1_5_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsdk_imageloader_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsdk_imageloader_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_2_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_net_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_net_1_1_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_picture_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_picture_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_4_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_4_4_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_2_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_2_4_3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_apm_1_5_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_apm_1_5_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/arm64-v8a/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/arm64-v8a/libsobot.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi-v7a/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi-v7a/libsobot.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/armeabi/libsobot.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.0.8.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.2.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86/libsobot.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86_64/libsobot.so" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/libs/x86_64/libsobot.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/SobotApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/SobotApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/ZCSobotApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/ZCSobotApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotCameraActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotCameraActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotPhotoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotPhotoActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotPhotoListActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotProblemDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotProblemDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotQueryFromActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotQueryFromActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotSkillGroupActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotSkillGroupActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotVideoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotVideoActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/WebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/WebViewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/base/SobotBaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/base/SobotBaseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotImageScaleAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotMsgAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotMsgAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotPostMsgTmpListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotPostMsgTmpListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotProvinAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotProvinAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotSikllAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotSikllAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotTicketDetailAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/adapter/SobotTicketDetailAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotMuItiPostMsgActivty.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/activity/SobotMuItiPostMsgActivty.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/camera/CameraInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/camera/CameraInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/conversation/SobotChatBaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/conversation/SobotChatBaseFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/conversation/SobotChatFSFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/conversation/SobotChatFSFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/conversation/SobotChatFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/conversation/SobotChatFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/fragment/SobotBaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/fragment/SobotBaseFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/fragment/SobotPostMsgFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/fragment/SobotPostMsgFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/ISobotCusField.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/ISobotCusField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/MessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/MessageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotConversationListCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotConversationListCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotPlusMenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotPlusMenuListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotTransferOperatorInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/listener/SobotTransferOperatorInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/presenter/StCusFieldPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/presenter/StCusFieldPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/presenter/StPostMsgPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/presenter/StPostMsgPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/server/SobotSessionServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/server/SobotSessionServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/ChatUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/ChatUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/ExtAudioRecorder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/ExtAudioRecorder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/FileOpenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/FileOpenHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/HtmlTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/HtmlTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/NotificationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/NotificationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/SobotOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/SobotOption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/SystemUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/utils/SystemUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/CusEvaluateMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/CusEvaluateMessageHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RichTextMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RichTextMessageHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder3.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder5.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder6.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/RobotTemplateMessageHolder6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/TextMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/TextMessageHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/VoiceMessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/VoiceMessageHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/base/MessageHolderBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/viewHolder/base/MessageHolderBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotEditTextLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotEditTextLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotImageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotImageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotTenRatingLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotTenRatingLayout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotEvaluateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotEvaluateActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotEvaluateDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotEvaluateDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotPermissionTipDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotPermissionTipDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotReplyActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/SobotReplyActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/base/SobotActionSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/dialog/base/SobotActionSheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/gif/GifAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/gif/GifAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/gif/GifView2.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/gif/GifView2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/horizontalgridpage/HorizontalGridPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/horizontalgridpage/HorizontalGridPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/view/ChattingPanelUploadView.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/view/ChattingPanelUploadView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/widget/KPSwitchPanelFrameLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/widget/KPSwitchPanelFrameLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/widget/adpater/PlusAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/widget/adpater/PlusAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/widget/data/PlusPageSetEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/kpswitch/widget/data/PlusPageSetEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/Compat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/HackyViewPager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/IPhotoView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/PhotoView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/PhotoViewAttacher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/SDK16.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/ScrollerProxy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/photoview/VersionedGestureDetector.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/BinaryBitmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/BinaryBitmap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/EncodeHintType.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/EncodeHintType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/MultiFormatReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/MultiFormatReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/MultiFormatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/MultiFormatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/PlanarYUVLuminanceSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/PlanarYUVLuminanceSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/RGBLuminanceSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/RGBLuminanceSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/aztec/encoder/BinaryShiftToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/aztec/encoder/BinaryShiftToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/aztec/encoder/HighLevelEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/aztec/encoder/HighLevelEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/aztec/encoder/SimpleToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/aztec/encoder/SimpleToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/AddressBookAUResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/AddressBookAUResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/AddressBookDoCoMoResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/AddressBookDoCoMoResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/BookmarkDoCoMoResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/BookmarkDoCoMoResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/EmailAddressResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/EmailAddressResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ExpandedProductResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ExpandedProductResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/GeoResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/GeoResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ISBNResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ISBNResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ProductResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ProductResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/ResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/SMSMMSResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/SMSMMSResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/SMSTOMMSTOResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/SMSTOMMSTOResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/TelResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/TelResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/URIResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/URIResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/URLTOResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/URLTOResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/VEventResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/VEventResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/VINResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/VINResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/WifiResultParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/client/result/WifiResultParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/BitMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/BitMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/DefaultGridSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/DefaultGridSampler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/DetectorResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/DetectorResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/GlobalHistogramBinarizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/GlobalHistogramBinarizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/GridSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/GridSampler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/HybridBinarizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/HybridBinarizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/detector/WhiteRectangleDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/detector/WhiteRectangleDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/reedsolomon/GenericGFPoly.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/reedsolomon/GenericGFPoly.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/reedsolomon/ReedSolomonDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/reedsolomon/ReedSolomonDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/reedsolomon/ReedSolomonEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/common/reedsolomon/ReedSolomonEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/decoder/BitMatrixParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/decoder/BitMatrixParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/decoder/DataBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/decoder/DataBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/ASCIIEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/ASCIIEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/Base256Encoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/Base256Encoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/C40Encoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/C40Encoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/EdifactEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/EdifactEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/EncoderContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/EncoderContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/HighLevelEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/HighLevelEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/TextEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/TextEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/X12Encoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/datamatrix/encoder/X12Encoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/CodaBarWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/CodaBarWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/Code128Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/Code128Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/Code39Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/Code39Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/Code93Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/Code93Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/MultiFormatOneDReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/MultiFormatOneDReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/MultiFormatUPCEANReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/MultiFormatUPCEANReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/UPCEANExtension2Support.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/UPCEANExtension2Support.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/UPCEANExtension5Support.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/UPCEANExtension5Support.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/UPCEWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/UPCEWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/RSS14Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/RSS14Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/BitArrayBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/BitArrayBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/RSSExpandedReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/RSSExpandedReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01392xDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01392xDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01393xDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01393xDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01AndOtherAIs.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01AndOtherAIs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01weightDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AI01weightDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AbstractExpandedDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/AbstractExpandedDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/DecodedInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/DecodedInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/DecodedNumeric.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/DecodedNumeric.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/GeneralAppIdDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/oned/rss/expanded/decoders/GeneralAppIdDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/PDF417Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/PDF417Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/DetectionResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/DetectionResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/DetectionResultColumn.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/DetectionResultColumn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/DetectionResultRowIndicatorColumn.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/DetectionResultRowIndicatorColumn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/PDF417ScanningDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/PDF417ScanningDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/ec/ErrorCorrection.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/ec/ErrorCorrection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/ec/ModulusPoly.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/decoder/ec/ModulusPoly.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/encoder/BarcodeMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/pdf417/encoder/BarcodeMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/BitMatrixParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/BitMatrixParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/DataBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/DataBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/DecodedBitStreamParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/DecodedBitStreamParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/FormatInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/decoder/FormatInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/detector/AlignmentPatternFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/detector/AlignmentPatternFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/detector/FinderPatternFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/detector/FinderPatternFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/detector/FinderPatternInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/detector/FinderPatternInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/encoder/Encoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/encoder/Encoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/encoder/MatrixUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/zxing/qrcode/encoder/MatrixUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/drawable-xhdpi/sobot_icon_nonet.png" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/drawable-xhdpi/sobot_icon_nonet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_activity_photo_list.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_layout_chat_loading.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_layout_chat_loading.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_layout_net_error.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_layout_net_error.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_photo_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_photo_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_imgt_l.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_imgt_l.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_imgt_r.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_imgt_r.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-ar/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-ar/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-de/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-de/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-en/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-en/strings.xml" afterDir="false" />
@@ -271,10 +104,8 @@
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-tr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-tr/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-vi-rVN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-vi-rVN/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-zh-rtw/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values-zh-rtw/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/attrs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/attrs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/dimens.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk-mall-x/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,6 +139,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1l8NSrmhgVpPMA8ntbNqzhnKtM0" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -330,23 +169,28 @@
     <property name="ExportApk.SignV2" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-view/Users/edy/Documents/sobotproject_git/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotImageView.java_SELECTED" value="SobotImageView" />
     <property name="android-custom-view/Users/znw/Documents/sobot-sdk-history/Sobot_Sdk_Demo_Android/sobotsdk/src/main/java/com/sobot/chat/widget/ContainsEmojiEditText.java_SELECTED" value="ContainsEmojiEditText" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1654153308386" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1656490262375" />
     <property name="multi-representation-preview/Users/edy/Documents/sobotproject_git/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/src/main/java/com/sobot/chat/widget/SobotImageView.java_selected" value="Custom views" />
     <property name="multi-representation-preview/Users/znw/Documents/sobot-sdk-history/Sobot_Sdk_Demo_Android/sobotsdk/src/main/java/com/sobot/chat/widget/ContainsEmojiEditText.java_selected" value="Custom views" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/sobotsdk-mall-x/src/main" />
       <recent name="$PROJECT_DIR$/sobotsdk-mall-x/libs" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/sobotsdkdemo/src/main/res/drawable-xhdpi" />
-      <recent name="$PROJECT_DIR$/sobotsdkdemo/src/main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sobot.demo.activity.function" />
     </key>
   </component>
   <component name="RunManager">
@@ -365,13 +209,13 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -415,7 +259,7 @@
       </method>
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -588,7 +432,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654153899024</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="升级 3.1.2">
+      <created>1654154989655</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1654154989655</updated>
+    </task>
+    <task id="LOCAL-00025" summary="demo 添加 多轮体验">
+      <created>1656492392858</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1656492392858</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -647,47 +505,8 @@
     <MESSAGE value="更新新版本3.0.7" />
     <MESSAGE value="升级3.0.8" />
     <MESSAGE value="升级 3.1.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="升级 3.1.2" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state width="1555" height="95" key="GridCell.Tab.0.bottom" timestamp="1652076738493">
-      <screen x="-312" y="-1057" width="1920" height="970" />
-    </state>
-    <state width="1555" height="95" key="GridCell.Tab.0.bottom/-312.-1057.1920.970/0.23.1680.1027@-312.-1057.1920.970" timestamp="1652076738493" />
-    <state width="1555" height="95" key="GridCell.Tab.0.center" timestamp="1652076738493">
-      <screen x="-312" y="-1057" width="1920" height="970" />
-    </state>
-    <state width="1555" height="95" key="GridCell.Tab.0.center/-312.-1057.1920.970/0.23.1680.1027@-312.-1057.1920.970" timestamp="1652076738493" />
-    <state width="1555" height="95" key="GridCell.Tab.0.left" timestamp="1652076738492">
-      <screen x="-312" y="-1057" width="1920" height="970" />
-    </state>
-    <state width="1555" height="95" key="GridCell.Tab.0.left/-312.-1057.1920.970/0.23.1680.1027@-312.-1057.1920.970" timestamp="1652076738492" />
-    <state width="1555" height="95" key="GridCell.Tab.0.right" timestamp="1652076738493">
-      <screen x="-312" y="-1057" width="1920" height="970" />
-    </state>
-    <state width="1555" height="95" key="GridCell.Tab.0.right/-312.-1057.1920.970/0.23.1680.1027@-312.-1057.1920.970" timestamp="1652076738493" />
-    <state x="200" y="-852" key="Vcs.Push.Dialog.v2" timestamp="1646117792860">
-      <screen x="-312" y="-1057" width="1920" height="1057" />
-    </state>
-    <state x="200" y="-852" key="Vcs.Push.Dialog.v2/-312.-1057.1920.1057/0.23.1680.944@-312.-1057.1920.1057" timestamp="1646117792860" />
-    <state x="200" y="-852" key="Vcs.Push.Dialog.v2/-312.-1057.1920.1057/0.23.1680.947@-312.-1057.1920.1057" timestamp="1645521181356" />
-    <state x="294" y="-691" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1651133191667">
-      <screen x="-312" y="-1057" width="1920" height="1057" />
-    </state>
-    <state x="294" y="-691" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-312.-1057.1920.1057/0.23.1680.940@-312.-1057.1920.1057" timestamp="1651133191667" />
-    <state x="202" y="-902" width="770" height="616" key="find.popup" timestamp="1653644156504">
-      <screen x="-312" y="-1057" width="1920" height="1057" />
-    </state>
-    <state x="202" y="-902" width="770" height="616" key="find.popup/-312.-1057.1920.1057/0.23.1680.947@-312.-1057.1920.1057" timestamp="1653644156504" />
-    <state x="198" y="-719" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1649664197676">
-      <screen x="-312" y="-1057" width="1920" height="1057" />
-    </state>
-    <state x="198" y="-719" key="git4idea.remote.GitConfigureRemotesDialog/-312.-1057.1920.1057/0.23.1680.944@-312.-1057.1920.1057" timestamp="1649664197676" />
-    <state x="222" y="-1032" width="838" height="1032" key="search.everywhere.popup" timestamp="1653619006386">
-      <screen x="-312" y="-1057" width="1920" height="1057" />
-    </state>
-    <state x="222" y="-1032" width="838" height="1032" key="search.everywhere.popup/-312.-1057.1920.1057/0.23.1680.940@-312.-1057.1920.1057" timestamp="1653619006386" />
-    <state x="222" y="-1032" width="838" height="1032" key="search.everywhere.popup/-312.-1057.1920.1057/0.23.1680.941@-312.-1057.1920.1057" timestamp="1651741884474" />
+    <MESSAGE value="demo 添加 多轮体验" />
+    <option name="LAST_COMMIT_MESSAGE" value="demo 添加 多轮体验" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

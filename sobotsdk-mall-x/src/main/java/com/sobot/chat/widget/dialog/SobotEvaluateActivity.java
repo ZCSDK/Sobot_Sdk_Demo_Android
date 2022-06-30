@@ -155,8 +155,8 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         sobot_ratingBar = (RatingBar) findViewById(getResId("sobot_ratingBar"));
         sobot_ten_root_ll = findViewById(getResId("sobot_ten_root_ll"));
         sobot_ten_rating_ll = findViewById(getResId("sobot_ten_rating_ll"));
-        sobot_ten_very_dissatisfied= findViewById(getResId("sobot_ten_very_dissatisfied"));
-        sobot_ten_very_satisfaction= findViewById(getResId("sobot_ten_very_satisfaction"));
+        sobot_ten_very_dissatisfied = findViewById(getResId("sobot_ten_very_dissatisfied"));
+        sobot_ten_very_satisfaction = findViewById(getResId("sobot_ten_very_satisfaction"));
         sobot_ten_very_dissatisfied.setText(ResourceUtils.getResString(context, "sobot_very_dissatisfied"));
         sobot_ten_very_satisfaction.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
 
@@ -186,9 +186,11 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
 
         if (current_model == ZhiChiConstant.client_model_customService) {
             ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
+            sobot_close_now.setVisibility(View.GONE);
             zhiChiApi.satisfactionMessage(CANCEL_TAG, initModel.getPartnerid(), new ResultCallBack<SatisfactionSet>() {
                 @Override
                 public void onSuccess(SatisfactionSet satisfactionSet) {
+                    sobot_close_now.setVisibility(View.VISIBLE);
                     if (satisfactionSet != null && "1".equals(satisfactionSet.getCode()) && satisfactionSet.getData() != null && satisfactionSet.getData().size() != 0) {
                         satisFactionList = satisfactionSet.getData();
                         if (commentType == 1) {
@@ -213,7 +215,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                                         score = 10;
                                     }
                                 }
-                            }else{
+                            } else {
                                 return;
                             }
                         } else {
@@ -228,7 +230,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                                     sobot_ratingBar.setVisibility(View.GONE);
                                     ratingType = 1;//十分
                                 }
-                            }else{
+                            } else {
                                 return;
                             }
                         }
@@ -299,7 +301,9 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         sobot_ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                sobot_close_now.setVisibility(View.VISIBLE);
+                if (satisfactionSetBase != null) {
+                    sobot_close_now.setVisibility(View.VISIBLE);
+                }
                 int score = (int) Math.ceil(sobot_ratingBar.getRating());
                 if (score == 0) {
                     sobot_ratingBar.setRating(1);
@@ -355,7 +359,9 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             sobot_ten_rating_ll.setOnClickItemListener(new SobotTenRatingLayout.OnClickItemListener() {
                 @Override
                 public void onClickItem(int selectIndex) {
-                    sobot_close_now.setVisibility(View.VISIBLE);
+                    if (satisfactionSetBase != null) {
+                        sobot_close_now.setVisibility(View.VISIBLE);
+                    }
                     sobot_close_now.setSelected(true);
                     setCustomLayoutViewVisible(selectIndex, satisFactionList);
                 }

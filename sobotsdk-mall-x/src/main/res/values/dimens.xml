@@ -38,4 +38,15 @@
     <dimen name="sobot_layout_lable_margin_right">12dp</dimen>
     <dimen name="sobot_btn_send_text_size">14sp</dimen>
     <dimen name="sobot_line_height_0_4_dp">0.4dp</dimen>
+
+    <!--聊天界面 富文本消息气泡中的（知识库）图片宽度 默认自适应宽度-->
+    <dimen name="sobot_rich_msg_picture_width_dp">0dp</dimen>
+    <!--聊天界面 富文本消息气泡中的（知识库）图片高度 默认200dp-->
+    <dimen name="sobot_rich_msg_picture_height_dp">200dp</dimen>
+
+    <!--聊天界面 图片消息气泡中的 单独一张图片宽度-->
+    <dimen name="sobot_msg_picture_width">120dp</dimen>
+    <!--聊天界面 图片消息气泡中的 单独一张图片高度 -->
+    <dimen name="sobot_msg_picture_heigh">120dp</dimen>
+
 </resources>

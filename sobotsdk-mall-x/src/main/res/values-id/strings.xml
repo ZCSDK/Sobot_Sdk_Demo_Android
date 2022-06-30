@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Anda telah menolak untuk mengirim pesan ini</string>
        <string name="sobot_no_support_call">Perangkat tidak mendukung membuat panggilan</string>
        <string name="sobot_enclosure_string">penyamaran</string>
+       <string name="sobot_write_info_string">Compilare le informazioni</string>
+       <string name="sobot_line_up_close_chat">Termina la sessione dopo la disconnessione automatica in coda</string>
 </resources>

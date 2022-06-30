@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="sobotsdkdemo/src/main/res/layout/sobot_custom_title_activity.xml" value="0.13168516649848638" />
+        <entry key="sobotsdkdemo/src/main/res/layout/sobot_demo_base_func_activity.xml" value="0.14673913043478262" />
+        <entry key="sobotsdkdemo/src/main/res/layout/sobot_demo_duolun_func_activity.xml" value="0.25" />
+        <entry key="sobotsdkdemo/src/main/res/layout/sobot_demo_new_setting_fragment.xml" value="0.12209889001009082" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

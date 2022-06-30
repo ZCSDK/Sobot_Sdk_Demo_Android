@@ -234,15 +234,15 @@ public class SobotSessionServer extends Service {
         } else if (ZhiChiConstant.push_message_receverSystemMessage == pushMessage
                 .getType()) {// 接收到系统消息
             if (config.getInitModel() != null) {
-                if (config.customerState == CustomerState.Online) {
                     base.setT(Calendar.getInstance().getTime().getTime() + "");
                     base.setMsgId(pushMessage.getMsgId());
                     base.setSender(pushMessage.getAname());
                     base.setSenderName(pushMessage.getAname());
                     base.setSenderFace(pushMessage.getAface());
-                    if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType()))) {
+                    if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType())|| "5".equals(pushMessage.getSysType()))) {
                         //客服超时提示 1
                         //客户超时提示 2 都显示在左侧
+                        //排队断开说辞系统消息 5 都显示在左侧
                         base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
                         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
                         reply.setMsg(pushMessage.getContent());
@@ -263,7 +263,6 @@ public class SobotSessionServer extends Service {
                         showNotification(pushMessage.getContent(), pushMessage, false);
                     }
                     sendBroadcast(pushMessage, pushMessage.getContent(), false);
-                }
             }
 
 
@@ -477,6 +476,9 @@ public class SobotSessionServer extends Service {
         intent.putExtra("noReadCount", localUnreadNum);
         intent.putExtra("content", content);
         intent.putExtra("sobot_appId", pushMessage.getAppId());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sobotMessage", pushMessage);
+        intent.putExtras(bundle);
         CommonUtils.sendBroadcast(getApplicationContext(), intent);
     }
 

@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" filepath="$PROJECT_DIR$/Sobot_Sdk_Demo_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.unitTest.iml" />
     </modules>
   </component>
 </project>

@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">لقد رفضت إرسال هذه الرسالة</string>
        <string name="sobot_no_support_call">الجهاز لا يدعم إجراء المكالمات</string>
        <string name="sobot_enclosure_string">المرفق</string>
+       <string name="sobot_write_info_string">ملء المعلومات</string>
+       <string name="sobot_line_up_close_chat">طابور السيارات بعد انتهاء الدورة</string>
 </resources>

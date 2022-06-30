@@ -504,12 +504,18 @@ public class CameraInterface implements Camera.PreviewCallback {
     public void startRecord(Surface surface, float screenProp, ErrorCallback callback) {
         if (mCamera == null) {
             openCamera(SELECTED_CAMERA);
+            if (mCamera == null) {
+                return;
+            }
         }
         mCamera.stopPreview();
         mCamera.setPreviewCallback(null);
         final int nowAngle = (angle + 90) % 360;
         //获取第一帧图片
         Camera.Parameters parameters = mCamera.getParameters();
+        if(parameters == null){
+            return;
+        }
         int width = parameters.getPreviewSize().width;
         int height = parameters.getPreviewSize().height;
         YuvImage yuv = new YuvImage(firstFrame_data, parameters.getPreviewFormat(), width, height, null);
@@ -531,13 +537,20 @@ public class CameraInterface implements Camera.PreviewCallback {
         }
         if (mCamera == null) {
             openCamera(SELECTED_CAMERA);
+            if (mCamera == null) {
+                return;
+            }
         }
         if (mediaRecorder == null) {
             mediaRecorder = new MediaRecorder();
         }
         if (mParams == null) {
             mParams = mCamera.getParameters();
+            if (mParams == null) {
+                return;
+            }
         }
+
         List<String> focusModes = mParams.getSupportedFocusModes();
         if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
             mParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);

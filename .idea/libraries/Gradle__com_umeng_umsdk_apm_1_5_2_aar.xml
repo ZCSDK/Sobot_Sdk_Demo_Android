@@ -19,6 +19,15 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3cd9a38f74b8121b99a14d005ca6f172/jars/libs/efs-base-1.3.9.umeng.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3cd9a38f74b8121b99a14d005ca6f172/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3cd9a38f74b8121b99a14d005ca6f172/jars/libs/launchsdk-0.0.3.umeng.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/libs/memsdk-0.0.2.umeng.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/libs/efs-base-1.3.9.umeng.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/libs/crashsdk-3.3.1.1_umeng.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/libs/netsdk-0.0.2.umeng.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/libs/pasdk-2.1.155.umeng.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f051932fb26c703392375fa5f57dc24/jars/libs/launchsdk-0.0.3.umeng.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Bạn đã từ chối gửi tin nhắn này</string>
        <string name="sobot_no_support_call">Thiết bị không hỗ trợ các cuộc gọis</string>
        <string name="sobot_enclosure_string">Chung</string>
+       <string name="sobot_write_info_string">Điền thông tin vào</string>
+       <string name="sobot_line_up_close_chat">Kết thúc phiên chạy sau khi xếp hàng tự động ngắt</string>
 </resources>

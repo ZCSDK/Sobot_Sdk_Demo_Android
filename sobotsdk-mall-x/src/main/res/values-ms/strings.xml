@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Anda telah menolak untuk menghantar mesej ini</string>
        <string name="sobot_no_support_call">Peranti tidak menyokong membuat panggilan</string>
        <string name="sobot_enclosure_string">lampiran</string>
+       <string name="sobot_write_info_string">Isi maklumat</string>
+       <string name="sobot_line_up_close_chat">Tutup sesi akhir auto dalam baris</string>
 </resources>

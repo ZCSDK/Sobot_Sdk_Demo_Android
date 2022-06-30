@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">คุณได้ปฏิเสธที่จะส่งข้อความนี้</string>
        <string name="sobot_no_support_call">อุปกรณ์นี้ไม่รองรับการโทรออก</string>
        <string name="sobot_enclosure_string">แนบท้าย</string>
+       <string name="sobot_write_info_string">กรอกข้อมูล</string>
+       <string name="sobot_line_up_close_chat">คิวตัดการเชื่อมต่อโดยอัตโนมัติและสิ้นสุดเซสชัน</string>
 </resources>

@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Вы отказались отправлять это сообщение</string>
        <string name="sobot_no_support_call">устройство не поддерживает звонки</string>
        <string name="sobot_enclosure_string">Приложение</string>
+       <string name="sobot_write_info_string">заполнение информации</string>
+       <string name="sobot_line_up_close_chat">очередь автоматически прерывать сеанс после завершения сеанса</string>
 </resources>

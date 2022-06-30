@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">このメッセージの送信を拒否しました</string>
        <string name="sobot_no_support_call">このデバイスでは電話はサポートされていません</string>
        <string name="sobot_enclosure_string">アタッチメント</string>
+       <string name="sobot_write_info_string">情報の記入</string>
+       <string name="sobot_line_up_close_chat">キューが自動的に切断された後にセッションを終了する</string>
 </resources>

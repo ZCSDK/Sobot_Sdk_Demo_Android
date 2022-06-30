@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">이 메시지 보내기를 거부했습니다.</string>
        <string name="sobot_no_support_call">이 장치는 전화를 걸 수 없습니다</string>
        <string name="sobot_enclosure_string">부속품</string>
+       <string name="sobot_write_info_string">정보 작성</string>
+       <string name="sobot_line_up_close_chat">대기열 자동 분리 후 세션 종료</string>
 </resources>

@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Vous avez refusé d\'envoyer ce message</string>
        <string name="sobot_no_support_call">L\'appareil ne supporte pas les appels téléphoniques</string>
        <string name="sobot_enclosure_string">Annexe</string>
+       <string name="sobot_write_info_string">Remplir les informations</string>
+       <string name="sobot_line_up_close_chat">Fin de la session après la déconnexion automatique de la file d\'attente</string>
 </resources>

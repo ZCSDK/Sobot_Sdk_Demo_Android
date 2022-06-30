@@ -236,9 +236,11 @@ public class SobotEvaluateDialog extends SobotActionSheet {
     protected void initData() {
         if (current_model == ZhiChiConstant.client_model_customService) {
             ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
+            sobot_close_now.setVisibility(View.GONE);
             zhiChiApi.satisfactionMessage(CANCEL_TAG, initModel.getPartnerid(), new ResultCallBack<SatisfactionSet>() {
                 @Override
                 public void onSuccess(SatisfactionSet satisfactionSet) {
+                    sobot_close_now.setVisibility(View.VISIBLE);
                     if (satisfactionSet != null && "1".equals(satisfactionSet.getCode()) && satisfactionSet.getData() != null && satisfactionSet.getData().size() != 0) {
                         satisFactionList = satisfactionSet.getData();
                         if (commentType == 1) {
@@ -349,7 +351,9 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         sobot_ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                sobot_close_now.setVisibility(View.VISIBLE);
+                if (satisfactionSetBase != null) {
+                    sobot_close_now.setVisibility(View.VISIBLE);
+                }
                 int score = (int) Math.ceil(sobot_ratingBar.getRating());
                 if (score == 0) {
                     sobot_ratingBar.setRating(1);
@@ -405,7 +409,9 @@ public class SobotEvaluateDialog extends SobotActionSheet {
             sobot_ten_rating_ll.setOnClickItemListener(new SobotTenRatingLayout.OnClickItemListener() {
                 @Override
                 public void onClickItem(int selectIndex) {
-                    sobot_close_now.setVisibility(View.VISIBLE);
+                    if (satisfactionSetBase != null) {
+                        sobot_close_now.setVisibility(View.VISIBLE);
+                    }
                     sobot_close_now.setSelected(true);
                     setCustomLayoutViewVisible(selectIndex, satisFactionList);
                 }

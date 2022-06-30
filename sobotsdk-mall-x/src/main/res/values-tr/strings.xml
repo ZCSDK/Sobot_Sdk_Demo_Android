@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Bu mesajı göndermeyi reddettiniz</string>
        <string name="sobot_no_support_call">Aygıt arama yapmayı desteklemez</string>
        <string name="sobot_enclosure_string">kaplama</string>
+       <string name="sobot_write_info_string">Bilgi doldur</string>
+       <string name="sobot_line_up_close_chat">Otomatik bağlantısını kapattıktan sonra oturum bitir</string>
 </resources>

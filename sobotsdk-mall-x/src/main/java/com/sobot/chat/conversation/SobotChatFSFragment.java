@@ -1710,6 +1710,12 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             } else if (99 == outLineType) {
                 //留言转离线消息 成功后结束会话，添加提示语
                 base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
+            }else if (9 == outLineType) {
+                //排队断开
+                base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
+            }else {
+                //只要是204消息，最后肯定会结束会话
+                base.setAction(ZhiChiConstant.sobot_outline_leverByManager);
             }
             reply.setMsg(offlineMsg);
             // 提示会话结束
@@ -3730,7 +3736,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     intent.putExtra(StPostMsgPresenter.INTENT_KEY_COMPANYID, initModel.getCompanyId());
                     intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
                     intent.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, flag_exit_sdk);
-                    intent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getGroupid());
+                    intent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
                     intent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, isShowTicket);
                     startActivity(intent);
                     if (getSobotActivity() != null) {
@@ -4091,15 +4097,15 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     //接收到系统消息，直接刷新数据
                     if (ZhiChiConstant.push_message_receverSystemMessage == pushMessage
                             .getType()) {// 接收系统消息
-                        if (customerState == CustomerState.Online) {
                             base.setT(Calendar.getInstance().getTime().getTime() + "");
                             base.setMsgId(pushMessage.getMsgId());
                             base.setSender(pushMessage.getAname());
                             base.setSenderName(pushMessage.getAname());
                             base.setSenderFace(pushMessage.getAface());
-                            if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType()))) {
+                            if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType())|| "5".equals(pushMessage.getSysType()))) {
                                 //客服超时提示 1
                                 //客户超时提示 2 都显示在左侧
+                                //排队断开说辞系统消息 5 都显示在左侧
                                 base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
                                 ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
                                 reply.setMsg(pushMessage.getContent());
@@ -4118,7 +4124,6 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             ChatUtils.msgLogicalProcess(initModel, messageAdapter, pushMessage);
                             messageAdapter.notifyDataSetChanged();
                             return;
-                        }
                     }
 
                     base.setT(Calendar.getInstance().getTime().getTime() + "");
@@ -4158,7 +4163,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         messageAdapter.notifyDataSetChanged();
                         //修改客服状态为在线
                         customerState = CustomerState.Online;
-                    } else if (ZhiChiConstant.push_message_outLine == pushMessage.getType() && customerState == CustomerState.Online) {
+                    } else if (ZhiChiConstant.push_message_outLine == pushMessage.getType()) {
                         if (6 == Integer.parseInt(pushMessage.getStatus())) {
                             // 打开新窗口 单独处理
                             String puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
@@ -4329,7 +4334,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         intent2.putExtra(StPostMsgPresenter.INTENT_KEY_COMPANYID, initModel.getCompanyId());
                         intent2.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
                         intent2.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, false);
-                        intent2.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getSkillSetId());
+                        intent2.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
                         intent2.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, true);
                         startActivity(intent2);
                         if (getSobotActivity() != null) {
@@ -4357,7 +4362,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     postMsgIntent.putExtra(StPostMsgPresenter.INTENT_KEY_COMPANYID, initModel.getCompanyId());
                     postMsgIntent.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
                     postMsgIntent.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, intent.getBooleanExtra("mflag_exit_sdk", false));
-                    postMsgIntent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getGroupid());
+                    postMsgIntent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
                     postMsgIntent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, intent.getBooleanExtra("mIsShowTicket", false));
                     startActivity(postMsgIntent);
                     if (getSobotActivity() != null) {

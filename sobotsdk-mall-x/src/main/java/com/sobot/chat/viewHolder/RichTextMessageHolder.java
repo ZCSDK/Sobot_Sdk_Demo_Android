@@ -391,6 +391,9 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                 int pageNum = message.getCurrentPageNum() + 1;
                 int total = message.getListSuggestions().size();
                 int pre = message.getGuideGroupNum();
+                if (pre == 0) {
+                    pre = 5;
+                }
                 int maxNum = (total % pre == 0) ? (total / pre) : (total / pre + 1);
                 LogUtils.i(maxNum + "=========maxNum=========");
                 pageNum = (pageNum >= maxNum) ? 0 : pageNum;
@@ -533,8 +536,26 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         }
                         sobot_rich_ll.addView(textView);
                     } else if (richListModel.getType() == 1 && HtmlTools.isHasPatterns(richListModel.getMsg())) {
-                        LinearLayout.LayoutParams mlayoutParams = new LinearLayout.LayoutParams(msgMaxWidth,
-                                ScreenUtils.dip2px(context, 200));
+                        LinearLayout.LayoutParams mlayoutParams;
+                        try {
+                            int pictureWidth = ResourceUtils.getResDimenId(mContext, "sobot_rich_msg_picture_width_dp");
+                            int pictureHeight = ResourceUtils.getResDimenId(mContext, "sobot_rich_msg_picture_height_dp");
+                            if (pictureWidth == 0) {
+                                //如果设置的宽度等于0，默认图片的最大宽度是气泡的最大宽度
+                                pictureWidth = msgMaxWidth;
+                            }
+                            if (pictureWidth > msgMaxWidth) {
+                                //如果设置的宽度大于气泡的最大宽度，等比例缩放设置的高度
+                                float picbili = (float) pictureWidth / msgMaxWidth;
+                                pictureWidth = msgMaxWidth;
+                                pictureHeight = (int) (pictureHeight / picbili);
+                            }
+                            mlayoutParams = new LinearLayout.LayoutParams(pictureWidth, pictureHeight);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            mlayoutParams = new LinearLayout.LayoutParams(msgMaxWidth,
+                                    ScreenUtils.dip2px(context, 200));
+                        }
                         mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
                         ImageView imageView = new ImageView(mContext);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -558,7 +579,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
 //                        videoView.setLayoutParams(mlayoutParams);
 //                        SobotBitmapUtil.display(mContext, ResourceUtils.getDrawableId(mContext,"sobot_rich_item_vedoi_default"), videoView);
 //                        SobotBitmapUtil.display(mContext, ResourceUtils.getDrawableId(mContext,"sobot_ic_play"), videoView);
-                        View videoView = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext,"sobot_chat_msg_item_rich_vedio_view"), null);
+                        View videoView = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext, "sobot_chat_msg_item_rich_vedio_view"), null);
 
                         sobot_rich_ll.addView(videoView);
                         videoView.setOnClickListener(new View.OnClickListener() {

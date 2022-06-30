@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">您已拒絕發送此消息</string>
        <string name="sobot_no_support_call">該設備不支持撥打電話</string>
        <string name="sobot_enclosure_string">附件</string>
+       <string name="sobot_write_info_string">填寫資訊</string>
+       <string name="sobot_line_up_close_chat">排隊自動斷開結束會話</string>
 </resources>

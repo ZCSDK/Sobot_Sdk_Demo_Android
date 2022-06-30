@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">Sie haben das Senden dieser Nachricht abgelehnt</string>
        <string name="sobot_no_support_call">Das Gerät unterstützt keine Anrufe</string>
        <string name="sobot_enclosure_string">Gehäuse</string>
+       <string name="sobot_write_info_string">Informationen ausfüllen</string>
+       <string name="sobot_line_up_close_chat">Sitzung nach automatischer Trennung in der Warteschlange beenden</string>
 </resources>

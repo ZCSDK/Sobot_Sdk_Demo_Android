@@ -222,4 +222,6 @@
        <string name="sobot_refuse_send_this_msg">You have declined to send this message</string>
        <string name="sobot_no_support_call">The device does not support making calls</string>
        <string name="sobot_enclosure_string">Enclosure</string>
+       <string name="sobot_write_info_string">Fill in information</string>
+       <string name="sobot_line_up_close_chat">End session after queued auto disconnect</string>
 </resources>

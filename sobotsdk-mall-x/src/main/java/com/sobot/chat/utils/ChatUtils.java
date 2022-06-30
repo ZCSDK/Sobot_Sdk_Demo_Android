@@ -242,7 +242,6 @@ public class ChatUtils {
 
         return cameraFile;
     }
-
     public static int getResId(Context context, String name) {
         return ResourceUtils.getIdByName(context, "id", name);
     }
@@ -456,9 +455,11 @@ public class ChatUtils {
         } else if (6 == type) {
             return ResourceUtils.getResString(context, "sobot_outline_openNewWindows");
         } else if (99 == type) {
-            return context.getString(R.string.sobot_outline_leavemsg);
+            return ResourceUtils.getResString(context, "sobot_outline_leavemsg");
+        } else if (9 == type) {
+            return ResourceUtils.getResString(context, "sobot_line_up_close_chat");
         }
-        return null;
+        return ResourceUtils.getResString(context, "sobot_outline_leverByManager");
     }
 
     public static ZhiChiMessageBase getUnreadMode(Context context) {
@@ -517,7 +518,7 @@ public class ChatUtils {
         zhichiMessage.setAnswer(reply);
         zhichiMessage.setId(tmpMsgId);
         zhichiMessage.setT(Calendar.getInstance().getTime().getTime() + "");
-        reply.setMsgType(ZhiChiConstant.message_type_text+"");
+        reply.setMsgType(ZhiChiConstant.message_type_location);
         zhichiMessage.setSenderType(ZhiChiConstant.message_sender_type_customer + "");
         return zhichiMessage;
     }
