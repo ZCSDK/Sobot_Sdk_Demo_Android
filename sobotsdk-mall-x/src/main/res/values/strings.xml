@@ -261,5 +261,8 @@
     <string name="sobot_write_info_string">填写信息</string>
     <string name="sobot_line_up_close_chat">排队自动断开结束会话</string>
 
-
+    <!-- 3.1.4 新增-->
+    <string name="sobot_mini_program">小程序</string>
+    <string name="sobot_mini_program_only_open_by_weixin">小程序只能通过微信打开</string>
+    <string name="sobot_parsing">解析中...</string>
 </resources>

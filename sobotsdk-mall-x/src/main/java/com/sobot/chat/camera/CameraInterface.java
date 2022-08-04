@@ -1,5 +1,7 @@
 package com.sobot.chat.camera;
 
+import static android.graphics.Bitmap.createBitmap;
+
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -38,8 +40,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.graphics.Bitmap.createBitmap;
 
 /**
  * camera操作单例

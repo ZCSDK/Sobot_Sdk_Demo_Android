@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">Gehäuse</string>
        <string name="sobot_write_info_string">Informationen ausfüllen</string>
        <string name="sobot_line_up_close_chat">Sitzung nach automatischer Trennung in der Warteschlange beenden</string>
+       <string name="sobot_mini_program">AppletName</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Applet kann nur über Wechat geöffnet werden</string>
+       <string name="sobot_parsing">Analyse</string>
 </resources>

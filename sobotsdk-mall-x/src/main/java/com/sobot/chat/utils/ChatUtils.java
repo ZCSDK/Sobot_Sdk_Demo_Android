@@ -53,9 +53,14 @@ import com.sobot.chat.widget.dialog.SobotTicketEvaluateDialog;
 import com.sobot.network.http.callback.StringResultCallBack;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -237,11 +242,13 @@ public class ChatUtils {
                 act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_makePictureFromCamera);
             }
         } catch (Exception e) {
+            ToastUtil.showCustomToast(act, "无法打开相机");
             e.printStackTrace();
         }
 
         return cameraFile;
     }
+
     public static int getResId(Context context, String name) {
         return ResourceUtils.getIdByName(context, "id", name);
     }
@@ -585,12 +592,6 @@ public class ChatUtils {
         ZhiChiMessageBase robot = new ZhiChiMessageBase();
         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
         String announceMsg = initModel.getAnnounceMsg();
-        if (!TextUtils.isEmpty(announceMsg)) {
-            announceMsg = announceMsg.replace("<p>", "")
-                    .replace("</p>", "")
-                    .replace("<br/>", "")
-                    .replace("\n", "");
-        }
         reply.setMsg(announceMsg);
         reply.setMsgType(ZhiChiConstant.message_type_text + "");
         robot.setT(Calendar.getInstance().getTime().getTime() + "");
@@ -1392,4 +1393,26 @@ public class ChatUtils {
             e.printStackTrace();
         }
     }
+
+    //对象深拷贝
+    public static <T extends Serializable> T clone(T obj) {
+        T cloneObj = null;
+        try {
+            //写入字节流
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ObjectOutputStream obs = new ObjectOutputStream(out);
+            obs.writeObject(obj);
+            obs.close();
+
+            //分配内存，写入原始对象，生成新对象
+            ByteArrayInputStream is = new ByteArrayInputStream(out.toByteArray());
+            ObjectInputStream os = new ObjectInputStream(is);
+            cloneObj = (T) os.readObject();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cloneObj;
+    }
+
 }

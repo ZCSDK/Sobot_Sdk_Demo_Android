@@ -43,14 +43,15 @@ public class FileUtil {
 
     /**
      * 保存图片到沙盒
+     *
      * @param context
      * @param newFileName
      * @return
      * @throws Exception
      */
-    public static String saveImageFile(Context context,Uri uri, String newFileName,String defualPath) throws Exception{
+    public static String saveImageFile(Context context, Uri uri, String newFileName, String defualPath) throws Exception {
 
-        if (null==uri){
+        if (null == uri) {
             return defualPath;
         }
 
@@ -58,7 +59,7 @@ public class FileUtil {
         InputStream inputStream = new FileInputStream(pfd.getFileDescriptor());
         String picDir = SobotPathManager.getInstance().getPicDir();
         IOUtils.createFolder(picDir);
-        String oldFilePath = picDir +newFileName;
+        String oldFilePath = picDir + newFileName;
         FileOutputStream fo = new FileOutputStream(oldFilePath);
 
         if (!IOUtils.copyFileWithStream(fo, inputStream)) {
@@ -68,7 +69,6 @@ public class FileUtil {
         return oldFilePath;
 
     }
-
 
 
     public static boolean deleteFile(String url) {
@@ -82,15 +82,31 @@ public class FileUtil {
 
     /**
      * 获取文件后缀名
+     * 返回 .加文件后缀名
+     *
      * @param filePath
      * @return
      */
-    public static String getFileEndWith(String filePath){
-        if (filePath.indexOf(".")!=-1){
-            return filePath.substring(filePath.lastIndexOf(".")-1);
+    public static String getFileEndWith(String filePath) {
+        return "." + checkFileEndWith(filePath);
+
+    }
+
+    /**
+     * 返回文件后缀名
+     *
+     * @param filePath
+     * @return
+     */
+    public static String checkFileEndWith(String filePath) {
+        try {
+            if (filePath.indexOf(".") != -1) {
+                return filePath.substring(filePath.lastIndexOf(".") + 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return "";
-
     }
 
     public static boolean isExternalStorageWritable() {

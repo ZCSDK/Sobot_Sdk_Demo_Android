@@ -2,19 +2,24 @@ package com.sobot.chat.viewHolder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.CommonModel;
+import com.sobot.chat.api.model.SobotLink;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.core.channel.SobotMsgManager;
@@ -23,17 +28,20 @@ import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.network.http.callback.StringResultCallBack;
+import com.sobot.pictureframe.SobotBitmapUtil;
 
 /**
  * 文本消息
  */
 public class TextMessageHolder extends MessageHolderBase {
     TextView msg; // 聊天的消息内容
+    LinearLayout sobot_ll_card;//超链接显示的卡片
     //离线留言信息标志
     TextView sobot_tv_icon;
 
@@ -44,10 +52,12 @@ public class TextMessageHolder extends MessageHolderBase {
     Button sobot_sentisive_ok_send; //继续发送
     Button sobot_sentisive_cancle_send;//拒绝发送
     TextView sobot_sentisive_cancle_tip;//点击拒绝发送后的提示语
+    private int msgMaxWidth;//气泡最大宽度
 
     public TextMessageHolder(Context context, View convertView) {
         super(context, convertView);
         msg = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_msg"));
+        sobot_ll_card = convertView.findViewById(ResourceUtils.getResId(context, "sobot_ll_card"));
         sobot_tv_icon = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_tv_icon"));
         if (sobot_tv_icon != null) {
             sobot_tv_icon.setText(ResourceUtils.getResString(context, "sobot_leavemsg_title"));
@@ -65,7 +75,8 @@ public class TextMessageHolder extends MessageHolderBase {
         sobot_sentisive_cancle_send = (Button) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_cancle_send"));
         sobot_sentisive_cancle_tip = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_cancle_tip"));
         //102=左间距12+内间距30+右间距60
-        msg.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        msg.setMaxWidth(msgMaxWidth);
     }
 
     @Override
@@ -75,7 +86,69 @@ public class TextMessageHolder extends MessageHolderBase {
             msg.setVisibility(View.VISIBLE);
 
             HtmlTools.getInstance(context).setRichText(msg, content, isRight ? getLinkTextColor() : getLinkTextColor());
+            if (!TextUtils.isEmpty(content) && HtmlTools.isHasPatterns(content)) {
+                //只有一个，是超链接，并且是卡片形式才显示卡片
+                final View view = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext, "sobot_chat_msg_link_card"), null);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dip2px(mContext, 240), ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 10), 0, ScreenUtils.dip2px(mContext, 10));
+                view.setLayoutParams(layoutParams);
+                TextView tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
+                tv_title.setText(ResourceUtils.getResString(context, "sobot_parsing"));
+                if (message.getSobotLink() != null) {
+                    tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
+                    TextView tv_des = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_des"));
+                    ImageView image_link = view.findViewById(ResourceUtils.getIdByName(context, "id", "image_link"));
+                    tv_title.setText(message.getSobotLink().getTitle());
+                    tv_des.setText(TextUtils.isEmpty(message.getSobotLink().getDesc()) ? content : message.getSobotLink().getDesc());
+                    SobotBitmapUtil.display(mContext, message.getSobotLink().getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                } else {
+                    SobotMsgManager.getInstance(mContext).getZhiChiApi().getHtmlAnalysis(context, content, new StringResultCallBack<SobotLink>() {
+                        @Override
+                        public void onSuccess(SobotLink link) {
+                            if (link != null) {
+                                message.setSobotLink(link);
+                                TextView tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
+                                TextView tv_des = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_des"));
+                                ImageView image_link = view.findViewById(ResourceUtils.getIdByName(context, "id", "image_link"));
+                                tv_title.setText(link.getTitle());
+                                tv_des.setText(TextUtils.isEmpty(link.getDesc()) ? content : link.getDesc());
+                                SobotBitmapUtil.display(mContext, link.getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Exception e, String s) {
+                            if (view != null) {
+                                //   view.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+                if (sobot_ll_card != null && sobot_ll_card instanceof LinearLayout) {
+                    sobot_ll_card.setVisibility(View.VISIBLE);
+                    sobot_ll_card.removeAllViews();
+                    sobot_ll_card.addView(view);
+                } else {
+                    sobot_ll_card.setVisibility(View.GONE);
+                }
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SobotOption.newHyperlinkListener != null) {
+                            //如果返回true,拦截;false 不拦截
+                            boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, content);
+                            if (isIntercept) {
+                                return;
+                            }
+                        }
+                        Intent intent = new Intent(context, WebViewActivity.class);
+                        intent.putExtra("url", content);
+                        context.startActivity(intent);
+                    }
+                });
+            } else {
+                sobot_ll_card.setVisibility(View.GONE);
+            }
             applyTextViewUIConfig(msg);
 
             if (isRight) {
@@ -90,11 +163,11 @@ public class TextMessageHolder extends MessageHolderBase {
                         if (message.getSentisive() == 1) {
                             sobot_ll_content.setVisibility(View.GONE);
                             sobot_ll_yinsi.setVisibility(View.VISIBLE);
-                             if (!StringUtils.isEmpty(message.getDesensitizationWord())) {
-                                 HtmlTools.getInstance(context).setRichText(sobot_msg_temp, message.getDesensitizationWord(), getLinkTextColor());
-                             }else{
-                                 HtmlTools.getInstance(context).setRichText(sobot_msg_temp, content, getLinkTextColor());
-                             }
+                            if (!StringUtils.isEmpty(message.getDesensitizationWord())) {
+                                HtmlTools.getInstance(context).setRichText(sobot_msg_temp, message.getDesensitizationWord(), getLinkTextColor());
+                            } else {
+                                HtmlTools.getInstance(context).setRichText(sobot_msg_temp, content, getLinkTextColor());
+                            }
                             sobot_sentisiveExplain.setText(message.getSentisiveExplain());
                             sobot_msg_temp.post(new Runnable() {
                                 @Override

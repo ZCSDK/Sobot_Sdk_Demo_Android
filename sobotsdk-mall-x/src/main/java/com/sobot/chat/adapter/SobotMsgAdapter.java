@@ -14,6 +14,7 @@ import com.sobot.chat.api.model.SobotEvaluateModel;
 import com.sobot.chat.api.model.SobotMultiDiaRespInfo;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.api.model.ZhiChiReplyAnswer;
+import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
@@ -26,6 +27,7 @@ import com.sobot.chat.viewHolder.CusEvaluateMessageHolder;
 import com.sobot.chat.viewHolder.FileMessageHolder;
 import com.sobot.chat.viewHolder.ImageMessageHolder;
 import com.sobot.chat.viewHolder.LocationMessageHolder;
+import com.sobot.chat.viewHolder.MiniProgramMessageHolder;
 import com.sobot.chat.viewHolder.NoticeMessageHolder;
 import com.sobot.chat.viewHolder.OrderCardMessageHolder;
 import com.sobot.chat.viewHolder.RemindMessageHolder;
@@ -87,8 +89,8 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             "sobot_chat_msg_item_template6_l",//机器人  多轮会话模板 6
             "sobot_chat_msg_item_system_tip",//防诈骗系统消息的布局文件
             "sobot_chat_msg_item_video_l",//小视频左边的布局文件
-            "sobot_chat_msg_item_muiti_leave_msg"//小视频左边的布局文件
-
+            "sobot_chat_msg_item_muiti_leave_msg",//小视频左边的布局文件
+            "sobot_chat_msg_item_mini_program_card_l"//订单卡片左侧消息
     };
 
     /**
@@ -227,6 +229,11 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
      */
     public static final int MSG_TYPE_MUITI_LEAVE_MSG_R = 31;
 
+    /**
+     * 小程序卡片左侧侧消息
+     */
+    public static final int MSG_TYPE_MINIPROGRAM_CARD_L = 32;
+
 
     private SobotMsgCallBack mMsgCallBack;
 
@@ -301,7 +308,27 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         }
         String lastCid = SharedPreferencesUtil.getStringData(context, "lastCid", "");
         setDefaultCid(lastCid, message);
-        list.add(message);
+        if (message.getAnswers() != null && message.getAnswers().size() > 0) {
+            for (int i = 0; i < message.getAnswers().size(); i++) {
+                ZhiChiMessageBase zhiChiMessageBase = ChatUtils.clone(message);
+                if (zhiChiMessageBase != null) {
+                    ZhiChiReplyAnswer answer = message.getAnswers().get(i);
+                    zhiChiMessageBase.setAnswer(answer);
+                    if (i != (message.getAnswers().size() - 1)) {
+                        //只有最后一个显示顶踩
+                        zhiChiMessageBase.setRevaluateState(0);
+                        //只有最后一个显示转人工按钮
+                        zhiChiMessageBase.setShowTransferBtn(false);
+                        //只有最后一个显示关联问题
+                        zhiChiMessageBase.setSugguestions(null);
+                    }
+                    list.add(zhiChiMessageBase);
+                }
+            }
+        } else {
+            list.add(message);
+        }
+
     }
 
     /**
@@ -607,6 +634,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                     holder = new SobotMuitiLeavemsgMessageHolder(context, convertView);
                     break;
                 }
+                case MSG_TYPE_MINIPROGRAM_CARD_L: {
+                    holder = new MiniProgramMessageHolder(context, convertView);
+                    break;
+                }
                 default: {
                     holder = new TextMessageHolder(context, convertView);
                     break;
@@ -701,30 +732,22 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                         }
                     } else if (ZhiChiConstant.message_type_pic == Integer.parseInt(message
                             .getAnswer().getMsgType())) {
-                        if (ZhiChiConstant.message_sender_type_robot == Integer
-                                .parseInt(message.getSenderType())
-                                || ZhiChiConstant.message_sender_type_service == Integer
+                        if (ZhiChiConstant.message_sender_type_customer == Integer
                                 .parseInt(message.getSenderType())) {
-
-                            return MSG_TYPE_IMG_L;
-                        } else if (ZhiChiConstant.message_sender_type_customer == Integer
-                                .parseInt(message.getSenderType())) {
-
                             return MSG_TYPE_IMG_R;
+                        } else {
+                            return MSG_TYPE_IMG_L;
                         }
                     } else if (ZhiChiConstant.message_type_voice == Integer
                             .parseInt(message.getAnswer().getMsgType())) {
-                        if (ZhiChiConstant.message_sender_type_robot == Integer
-                                .parseInt(message.getSenderType())
-                                || ZhiChiConstant.message_sender_type_service == Integer
-                                .parseInt(message.getSenderType())) {
-                            return MSG_TYPE_ILLEGAL;
-                        } else if (ZhiChiConstant.message_sender_type_customer == Integer
+                        if (ZhiChiConstant.message_sender_type_customer == Integer
                                 .parseInt(message.getSenderType())) {
                             if (message.getAnswer() != null && !TextUtils.isEmpty(message.getAnswer().getMsgTransfer())) {
                                 return MSG_TYPE_TXT_R;
                             }
                             return MSG_TYPE_AUDIO_R;
+                        } else {
+                            return MSG_TYPE_ILLEGAL;
                         }
 
                     } else if (ZhiChiConstant.message_type_emoji == Integer
@@ -794,24 +817,20 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                             }
                         }
                     } else if (ZhiChiConstant.message_type_file.equals(message.getAnswer().getMsgType())) {
-                        if (ZhiChiConstant.message_sender_type_service == Integer
-                                .parseInt(message.getSenderType())) {
-                            return MSG_TYPE_FILE_L;
-                        } else if (ZhiChiConstant.message_sender_type_customer == Integer
+                        if (ZhiChiConstant.message_sender_type_customer == Integer
                                 .parseInt(message.getSenderType())) {
                             return MSG_TYPE_FILE_R;
+                        } else {
+                            return MSG_TYPE_FILE_L;
                         }
                     } else if (ZhiChiConstant.message_type_video.equals(message.getAnswer().getMsgType())) {
-                        if (ZhiChiConstant.message_sender_type_service == Integer
-                                .parseInt(message.getSenderType())) {
-                            if (message.getAnswer().getCacheFile() != null) {
-                                return MSG_TYPE_VIDEO_L;
-                            }
-                        } else if (ZhiChiConstant.message_sender_type_customer == Integer
+                        if (ZhiChiConstant.message_sender_type_customer == Integer
                                 .parseInt(message.getSenderType())) {
                             if (message.getAnswer().getCacheFile() != null) {
                                 return MSG_TYPE_VIDEO_R;
                             }
+                        } else {
+                            return MSG_TYPE_VIDEO_L;
                         }
                     } else if (ZhiChiConstant.message_type_location.equals(message.getAnswer().getMsgType())) {
                         if (ZhiChiConstant.message_sender_type_customer == Integer
@@ -823,24 +842,27 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                     } else if (ZhiChiConstant.message_type_card == Integer
                             .parseInt(message.getAnswer().getMsgType())) {
                         if (message.getConsultingContent() != null) {
-                            if (ZhiChiConstant.message_sender_type_service == Integer
-                                    .parseInt(message.getSenderType())) {
-                                return MSG_TYPE_CARD_L;
-                            } else if (ZhiChiConstant.message_sender_type_customer == Integer
+                            if (ZhiChiConstant.message_sender_type_customer == Integer
                                     .parseInt(message.getSenderType())) {
                                 return MSG_TYPE_CARD_R;
+                            } else {
+                                return MSG_TYPE_CARD_L;
                             }
                         }
                     } else if (ZhiChiConstant.message_type_ordercard == Integer
                             .parseInt(message.getAnswer().getMsgType())) {
                         if (message.getOrderCardContent() != null) {
-                            if (ZhiChiConstant.message_sender_type_service == Integer
-                                    .parseInt(message.getSenderType())) {
-                                return MSG_TYPE_ROBOT_ORDERCARD_L;
-                            } else if (ZhiChiConstant.message_sender_type_customer == Integer
+                            if (ZhiChiConstant.message_sender_type_customer == Integer
                                     .parseInt(message.getSenderType())) {
                                 return MSG_TYPE_ROBOT_ORDERCARD_R;
+                            } else {
+                                return MSG_TYPE_ROBOT_ORDERCARD_L;
                             }
+                        }
+                    } else if (ZhiChiConstant.message_type_miniprogram_card == Integer
+                            .parseInt(message.getAnswer().getMsgType())) {
+                        if (message.getMiniProgramModel() != null) {
+                            return MSG_TYPE_MINIPROGRAM_CARD_L;
                         }
                     } else if (ZhiChiConstant.message_type_muiti_leave_msg.equals(message.getAnswer().getMsgType())) {
                         return MSG_TYPE_MUITI_LEAVE_MSG_R;

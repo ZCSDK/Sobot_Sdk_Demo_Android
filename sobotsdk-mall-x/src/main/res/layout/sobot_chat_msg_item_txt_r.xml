@@ -51,7 +51,8 @@
 
         <LinearLayout
             android:id="@+id/sobot_ll_content"
-            style="@style/sobot_msg_right_content_ll_bg_style">
+            style="@style/sobot_msg_right_content_ll_bg_style"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/sobot_msg"
@@ -59,6 +60,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/sobot_right_msg_text_color"
                 android:textSize="@dimen/sobot_msg_text_size" />
+
+            <!--消息内容是超链接时显示成卡片 -->
+            <LinearLayout
+                android:id="@+id/sobot_ll_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"></LinearLayout>
         </LinearLayout>
 
         <RelativeLayout

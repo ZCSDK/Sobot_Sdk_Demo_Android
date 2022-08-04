@@ -1,5 +1,7 @@
 package com.sobot.chat.widget;
 
+import static com.sobot.network.http.SobotOkHttpUtils.runOnUiThread;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -34,8 +36,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-
-import static com.sobot.network.http.SobotOkHttpUtils.runOnUiThread;
 
 
 @SuppressLint("ViewConstructor")

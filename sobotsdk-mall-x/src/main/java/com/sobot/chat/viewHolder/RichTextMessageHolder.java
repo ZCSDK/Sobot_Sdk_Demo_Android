@@ -21,9 +21,11 @@ import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.ChatMessageRichListModel;
 import com.sobot.chat.api.model.SobotCacheFile;
+import com.sobot.chat.api.model.SobotLink;
 import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.camera.util.FileUtil;
+import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.HtmlTools;
@@ -34,7 +36,9 @@ import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
+import com.sobot.chat.widget.SobotSectorProgressView;
 import com.sobot.chat.widget.attachment.FileTypeConfig;
+import com.sobot.network.http.callback.StringResultCallBack;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.util.ArrayList;
@@ -64,7 +68,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     private LinearLayout sobot_ll_switch;//换一组按钮
     private TextView sobot_tv_switch;
     private View sobot_view_split;//换一组和查看详情分割线
-    int msgMaxWidth;//气泡最大宽度
+    private int msgMaxWidth;//气泡最大宽度
 
     public RichTextMessageHolder(Context context, View convertView) {
         super(context, convertView);
@@ -221,7 +225,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     }
 
     private void hideContainer() {
-        if (!message.isShowTransferBtn() && message.getRevaluateState() == 0) {
+        if (!message.isShowTransferBtn()) {
             sobot_chat_more_action.setVisibility(View.GONE);
         } else {
             sobot_chat_more_action.setVisibility(View.VISIBLE);
@@ -283,7 +287,6 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
      * 显示 顶踩 按钮
      */
     public void showRevaluateBtn() {
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_likeBtn.setVisibility(View.VISIBLE);
         sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
         sobot_ll_likeBtn.setVisibility(View.VISIBLE);
@@ -353,7 +356,6 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         sobot_tv_likeBtn.setEnabled(false);
         sobot_tv_dislikeBtn.setEnabled(false);
         sobot_tv_dislikeBtn.setSelected(false);
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_likeBtn.setVisibility(View.VISIBLE);
         sobot_tv_dislikeBtn.setVisibility(View.GONE);
         sobot_ll_likeBtn.setVisibility(View.VISIBLE);
@@ -371,7 +373,6 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         sobot_tv_dislikeBtn.setEnabled(false);
         sobot_tv_likeBtn.setEnabled(false);
         sobot_tv_likeBtn.setSelected(false);
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_likeBtn.setVisibility(View.GONE);
         sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
         sobot_right_empty_rl.setVisibility(View.VISIBLE);
@@ -520,6 +521,63 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                 }
                             });
                             textView.setText(richListModel.getName());
+                            sobot_rich_ll.addView(textView);
+                            if (message.getAnswer().getRichList().size() == 1 && richListModel.getShowType() == 0) {
+                                //只有一个，是超链接，并且是卡片形式才显示卡片
+                                final View view = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext, "sobot_chat_msg_link_card"), null);
+                                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dip2px(mContext, 240), ViewGroup.LayoutParams.WRAP_CONTENT);
+                                layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 10), 0, ScreenUtils.dip2px(mContext, 10));
+                                view.setLayoutParams(layoutParams);
+                                TextView tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
+                                tv_title.setText(ResourceUtils.getResString(context, "sobot_parsing"));
+                                if (richListModel.getSobotLink() != null) {
+                                    tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
+                                    TextView tv_des = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_des"));
+                                    ImageView image_link = view.findViewById(ResourceUtils.getIdByName(context, "id", "image_link"));
+                                    tv_title.setText(richListModel.getSobotLink().getTitle());
+                                    tv_des.setText(TextUtils.isEmpty(richListModel.getSobotLink().getDesc()) ? richListModel.getMsg() : richListModel.getSobotLink().getDesc());
+                                    SobotBitmapUtil.display(mContext, richListModel.getSobotLink().getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+
+                                } else {
+                                    SobotMsgManager.getInstance(mContext).getZhiChiApi().getHtmlAnalysis(context, richListModel.getMsg(), new StringResultCallBack<SobotLink>() {
+                                        @Override
+                                        public void onSuccess(SobotLink link) {
+                                            if (link != null) {
+                                                richListModel.setSobotLink(link);
+                                                TextView tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
+                                                TextView tv_des = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_des"));
+                                                ImageView image_link = view.findViewById(ResourceUtils.getIdByName(context, "id", "image_link"));
+                                                tv_title.setText(link.getTitle());
+                                                tv_des.setText(TextUtils.isEmpty(link.getDesc()) ? richListModel.getMsg() : link.getDesc());
+                                                SobotBitmapUtil.display(mContext, link.getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Exception e, String s) {
+                                            if (view != null) {
+                                                view.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                                }
+                                sobot_rich_ll.addView(view);
+                                view.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (SobotOption.newHyperlinkListener != null) {
+                                            //如果返回true,拦截;false 不拦截
+                                            boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, richListModel.getMsg());
+                                            if (isIntercept) {
+                                                return;
+                                            }
+                                        }
+                                        Intent intent = new Intent(context, WebViewActivity.class);
+                                        intent.putExtra("url", richListModel.getMsg());
+                                        context.startActivity(intent);
+                                    }
+                                });
+                            }
                         } else {
                             textView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_left_msg_text_color")));
                             if (!TextUtils.isEmpty(richListModel.getMsg()) && i == (message.getAnswer().getRichList().size() - 1)) {
@@ -532,9 +590,8 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                             } else {
                                 HtmlTools.getInstance(mContext).setRichTextViewText(textView, richListModel.getMsg(), getLinkTextColor());
                             }
-
+                            sobot_rich_ll.addView(textView);
                         }
-                        sobot_rich_ll.addView(textView);
                     } else if (richListModel.getType() == 1 && HtmlTools.isHasPatterns(richListModel.getMsg())) {
                         LinearLayout.LayoutParams mlayoutParams;
                         try {
@@ -564,23 +621,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         imageView.setOnClickListener(new ImageClickLisenter(context, richListModel.getMsg(), isRight));
                         sobot_rich_ll.addView(imageView);
                     } else if (richListModel.getType() == 3 && HtmlTools.isHasPatterns(richListModel.getMsg())) {
-                        /*显示默认图片 -gqf2022.03.29
-                        TextView videoView = new TextView(mContext);
-                        videoView.setMaxWidth(msgMaxWidth);
-                        HtmlTools.getInstance(mContext).setRichText(videoView, TextUtils.isEmpty(richListModel.getName()) ? richListModel.getMsg() : richListModel.getName(), getLinkTextColor());
-                        videoView.setLayoutParams(wlayoutParams);
-                        videoView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));*/
-
-//                        LinearLayout.LayoutParams mlayoutParams = new LinearLayout.LayoutParams(msgMaxWidth,
-//                                ScreenUtils.dip2px(context, 200));
-//                        mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
-//                        ImageView videoView = new ImageView(mContext);
-//                        videoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                        videoView.setLayoutParams(mlayoutParams);
-//                        SobotBitmapUtil.display(mContext, ResourceUtils.getDrawableId(mContext,"sobot_rich_item_vedoi_default"), videoView);
-//                        SobotBitmapUtil.display(mContext, ResourceUtils.getDrawableId(mContext,"sobot_ic_play"), videoView);
                         View videoView = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext, "sobot_chat_msg_item_rich_vedio_view"), null);
-
                         sobot_rich_ll.addView(videoView);
                         videoView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -588,32 +629,43 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                 SobotCacheFile cacheFile = new SobotCacheFile();
                                 cacheFile.setFileName(richListModel.getName());
                                 cacheFile.setUrl(richListModel.getMsg());
-                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.getFileEndWith(richListModel.getMsg())));
+                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.checkFileEndWith(richListModel.getMsg())));
                                 cacheFile.setMsgId(message.getMsgId() + richListModel.getMsg());
                                 Intent intent = SobotVideoActivity.newIntent(mContext, cacheFile);
                                 mContext.startActivity(intent);
                             }
                         });
-                    } else if ((richListModel.getType() == 4 || richListModel.getType() == 2) && HtmlTools.isHasPatterns(richListModel.getMsg())) {
-                        TextView fileView = new TextView(mContext);
-                        fileView.setMaxWidth(msgMaxWidth);
-                        HtmlTools.getInstance(mContext).setRichText(fileView, TextUtils.isEmpty(richListModel.getName()) ? richListModel.getMsg() : richListModel.getName(), getLinkTextColor());
-                        fileView.setLayoutParams(wlayoutParams);
-                        fileView.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
-                        sobot_rich_ll.addView(fileView);
-                        fileView.setOnClickListener(new View.OnClickListener() {
+                    } else if ((richListModel.getType() == 4 || richListModel.getType() == 2)) {
+                        View view = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext, "sobot_chat_msg_file_l"), null);
+                        TextView sobot_file_name = (TextView) view.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_file_name"));
+                        TextView sobot_file_size = (TextView) view.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_file_size"));
+                        SobotSectorProgressView sobot_progress = (SobotSectorProgressView) view.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_progress"));
+                        sobot_file_name.setText(richListModel.getName());
+                        sobot_file_size.setText(TextUtils.isEmpty(richListModel.getFileSize()) ? "" : richListModel.getFileSize());
+                        SobotBitmapUtil.display(mContext, ChatUtils.getFileIcon(mContext, FileTypeConfig.getFileType(FileUtil.checkFileEndWith(richListModel.getMsg()))), sobot_progress);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dip2px(mContext, 240), ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 10), 0, ScreenUtils.dip2px(mContext, 10));
+                        view.setLayoutParams(layoutParams);
+                        sobot_rich_ll.addView(view);
+                        view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // 打开详情页面
-                                Intent intent = new Intent(mContext, SobotFileDetailActivity.class);
-                                SobotCacheFile cacheFile = new SobotCacheFile();
-                                cacheFile.setFileName(richListModel.getName());
-                                cacheFile.setUrl(richListModel.getMsg());
-                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.getFileEndWith(richListModel.getMsg())));
-                                cacheFile.setMsgId(message.getMsgId() + richListModel.getMsg());
-                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_DATA_SELECTED_FILE, cacheFile);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mContext.startActivity(intent);
+                                if (richListModel.getType() == 2) {
+                                    Intent intent = new Intent(context, WebViewActivity.class);
+                                    intent.putExtra("url", richListModel.getMsg());
+                                    context.startActivity(intent);
+                                } else {
+                                    // 打开详情页面
+                                    Intent intent = new Intent(mContext, SobotFileDetailActivity.class);
+                                    SobotCacheFile cacheFile = new SobotCacheFile();
+                                    cacheFile.setFileName(richListModel.getName());
+                                    cacheFile.setUrl(richListModel.getMsg());
+                                    cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.checkFileEndWith(richListModel.getMsg())));
+                                    cacheFile.setMsgId(message.getMsgId() + richListModel.getMsg());
+                                    intent.putExtra(ZhiChiConstant.SOBOT_INTENT_DATA_SELECTED_FILE, cacheFile);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    mContext.startActivity(intent);
+                                }
                             }
                         });
                     }

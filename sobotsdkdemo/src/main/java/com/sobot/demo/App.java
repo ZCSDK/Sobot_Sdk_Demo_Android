@@ -10,12 +10,14 @@ import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.api.model.Information;
+import com.sobot.chat.api.model.MiniProgramModel;
 import com.sobot.chat.api.model.OrderCardContentModel;
 import com.sobot.chat.api.model.SobotLocationModel;
 import com.sobot.chat.listener.NewHyperlinkListener;
 import com.sobot.chat.listener.SobotFunctionClickListener;
 import com.sobot.chat.listener.SobotFunctionType;
 import com.sobot.chat.listener.SobotMapCardListener;
+import com.sobot.chat.listener.SobotMiniProgramClickListener;
 import com.sobot.chat.listener.SobotPlusMenuListener;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotOption;
@@ -75,6 +77,13 @@ public class App extends Application {
         UMConfigure.setLogEnabled(true);
 
         //-----------拦截事件️-------------
+
+        ZCSobotApi.setMiniProgramClickListener(new SobotMiniProgramClickListener() {
+            @Override
+            public void onClick(Context context, MiniProgramModel miniProgramModel) {
+                ToastUtil.showToast(getApplicationContext(), "小程序拦截了="+miniProgramModel.toString() );
+            }
+        });
 
         // 链接的点击事件, 根据返回结果判断是否拦截 如果返回true,拦截;false 不拦截
         // 可为订单号,商品详情地址等等;客户可自定义规则拦截,返回true时会把自定义的信息返回

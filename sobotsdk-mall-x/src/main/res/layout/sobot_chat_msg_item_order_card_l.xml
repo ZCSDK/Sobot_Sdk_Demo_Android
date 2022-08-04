@@ -117,19 +117,41 @@
                     android:layout_marginBottom="10dp"
                     android:background="@color/sobot_line_1dp" />
 
-                <TextView
-                    android:id="@+id/sobot_order_status"
+                <LinearLayout
+                    android:id="@+id/sobot_goods_order_status_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/sobot_goods_order_split"
-                    android:textColor="@color/sobot_order_label_text_color"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sobot_order_status_lable"
+                        android:textColor="@color/sobot_order_label_text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="："
+                        android:textColor="@color/sobot_order_label_text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/sobot_order_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/sobot_order_status_text_color"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/sobot_order_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/sobot_order_status"
+                    android:layout_below="@id/sobot_goods_order_status_ll"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/sobot_order_label_text_color"
                     android:textSize="12sp" />

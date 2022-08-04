@@ -147,7 +147,7 @@ public class HtmlTools {
             .compile("\\[[(0-9)]+\\]");
 
 
-    private String textImagePath ;
+    private String textImagePath;
     private Context context;
 
     private HtmlTools(Context context) {
@@ -243,6 +243,34 @@ public class HtmlTools {
     }
 
     /**
+     * 获取处理后的富文本
+     *
+     * @param content
+     */
+    public String getRichContent(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return "";
+        }
+        if (content.contains("<p>")) {
+            content = content.replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
+        }
+        while (content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
+            content = content.substring(0, content.length() - 5);
+        }
+        if (!TextUtils.isEmpty(content) && content.length() > 0 && "\n".equals(content.substring(content.length() - 1, content.length()))) {
+            for (int i = 0; i < content.length(); i++) {
+                int aa = content.lastIndexOf("\n");
+                if (aa == (content.length() - 1)) {
+                    content = content.substring(0, content.length() - 1);
+                } else {
+                    break;
+                }
+            }
+        }
+        return content;
+    }
+
+    /**
      * 设置富文本
      * RichTextMessageHolder 专用的，不处理结尾的<br/>
      *
@@ -278,7 +306,7 @@ public class HtmlTools {
             @Override
             public Drawable getDrawable(String source) {
                 if (!TextUtils.isEmpty(source)) {
-                    textImagePath= CommonUtils.getSDCardRootPath(context);
+                    textImagePath = CommonUtils.getSDCardRootPath(context);
                     Drawable drawable = null;
                     String fileString = textImagePath
                             + String.valueOf(source.hashCode());
@@ -387,7 +415,6 @@ public class HtmlTools {
         if (getWebUrl().matcher(url.toString()).matches()) {
             return true;
         } else {
-            LogUtils.i("URL 非法，请输入有效的URL链接:" + url);
             return false;
         }
     }

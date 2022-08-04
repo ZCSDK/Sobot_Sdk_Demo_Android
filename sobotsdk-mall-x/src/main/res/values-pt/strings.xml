@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">invólucro</string>
        <string name="sobot_write_info_string">Preencher as informações</string>
        <string name="sobot_line_up_close_chat">Terminar a sessão após a desconexão automática em fila</string>
+       <string name="sobot_mini_program">Applet</string>
+       <string name="sobot_mini_program_only_open_by_weixin">A \'Applet\' só pode ser aberta através do wechat</string>
+       <string name="sobot_parsing">Analisar</string>
 </resources>

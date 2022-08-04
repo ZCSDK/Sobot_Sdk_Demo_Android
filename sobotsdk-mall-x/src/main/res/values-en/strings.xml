@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">Enclosure</string>
        <string name="sobot_write_info_string">Fill in information</string>
        <string name="sobot_line_up_close_chat">End session after queued auto disconnect</string>
+       <string name="sobot_mini_program">Applet</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Applet can only be opened through wechat</string>
+       <string name="sobot_parsing">Parsing</string>
 </resources>

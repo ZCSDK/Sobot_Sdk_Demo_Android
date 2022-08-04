@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">obudowa</string>
        <string name="sobot_write_info_string">Wypełnij informacje</string>
        <string name="sobot_line_up_close_chat">Zakończ sesję po automatycznym rozłączeniu w kolejce</string>
+       <string name="sobot_mini_program">Aplet</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Aplet może być otwarty tylko przez wechat</string>
+       <string name="sobot_parsing">Analiza</string>
 </resources>

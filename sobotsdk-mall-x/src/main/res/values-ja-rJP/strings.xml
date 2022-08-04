@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">アタッチメント</string>
        <string name="sobot_write_info_string">情報の記入</string>
        <string name="sobot_line_up_close_chat">キューが自動的に切断された後にセッションを終了する</string>
+       <string name="sobot_mini_program">アプレット</string>
+       <string name="sobot_mini_program_only_open_by_weixin">ウィジェットはウィチャットでのみ開くことができます</string>
+       <string name="sobot_parsing">解析中...</string>
 </resources>

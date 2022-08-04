@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sobot_link_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sobot_bg_normal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/sobot_common_gray1"
+        android:textSize="14sp" />
+
+
+    <ImageView
+        android:id="@+id/image_link"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/tv_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="4dp"
+        android:layout_toLeftOf="@+id/image_link"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/sobot_common_gray2"
+        android:textSize="12sp" />
+
+</RelativeLayout>

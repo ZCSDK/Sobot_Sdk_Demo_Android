@@ -1,5 +1,7 @@
 package com.sobot.chat.activity.base;
 
+import static com.sobot.chat.fragment.SobotBaseFragment.REQUEST_CODE_CAMERA;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -53,8 +55,6 @@ import com.sobot.chat.widget.statusbar.StatusBarCompat;
 
 import java.io.File;
 import java.util.Locale;
-
-import static com.sobot.chat.fragment.SobotBaseFragment.REQUEST_CODE_CAMERA;
 
 
 /**

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.sobot.chat.api.model.ZhiChiMessageBase;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.StExpandableTextView;
@@ -29,7 +30,7 @@ public class NoticeMessageHolder extends MessageHolderBase {
     public void bindData(final Context context, final ZhiChiMessageBase message) {
         mMessage = message;
         if (message.getAnswer() != null && !TextUtils.isEmpty(message.getAnswer().getMsg())) {
-            expand_text_view.setText(message.getAnswer().getMsg());
+            expand_text_view.setText(HtmlTools.getInstance(context).getRichContent(message.getAnswer().getMsg()));
         }
     }
 }

@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">附件</string>
        <string name="sobot_write_info_string">填寫資訊</string>
        <string name="sobot_line_up_close_chat">排隊自動斷開結束會話</string>
+       <string name="sobot_mini_program">小程式</string>
+       <string name="sobot_mini_program_only_open_by_weixin">小程式只能通過微信打開</string>
+       <string name="sobot_parsing">解析中…</string>
 </resources>

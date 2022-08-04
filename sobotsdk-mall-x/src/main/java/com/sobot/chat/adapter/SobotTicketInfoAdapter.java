@@ -1,5 +1,7 @@
 package com.sobot.chat.adapter;
 
+import static com.sobot.chat.utils.DateUtil.DATE_TIME_FORMAT;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
@@ -23,8 +25,6 @@ import com.sobot.chat.utils.DateUtil;
 import com.sobot.chat.utils.ResourceUtils;
 
 import java.util.List;
-
-import static com.sobot.chat.utils.DateUtil.DATE_TIME_FORMAT;
 
 /**
  * 留言记录适配器

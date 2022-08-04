@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sobot_rl_file_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sobot_bg_normal"
+    android:padding="15dp">
+
+    <com.sobot.chat.widget.SobotSectorProgressView
+        android:id="@+id/sobot_progress"
+        android:layout_width="34dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/sobot_file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/sobot_progress"
+        android:layout_toRightOf="@+id/sobot_progress"
+        android:ellipsize="middle"
+        android:textColor="@color/sobot_common_gray1"
+        android:textSize="14sp"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/sobot_file_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sobot_file_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/sobot_progress"
+        android:layout_toRightOf="@+id/sobot_progress"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/sobot_common_gray2"
+        android:textSize="12sp" />
+</RelativeLayout>

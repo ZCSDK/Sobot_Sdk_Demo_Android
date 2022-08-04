@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">kaplama</string>
        <string name="sobot_write_info_string">Bilgi doldur</string>
        <string name="sobot_line_up_close_chat">Otomatik bağlantısını kapattıktan sonra oturum bitir</string>
+       <string name="sobot_mini_program">Aplet</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Applet can only be opened through wechat</string>
+       <string name="sobot_parsing">ParsingAnalisi</string>
 </resources>

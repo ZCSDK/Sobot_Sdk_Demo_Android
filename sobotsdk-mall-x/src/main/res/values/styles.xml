@@ -1,7 +1,6 @@
 <resources>
 
-    <style name="sobot_activity_def_theme">
-    </style>
+    <style name="sobot_activity_def_theme"></style>
 
     <style name="sobot_roomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/sobot_rating_yellow</item>
@@ -252,9 +251,9 @@
         <item name="android:layout_marginStart">12dp</item>
         <item name="android:background">@drawable/sobot_chat_msg_bg_left</item>
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingTop">11dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">11dp</item>
         <item name="android:minHeight">42dp</item>
     </style>
     <!--聊天消息左侧气泡背景_模版1-->
@@ -267,9 +266,9 @@
         <item name="android:layout_marginStart">12dp</item>
         <item name="android:background">@drawable/sobot_chat_msg_bg_left_temp_1</item>
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingTop">11dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">11dp</item>
         <item name="android:minHeight">42dp</item>
     </style>
 
@@ -281,17 +280,17 @@
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginEnd">12dp</item>
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">11dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">11dp</item>
         <item name="android:minHeight">42dp</item>
     </style>
 
 
     <!--聊天消息气泡上下间距-->
     <style name="sobot_msg_top_bottom_style">
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">11dp</item>
+        <item name="android:paddingBottom">11dp</item>
     </style>
 
 
@@ -330,8 +329,6 @@
     <style name="sobot_msg_left_content_ll_bg_no_padding_style">
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:layout_marginStart">12dp</item>
-        <item name="android:layout_marginRight">60dp</item>
-        <item name="android:layout_marginEnd">60dp</item>
     </style>
 
     <!--聊天消息左侧气泡无 右 间距背景-->
@@ -343,9 +340,20 @@
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginEnd">12dp</item>
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">11dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">11dp</item>
+        <item name="android:minHeight">42dp</item>
+    </style>
+
+    <!--消息左侧气泡背景 有右间距 -->
+    <style name="sobot_msg_template_left_content_ll_bg_style">
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:background">@drawable/sobot_chat_msg_bg_left</item>
+        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:layout_marginEnd">60dp</item>
+        <item name="android:padding">11dp</item>
         <item name="android:minHeight">42dp</item>
     </style>
 
@@ -359,8 +367,8 @@
     <style name="sobot_msg_right_content_ll_bg_no_padding_style">
         <item name="android:layout_marginLeft">60dp</item>
         <item name="android:layout_marginStart">60dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:layout_marginRight">11dp</item>
+        <item name="android:layout_marginEnd">11dp</item>
     </style>
 
     <!--语音消息右侧气泡背景  左侧无间距-->
@@ -400,12 +408,10 @@
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:layout_marginStart">12dp</item>
         <item name="android:background">@drawable/sobot_chat_msg_hollow_bg_left</item>
-        <item name="android:layout_marginRight">60dp</item>
-        <item name="android:layout_marginEnd">60dp</item>
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">15dp</item>
     </style>
 
     <!-- PagerSlidingTab -->

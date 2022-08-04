@@ -1,5 +1,7 @@
 package com.sobot.chat.activity;
 
+import static com.sobot.chat.SobotUIConfig.sobot_webview_title_display;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +30,6 @@ import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
-
-import static com.sobot.chat.SobotUIConfig.sobot_webview_title_display;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class WebViewActivity extends SobotBaseActivity implements View.OnClickListener {

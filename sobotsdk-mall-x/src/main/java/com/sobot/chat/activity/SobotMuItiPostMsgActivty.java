@@ -711,7 +711,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                                     cacheFile.setFileName(file.getName());
                                     cacheFile.setUrl(result.getFileUrl());
                                     cacheFile.setFilePath(result.getFileLocalPath());
-                                    cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.getFileEndWith(result.getFileLocalPath())));
+                                    cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.checkFileEndWith(result.getFileLocalPath())));
                                     cacheFile.setMsgId("" + System.currentTimeMillis());
                                     Intent intent = SobotVideoActivity.newIntent(getSobotBaseActivity(), cacheFile);
                                     getSobotBaseActivity().startActivity(intent);

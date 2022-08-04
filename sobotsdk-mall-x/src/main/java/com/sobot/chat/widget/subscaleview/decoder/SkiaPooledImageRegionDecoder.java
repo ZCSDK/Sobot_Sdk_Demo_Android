@@ -1,5 +1,7 @@
 package com.sobot.chat.widget.subscaleview.decoder;
 
+import static android.content.Context.ACTIVITY_SERVICE;
+
 import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -34,8 +36,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Pattern;
-
-import static android.content.Context.ACTIVITY_SERVICE;
 
 /**
  * <p>

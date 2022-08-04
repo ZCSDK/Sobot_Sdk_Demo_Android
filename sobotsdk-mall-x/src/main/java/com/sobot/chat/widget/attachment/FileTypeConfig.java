@@ -40,6 +40,7 @@ public class FileTypeConfig {
             case "mp3":
                 return MSGTYPE_FILE_MP3;
             case "mp4":
+            case "mov":
                 return MSGTYPE_FILE_MP4;
             case "txt":
                 return MSGTYPE_FILE_TXT;

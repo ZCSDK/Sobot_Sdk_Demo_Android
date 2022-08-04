@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">Chung</string>
        <string name="sobot_write_info_string">Điền thông tin vào</string>
        <string name="sobot_line_up_close_chat">Kết thúc phiên chạy sau khi xếp hàng tự động ngắt</string>
+       <string name="sobot_mini_program">Name</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Táo chỉ có thể mở qua wechat</string>
+       <string name="sobot_parsing">Đức</string>
 </resources>

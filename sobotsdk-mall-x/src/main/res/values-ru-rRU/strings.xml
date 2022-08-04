@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">Приложение</string>
        <string name="sobot_write_info_string">заполнение информации</string>
        <string name="sobot_line_up_close_chat">очередь автоматически прерывать сеанс после завершения сеанса</string>
+       <string name="sobot_mini_program">Аплет </string>
+       <string name="sobot_mini_program_only_open_by_weixin">малая программа может быть открыта только через микрописьмо</string>
+       <string name="sobot_parsing">анализ...</string>
 </resources>

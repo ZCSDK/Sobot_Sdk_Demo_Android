@@ -1,5 +1,9 @@
 package com.sobot.chat;
 
+import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_CONFIG;
+import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_UID;
+import static com.sobot.chat.utils.ZhiChiConstant.SOBOT_LANGUAGE_STRING_PATH;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -40,6 +44,7 @@ import com.sobot.chat.listener.SobotChatStatusListener;
 import com.sobot.chat.listener.SobotFunctionClickListener;
 import com.sobot.chat.listener.SobotImagePreviewListener;
 import com.sobot.chat.listener.SobotLeaveMsgListener;
+import com.sobot.chat.listener.SobotMiniProgramClickListener;
 import com.sobot.chat.listener.SobotNoReadLeaveReplyListener;
 import com.sobot.chat.listener.SobotOrderCardListener;
 import com.sobot.chat.presenter.StPostMsgPresenter;
@@ -64,10 +69,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
-
-import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_CONFIG;
-import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_UID;
-import static com.sobot.chat.utils.ZhiChiConstant.SOBOT_LANGUAGE_STRING_PATH;
 
 /**
  * SobotChatApi接口输出类
@@ -823,6 +824,17 @@ public class ZCSobotApi {
      */
     public static void setImagePreviewListener(SobotImagePreviewListener imagePreviewListener) {
         SobotOption.imagePreviewListener = imagePreviewListener;
+    }
+
+    /**
+     * 3.1.4 新增
+     * 小程序卡片的点击事件拦截
+     * 拦截后，客户可自己处理跳转到小程序的逻辑
+     *
+     * @param miniProgramClickListener
+     */
+    public static void setMiniProgramClickListener(SobotMiniProgramClickListener miniProgramClickListener) {
+        SobotOption.miniProgramClickListener = miniProgramClickListener;
     }
 
 

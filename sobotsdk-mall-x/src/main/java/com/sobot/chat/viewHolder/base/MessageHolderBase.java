@@ -61,6 +61,8 @@ public abstract class MessageHolderBase {
 
     protected View mItemView;
 
+    protected int msgMaxWidth;//气泡最大宽度
+
     public MessageHolderBase(Context context, View convertView) {
         mItemView = convertView;
         mContext = context;
@@ -84,6 +86,8 @@ public abstract class MessageHolderBase {
 
         sobot_chat_file_bgColor = ResourceUtils.getIdByName(mContext, "color", "sobot_chat_file_bgColor");
         applyCustomHeadUI();
+        //102=左间距12+内间距30+右间距60
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
     }
 
     public abstract void bindData(Context context, final ZhiChiMessageBase message);
@@ -129,6 +133,7 @@ public abstract class MessageHolderBase {
             case SobotMsgAdapter.MSG_TYPE_ROBOT_ANSWER_ITEMS:
             case SobotMsgAdapter.MSG_TYPE_ROBOT_QUESTION_RECOMMEND:
             case SobotMsgAdapter.MSG_TYPE_ROBOT_KEYWORD_ITEMS:
+            case SobotMsgAdapter.MSG_TYPE_MINIPROGRAM_CARD_L:
                 this.isRight = false;
                 //  昵称、头像显示
                 //  name.setVisibility(TextUtils.isEmpty(message.getSenderName()) ? View.GONE : View.VISIBLE);

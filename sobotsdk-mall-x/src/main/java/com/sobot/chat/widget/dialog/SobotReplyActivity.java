@@ -286,7 +286,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                                 cacheFile.setFileName(file.getName());
                                 cacheFile.setUrl(result.getFileUrl());
                                 cacheFile.setFilePath(result.getFileLocalPath());
-                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.getFileEndWith(result.getFileLocalPath())));
+                                cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.checkFileEndWith(result.getFileLocalPath())));
                                 cacheFile.setMsgId("" + System.currentTimeMillis());
                                 Intent intent = SobotVideoActivity.newIntent(SobotReplyActivity.this, cacheFile);
                                 SobotReplyActivity.this.startActivity(intent);

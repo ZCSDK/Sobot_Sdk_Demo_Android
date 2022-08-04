@@ -151,7 +151,7 @@
                     style="@style/sobot_msg_right_empty_bg_style"
                     android:layout_gravity="bottom"
                     android:gravity="bottom|center_vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/sobot_ll_likeBtn"
@@ -206,7 +206,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginStart="12dp"
                 android:layout_alignStart="@id/sobot_ll">
 

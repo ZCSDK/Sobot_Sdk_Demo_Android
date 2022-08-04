@@ -88,7 +88,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
             if (orderCardContent.getOrderStatus() == 0) {
                 if (!TextUtils.isEmpty(orderCardContent.getStatusCustom())) {
                     mOrderStatus.setVisibility(View.VISIBLE);
-                    mOrderStatus.setText("：" + orderCardContent.getStatusCustom());
+                    mOrderStatus.setText(orderCardContent.getStatusCustom());
                 } else {
                     mOrderStatus.setVisibility(View.GONE);
                 }
@@ -119,7 +119,7 @@ public class OrderCardMessageHolder extends MessageHolderBase implements View.On
                         statusStr = ResourceUtils.getResString(context, "sobot_order_status_7");
                         break;
                 }
-                mOrderStatus.setText("：" + statusStr);
+                mOrderStatus.setText(statusStr);
             }
 
             mGoodsTotalMoney.setVisibility(View.VISIBLE);

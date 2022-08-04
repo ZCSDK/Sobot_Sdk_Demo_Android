@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sobot_real_ll_content"
+    style="@style/sobot_msg_top_bottom_style"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/sobot_reminde_time_Text"
+        style="@style/sobot_center_remind_time" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end">
+
+        <!-- 我的名称 -->
+        <TextView
+            android:id="@+id/sobot_name"
+            style="@style/sobot_chatting_nickname"
+            android:layout_toStartOf="@+id/sobot_imgHead"
+            android:layout_toLeftOf="@+id/sobot_imgHead"
+            android:visibility="gone" />
+
+        <com.sobot.chat.widget.SobotImageView
+            android:id="@+id/sobot_imgHead"
+            style="@style/sobot_chatting_imghead"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            tools:background="@drawable/sobot_chatting_default_head" />
+
+        <!-- 我的消息的内容 -->
+        <LinearLayout
+            android:id="@+id/sobot_ll_container"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:padding="15dp"
+            android:background="@drawable/sobot_chat_msg_bg_left">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sobot_bg_normal"
+                android:padding="6dp">
+
+                <ImageView
+                    android:id="@+id/tv_mimi_logo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    android:textColor="@color/sobot_order_label_text_color" />
+
+                <TextView
+                    android:id="@+id/tv_mimi_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_mimi_logo"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/tv_mimi_logo"
+                    android:ellipsize="end"
+                    android:layout_marginBottom="6dp"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    android:textColor="@color/sobot_order_label_text_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_mimi_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_mimi_des"
+                    android:textColor="@color/sobot_order_label_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/tv_mimi_thumbUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_below="@id/tv_mimi_title"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitCenter"
+                    android:textColor="@color/sobot_order_label_text_color"
+                    android:textSize="12sp" />
+
+                <View
+                    android:id="@+id/view_split"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:layout_below="@id/tv_mimi_thumbUrl"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/sobot_line_1dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_split"
+                    android:drawableLeft="@drawable/sobot_mini_program_logo"
+                    android:drawablePadding="6dp"
+                    android:text="@string/sobot_mini_program"
+                    android:textColor="@color/sobot_common_gray2"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/sobot_right_empty_rl"
+            style="@style/sobot_msg_right_empty_bg_style"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/sobot_ll_container"
+            android:gravity="bottom|center_vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/sobot_ll_likeBtn"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/sobot_chat_circular_hollow_gray_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/sobot_tv_likeBtn"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:drawableStart="@drawable/sobot_evaluate_btn_yes_selector"
+                    android:drawableLeft="@drawable/sobot_evaluate_btn_yes_selector"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/sobot_ll_dislikeBtn"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/sobot_chat_circular_hollow_gray_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/sobot_tv_dislikeBtn"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:drawableStart="@drawable/sobot_evaluate_btn_no_selector"
+                    android:drawableLeft="@drawable/sobot_evaluate_btn_no_selector"
+                    android:gravity="center" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/sobot_chat_more_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sobot_ll"
+        android:layout_alignLeft="@id/sobot_ll"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginStart="12dp"
+        android:layout_alignStart="@id/sobot_ll">
+
+
+        <LinearLayout
+            android:id="@+id/sobot_ll_transferBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:background="@drawable/sobot_chat_msg_transfer_hollow_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sobot_tv_transferBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/sobot_transfer"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:textColor="@color/sobot_common_gray1"
+                android:paddingEnd="14dp"
+                android:paddingStart="14dp"
+                android:drawableStart="@drawable/sobot_transfer" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

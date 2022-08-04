@@ -1,5 +1,8 @@
 package com.sobot.chat;
 
+import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_CONFIG;
+import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_UID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -54,9 +57,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_CONFIG;
-import static com.sobot.chat.presenter.StPostMsgPresenter.INTENT_KEY_UID;
 
 /**
  * SobotChatApi接口输出类

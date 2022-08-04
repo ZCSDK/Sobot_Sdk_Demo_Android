@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">lampiran</string>
        <string name="sobot_write_info_string">Isi maklumat</string>
        <string name="sobot_line_up_close_chat">Tutup sesi akhir auto dalam baris</string>
+       <string name="sobot_mini_program">Aplet</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Aplet hanya boleh dibuka melalui wechat</string>
+       <string name="sobot_parsing">Menghurai</string>
 </resources>

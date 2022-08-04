@@ -1,5 +1,9 @@
 package com.sobot.chat.camera;
 
+import static com.sobot.chat.camera.StCameraView.BUTTON_STATE_BOTH;
+import static com.sobot.chat.camera.StCameraView.BUTTON_STATE_ONLY_CAPTURE;
+import static com.sobot.chat.camera.StCameraView.BUTTON_STATE_ONLY_RECORDER;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -15,10 +19,6 @@ import android.view.View;
 import com.sobot.chat.camera.listener.StCaptureListener;
 import com.sobot.chat.camera.util.CheckPermission;
 import com.sobot.chat.camera.util.StCmeraLog;
-
-import static com.sobot.chat.camera.StCameraView.BUTTON_STATE_BOTH;
-import static com.sobot.chat.camera.StCameraView.BUTTON_STATE_ONLY_CAPTURE;
-import static com.sobot.chat.camera.StCameraView.BUTTON_STATE_ONLY_RECORDER;
 
 
 /**

@@ -224,4 +224,7 @@
        <string name="sobot_enclosure_string">Annexe</string>
        <string name="sobot_write_info_string">Remplir les informations</string>
        <string name="sobot_line_up_close_chat">Fin de la session après la déconnexion automatique de la file d\'attente</string>
+       <string name="sobot_mini_program">Applet</string>
+       <string name="sobot_mini_program_only_open_by_weixin">Les applets ne peuvent être ouverts que par Wechat</string>
+       <string name="sobot_parsing">Parsing...</string>
 </resources>

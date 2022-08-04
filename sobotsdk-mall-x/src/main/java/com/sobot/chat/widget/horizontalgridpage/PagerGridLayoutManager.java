@@ -1,5 +1,8 @@
 package com.sobot.chat.widget.horizontalgridpage;
 
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.view.View.MeasureSpec.EXACTLY;
+
 import android.annotation.SuppressLint;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -12,9 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sobot.chat.utils.LogUtils;
-
-import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
-import static android.view.View.MeasureSpec.EXACTLY;
 
 public class PagerGridLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
