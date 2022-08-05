@@ -3,7 +3,6 @@ package com.sobot.chat.viewHolder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import androidx.core.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -14,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.activity.SobotFileDetailActivity;
 import com.sobot.chat.activity.SobotVideoActivity;
@@ -486,7 +487,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         if (message.getAnswer() != null && message.getAnswer().getRichList() != null && message.getAnswer().getRichList().size() > 0) {
             LinearLayout.LayoutParams wlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
-            wlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
+            wlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 6), 0, 0);
             sobot_rich_ll.removeAllViews();
             for (int i = 0; i < message.getAnswer().getRichList().size(); i++) {
                 final ChatMessageRichListModel richListModel = message.getAnswer().getRichList().get(i);
@@ -526,7 +527,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                 //只有一个，是超链接，并且是卡片形式才显示卡片
                                 final View view = LayoutInflater.from(mContext).inflate(ResourceUtils.getResLayoutId(mContext, "sobot_chat_msg_link_card"), null);
                                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dip2px(mContext, 240), ViewGroup.LayoutParams.WRAP_CONTENT);
-                                layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 10), 0, ScreenUtils.dip2px(mContext, 10));
+                                layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 6), 0, ScreenUtils.dip2px(mContext, 6));
                                 view.setLayoutParams(layoutParams);
                                 TextView tv_title = view.findViewById(ResourceUtils.getIdByName(context, "id", "tv_title"));
                                 tv_title.setText(ResourceUtils.getResString(context, "sobot_parsing"));
@@ -613,7 +614,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                             mlayoutParams = new LinearLayout.LayoutParams(msgMaxWidth,
                                     ScreenUtils.dip2px(context, 200));
                         }
-                        mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 3), 0, 0);
+                        mlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 6), 0, ScreenUtils.dip2px(context, 6));
                         ImageView imageView = new ImageView(mContext);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(mlayoutParams);
@@ -644,7 +645,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         sobot_file_size.setText(TextUtils.isEmpty(richListModel.getFileSize()) ? "" : richListModel.getFileSize());
                         SobotBitmapUtil.display(mContext, ChatUtils.getFileIcon(mContext, FileTypeConfig.getFileType(FileUtil.checkFileEndWith(richListModel.getMsg()))), sobot_progress);
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dip2px(mContext, 240), ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 10), 0, ScreenUtils.dip2px(mContext, 10));
+                        layoutParams.setMargins(0, ScreenUtils.dip2px(mContext, 6), 0, ScreenUtils.dip2px(mContext, 6));
                         view.setLayoutParams(layoutParams);
                         sobot_rich_ll.addView(view);
                         view.setOnClickListener(new View.OnClickListener() {

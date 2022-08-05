@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sobot_bg_normal"
-                android:padding="6dp">
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/tv_mimi_logo"
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_below="@id/tv_mimi_title"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="6dp"
                     android:scaleType="fitCenter"
                     android:textColor="@color/sobot_order_label_text_color"
                     android:textSize="12sp" />
