@@ -179,6 +179,9 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
         try {
             in = new FileInputStream(savePath);
             bitmap = BitmapFactory.decodeFile(savePath);
+            if (bitmap == null) {
+                return;
+            }
 //			sobot_image_view.setGifImageType(GifView.GifImageType.COVER);
             sobot_image_view.setGifImage(in, imageUrL);
             int screenWidth = ScreenUtils
@@ -212,7 +215,7 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     w, h);
             sobot_image_view.setLayoutParams(layoutParams);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         sobot_rl_gif.setVisibility(View.VISIBLE);

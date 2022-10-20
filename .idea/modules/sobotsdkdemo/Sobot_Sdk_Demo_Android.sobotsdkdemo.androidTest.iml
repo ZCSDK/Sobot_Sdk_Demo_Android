@@ -31,7 +31,7 @@
     <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.4.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.6.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:2.4.3" level="project" />
@@ -46,7 +46,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:annotations:4.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.umeng.umsdk:common:9.4.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.alibaba:fastjson:1.2.73" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture:1.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture_x:1.1.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:2.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsdk-imageloader:2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:net:1.1.1@aar" level="project" />

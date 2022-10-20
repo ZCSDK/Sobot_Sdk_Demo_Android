@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <external-path name="sobot_external" />
+    <files-path name="sobot_external" />
 </resources>

@@ -149,16 +149,6 @@ public class FileOpenHelper {
         return intent;
     }
 
-    //android获取一个用于打开package文件的intent
-    public static Intent getPackageFileIntent(Context context, File file) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        Uri uri = getUri(context, file, intent);
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        return intent;
-    }
-
     //android获取一个用于打开不识别文件的intent
     public static Intent getOtherFileIntent(Context context, File file) {
         Intent intent = new Intent();

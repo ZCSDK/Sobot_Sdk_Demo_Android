@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">Name</string>
        <string name="sobot_mini_program_only_open_by_weixin">Táo chỉ có thể mở qua wechat</string>
        <string name="sobot_parsing">Đức</string>
+       <string name="sobot_keep_queuing">Tiếp tục xếp hàng</string>
+       <string name="sobot_keep_queuing_string">Nếu bạn tiếp tục đợi, hãy nhắp vào</string>
 </resources>

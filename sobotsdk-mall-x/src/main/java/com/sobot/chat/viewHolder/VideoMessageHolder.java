@@ -1,8 +1,11 @@
 package com.sobot.chat.viewHolder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,10 +14,14 @@ import android.widget.TextView;
 import com.sobot.chat.activity.SobotVideoActivity;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
 import com.sobot.chat.api.model.SobotCacheFile;
+import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
+import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.RoundProgressBar;
 import com.sobot.chat.widget.image.SobotRCImageView;
@@ -25,11 +32,15 @@ import com.sobot.network.http.upload.SobotUploadModelBase;
 import com.sobot.network.http.upload.SobotUploadTask;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
+import java.util.ArrayList;
+
 /**
  * 小视频
  * Created by jinxl on 2018/12/04.
  */
 public class VideoMessageHolder extends MessageHolderBase implements View.OnClickListener {
+    private LinearLayout answersList;
+    private TextView stripe;
     private RoundProgressBar sobot_progress;
     private ImageView sobot_msgStatus;
     private ImageView st_tv_play;
@@ -55,6 +66,11 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
         sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
         sobot_bg_default_pic = ResourceUtils.getDrawableId(context, "sobot_bg_default_pic");
+        stripe = (TextView) convertView.findViewById(ResourceUtils
+                .getIdByName(context, "id", "sobot_stripe"));
+        answersList = (LinearLayout) convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_answersList"));
         sobot_progress.setTextDisplayable(false);
         if (sobot_msgStatus != null) {
             sobot_msgStatus.setOnClickListener(this);
@@ -82,8 +98,89 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
                 refreshUploadUi(null);
             }
         }
-        refreshItem();
-        checkShowTransferBtn();
+        if (!isRight) {
+            if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
+                resetAnswersList();
+                if (stripe != null) {
+                    // 回复语的答复
+                    String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
+                    if (!TextUtils.isEmpty(stripeContent)) {
+                        //去掉p标签
+                        stripeContent = stripeContent.replace("<p>", "").replace("</p>", "");
+                        // 设置提醒的内容
+                        stripe.setVisibility(View.VISIBLE);
+                        HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());
+                    } else {
+                        stripe.setText(null);
+                        stripe.setVisibility(View.GONE);
+                    }
+                }
+            } else {
+                answersList.setVisibility(View.GONE);
+            }
+            refreshItem();
+            checkShowTransferBtn();
+        }
+    }
+
+    //设置问题列表
+    private void resetAnswersList() {
+        if (message == null) {
+            return;
+        }
+        if (message.getListSuggestions() != null && message.getListSuggestions().size() > 0) {
+            ArrayList<Suggestions> listSuggestions = message.getListSuggestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            int startNum = 0;
+            int endNum = listSuggestions.size();
+            if (message.isGuideGroupFlag() && message.getGuideGroupNum() > -1) {//有分组且不是全部
+                startNum = message.getCurrentPageNum() * message.getGuideGroupNum();
+                endNum = Math.min(startNum + message.getGuideGroupNum(), listSuggestions.size());
+            }
+            for (int i = startNum; i < endNum; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, false);
+                int currentItem = i + 1;
+                answer.setOnClickListener(new RichTextMessageHolder.AnsWerClickLisenter(mContext, null,
+                        listSuggestions.get(i).getQuestion(), null, listSuggestions.get(i).getDocId(), msgCallBack));
+                String tempStr = processPrefix(message, currentItem) + listSuggestions.get(i).getQuestion();
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        } else {
+            String[] answerStringList = message.getSugguestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            for (int i = 0; i < answerStringList.length; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, true);
+                int currentItem = i + 1;
+                String tempStr = processPrefix(message, currentItem) + answerStringList[i];
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        }
+        resetMaxWidth();
+    }
+
+    private int msgMaxWidth;//气泡最大宽度
+
+    private void resetMaxWidth() {
+        //102=左间距12+内间距30+右间距60
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        if (answersList != null) {
+            ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
+            layoutParams.width = msgMaxWidth;
+            answersList.setLayoutParams(layoutParams);
+        }
+        if (sobot_rl_hollow_container != null) {
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) sobot_rl_hollow_container.getLayoutParams();
+            lp.setMargins(ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 15), 0);
+        }
+        if (stripe != null) {
+            ViewGroup.LayoutParams stripelayoutParams = stripe.getLayoutParams();
+            stripelayoutParams.width = msgMaxWidth;
+            stripe.setLayoutParams(stripelayoutParams);
+        }
     }
 
     @Override
@@ -213,6 +310,7 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
 
         }
     }
+
     private void checkShowTransferBtn() {
         if (message.isShowTransferBtn()) {
             showTransferBtn();

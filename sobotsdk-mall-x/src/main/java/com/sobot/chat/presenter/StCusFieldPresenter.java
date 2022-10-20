@@ -289,7 +289,7 @@ public class StCusFieldPresenter {
                         field.get(j).getCusFieldConfig().setValue(singleContent.getText() + "");
                         if (StringUtils.isNumber(field.get(j).getCusFieldConfig().getLimitOptions()) && field.get(j).getCusFieldConfig().getLimitOptions().contains("7")) {
                             if (!ScreenUtils.isEmail(singleContent.getText().toString().trim())) {
-                                return field.get(j).getCusFieldConfig().getFieldName() + ResourceUtils.getResString(context, "sobot_input_type_err_email");
+                                return field.get(j).getCusFieldConfig().getFieldName() + ResourceUtils.getResString(context, "sobot_email_dialog_hint");
                             }
                         }
                         if (StringUtils.isNumber(field.get(j).getCusFieldConfig().getLimitOptions()) && field.get(j).getCusFieldConfig().getLimitOptions().contains("8")) {

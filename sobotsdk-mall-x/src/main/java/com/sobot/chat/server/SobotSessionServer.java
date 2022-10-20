@@ -234,35 +234,40 @@ public class SobotSessionServer extends Service {
         } else if (ZhiChiConstant.push_message_receverSystemMessage == pushMessage
                 .getType()) {// 接收到系统消息
             if (config.getInitModel() != null) {
-                    base.setT(Calendar.getInstance().getTime().getTime() + "");
+                base.setT(Calendar.getInstance().getTime().getTime() + "");
+                base.setMsgId(pushMessage.getMsgId());
+                base.setSender(pushMessage.getAname());
+                base.setSenderName(pushMessage.getAname());
+                base.setSenderFace(pushMessage.getAface());
+                if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType()) || "5".equals(pushMessage.getSysType()) || "6".equals(pushMessage.getSysType()))) {
+                    //客服超时提示 1
+                    //客户超时提示 2 都显示在左侧
+                    //排队断开说辞系统消息 5 都显示在左侧
+                    //排队断开前30秒说辞系统消息 6  都显示在左侧
+                    base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
+                    ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
+                    reply.setMsg(pushMessage.getContent());
+                    reply.setMsgType(ZhiChiConstant.message_type_text + "");
+                    base.setAnswer(reply);
+                } else {
+                    base.setAction(ZhiChiConstant.message_type_fraud_prevention + "");
                     base.setMsgId(pushMessage.getMsgId());
-                    base.setSender(pushMessage.getAname());
-                    base.setSenderName(pushMessage.getAname());
-                    base.setSenderFace(pushMessage.getAface());
-                    if (!TextUtils.isEmpty(pushMessage.getSysType()) && ("1".equals(pushMessage.getSysType()) || "2".equals(pushMessage.getSysType())|| "5".equals(pushMessage.getSysType()))) {
-                        //客服超时提示 1
-                        //客户超时提示 2 都显示在左侧
-                        //排队断开说辞系统消息 5 都显示在左侧
-                        base.setSenderType(ZhiChiConstant.message_sender_type_service + "");
-                        ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
-                        reply.setMsg(pushMessage.getContent());
-                        reply.setMsgType(ZhiChiConstant.message_type_text + "");
-                        base.setAnswer(reply);
-                    } else {
-                        base.setAction(ZhiChiConstant.message_type_fraud_prevention + "");
-                        base.setMsgId(pushMessage.getMsgId());
-                        base.setMsg(pushMessage.getContent());
-                    }
-                    // 更新界面的操作
-                    config.addMessage(base);
-                    if (config.customerState == CustomerState.Online) {
-                        config.customTimeTask = false;
-                        config.userInfoTimeTask = true;
-                    }
-                    if (isNeedShowMessage(pushMessage.getAppId())) {
-                        showNotification(pushMessage.getContent(), pushMessage, false);
-                    }
-                    sendBroadcast(pushMessage, pushMessage.getContent(), false);
+                    base.setMsg(pushMessage.getContent());
+                }
+                // 更新界面的操作
+                config.addMessage(base);
+                if (!TextUtils.isEmpty(pushMessage.getSysType()) && "6".equals(pushMessage.getSysType())) {
+                    ZhiChiMessageBase keepQueuingMessageBase = ChatUtils.getKeepQueuingHint(ResourceUtils.getResString(context,"sobot_keep_queuing_string") + "<a href='sobot:SobotKeepQueuing'> " + ResourceUtils.getResString(context, "sobot_keep_queuing") + "</a>");
+                    config.addMessage(keepQueuingMessageBase);
+                }
+                if (config.customerState == CustomerState.Online) {
+                    config.customTimeTask = false;
+                    config.userInfoTimeTask = true;
+                }
+                if (isNeedShowMessage(pushMessage.getAppId())) {
+                    showNotification(pushMessage.getContent(), pushMessage, false);
+                }
+                sendBroadcast(pushMessage, pushMessage.getContent(), false);
             }
 
 
@@ -435,10 +440,6 @@ public class SobotSessionServer extends Service {
 
         // 把机器人回答中的转人工按钮都隐藏掉
         config.hideItemTransferBtn();
-
-        if (isNeedShowMessage(appId)) {
-            showNotification(String.format(getResString("sobot_service_accept"), config.currentUserName), pushMessage, true);
-        }
     }
 
     @Override

@@ -5,7 +5,6 @@
     android:layout_marginRight="12dp"
     android:background="@drawable/sobot_layout_lable_selector"
     android:gravity="center"
-    android:maxLength="5"
     android:paddingLeft="15dp"
     android:paddingTop="5dp"
     android:paddingRight="15dp"

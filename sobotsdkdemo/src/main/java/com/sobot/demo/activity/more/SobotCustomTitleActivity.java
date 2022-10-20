@@ -103,9 +103,6 @@ public class SobotCustomTitleActivity extends AppCompatActivity implements View.
             case R.id.sobot_show_fixed_text://显示固定文案
                 result = SobotChatTitleDisplayMode.ShowFixedText;
                 break;
-            case R.id.sobot_show_company_name://显示公司名称
-                result = SobotChatTitleDisplayMode.ShowCompanyName;
-                break;
         }
         return result;
     }

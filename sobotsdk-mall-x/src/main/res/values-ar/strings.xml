@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">برنامج صغير  </string>
        <string name="sobot_mini_program_only_open_by_weixin"> برنامج صغير يمكن فتحه فقط من خلال رسالة صغيرة</string>
        <string name="sobot_parsing">في التحليل .</string>
+       <string name="sobot_keep_queuing">تواصل الطابور</string>
+       <string name="sobot_keep_queuing_string"> إذا كنت لا تزال تنتظر ، انقر فوق</string>
 </resources>

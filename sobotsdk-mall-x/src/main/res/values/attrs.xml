@@ -89,5 +89,8 @@
         <attr name="sobot_quickScaleEnabled" format="boolean"/>
         <attr name="sobot_tileBackgroundColor" format="color"/>
     </declare-styleable>
-
+    <!--   KPSwitchPanelLayout -->
+    <declare-styleable name="SobotKPSwitchPanelLayout">
+        <attr name="sobot_ignore_recommend_height" format="boolean" />
+    </declare-styleable>
 </resources>

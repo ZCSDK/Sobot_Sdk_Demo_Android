@@ -3,6 +3,7 @@ package com.sobot.chat.viewHolder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,10 +14,12 @@ import android.widget.TextView;
 import com.sobot.chat.activity.SobotFileDetailActivity;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
 import com.sobot.chat.api.model.SobotCacheFile;
+import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
@@ -29,16 +32,19 @@ import com.sobot.network.http.upload.SobotUploadModelBase;
 import com.sobot.network.http.upload.SobotUploadTask;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
+import java.util.ArrayList;
+
 /**
  * 文件消息
  * Created by jinxl on 2018/11/13.
  */
 public class FileMessageHolder extends MessageHolderBase implements View.OnClickListener {
+    private LinearLayout answersList;
+    private TextView stripe;
     private SobotSectorProgressView sobot_progress;
     private TextView sobot_file_name;
     private TextView sobot_file_size;
     private ImageView sobot_msgStatus;
-    private RelativeLayout sobot_ll_file_container;
     private RelativeLayout sobot_right_empty_rl;//顶踩
     private LinearLayout sobot_chat_more_action;//包含以下所有控件
     private LinearLayout sobot_ll_transferBtn;//只包含转人工按钮
@@ -56,7 +62,6 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
         sobot_file_name = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_file_name"));
         sobot_file_size = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_file_size"));
         sobot_msgStatus = (ImageView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msgStatus"));
-        sobot_ll_file_container = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_file_container"));
         mResNetError = ResourceUtils.getIdByName(context, "drawable", "sobot_re_send_selector");
         mResRemove = ResourceUtils.getIdByName(context, "drawable", "sobot_icon_remove");
         sobot_right_empty_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_right_empty_rl"));
@@ -64,15 +69,21 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
         sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
+        stripe = (TextView) convertView.findViewById(ResourceUtils
+                .getIdByName(context, "id", "sobot_stripe"));
+        answersList = (LinearLayout) convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_answersList"));
         if (sobot_msgStatus != null) {
             sobot_msgStatus.setOnClickListener(this);
         }
-        sobot_ll_file_container.setOnClickListener(this);
-        ViewGroup.LayoutParams layoutParams = sobot_ll_file_container.getLayoutParams();
-        if (layoutParams != null) {
-            //72=左间距12+右间距60
-            msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 72);
+        //102=左间距12+内间距30+右间距60
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        if (sobot_rl_hollow_container != null) {
+            sobot_rl_hollow_container.setOnClickListener(this);
+            ViewGroup.LayoutParams layoutParams = sobot_rl_hollow_container.getLayoutParams();
             layoutParams.width = msgMaxWidth;
+            sobot_rl_hollow_container.setLayoutParams(layoutParams);
         }
     }
 
@@ -98,14 +109,89 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
                 refreshUploadUi(null);
             }
         }
-        refreshItem();
-        checkShowTransferBtn();
+        if (!isRight) {
+            if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
+                resetAnswersList();
+                if (stripe != null) {
+                    // 回复语的答复
+                    String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
+                    if (!TextUtils.isEmpty(stripeContent)) {
+                        //去掉p标签
+                        stripeContent = stripeContent.replace("<p>", "").replace("</p>", "");
+                        // 设置提醒的内容
+                        stripe.setVisibility(View.VISIBLE);
+                        HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());
+                    } else {
+                        stripe.setText(null);
+                        stripe.setVisibility(View.GONE);
+                    }
+                }
+            } else {
+                answersList.setVisibility(View.GONE);
+            }
+            refreshItem();
+            checkShowTransferBtn();
+        }
+    }
+
+    //设置问题列表
+    private void resetAnswersList() {
+        if (message == null) {
+            return;
+        }
+        if (message.getListSuggestions() != null && message.getListSuggestions().size() > 0) {
+            ArrayList<Suggestions> listSuggestions = message.getListSuggestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            int startNum = 0;
+            int endNum = listSuggestions.size();
+            if (message.isGuideGroupFlag() && message.getGuideGroupNum() > -1) {//有分组且不是全部
+                startNum = message.getCurrentPageNum() * message.getGuideGroupNum();
+                endNum = Math.min(startNum + message.getGuideGroupNum(), listSuggestions.size());
+            }
+            for (int i = startNum; i < endNum; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, false);
+                int currentItem = i + 1;
+                answer.setOnClickListener(new RichTextMessageHolder.AnsWerClickLisenter(mContext, null,
+                        listSuggestions.get(i).getQuestion(), null, listSuggestions.get(i).getDocId(), msgCallBack));
+                String tempStr = processPrefix(message, currentItem) + listSuggestions.get(i).getQuestion();
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        } else {
+            String[] answerStringList = message.getSugguestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            for (int i = 0; i < answerStringList.length; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, true);
+                int currentItem = i + 1;
+                String tempStr = processPrefix(message, currentItem) + answerStringList[i];
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        }
+        resetMaxWidth();
+    }
+
+    private int msgMaxWidth;//气泡最大宽度
+
+    private void resetMaxWidth() {
+        if (answersList != null) {
+            ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
+            layoutParams.width = msgMaxWidth;
+            answersList.setLayoutParams(layoutParams);
+        }
+        if (stripe != null) {
+            ViewGroup.LayoutParams stripelayoutParams = stripe.getLayoutParams();
+            stripelayoutParams.width = msgMaxWidth;
+            stripe.setLayoutParams(stripelayoutParams);
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (mData != null) {
-            if (sobot_ll_file_container == v) {
+            if (sobot_rl_hollow_container == v) {
                 if (mData.getAnswer() != null && mData.getAnswer().getCacheFile() != null) {
                     // 打开详情页面
                     Intent intent = new Intent(mContext, SobotFileDetailActivity.class);

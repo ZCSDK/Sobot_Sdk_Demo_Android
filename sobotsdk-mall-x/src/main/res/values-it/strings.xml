@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">Applet</string>
        <string name="sobot_mini_program_only_open_by_weixin">Applet può essere aperto solo tramite wechat</string>
        <string name="sobot_parsing">Analisi</string>
+       <string name="sobot_keep_queuing">Continua a fare la coda</string>
+       <string name="sobot_keep_queuing_string">Se si continua ad aspettare, fare clic su</string>
 </resources>

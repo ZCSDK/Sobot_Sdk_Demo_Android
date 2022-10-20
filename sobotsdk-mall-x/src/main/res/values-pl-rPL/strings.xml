@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">Aplet</string>
        <string name="sobot_mini_program_only_open_by_weixin">Aplet może być otwarty tylko przez wechat</string>
        <string name="sobot_parsing">Analiza</string>
+       <string name="sobot_keep_queuing">Kontynuuj kolejkę</string>
+       <string name="sobot_keep_queuing_string">Jeśli nadal będziesz czekać, kliknij</string>
 </resources>

@@ -2,12 +2,9 @@
   <library name="Gradle: androidx.versionedparcelable:versionedparcelable:1.0.0@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e106f9734b533d5ff7d7365f65b3975c/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e106f9734b533d5ff7d7365f65b3975c/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e106f9734b533d5ff7d7365f65b3975c/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.versionedparcelable/versionedparcelable/1.0.0/df4c3c5d517f6a49017612e6b4dfdd007e7cc9b8/versionedparcelable-1.0.0-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

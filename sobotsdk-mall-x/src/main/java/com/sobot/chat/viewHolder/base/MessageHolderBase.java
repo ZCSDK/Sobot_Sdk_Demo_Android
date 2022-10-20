@@ -328,4 +328,12 @@ public abstract class MessageHolderBase {
 //            imgHead.setIsCircle(true);
         }
     }
+
+    public String processPrefix(final ZhiChiMessageBase message, int num) {
+        if (message != null && message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null
+                && message.getAnswer().getMultiDiaRespInfo().getIcLists() != null) {
+            return "•";
+        }
+        return num + ".";
+    }
 }

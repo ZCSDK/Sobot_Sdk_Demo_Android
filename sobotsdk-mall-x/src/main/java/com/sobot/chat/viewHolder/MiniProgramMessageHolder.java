@@ -1,26 +1,36 @@
 package com.sobot.chat.viewHolder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.api.model.MiniProgramModel;
+import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
+import com.sobot.chat.utils.ChatUtils;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
+import java.util.ArrayList;
+
 /**
  * 小程序卡片
  */
 public class MiniProgramMessageHolder extends MessageHolderBase implements View.OnClickListener {
+    private LinearLayout answersList;
+    private TextView stripe;
     private View mContainer;
     private ImageView tv_mimi_logo;
     private TextView tv_mimi_des;
@@ -44,6 +54,11 @@ public class MiniProgramMessageHolder extends MessageHolderBase implements View.
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
         sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
+        answersList = (LinearLayout) convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_answersList"));
+        stripe = (TextView) convertView.findViewById(ResourceUtils
+                .getIdByName(context, "id", "sobot_stripe"));
     }
 
     @Override
@@ -77,8 +92,83 @@ public class MiniProgramMessageHolder extends MessageHolderBase implements View.
             }
         }
         mContainer.setOnClickListener(this);
+        if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
+            resetAnswersList();
+            if (stripe != null) {
+                // 回复语的答复
+                String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
+                if (!TextUtils.isEmpty(stripeContent)) {
+                    //去掉p标签
+                    stripeContent = stripeContent.replace("<p>", "").replace("</p>", "");
+                    // 设置提醒的内容
+                    stripe.setVisibility(View.VISIBLE);
+                    HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());
+                } else {
+                    stripe.setText(null);
+                    stripe.setVisibility(View.GONE);
+                }
+            }
+        } else {
+            answersList.setVisibility(View.GONE);
+        }
         refreshItem();
         checkShowTransferBtn();
+    }
+
+    //设置问题列表
+    private void resetAnswersList() {
+        if (message == null) {
+            return;
+        }
+        if (message.getListSuggestions() != null && message.getListSuggestions().size() > 0) {
+            ArrayList<Suggestions> listSuggestions = message.getListSuggestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            int startNum = 0;
+            int endNum = listSuggestions.size();
+            if (message.isGuideGroupFlag() && message.getGuideGroupNum() > -1) {//有分组且不是全部
+                startNum = message.getCurrentPageNum() * message.getGuideGroupNum();
+                endNum = Math.min(startNum + message.getGuideGroupNum(), listSuggestions.size());
+            }
+            for (int i = startNum; i < endNum; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, false);
+                int currentItem = i + 1;
+                answer.setOnClickListener(new RichTextMessageHolder.AnsWerClickLisenter(mContext, null,
+                        listSuggestions.get(i).getQuestion(), null, listSuggestions.get(i).getDocId(), msgCallBack));
+                String tempStr = processPrefix(message, currentItem) + listSuggestions.get(i).getQuestion();
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        } else {
+            String[] answerStringList = message.getSugguestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            for (int i = 0; i < answerStringList.length; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, true);
+                int currentItem = i + 1;
+                String tempStr = processPrefix(message, currentItem) + answerStringList[i];
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        }
+        resetMaxWidth();
+    }
+
+    private int msgMaxWidth;//气泡最大宽度
+
+    private void resetMaxWidth() {
+        //102=左间距12+内间距30+右间距60
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        if (answersList != null) {
+            ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
+            layoutParams.width = msgMaxWidth;
+            answersList.setLayoutParams(layoutParams);
+        }
+        if (stripe != null) {
+            ViewGroup.LayoutParams stripelayoutParams = stripe.getLayoutParams();
+            stripelayoutParams.width = msgMaxWidth;
+            stripe.setLayoutParams(stripelayoutParams);
+        }
     }
 
     @Override

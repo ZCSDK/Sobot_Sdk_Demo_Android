@@ -195,60 +195,6 @@ public class ChatUtils {
         }
     }
 
-
-    /**
-     * activity打开相机
-     *
-     * @param act
-     * @return
-     */
-    public static File openCamera(Activity act) {
-        return openCamera(act, null);
-    }
-
-    /**
-     * Fragment打开相机
-     *
-     * @param act
-     * @param childFragment 打开相机的fragment
-     * @return
-     */
-    public static File openCamera(Activity act, Fragment childFragment) {
-        String path = SobotPathManager.getInstance().getPicDir() + System.currentTimeMillis() + ".jpg";
-        // 创建图片文件存放的位置
-        File cameraFile = new File(path);
-        IOUtils.createFolder(cameraFile.getParentFile());
-        Uri uri = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            try {
-                //如果在Android7.0以上,使用FileProvider获取Uri
-                uri = FileOpenHelper.getUri(act, cameraFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            uri = Uri.fromFile(cameraFile);
-        }
-        if (uri == null) {
-            return null;
-        }
-        try {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore
-                    .EXTRA_OUTPUT, uri);
-//        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            if (childFragment != null) {
-                childFragment.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_makePictureFromCamera);
-            } else {
-                act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_makePictureFromCamera);
-            }
-        } catch (Exception e) {
-            ToastUtil.showCustomToast(act, "无法打开相机");
-            e.printStackTrace();
-        }
-
-        return cameraFile;
-    }
-
     public static int getResId(Context context, String name) {
         return ResourceUtils.getIdByName(context, "id", name);
     }
@@ -623,11 +569,15 @@ public class ChatUtils {
      */
     public static boolean checkConfigChange(Context context, String appkey, final Information info) {
         String last_current_appkey = SharedPreferencesUtil.getOnlyStringData(context, ZhiChiConstant.sobot_last_current_appkey, "");
-        if (!last_current_appkey.equals(info.getApp_key())) {
-            SharedPreferencesUtil.removeKey(context, ZhiChiConstant.sobot_last_login_group_id);
-            LogUtils.i("appkey发生了变化，重新初始化..............");
-            return true;
+        if (!TextUtils.isEmpty(last_current_appkey) || !TextUtils.isEmpty(info.getApp_key())) {
+            if (!last_current_appkey.equals(info.getApp_key())) {
+                SharedPreferencesUtil.removeKey(context, ZhiChiConstant.sobot_last_login_group_id);
+                LogUtils.i("appkey发生了变化，重新初始化..............");
+                return true;
+            }
         }
+        String sobot_last_current_customer_code = SharedPreferencesUtil.getOnlyStringData
+                (context, ZhiChiConstant.sobot_last_current_customer_code, "");
         String last_current_partnerId = SharedPreferencesUtil.getStringData
                 (context, appkey + "_" + ZhiChiConstant.sobot_last_current_partnerId, "");
         String last_current_dreceptionistId = SharedPreferencesUtil.getStringData(
@@ -650,8 +600,7 @@ public class ChatUtils {
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_user_label, "");
         String sobot_last_current_robot_alias = SharedPreferencesUtil.getStringData(
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_robot_alias, "");
-
-        // appkey，技能组、用户id，客服id，对接机器人编号、接入模式，自定义字段，自定义固定KEY字段 ，userRemark,isvip,vip级别，用户标签，机器人别名
+        // appkey，技能组、用户id，客服id，对接机器人编号、接入模式，自定义字段，自定义固定KEY字段 ，userRemark,isvip,vip级别，用户标签，机器人别名,商户id
         //判断上次uid是否跟此次传入的一样
         if (!last_current_partnerId.equals(info.getPartnerid() == null ? "" : info.getPartnerid())) {
             LogUtils.i("uid发生了变化，重新初始化..............");
@@ -685,6 +634,9 @@ public class ChatUtils {
             return true;
         } else if (!sobot_last_current_user_label.equals(info.getUser_label() == null ? "" : info.getUser_label())) {
             LogUtils.i("用户标签发生变化，重新初始化..............");
+            return true;
+        } else if (!sobot_last_current_customer_code.equals(info.getCustomer_code() == null ? "" : info.getCustomer_code())) {
+            LogUtils.i("商户id customer_code发生了变化，重新初始化..............");
             return true;
         } else {
             return false;
@@ -937,6 +889,23 @@ public class ChatUtils {
     }
 
     /**
+     * 返回继续排队的提示语
+     *
+     * @return
+     */
+    public static ZhiChiMessageBase getKeepQueuingHint(String keepQueuingDoc) {
+        ZhiChiMessageBase keepQueuingMessageBase = new ZhiChiMessageBase();
+        keepQueuingMessageBase.setSenderType(ZhiChiConstant.message_sender_type_remide_info + "");
+        keepQueuingMessageBase.setAction(ZhiChiConstant.action_remind_keep_queuing);
+        keepQueuingMessageBase.setT(Calendar.getInstance().getTime().getTime() + "");
+        ZhiChiReplyAnswer replyKeepQueuing = new ZhiChiReplyAnswer();
+        replyKeepQueuing.setMsg(keepQueuingDoc);
+        replyKeepQueuing.setRemindType(ZhiChiConstant.sobot_remind_type_keep_queuing_tip);
+        keepQueuingMessageBase.setAnswer(replyKeepQueuing);
+        return keepQueuingMessageBase;
+    }
+
+    /**
      * 判断是否评价完毕就释放会话
      *
      * @param context
@@ -1101,88 +1070,81 @@ public class ChatUtils {
      * @param messageList
      */
     public static void saveLastMsgInfo(Context context, Information info, String appkey, ZhiChiInitModeBase initModel, List<ZhiChiMessageBase> messageList) {
-        SobotCache sobotCache = SobotCache.get(context);
-
-        SobotMsgCenterModel sobotMsgCenterModel = new SobotMsgCenterModel();
-        sobotMsgCenterModel.setInfo(info);
-        sobotMsgCenterModel.setFace(initModel.getCompanyLogo());
-        sobotMsgCenterModel.setName(initModel.getCompanyName());
-        sobotMsgCenterModel.setAppkey(appkey);
+        try {
+            SobotCache sobotCache = SobotCache.get(context);
+            SobotMsgCenterModel sobotMsgCenterModel = new SobotMsgCenterModel();
+            sobotMsgCenterModel.setInfo(info);
+            sobotMsgCenterModel.setFace(initModel.getCompanyLogo());
+            sobotMsgCenterModel.setName(initModel.getCompanyName());
+            sobotMsgCenterModel.setAppkey(appkey);
 //		sobotMsgCenterModel.setLastDateTime(Calendar.getInstance().getTime().getTime()+"");
-        sobotMsgCenterModel.setUnreadCount(0);
+            sobotMsgCenterModel.setUnreadCount(0);
 
-        if (messageList != null) {
-            String continueType = ZhiChiConstant.message_sender_type_consult_info + "";
-            for (int i = messageList.size() - 1; i >= 0; i--) {
-                ZhiChiMessageBase tempMsg = messageList.get(i);
-                if (continueType.equals(tempMsg.getSenderType())) {
-                    continue;
-                }
-                sobotMsgCenterModel.setSenderName(tempMsg.getSenderName());
-                if (TextUtils.isEmpty(tempMsg.getSenderFace())) {
-                    //设置用户默认投下头像
-                    sobotMsgCenterModel.setSenderFace("https://img.sobot.com/console/common/face/user.png");
-                } else {
-                    sobotMsgCenterModel.setSenderFace("");
-                }
-                String lastMsg = "";
-                if ((ZhiChiConstant.message_sender_type_customer_sendImage + "").equals(tempMsg.getSenderType())) {
-                    lastMsg = ResourceUtils.getResString(context, "sobot_upload");
-                } else if ((ZhiChiConstant.message_sender_type_send_voice + "").equals(tempMsg.getSenderType())) {
-                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_voice");
-                } else if (tempMsg.getAnswer() != null) {
-                    if ((ZhiChiConstant.message_type_pic + "").equals(tempMsg.getAnswer().getMsgType())) {
-                        lastMsg = ResourceUtils.getResString(context, "sobot_upload");
+            if (messageList != null) {
+                String continueType = ZhiChiConstant.message_sender_type_consult_info + "";
+                for (int i = messageList.size() - 1; i >= 0; i--) {
+                    ZhiChiMessageBase tempMsg = messageList.get(i);
+                    if (continueType.equals(tempMsg.getSenderType())) {
+                        continue;
+                    }
+                    sobotMsgCenterModel.setSenderName(tempMsg.getSenderName());
+                    if (TextUtils.isEmpty(tempMsg.getSenderFace())) {
+                        //设置用户默认投下头像
+                        sobotMsgCenterModel.setSenderFace("https://img.sobot.com/console/common/face/user.png");
                     } else {
-                        if (tempMsg.getAnswer().getMsg() == null) {
-                            if ((ZhiChiConstant.message_type_card + "").equals(tempMsg.getAnswer().getMsgType())) {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_goods");
-                            } else if ((ZhiChiConstant.message_type_ordercard + "").equals(tempMsg.getAnswer().getMsgType())) {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_card");
-                            } else if ((ZhiChiConstant.message_type_video + "").equals(tempMsg.getAnswer().getMsgType())) {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_upload_video");
-                            } else if ((ZhiChiConstant.message_type_file + "").equals(tempMsg.getAnswer().getMsgType())) {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_choose_file");
-                            } else {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_other_msg");
-                            }
+                        sobotMsgCenterModel.setSenderFace("");
+                    }
+                    String lastMsg = "";
+                    if ((ZhiChiConstant.message_sender_type_customer_sendImage + "").equals(tempMsg.getSenderType())) {
+                        lastMsg = ResourceUtils.getResString(context, "sobot_upload");
+                    } else if ((ZhiChiConstant.message_sender_type_send_voice + "").equals(tempMsg.getSenderType())) {
+                        lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_voice");
+                    } else if (tempMsg.getAnswer() != null) {
+                        if ((ZhiChiConstant.message_type_pic + "").equals(tempMsg.getAnswer().getMsgType())) {
+                            lastMsg = ResourceUtils.getResString(context, "sobot_upload");
                         } else {
-                            if (GsonUtil.isMultiRoundSession(tempMsg)) {
-                                lastMsg = tempMsg.getAnswer().getMultiDiaRespInfo().getAnswer();
-                            } else {
-                                if (GsonUtil.isMultiRoundSession(tempMsg)) {
-                                    lastMsg = tempMsg.getAnswer().getMultiDiaRespInfo().getAnswer();
+                            if (tempMsg.getAnswer().getMsg() == null) {
+                                if ((ZhiChiConstant.message_type_card + "").equals(tempMsg.getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_goods");
+                                } else if ((ZhiChiConstant.message_type_ordercard + "").equals(tempMsg.getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_card");
+                                } else if ((ZhiChiConstant.message_type_video + "").equals(tempMsg.getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_upload_video");
+                                } else if ((ZhiChiConstant.message_type_file + "").equals(tempMsg.getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_choose_file");
                                 } else {
-                                    lastMsg = tempMsg.getAnswer().getMsg();
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_other_msg");
                                 }
+                            } else {
+                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_rich_text");
                             }
-
                         }
                     }
+                    sobotMsgCenterModel.setLastMsg(lastMsg);
+                    sobotMsgCenterModel.setLastDate(DateUtil.toDate(Long.parseLong(!TextUtils.isEmpty(tempMsg.getT()) ? tempMsg.getT() : Calendar.getInstance().getTime().getTime() + ""), DateUtil.DATE_FORMAT));
+                    sobotMsgCenterModel.setLastDateTime(!TextUtils.isEmpty(tempMsg.getT()) ? tempMsg.getT() : Calendar.getInstance().getTime().getTime() + "");
+                    break;
                 }
-                sobotMsgCenterModel.setLastMsg(lastMsg);
-                sobotMsgCenterModel.setLastDate(DateUtil.toDate(Long.parseLong(!TextUtils.isEmpty(tempMsg.getT()) ? tempMsg.getT() : Calendar.getInstance().getTime().getTime() + ""), DateUtil.DATE_FORMAT));
-                sobotMsgCenterModel.setLastDateTime(!TextUtils.isEmpty(tempMsg.getT()) ? tempMsg.getT() : Calendar.getInstance().getTime().getTime() + "");
-                break;
-            }
-            sobotCache.put(SobotMsgManager.getMsgCenterDataKey(appkey, info.getPartnerid()), sobotMsgCenterModel);
+                sobotCache.put(SobotMsgManager.getMsgCenterDataKey(appkey, info.getPartnerid()), sobotMsgCenterModel);
 
-            ArrayList<String> msgDatas = (ArrayList<String>) sobotCache.getAsObject(SobotMsgManager.getMsgCenterListKey(info.getPartnerid()));
-            if (msgDatas == null) {
-                msgDatas = new ArrayList<String>();
-            }
-            if (!msgDatas.contains(appkey)) {
-                msgDatas.add(appkey);
-                sobotCache.put(SobotMsgManager.getMsgCenterListKey(info.getPartnerid()), msgDatas);
-            }
-            SharedPreferencesUtil.removeKey(context, ZhiChiConstant.SOBOT_CURRENT_IM_APPID);
-            Intent lastMsgIntent = new Intent(ZhiChiConstant.SOBOT_ACTION_UPDATE_LAST_MSG);
-            lastMsgIntent.putExtra("lastMsg", sobotMsgCenterModel);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(lastMsgIntent);
+                ArrayList<String> msgDatas = (ArrayList<String>) sobotCache.getAsObject(SobotMsgManager.getMsgCenterListKey(info.getPartnerid()));
+                if (msgDatas == null) {
+                    msgDatas = new ArrayList<String>();
+                }
+                if (!msgDatas.contains(appkey)) {
+                    msgDatas.add(appkey);
+                    sobotCache.put(SobotMsgManager.getMsgCenterListKey(info.getPartnerid()), msgDatas);
+                }
+                SharedPreferencesUtil.removeKey(context, ZhiChiConstant.SOBOT_CURRENT_IM_APPID);
+                Intent lastMsgIntent = new Intent(ZhiChiConstant.SOBOT_ACTION_UPDATE_LAST_MSG);
+                lastMsgIntent.putExtra("lastMsg", sobotMsgCenterModel);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(lastMsgIntent);
 
-            SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LAST_MSG_CONTENT, sobotMsgCenterModel.getLastMsg());
+                SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LAST_MSG_CONTENT, sobotMsgCenterModel.getLastMsg());
+            }
+        } catch (Exception e) {
+            //
         }
-
     }
 
     public static void sendMultiRoundQuestions(Context context, SobotMultiDiaRespInfo multiDiaRespInfo, Map<String, String> interfaceRet, SobotMsgAdapter.SobotMsgCallBack msgCallBack) {

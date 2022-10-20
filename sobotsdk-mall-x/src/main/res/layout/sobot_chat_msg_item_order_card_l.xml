@@ -49,7 +49,7 @@
 
             <RelativeLayout
                 android:id="@+id/sobot_rl_hollow_container"
-                style="@style/sobot_msg_file_left_content_ll_bg_style"
+                style="@style/sobot_msg_file_left_content_ll_bg_right_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

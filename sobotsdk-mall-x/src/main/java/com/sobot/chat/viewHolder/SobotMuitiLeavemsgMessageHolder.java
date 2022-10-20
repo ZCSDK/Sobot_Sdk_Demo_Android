@@ -64,15 +64,19 @@ public class SobotMuitiLeavemsgMessageHolder extends MessageHolderBase implement
 
 
     private void setMsgContent(final Context context, final ZhiChiMessageBase message) {
-        LinearLayout.LayoutParams wlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        wlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 8), 0, 0);
         sobot_text_ll.removeAllViews();
         if (!TextUtils.isEmpty(message.getAnswer().getMsg())) {
             String[] arr = message.getAnswer().getMsg().split("\n");
             for (int i = 0; i < arr.length; i++) {
                 TextView textView = new TextView(mContext);
                 textView.setTextSize(14);
+                LinearLayout.LayoutParams wlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                if (i != 0) {
+                    wlayoutParams.setMargins(0, ScreenUtils.dip2px(context, 8), 0, 0);
+                }else{
+                    wlayoutParams.setMargins(0, 0, 0, 0);
+                }
                 textView.setLayoutParams(wlayoutParams);
 
                 sobot_text_ll.addView(textView);

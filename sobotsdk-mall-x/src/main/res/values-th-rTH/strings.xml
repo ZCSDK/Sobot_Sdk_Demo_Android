@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">โปรแกรมขนาดเล็ก</string>
        <string name="sobot_mini_program_only_open_by_weixin">โปรแกรมขนาดเล็กเท่านั้นที่สามารถเปิดได้ผ่านทางไมโครจดหมาย</string>
        <string name="sobot_parsing">ในการวิเคราะห์</string>
+       <string name="sobot_keep_queuing">เข้าแถวต่อไป</string>
+       <string name="sobot_keep_queuing_string">ถ้ารอต่อไปให้คลิก</string>
 </resources>

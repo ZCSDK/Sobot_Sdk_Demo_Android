@@ -227,7 +227,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         //关于webview的http和https的混合请求的，从Android5.0开始，WebView默认不支持同时加载Https和Http混合模式。
         // 在API>=21的版本上面默认是关闭的，在21以下就是默认开启的，直接导致了在高版本上面http请求不能正确跳转。
         if (Build.VERSION.SDK_INT >= 21) {
-            mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
 
         //Android 4.4 以下的系统中存在一共三个有远程代码执行漏洞的隐藏接口

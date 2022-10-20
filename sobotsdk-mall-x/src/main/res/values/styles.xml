@@ -402,7 +402,7 @@
         <item name="android:paddingBottom">15dp</item>
     </style>
 
-    <!--文件消息左侧气泡背景 空心边框-->
+    <!--文件消息左侧气泡背景-->
     <style name="sobot_msg_file_left_content_ll_bg_style">
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginLeft">12dp</item>
@@ -413,6 +413,21 @@
         <item name="android:paddingRight">15dp</item>
         <item name="android:paddingBottom">15dp</item>
     </style>
+
+    <!--文件消息左侧气泡背景 空心边框-->
+    <style name="sobot_msg_file_left_content_ll_bg_right_style">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:background">@drawable/sobot_chat_msg_hollow_bg_left</item>
+        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:layout_marginEnd">60dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+
 
     <!-- PagerSlidingTab -->
     <declare-styleable name="sobot_PagerSlidingTab">

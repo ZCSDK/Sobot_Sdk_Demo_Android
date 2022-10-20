@@ -28,7 +28,7 @@ public class SobotCameraActivity extends SobotBaseActivity {
     private static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
     private static final String EXTRA_IMAGE_FILE_PATH = "EXTRA_IMAGE_FILE_PATH";
     private static final String EXTRA_VIDEO_FILE_PATH = "EXTRA_VIDEO_FILE_PATH";
-    private static final int RESULT_CODE = 103;
+    public static final int RESULT_CODE = 103;
 
     public static final int ACTION_TYPE_PHOTO = 0;
     public static final int ACTION_TYPE_VIDEO = 1;

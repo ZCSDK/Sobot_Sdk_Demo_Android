@@ -64,7 +64,14 @@ public class RemindMessageHolder extends MessageHolderBase {
                 center_Remind_Info1.setVisibility(View.GONE);
                 center_Remind_Info2.setVisibility(View.VISIBLE);
                 HtmlTools.getInstance(context).setRichText(center_Remind_Info2, message
-                        .getAnswer().getMsg(), ResourceUtils.getIdByName(context, "color", "sobot_color_link_remind"));
+                        .getAnswer().getMsg(), ResourceUtils.getIdByName(context, "color", "sobot_color"));
+            }else if (message.getAnswer().getRemindType() == ZhiChiConstant.sobot_remind_type_keep_queuing_tip) {
+                rl_not_read.setVisibility(View.GONE);
+                center_Remind_Info.setVisibility(View.GONE);
+                center_Remind_Info1.setVisibility(View.GONE);
+                center_Remind_Info2.setVisibility(View.VISIBLE);
+                HtmlTools.getInstance(context).setRichText(center_Remind_Info2, message
+                        .getAnswer().getMsg(), ResourceUtils.getIdByName(context, "color", "sobot_color"));
             } else {
                 rl_not_read.setVisibility(View.GONE);
                 center_Remind_Info2.setVisibility(View.GONE);

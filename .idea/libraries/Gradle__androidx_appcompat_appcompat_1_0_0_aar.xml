@@ -9,8 +9,6 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7da5175ced9b09a57e16ef51d811240/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat/1.0.0/1deaac9c124b19a14ebaf64780e7087d561541bd/appcompat-1.0.0-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

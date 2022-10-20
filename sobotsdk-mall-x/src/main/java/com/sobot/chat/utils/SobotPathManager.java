@@ -27,8 +27,8 @@ public class SobotPathManager {
     private SobotPathManager(Context context) {
         if (context != null) {
             mContext = context.getApplicationContext();
-        }else{
-            mContext= MyApplication.getInstance().getLastActivity();
+        } else {
+            mContext = MyApplication.getInstance().getLastActivity();
         }
     }
 
@@ -45,6 +45,19 @@ public class SobotPathManager {
         return instance;
     }
 
+    /**
+     * 检测Sdcard是否存在
+     *
+     * @return
+     */
+    public static boolean isExitsSdcard() {
+        if (android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED))
+            return true;
+        else
+            return false;
+    }
+
     public String getRootDir() {
         if (mRootPath == null) {
             String packageName = mContext != null ? mContext.getPackageName() : "";
@@ -53,42 +66,70 @@ public class SobotPathManager {
         return mRootPath;
     }
 
-    //sdcard/download/xxxx/video
     public String getVideoDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
-            return getRootDir() + File.separator + VIDEO_DIR + File.separator;
+        String path;
+        if (isExitsSdcard()) {
+            //SD卡已装入
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                path = getRootDir() + File.separator + VIDEO_DIR + File.separator;
+            } else {
+                path = mContext.getExternalFilesDir(Environment.DIRECTORY_MOVIES).getPath() + File.separator;
+            }
         } else {
-            return mContext.getExternalFilesDir(Environment.DIRECTORY_MOVIES).getPath() + File.separator;
+            //外部存储不可用
+            path = mContext.getFilesDir().getPath() + File.separator + "sobot" + File.separator + VIDEO_DIR + File.separator;
         }
+        return path;
     }
 
-    //sdcard/download/xxxx/voice
     public String getVoiceDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
-            return getRootDir() + File.separator + VOICE_DIR + File.separator;
+        String path;
+        if (isExitsSdcard()) {
+            //SD卡已装入
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                path = getRootDir() + File.separator + VOICE_DIR + File.separator;
+            } else {
+                path = mContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getPath() + File.separator;
+            }
         } else {
-            return mContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getPath() + File.separator;
+            //外部存储不可用
+            path = mContext.getFilesDir().getPath() + File.separator + "sobot" + File.separator + VOICE_DIR + File.separator;
         }
-
+        return path;
     }
 
-    //sdcard/download/xxxx/pic
     public String getPicDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
-            return getRootDir() + File.separator + PIC_DIR + File.separator;
+        String path;
+        if (isExitsSdcard()) {
+            //SD卡已装入
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                path = getRootDir() + File.separator + PIC_DIR + File.separator;
+            } else {
+                path = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath() + File.separator;
+            }
         } else {
-            return mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath() + File.separator;
+            //外部存储不可用
+            path = mContext.getFilesDir().getPath() + File.separator + "sobot" + File.separator + PIC_DIR + File.separator;
         }
+        return path;
 
     }
 
     //sdcard/download/xxxx/cache
     public String getCacheDir() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
-            return getRootDir() + File.separator + CACHE_DIR + File.separator;
+        String path;
+        if (isExitsSdcard()) {
+            //SD卡已装入
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                path = getRootDir() + File.separator + CACHE_DIR + File.separator;
+            } else {
+                path = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator;
+            }
         } else {
-            return mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator + CACHE_DIR + File.separator;
+            //外部存储不可用
+            path = mContext.getFilesDir().getPath() + File.separator + "sobot" + File.separator + CACHE_DIR + File.separator;
         }
+        return path;
 
     }
 

@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">소절차</string>
        <string name="sobot_mini_program_only_open_by_weixin">작은 프로그램은 위챗으로만 열 수 있습니다</string>
        <string name="sobot_parsing">해석 중...</string>
+       <string name="sobot_keep_queuing">계속 대기열</string>
+       <string name="sobot_keep_queuing_string">계속 기다리면 클릭</string>
 </resources>

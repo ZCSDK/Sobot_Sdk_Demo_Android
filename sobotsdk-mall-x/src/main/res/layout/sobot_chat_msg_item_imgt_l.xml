@@ -20,36 +20,36 @@
         <com.sobot.chat.widget.SobotImageView
             android:id="@+id/sobot_imgHead"
             style="@style/sobot_chatting_imghead"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:visibility="gone"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone" />
 
         <!-- 昵称 -->
         <TextView
             android:id="@+id/sobot_name"
             style="@style/sobot_chatting_nickname"
+            android:layout_toEndOf="@+id/sobot_imgHead"
             android:layout_toRightOf="@+id/sobot_imgHead"
-            android:visibility="gone"
-            android:layout_toEndOf="@+id/sobot_imgHead" />
+            android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/sobot_ll_content"
-            style="@style/sobot_msg_left_content_ll_bg_no_padding_style"
+            android:id="@+id/sobot_rl_root"
+            style="@style/sobot_msg_file_left_content_ll_bg_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/sobot_name"
             android:layout_gravity="start"
+            android:layout_toEndOf="@+id/sobot_imgHead"
             android:layout_toRightOf="@+id/sobot_imgHead"
             android:orientation="vertical"
-            android:layout_toEndOf="@+id/sobot_imgHead">
+            android:padding="0dp">
 
             <RelativeLayout
                 android:id="@+id/sobot_rl_real_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
 
                 <!--客服发送的单张图片显示控件-->
                 <com.sobot.chat.widget.image.SobotRCImageView
@@ -60,33 +60,53 @@
                     android:scaleType="centerCrop"
                     android:visibility="gone"
                     app:sobot_round_corner_bottom_left="4dp"
-                    app:sobot_round_corner_top_left="16dp"
                     app:sobot_round_corner_bottom_right="16dp"
-                    app:sobot_round_corner_top_right="16dp"
-                     />
+                    app:sobot_round_corner_top_left="16dp"
+                    app:sobot_round_corner_top_right="16dp" />
 
                 <TextView
                     android:id="@+id/sobot_pic_isgif"
                     android:layout_width="20dp"
                     android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/sobot_color"
                     android:layout_centerInParent="true"
+                    android:background="@color/sobot_color"
                     android:gravity="center"
                     android:text="gif"
                     android:textSize="10sp"
-                    android:visibility="gone"
-                    android:layout_alignParentEnd="true" />
-
+                    android:visibility="gone" />
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/sobot_stripe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="15dp"
+                android:gravity="start"
+                android:textColor="@color/sobot_left_msg_text_color"
+                android:textSize="@dimen/sobot_robot_msg_text_size"
+                android:visibility="gone" />
+
+            <!-- 机器人回复中有1、2、3这样的多选答案 -->
+            <LinearLayout
+                android:id="@+id/sobot_answersList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical"
+                android:visibility="gone" />
         </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/sobot_right_empty_rl"
             style="@style/sobot_msg_right_empty_bg_style"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/sobot_ll_content"
+            android:layout_toRightOf="@id/sobot_rl_root"
             android:gravity="bottom|center_vertical"
             android:visibility="gone">
 
@@ -104,9 +124,9 @@
                     android:id="@+id/sobot_tv_likeBtn"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:drawableStart="@drawable/sobot_evaluate_btn_yes_selector"
                     android:drawableLeft="@drawable/sobot_evaluate_btn_yes_selector"
-                    android:gravity="center"
-                    android:drawableStart="@drawable/sobot_evaluate_btn_yes_selector" />
+                    android:gravity="center" />
 
             </LinearLayout>
 
@@ -125,50 +145,51 @@
                     android:id="@+id/sobot_tv_dislikeBtn"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:drawableStart="@drawable/sobot_evaluate_btn_no_selector"
                     android:drawableLeft="@drawable/sobot_evaluate_btn_no_selector"
-                    android:gravity="center"
-                    android:drawableStart="@drawable/sobot_evaluate_btn_no_selector" />
+                    android:gravity="center" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/sobot_chat_more_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sobot_ll"
+        android:layout_alignStart="@id/sobot_ll"
         android:layout_alignLeft="@id/sobot_ll"
+        android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_marginStart="12dp"
-        android:layout_alignStart="@id/sobot_ll">
+        android:visibility="gone">
 
 
         <LinearLayout
             android:id="@+id/sobot_ll_transferBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
             android:background="@drawable/sobot_chat_msg_transfer_hollow_bg"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
 
             <TextView
                 android:id="@+id/sobot_tv_transferBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:drawableStart="@drawable/sobot_transfer"
                 android:drawableLeft="@drawable/sobot_transfer"
                 android:drawablePadding="10dp"
                 android:gravity="center"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:textColor="@color/sobot_common_gray1"
-                android:paddingEnd="14dp"
                 android:paddingStart="14dp"
-                android:drawableStart="@drawable/sobot_transfer" />
+                android:paddingLeft="14dp"
+                android:paddingEnd="14dp"
+                android:paddingRight="14dp"
+                android:textColor="@color/sobot_common_gray1" />
 
         </LinearLayout>
 

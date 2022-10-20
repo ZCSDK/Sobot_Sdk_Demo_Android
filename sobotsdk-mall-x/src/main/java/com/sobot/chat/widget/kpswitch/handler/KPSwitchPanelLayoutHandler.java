@@ -121,7 +121,7 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
     /**
      * Handle Panel -> Keyboard.
      * <p/>
-     * Process the {@link View#onMeasure(int, int)} for handling the case of Panel->Keyboard.
+     * Process the {@link View# onMeasure(int, int)} for handling the case of Panel->Keyboard.
      *
      * @return the processed measure-width-spec and measure-height-spec.
      * @see #handleHide()
@@ -172,12 +172,15 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
     @Override
     public void handleHide() {
         this.mIsHide = true;
+        if (panelLayout != null) {
+            panelLayout.setVisibility(View.GONE);
+        }
     }
 
     /**
      * @param recommendPanelHeight the recommend panel height, in the most situations, the value
      *                             would be equal to the height of the keyboard.
-     * @see com.sobot.chat.widget.kpswitch.util.KeyboardUtil#getValidPanelHeight(Context)
+     * @see com.sobot.chat.widget.kpswitch.util.KeyboardUtil# getValidPanelHeight( Context)
      */
     public void resetToRecommendPanelHeight(int recommendPanelHeight) {
         if (mIgnoreRecommendHeight) {

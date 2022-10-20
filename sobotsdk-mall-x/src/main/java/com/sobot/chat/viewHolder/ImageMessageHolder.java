@@ -2,6 +2,7 @@ package com.sobot.chat.viewHolder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,8 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.adapter.SobotMsgAdapter;
+import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
+import com.sobot.chat.utils.ChatUtils;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
@@ -21,11 +25,16 @@ import com.sobot.chat.widget.RoundProgressBar;
 import com.sobot.chat.widget.image.SobotRCImageView;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
+import java.util.ArrayList;
+
 /**
  * 图片消息
  * Created by jinxl on 2017/3/17.
  */
 public class ImageMessageHolder extends MessageHolderBase {
+    private TextView stripe;
+    private LinearLayout answersList;
+    private RelativeLayout sobot_rl_real_pic;
     SobotRCImageView image;
     ImageView pic_send_status;
     public ProgressBar pic_progress;
@@ -53,7 +62,14 @@ public class ImageMessageHolder extends MessageHolderBase {
                         "sobot_pic_progress"));
         sobot_pic_progress_round = (RoundProgressBar) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_pic_progress_round"));
-
+        stripe = (TextView) convertView.findViewById(ResourceUtils
+                .getIdByName(context, "id", "sobot_stripe"));
+        answersList = (LinearLayout) convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_answersList"));
+        sobot_rl_real_pic= (RelativeLayout) convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_rl_real_pic"));
         sobot_pic_progress_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_pic_progress_rl"));
         sobot_right_empty_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_right_empty_rl"));
         sobot_chat_more_action = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_chat_more_action"));
@@ -92,6 +108,25 @@ public class ImageMessageHolder extends MessageHolderBase {
                 sobot_pic_progress_rl.setVisibility(View.GONE);
             }
         }else{
+            if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
+                resetAnswersList();
+                if (stripe != null) {
+                    // 回复语的答复
+                    String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
+                    if (!TextUtils.isEmpty(stripeContent)) {
+                        //去掉p标签
+                        stripeContent = stripeContent.replace("<p>", "").replace("</p>", "");
+                        // 设置提醒的内容
+                        stripe.setVisibility(View.VISIBLE);
+                        HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());
+                    } else {
+                        stripe.setText(null);
+                        stripe.setVisibility(View.GONE);
+                    }
+                }
+            } else {
+                answersList.setVisibility(View.GONE);
+            }
             refreshItem();
             checkShowTransferBtn();
         }
@@ -104,6 +139,66 @@ public class ImageMessageHolder extends MessageHolderBase {
 //        }
         SobotBitmapUtil.display(context, message.getAnswer().getMsg(), image);
         image.setOnClickListener(new ImageClickLisenter(context,message.getAnswer().getMsg(), isRight));
+    }
+
+    //设置问题列表
+    private void resetAnswersList() {
+        if (message == null) {
+            return;
+        }
+        if (message.getListSuggestions() != null && message.getListSuggestions().size() > 0) {
+            ArrayList<Suggestions> listSuggestions = message.getListSuggestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            int startNum = 0;
+            int endNum = listSuggestions.size();
+            if (message.isGuideGroupFlag() && message.getGuideGroupNum() > -1) {//有分组且不是全部
+                startNum = message.getCurrentPageNum() * message.getGuideGroupNum();
+                endNum = Math.min(startNum + message.getGuideGroupNum(), listSuggestions.size());
+            }
+            for (int i = startNum; i < endNum; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, false);
+                int currentItem = i + 1;
+                answer.setOnClickListener(new RichTextMessageHolder.AnsWerClickLisenter(mContext, null,
+                        listSuggestions.get(i).getQuestion(), null, listSuggestions.get(i).getDocId(), msgCallBack));
+                String tempStr = processPrefix(message, currentItem) + listSuggestions.get(i).getQuestion();
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        } else {
+            String[] answerStringList = message.getSugguestions();
+            answersList.removeAllViews();
+            answersList.setVisibility(View.VISIBLE);
+            for (int i = 0; i < answerStringList.length; i++) {
+                TextView answer = ChatUtils.initAnswerItemTextView(mContext, true);
+                int currentItem = i + 1;
+                String tempStr = processPrefix(message, currentItem) + answerStringList[i];
+                answer.setText(tempStr);
+                answersList.addView(answer);
+            }
+        }
+        resetMaxWidth();
+    }
+
+    private int msgMaxWidth;//气泡最大宽度
+
+    private void resetMaxWidth() {
+        //102=左间距12+内间距30+右间距60
+        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        if (answersList != null) {
+            ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
+            layoutParams.width = msgMaxWidth;
+            answersList.setLayoutParams(layoutParams);
+        }
+        if (stripe != null) {
+            ViewGroup.LayoutParams stripelayoutParams = stripe.getLayoutParams();
+            stripelayoutParams.width = msgMaxWidth;
+            stripe.setLayoutParams(stripelayoutParams);
+        }
+        if (sobot_rl_real_pic != null) {
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) sobot_rl_real_pic.getLayoutParams();
+            lp.setMargins(ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 15), 0);
+        }
     }
 
     // 图片的重新发送监听

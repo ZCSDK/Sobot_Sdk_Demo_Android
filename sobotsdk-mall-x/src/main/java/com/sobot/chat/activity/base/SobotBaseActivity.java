@@ -35,6 +35,7 @@ import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.api.ZhiChiApi;
+import com.sobot.chat.api.apiUtils.SobotBaseUrl;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.SobotMsgManager;
@@ -91,6 +92,13 @@ public abstract class SobotBaseActivity extends FragmentActivity {
         }
 
         setContentView(getContentViewResId());
+        try {
+            String host = SharedPreferencesUtil.getStringData(getSobotBaseContext(), ZhiChiConstant.SOBOT_SAVE_HOST_AFTER_INITSDK, SobotBaseUrl.getApi_Host());
+            if (!host.equals(SobotBaseUrl.getApi_Host())) {
+                SobotBaseUrl.setApi_Host(host);
+            }
+        } catch (Exception e) {
+        }
         int sobot_status_bar_color = getStatusBarColor();
         if (sobot_status_bar_color != 0) {
             try {
@@ -612,33 +620,6 @@ public abstract class SobotBaseActivity extends FragmentActivity {
         // 打开拍摄页面
         startActivityForResult(SobotCameraActivity.newIntent(getSobotBaseContext()), REQUEST_CODE_CAMERA);
     }
-
-    /**
-     * 调用系统相机拍照
-     */
-    public void selectPicFromCameraBySys() {
-        if (!CommonUtils.isExitsSdcard()) {
-            ToastUtil.showCustomToast(getSobotBaseActivity(), getResString("sobot_sdcard_does_not_exist"),
-                    Toast.LENGTH_SHORT);
-            return;
-        }
-        permissionListener = new PermissionListenerImpl() {
-            @Override
-            public void onPermissionSuccessListener() {
-                if (isCameraCanUse()) {
-                    cameraFile = ChatUtils.openCamera(getSobotBaseActivity());
-                }
-            }
-        };
-        if (checkIsShowPermissionPop(getResString("sobot_camera"), getResString("sobot_camera_yongtu"), 3)) {
-            return;
-        }
-        if (!checkCameraPermission()) {
-            return;
-        }
-        cameraFile = ChatUtils.openCamera(getSobotBaseActivity());
-    }
-
 
     /**
      * 从图库获取图片

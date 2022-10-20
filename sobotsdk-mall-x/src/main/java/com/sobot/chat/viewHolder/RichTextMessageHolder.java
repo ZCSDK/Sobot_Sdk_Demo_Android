@@ -3,6 +3,7 @@ package com.sobot.chat.viewHolder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import androidx.core.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -13,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.activity.SobotFileDetailActivity;
 import com.sobot.chat.activity.SobotVideoActivity;
@@ -206,9 +205,11 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     }
 
     private void resetMaxWidth() {
-        ViewGroup.LayoutParams layoutParams = sobot_ll_content.getLayoutParams();
-        layoutParams.width = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 72);
-        sobot_ll_content.setLayoutParams(layoutParams);
+        if (sobot_ll_content != null) {
+            ViewGroup.LayoutParams layoutParams = sobot_ll_content.getLayoutParams();
+            layoutParams.width = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 72);
+            sobot_ll_content.setLayoutParams(layoutParams);
+        }
     }
 
     private void resetMinWidth() {
@@ -218,10 +219,15 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     }
 
     private void checkShowTransferBtn() {
-        if (message.isShowTransferBtn()) {
+        if (message.getTransferType() == 4) {
+            //4 多次命中 显示转人工
             showTransferBtn();
         } else {
-            hideTransferBtn();
+            if (message.isShowTransferBtn()) {
+                showTransferBtn();
+            } else {
+                hideTransferBtn();
+            }
         }
     }
 
@@ -674,10 +680,6 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
             }
             sobot_rich_ll.setVisibility(View.VISIBLE);
             msg.setVisibility(View.GONE);
-            LinearLayout.LayoutParams contentlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            contentlayoutParams.leftMargin = ScreenUtils.dip2px(context, 12);
-            sobot_ll_content.setLayoutParams(contentlayoutParams);
         } else {
             sobot_rich_ll.setVisibility(View.GONE);
             if (message.getAnswer() != null && !TextUtils.isEmpty(message.getAnswer().getMsg())) {
@@ -698,11 +700,4 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
         }
     }
 
-    private String processPrefix(final ZhiChiMessageBase message, int num) {
-        if (message != null && message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null
-                && message.getAnswer().getMultiDiaRespInfo().getIcLists() != null) {
-            return "•";
-        }
-        return num + ".";
-    }
 }

@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.model.Information;
+import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
+import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.model.SobotDemoOtherModel;
@@ -121,6 +123,7 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
                 SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
             }
             ToastUtil.showToast(getContext(), "已保存");
+            SharedPreferencesUtil.saveBooleanData(this, ZhiChiConstant.SOBOT_CONFIG_INITSDK, false);
             finish();
         }
 

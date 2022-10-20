@@ -21,6 +21,7 @@ import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.VersionUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.chat.viewHolder.ArticleMessageHolder;
 import com.sobot.chat.viewHolder.CardMessageHolder;
 import com.sobot.chat.viewHolder.ConsultMessageHolder;
 import com.sobot.chat.viewHolder.CusEvaluateMessageHolder;
@@ -90,7 +91,8 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             "sobot_chat_msg_item_system_tip",//防诈骗系统消息的布局文件
             "sobot_chat_msg_item_video_l",//小视频左边的布局文件
             "sobot_chat_msg_item_muiti_leave_msg",//小视频左边的布局文件
-            "sobot_chat_msg_item_mini_program_card_l"//订单卡片左侧消息
+            "sobot_chat_msg_item_mini_program_card_l",//小程序卡片左侧消息
+            "sobot_chat_msg_item_article_card_l"//文章卡片左侧消息
     };
 
     /**
@@ -230,9 +232,14 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     public static final int MSG_TYPE_MUITI_LEAVE_MSG_R = 31;
 
     /**
-     * 小程序卡片左侧侧消息
+     * 小程序卡片左侧消息
      */
     public static final int MSG_TYPE_MINIPROGRAM_CARD_L = 32;
+
+    /**
+     * 文章卡片左侧消息
+     */
+    public static final int MSG_TYPE_ARTICLE_CARD_L = 33;
 
 
     private SobotMsgCallBack mMsgCallBack;
@@ -286,6 +293,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         removeByAction(message, ZhiChiConstant.action_remind_connt_success, ZhiChiConstant
                 .action_remind_info_zhuanrengong, false);
 
+        //  转人工后移除继续排队的提示语消息
+        removeByAction(message, ZhiChiConstant.action_remind_connt_success, ZhiChiConstant
+                .action_remind_keep_queuing, false);
+
         if (message.getAction() != null && message.getAction().equals(ZhiChiConstant.action_remind_past_time)
                 && message.getAnswer() != null && ZhiChiConstant.sobot_remind_type_outline == message.getAnswer().getRemindType()) {
             for (int i = 0; i < list.size(); i++) {
@@ -321,6 +332,8 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                         zhiChiMessageBase.setShowTransferBtn(false);
                         //只有最后一个显示关联问题
                         zhiChiMessageBase.setSugguestions(null);
+                        zhiChiMessageBase.setListSuggestions(null);
+                        zhiChiMessageBase.setStripe("");
                     }
                     list.add(zhiChiMessageBase);
                 }
@@ -348,6 +361,22 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                         list.remove(i);
                         message.setShake(isShake);
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * 删除已有的数据
+     *
+     * @param when    当前数据类型（action）=when时   才进行删除操作
+     */
+    public void removeByAction(String when) {
+        //倒叙判断，然后删
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (list.get(i).getAction() != null) {
+                if (list.get(i).getAction().equals(when)) {
+                    list.remove(i);
                 }
             }
         }
@@ -638,6 +667,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                     holder = new MiniProgramMessageHolder(context, convertView);
                     break;
                 }
+                case MSG_TYPE_ARTICLE_CARD_L: {
+                    holder = new ArticleMessageHolder(context, convertView);
+                    break;
+                }
                 default: {
                     holder = new TextMessageHolder(context, convertView);
                     break;
@@ -866,6 +899,8 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                         }
                     } else if (ZhiChiConstant.message_type_muiti_leave_msg.equals(message.getAnswer().getMsgType())) {
                         return MSG_TYPE_MUITI_LEAVE_MSG_R;
+                    }else if (ZhiChiConstant.message_type_article_card_msg.equals(message.getAnswer().getMsgType())) {
+                        return MSG_TYPE_ARTICLE_CARD_L;
                     }
                 } else {
                     return MSG_TYPE_ILLEGAL;

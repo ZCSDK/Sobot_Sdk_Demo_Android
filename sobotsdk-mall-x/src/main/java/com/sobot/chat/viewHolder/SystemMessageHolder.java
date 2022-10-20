@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sobot.chat.api.model.ZhiChiMessageBase;
+import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 
@@ -26,7 +27,8 @@ public class SystemMessageHolder extends MessageHolderBase {
 
         if (!TextUtils.isEmpty(message.getMsg())) {
             center_Remind_Info.setVisibility(View.VISIBLE);
-            center_Remind_Info.setText(message.getMsg());
+            HtmlTools.getInstance(context).setRichText(center_Remind_Info,message.getMsg(),ResourceUtils.getIdByName
+                    (context, "color", "sobot_color_link_remind"));
         }
     }
 }

@@ -40,6 +40,14 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         ZCSobotApi.setShowDebug(true);
+        SobotDemoOtherModel otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(this, "sobot_demo_otherModel");
+        if (otherModel == null) {
+            SobotSPUtil.saveObject(this, "sobot_demo_otherModel", new SobotDemoOtherModel());
+        } else {
+            if (!TextUtils.isEmpty(otherModel.getApi_host())) {
+                SobotBaseUrl.setApi_Host(otherModel.getApi_host());
+            }
+        }
         Information information = (Information) SobotSPUtil.getObject(this, "sobot_demo_infomation");
         if (information == null) {
             SobotSPUtil.saveObject(this, "sobot_demo_infomation", new Information());
@@ -50,15 +58,6 @@ public class App extends Application {
                 return;
             }
             ZCSobotApi.initSobotSDK(this, information.getApp_key(), information.getPartnerid());
-        }
-
-        SobotDemoOtherModel otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(this, "sobot_demo_otherModel");
-        if (otherModel == null) {
-            SobotSPUtil.saveObject(this, "sobot_demo_otherModel", new SobotDemoOtherModel());
-        } else {
-            if (!TextUtils.isEmpty(otherModel.getApi_host())) {
-                SobotBaseUrl.setApi_Host(otherModel.getApi_host());
-            }
         }
 
         //是否在申请权限前弹出权限用途提示框,默认不弹

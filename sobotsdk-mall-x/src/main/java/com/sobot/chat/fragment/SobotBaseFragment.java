@@ -448,33 +448,6 @@ public abstract class SobotBaseFragment extends Fragment {
     }
 
     /**
-     * 调用系统相机拍照
-     */
-    public void selectPicFromCameraBySys() {
-        if (!CommonUtils.isExitsSdcard()) {
-            ToastUtil.showCustomToast(getSobotActivity(), getResString("sobot_sdcard_does_not_exist"),
-                    Toast.LENGTH_SHORT);
-            return;
-        }
-        permissionListener = new PermissionListenerImpl() {
-            @Override
-            public void onPermissionSuccessListener() {
-                if (isCameraCanUse()) {
-                    cameraFile = ChatUtils.openCamera(getSobotActivity(), getSobotBaseFragment());
-                }
-            }
-        };
-        if (checkIsShowPermissionPop(getResString("sobot_camera"), getResString("sobot_camera_yongtu"), 3)) {
-            return;
-        }
-        if (!checkCameraPermission()) {
-            return;
-        }
-        cameraFile = ChatUtils.openCamera(getSobotActivity(), this);
-    }
-
-
-    /**
      * 从图库获取图片
      */
     public void selectPicFromLocal() {

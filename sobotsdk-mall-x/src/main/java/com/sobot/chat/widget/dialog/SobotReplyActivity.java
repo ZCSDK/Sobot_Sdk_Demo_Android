@@ -1,5 +1,7 @@
 package com.sobot.chat.widget.dialog;
 
+import static com.sobot.chat.fragment.SobotBaseFragment.REQUEST_CODE_CAMERA;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
+import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.activity.SobotVideoActivity;
 import com.sobot.chat.activity.base.SobotDialogBaseActivity;
@@ -40,7 +43,6 @@ import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
 import com.sobot.chat.utils.ChatUtils;
-import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.CustomToast;
 import com.sobot.chat.utils.FastClickUtils;
 import com.sobot.chat.utils.ImageUtils;
@@ -345,23 +347,8 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
             menuWindow.dismiss();
             if (v.getId() == getResId("btn_take_photo")) {
                 LogUtils.i("拍照");
-                if (!CommonUtils.isExitsSdcard()) {
-                    ToastUtil.showCustomToast(SobotReplyActivity.this, getResString("sobot_sdcard_does_not_exist"),
-                            Toast.LENGTH_SHORT);
-                    return;
-                }
-                permissionListener = new PermissionListenerImpl() {
-                    @Override
-                    public void onPermissionSuccessListener() {
-                        if (isCameraCanUse()) {
-                            cameraFile = ChatUtils.openCamera(SobotReplyActivity.this);
-                        }
-                    }
-                };
-                if (!checkCameraPermission()) {
-                    return;
-                }
-                cameraFile = ChatUtils.openCamera(SobotReplyActivity.this);
+                selectPicFromCamera();
+
             }
             if (v.getId() == getResId("btn_pick_photo")) {
                 LogUtils.i("选择照片");
@@ -474,6 +461,29 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                     showHint(getResString("sobot_pic_select_again"));
                 }
             }
+        }else if(resultCode == SobotCameraActivity.RESULT_CODE){
+            if (requestCode == REQUEST_CODE_CAMERA) {
+                int actionType = SobotCameraActivity.getActionType(data);
+                if (actionType == SobotCameraActivity.ACTION_TYPE_VIDEO) {
+                    File videoFile = new File(SobotCameraActivity.getSelectedVideo(data));
+                    if (videoFile.exists()) {
+                        cameraFile = videoFile;
+                        SobotDialogUtils.startProgressDialog(SobotReplyActivity.this);
+                        sendFileListener.onSuccess(videoFile.getAbsolutePath());
+                    } else {
+                        showHint(getResString("sobot_pic_select_again"));
+                    }
+                } else {
+                    File tmpPic = new File(SobotCameraActivity.getSelectedImage(data));
+                    if (tmpPic.exists()) {
+                        cameraFile = tmpPic;
+                        SobotDialogUtils.startProgressDialog(SobotReplyActivity.this);
+                        ChatUtils.sendPicByFilePath(SobotReplyActivity.this, tmpPic.getAbsolutePath(), sendFileListener, true);
+                    } else {
+                        showHint(getResString("sobot_pic_select_again"));
+                    }
+                }
+            }
         }
 
     }
@@ -502,7 +512,8 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                 @Override
                 public void onFailure(Exception e, String des) {
                     SobotDialogUtils.stopProgressDialog(SobotReplyActivity.this);
-                    showHint(ResourceUtils.getResString(SobotReplyActivity.this, "sobot_net_work_err"));
+                    showHint(TextUtils.isEmpty(des) ? ResourceUtils.getResString(getSobotBaseActivity(), "sobot_net_work_err") : des);
+
                 }
 
                 @Override

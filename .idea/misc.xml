@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="sobotsdk-mall-x/src/main/res/layout/sobot_chat_msg_item_mini_program_card_l.xml" value="0.1" />
         <entry key="sobotsdkdemo/src/main/res/layout/sobot_custom_title_activity.xml" value="0.13168516649848638" />
         <entry key="sobotsdkdemo/src/main/res/layout/sobot_demo_base_func_activity.xml" value="0.14673913043478262" />
         <entry key="sobotsdkdemo/src/main/res/layout/sobot_demo_duolun_func_activity.xml" value="0.25" />
@@ -10,7 +11,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">小程式</string>
        <string name="sobot_mini_program_only_open_by_weixin">小程式只能通過微信打開</string>
        <string name="sobot_parsing">解析中…</string>
+       <string name="sobot_keep_queuing">繼續排隊</string>
+       <string name="sobot_keep_queuing_string">如果繼續等待，點擊</string>
 </resources>

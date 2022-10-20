@@ -38,8 +38,9 @@ public class MediaFileUtils {
     public static final int FILE_TYPE_3GPP = 23;
     public static final int FILE_TYPE_3GPP2 = 24;
     public static final int FILE_TYPE_WMV = 25;
+    public static final int FILE_TYPE_AVI = 26;
     private static final int FIRST_VIDEO_FILE_TYPE = FILE_TYPE_MP4;
-    private static final int LAST_VIDEO_FILE_TYPE = FILE_TYPE_WMV;
+    private static final int LAST_VIDEO_FILE_TYPE = FILE_TYPE_AVI;
 
     // Image file types
     public static final int FILE_TYPE_JPEG = 31;

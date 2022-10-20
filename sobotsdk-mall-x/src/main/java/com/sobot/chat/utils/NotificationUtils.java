@@ -89,8 +89,15 @@ public class NotificationUtils {
             detailIntent.putExtras(bundle);
         }
         detailIntent.setPackage(context.getPackageName());
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 0,
-                detailIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = null;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            // Create a PendingIntent using FLAG_IMMUTABLE
+            pendingIntent2 = PendingIntent.getBroadcast(context, 0,
+                    detailIntent, PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent2 = PendingIntent.getBroadcast(context, 0,
+                    detailIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         int smallicon = SharedPreferencesUtil.getIntData(context, ZhiChiConstant
                 .SOBOT_NOTIFICATION_SMALL_ICON, ResourceUtils.getIdByName(context, "drawable", "sobot_logo_small_icon"));
         int largeicon = SharedPreferencesUtil.getIntData(context, ZhiChiConstant

@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.activity.SobotPostCascadeActivity;
 import com.sobot.chat.activity.SobotPostCategoryActivity;
@@ -817,7 +818,8 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                 @Override
                 public void onFailure(Exception e, String des) {
                     SobotDialogUtils.stopProgressDialog(getSobotActivity());
-                    showHint(ResourceUtils.getResString(getSobotActivity(), "sobot_net_work_err"));
+                    showHint(TextUtils.isEmpty(des) ? ResourceUtils.getResString(getSobotActivity(), "sobot_net_work_err") : des);
+
                 }
 
                 @Override
@@ -903,6 +905,29 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                     showHint(getResString("sobot_pic_select_again"));
                 }
             }
+        }else if(resultCode == SobotCameraActivity.RESULT_CODE){
+            if (requestCode == REQUEST_CODE_CAMERA) {
+                int actionType = SobotCameraActivity.getActionType(data);
+                if (actionType == SobotCameraActivity.ACTION_TYPE_VIDEO) {
+                    File videoFile = new File(SobotCameraActivity.getSelectedVideo(data));
+                    if (videoFile.exists()) {
+                        cameraFile = videoFile;
+                        SobotDialogUtils.startProgressDialog(getSobotActivity());
+                        sendFileListener.onSuccess(videoFile.getAbsolutePath());
+                    } else {
+                        showHint(getResString("sobot_pic_select_again"));
+                    }
+                } else {
+                    File tmpPic = new File(SobotCameraActivity.getSelectedImage(data));
+                    if (tmpPic.exists()) {
+                        cameraFile = tmpPic;
+                        SobotDialogUtils.startProgressDialog(getSobotActivity());
+                        ChatUtils.sendPicByFilePath(getSobotActivity(), tmpPic.getAbsolutePath(), sendFileListener, true);
+                    } else {
+                        showHint(getResString("sobot_pic_select_again"));
+                    }
+                }
+            }
         }
         StCusFieldPresenter.onStCusFieldActivityResult(getSobotActivity(), data, mFields, sobot_post_customer_field);
         if (data != null) {
@@ -938,7 +963,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             menuWindow.dismiss();
             if (v.getId() == getResId("btn_take_photo")) {
                 LogUtils.i("拍照");
-                selectPicFromCameraBySys();
+                selectPicFromCamera();
             }
             if (v.getId() == getResId("btn_pick_photo")) {
                 LogUtils.i("选择照片");

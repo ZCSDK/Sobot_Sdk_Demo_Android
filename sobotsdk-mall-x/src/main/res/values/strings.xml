@@ -223,7 +223,7 @@
 
     <!-- 2.8.7 新增-->
     <string name="sobot_do_you_delete_video">要删除这个视频吗?</string>
-    <string name="sobot_outline_leavemsg">您的留言已经提交成功，此会话已结束，如需继续咨询可点击下方 重建会话 按钮。</string>
+    <string name="sobot_outline_leavemsg">您的留言已经提交成功，此会话已结束，如需继续咨询可点击下方 重建会话 按钮。</string>
 
     <!-- 2.9.0 新增-->
     <string name="sobot_previous_page">上一页</string>
@@ -265,4 +265,7 @@
     <string name="sobot_mini_program">小程序</string>
     <string name="sobot_mini_program_only_open_by_weixin">小程序只能通过微信打开</string>
     <string name="sobot_parsing">解析中...</string>
+    <!-- 3.1.5 新增-->
+    <string name="sobot_keep_queuing">继续排队</string>
+    <string name="sobot_keep_queuing_string">如果继续等待，点击</string>
 </resources>

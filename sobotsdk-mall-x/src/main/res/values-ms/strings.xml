@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">Aplet</string>
        <string name="sobot_mini_program_only_open_by_weixin">Aplet hanya boleh dibuka melalui wechat</string>
        <string name="sobot_parsing">Menghurai</string>
+       <string name="sobot_keep_queuing">Teruskan berturut-turut</string>
+       <string name="sobot_keep_queuing_string">Jika anda terus menunggu, klik</string>
 </resources>

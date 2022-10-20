@@ -46,21 +46,25 @@ import com.sobot.chat.widget.kpswitch.IPanelHeightTarget;
 public class KeyboardUtil {
 
     public static void showKeyboard(final View view) {
-        view.requestFocus();
-        InputMethodManager inputManager =
-                (InputMethodManager) view.getContext().getSystemService(
-                        Context.INPUT_METHOD_SERVICE);
-        inputManager.showSoftInput(view, 0);
+        if (view != null && view.getContext() != null) {
+            view.requestFocus();
+            InputMethodManager inputManager =
+                    (InputMethodManager) view.getContext().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(view, 0);
+        }
     }
 
     public static void hideKeyboard(final View view) {
         if (view == null) {
             return;
         }
-        InputMethodManager imm =
-                (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (view != null && view.getContext() != null) {
+            InputMethodManager imm =
+                    (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 
@@ -153,7 +157,7 @@ public class KeyboardUtil {
 
 
     /**
-     * Recommend invoked by {@link Activity#onCreate(Bundle)}
+     * Recommend invoked by {@link Activity# onCreate(Bundle)}
      * For align the height of the keyboard to {@code target} as much as possible.
      * For save the refresh the keyboard height to shared-preferences.
      *

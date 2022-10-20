@@ -227,4 +227,6 @@
        <string name="sobot_mini_program">Аплет </string>
        <string name="sobot_mini_program_only_open_by_weixin">малая программа может быть открыта только через микрописьмо</string>
        <string name="sobot_parsing">анализ...</string>
+       <string name="sobot_keep_queuing">продолжайте стоять в очереди</string>
+       <string name="sobot_keep_queuing_string">если ждать, нажмите</string>
 </resources>

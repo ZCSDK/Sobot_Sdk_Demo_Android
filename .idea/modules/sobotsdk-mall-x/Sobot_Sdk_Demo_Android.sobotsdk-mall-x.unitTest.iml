@@ -26,8 +26,8 @@
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/testDebug" />
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.4.jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture:1.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.6.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture_x:1.1.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:net:1.1.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsdk-imageloader:2.0@aar" level="project" />
