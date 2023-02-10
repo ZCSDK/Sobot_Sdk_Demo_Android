@@ -1012,14 +1012,26 @@ public class ChatUtils {
                         return;
                     }
                 }
-                listener.onSuccess(filePath);
+                long size = CommonUtils.getFileSize(filePath);
+                if (size < (50 * 1024 * 1024)) {
+                    listener.onSuccess(filePath);
+                } else {
+                    ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_file_upload_failed"));
+                    listener.onError();
+                }
             } else {
                 ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
                 listener.onError();
             }
         } else {
             if (!TextUtils.isEmpty(filePath)) {
-                listener.onSuccess(filePath);
+                long size = CommonUtils.getFileSize(filePath);
+                if (size < (50 * 1024 * 1024)) {
+                    listener.onSuccess(filePath);
+                } else {
+                    ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_file_upload_failed"));
+                    listener.onError();
+                }
             } else {
                 ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
                 listener.onError();

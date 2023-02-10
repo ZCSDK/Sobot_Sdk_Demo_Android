@@ -229,4 +229,6 @@
        <string name="sobot_parsing">해석 중...</string>
        <string name="sobot_keep_queuing">계속 대기열</string>
        <string name="sobot_keep_queuing_string">계속 기다리면 클릭</string>
+       <string name="sobot_ding">꼭대기</string>
+       <string name="sobot_cai">밟다</string>
 </resources>

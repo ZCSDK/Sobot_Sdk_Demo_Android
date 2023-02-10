@@ -164,12 +164,14 @@
     <style name="sobot_rb_evaluate_style">
         <item name="android:textColor">@drawable/sobot_btn_text_color_selector</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/sobot_evaluate_yes_no_bg_2</item>
         <item name="android:button">@null</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingRight">20dp</item>
     </style>
 

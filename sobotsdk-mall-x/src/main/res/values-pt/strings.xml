@@ -229,4 +229,6 @@
        <string name="sobot_parsing">Analisar</string>
        <string name="sobot_keep_queuing">Continue na fila</string>
        <string name="sobot_keep_queuing_string">Se continuar a esperar, clique</string>
+       <string name="sobot_ding">topo</string>
+       <string name="sobot_cai">passo em frente</string>
 </resources>

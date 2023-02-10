@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.sobot.chat.R;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.ScreenUtils;
 
 import java.util.Locale;
 
@@ -227,7 +228,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
         tab.setText(title);
         tab.setFocusable(true);
         tab.setGravity(Gravity.CENTER);
-        tab.setSingleLine();
+        tab.setMinHeight(ScreenUtils.dip2px(getContext(),44));
         tab.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
         tab.setOnClickListener(new OnClickListener() {
             @Override

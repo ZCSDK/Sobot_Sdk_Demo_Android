@@ -215,6 +215,36 @@ public abstract class SobotBaseFragment extends Fragment {
                                         permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
                                     }
                                 }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_IMAGES)) {
+                                permissionTitle = "sobot_no_write_external_storage_permission";
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_IMAGES) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VIDEO)) {
+                                permissionTitle = "sobot_no_write_external_storage_permission";
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_VIDEO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_AUDIO)) {
+                                permissionTitle = "sobot_no_write_external_storage_permission";
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_AUDIO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
+                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
+                                } else {
+                                    //调用权限失败
+                                    if (permissionListener != null) {
+                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
+                                    }
+                                }
                             }
                             return;
                         }
@@ -306,14 +336,46 @@ public abstract class SobotBaseFragment extends Fragment {
     /**
      * 检查存储权限
      *
+     * @param checkType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
      * @return true, 已经获取权限;false,没有权限,尝试获取
      */
-    protected boolean checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 29 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 29) {
-            //分区存储 从andrid10手机开始 TargetSdkVersion >= 29,不需要文件存储权限
-            return true;
-        }
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
+    protected boolean checkStoragePermission(int checkType) {
+        //如果是升级Android13之前就已经具有读写SDK的权限，那么升级到13之后，自己具有上述三个权限。
+        //如果是升级Android13之后新装的应用，并且targetSDK小于33，则申请READ_EXTERNAL_STORAGE权限时，会自动转化为对上述三个权限的申请，权限申请框只一个
+        //如果是升级Android13之后新装的应用，并且targetSDK大于等于33，则申请READ_EXTERNAL_STORAGE权限时会自动拒绝（同理WRITE_EXTERNAL_STORAGE也是一样）。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkType == 0) {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请图片权限
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                    return false;
+                }
+            } else if (checkType == 1) {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请视频权限
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_VIDEO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                    return false;
+                }
+            } else if (checkType == 2) {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请音频权限
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_AUDIO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                    return false;
+                }
+            } else {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请：图片权限 视频权限 音频权限
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_AUDIO, Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                    return false;
+                }
+            }
+        } else if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 //申请WRITE_EXTERNAL_STORAGE权限
@@ -335,14 +397,35 @@ public abstract class SobotBaseFragment extends Fragment {
     /**
      * 判断是否有存储卡权限
      *
+     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
      * @return true, 已经获取权限;false,没有权限
      */
-    protected boolean isHasStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 29 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 29) {
-            //分区存储 从andrid10手机开始 TargetSdkVersion >= 29,情况不需要文件存储权限
-            return true;
-        }
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
+    protected boolean isHasStoragePermission(int checkPermissionType) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkPermissionType == 0) {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            } else if (checkPermissionType == 1) {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            } else if (checkPermissionType == 2) {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            } else {
+                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        } else if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -435,7 +518,7 @@ public abstract class SobotBaseFragment extends Fragment {
             }
         };
 
-        if (checkIsShowPermissionPop(getResString("sobot_camera"), getResString("sobot_camera_yongtu"), 3)) {
+        if (checkIsShowPermissionPop(getResString("sobot_camera"), getResString("sobot_camera_yongtu"), 3, 3)) {
             return;
         }
 
@@ -457,13 +540,11 @@ public abstract class SobotBaseFragment extends Fragment {
                 ChatUtils.openSelectPic(getSobotActivity(), getSobotBaseFragment());
             }
         };
-        if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
-            if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1)) {
-                return;
-            }
-            if (!checkStoragePermission()) {
-                return;
-            }
+        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 0)) {
+            return;
+        }
+        if (!checkStoragePermission(0)) {
+            return;
         }
         ChatUtils.openSelectPic(getSobotActivity(), SobotBaseFragment.this);
     }
@@ -471,12 +552,13 @@ public abstract class SobotBaseFragment extends Fragment {
     /**
      * 判断是否有存储卡权限
      *
-     * @param type 1 存储卡;2 麦克风;3 相机;
+     * @param type                1 存储卡;2 麦克风;3 相机;
+     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
      * @return true, 已经获取权限;false,没有权限
      */
-    protected boolean isHasPermission(int type) {
+    protected boolean isHasPermission(int type, int checkPermissionType) {
         if (type == 1) {
-            return isHasStoragePermission();
+            return isHasStoragePermission(checkPermissionType);
         } else if (type == 2) {
             return isHasAudioPermission();
         } else if (type == 3) {
@@ -491,17 +573,18 @@ public abstract class SobotBaseFragment extends Fragment {
      * @param title
      * @param content
      * @param type
+     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
      * @return
      */
-    public boolean checkIsShowPermissionPop(String title, String content, final int type) {
+    public boolean checkIsShowPermissionPop(String title, String content, final int type, final int checkPermissionType) {
         if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-            if (!isHasPermission(type)) {
+            if (!isHasPermission(type, checkPermissionType)) {
                 SobotPermissionTipDialog dialog = new SobotPermissionTipDialog(activity, title, content, new SobotPermissionTipDialog.ClickViewListener() {
                     @Override
                     public void clickRightView(Context context, SobotPermissionTipDialog dialog) {
                         dialog.dismiss();
                         if (type == 1) {
-                            if (!checkStoragePermission()) {
+                            if (!checkStoragePermission(checkPermissionType)) {
                                 return;
                             }
                         } else if (type == 2) {
@@ -537,13 +620,11 @@ public abstract class SobotBaseFragment extends Fragment {
                 ChatUtils.openSelectVedio(getSobotActivity(), getSobotBaseFragment());
             }
         };
-        if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
-            if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1)) {
-                return;
-            }
-            if (!checkStoragePermission()) {
-                return;
-            }
+        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 1)) {
+            return;
+        }
+        if (!checkStoragePermission(1)) {
+            return;
         }
         ChatUtils.openSelectVedio(getSobotActivity(), SobotBaseFragment.this);
     }

@@ -105,7 +105,7 @@ public class SobotSikllAdapter extends RecyclerView.Adapter<SobotSikllAdapter.Vi
                     viewHolder.sobot_tv_group_name.setTextSize(12);
                     viewHolder.sobot_tv_group_name.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_common_gray2")));
                     if (msgFlag == ZhiChiConstant.sobot_msg_flag_open) {
-                        content = ResourceUtils.getResString(mContext, "sobot_no_access") + " " + ResourceUtils.getResString(mContext, "sobot_can") + "<font color='#0DAEAF'>" + ResourceUtils.getResString(mContext, "sobot_str_bottom_message") + "</a>";
+                        content = ResourceUtils.getResString(mContext, "sobot_no_access") + "，" + ResourceUtils.getResString(mContext, "sobot_can") + " <font color='#0DAEAF'>" + ResourceUtils.getResString(mContext, "sobot_str_bottom_message") + "</a>";
                     } else {
                         content = ResourceUtils.getResString(mContext, "sobot_no_access");
                     }

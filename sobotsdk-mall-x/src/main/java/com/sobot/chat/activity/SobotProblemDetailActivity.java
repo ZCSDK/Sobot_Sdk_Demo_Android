@@ -178,6 +178,10 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
             mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
 
+        //设置图片自适应屏幕
+        mWebView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小
+        mWebView.getSettings().setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
         //Android 4.4 以下的系统中存在一共三个有远程代码执行漏洞的隐藏接口
         mWebView.removeJavascriptInterface("searchBoxJavaBridge_");
         mWebView.removeJavascriptInterface("accessibility");
@@ -186,8 +190,6 @@ public class SobotProblemDetailActivity extends SobotBaseHelpCenterActivity impl
         // 应用可以有数据库
         mWebView.getSettings().setDatabaseEnabled(true);
 
-        // 应用可以有缓存
-        mWebView.getSettings().setAppCacheEnabled(true);
         //把html中的内容放大webview等宽的一列中
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.setWebViewClient(new WebViewClient() {

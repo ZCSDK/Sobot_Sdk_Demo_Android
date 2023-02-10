@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.api.model.SobotMultiDiaRespInfo;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.listener.NoDoubleClickListener;
@@ -127,23 +128,29 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
         if (sobot_tv_likeBtn == null ||
                 sobot_tv_dislikeBtn == null ||
                 sobot_ll_likeBtn == null ||
-                sobot_ll_dislikeBtn == null) {
+                sobot_ll_dislikeBtn == null || sobot_tv_bottom_likeBtn == null ||
+                sobot_tv_bottom_dislikeBtn == null ||
+                sobot_ll_bottom_likeBtn == null ||
+                sobot_ll_bottom_dislikeBtn == null) {
             return;
         }
-        //顶 踩的状态 0 不显示顶踩按钮  1显示顶踩 按钮  2 显示顶之后的view  3显示踩之后view
-        switch (message.getRevaluateState()) {
-            case 1:
-                showRevaluateBtn();
-                break;
-            case 2:
-                showLikeWordView();
-                break;
-            case 3:
-                showDislikeWordView();
-                break;
-            default:
-                hideRevaluateBtn();
-                break;
+        try {
+            //顶 踩的状态 0 不显示顶踩按钮  1显示顶踩 按钮  2 显示顶之后的view  3显示踩之后view
+            switch (message.getRevaluateState()) {
+                case 1:
+                    showRevaluateBtn();
+                    break;
+                case 2:
+                    showLikeWordView();
+                    break;
+                case 3:
+                    showDislikeWordView();
+                    break;
+                default:
+                    hideRevaluateBtn();
+                    break;
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -151,15 +158,40 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
      * 显示 顶踩 按钮
      */
     public void showRevaluateBtn() {
-        sobot_tv_likeBtn.setVisibility(View.VISIBLE);
-        sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_likeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
-        rightEmptyRL.setVisibility(View.VISIBLE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
+            rightEmptyRL.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_def));
+            sobot_ll_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_def));
+        } else {
+            sobot_tv_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_def));
+            sobot_ll_bottom_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_def));
+        }
         sobot_tv_likeBtn.setEnabled(true);
         sobot_tv_dislikeBtn.setEnabled(true);
         sobot_tv_likeBtn.setSelected(false);
         sobot_tv_dislikeBtn.setSelected(false);
+
+        sobot_tv_bottom_likeBtn.setEnabled(true);
+        sobot_tv_bottom_dislikeBtn.setEnabled(true);
+        sobot_tv_bottom_likeBtn.setSelected(false);
+        sobot_tv_bottom_dislikeBtn.setSelected(false);
+
         sobot_tv_likeBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -172,7 +204,21 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
                 doRevaluate(false);
             }
         });
+
+        sobot_tv_bottom_likeBtn.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                doRevaluate(true);
+            }
+        });
+        sobot_tv_bottom_dislikeBtn.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                doRevaluate(false);
+            }
+        });
     }
+
 
     /**
      * 顶踩 操作
@@ -180,7 +226,7 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
      * @param revaluateFlag true 顶  false 踩
      */
     private void doRevaluate(boolean revaluateFlag) {
-        if (msgCallBack != null && message != null) {
+        if (msgCallBack != null) {
             msgCallBack.doRevaluate(revaluateFlag, message);
         }
     }
@@ -192,37 +238,83 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
         sobot_tv_likeBtn.setVisibility(View.GONE);
         sobot_tv_dislikeBtn.setVisibility(View.GONE);
         sobot_ll_likeBtn.setVisibility(View.GONE);
-        sobot_ll_dislikeBtn.setVisibility(View.GONE);
         rightEmptyRL.setVisibility(View.GONE);
+        sobot_ll_dislikeBtn.setVisibility(View.GONE);
+        sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+        sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+        sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+        sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
     }
 
     /**
      * 显示顶之后的view
      */
     public void showLikeWordView() {
-        sobot_tv_likeBtn.setSelected(true);
-        sobot_tv_likeBtn.setEnabled(false);
-        sobot_tv_dislikeBtn.setEnabled(false);
-        sobot_tv_dislikeBtn.setSelected(false);
-        sobot_tv_likeBtn.setVisibility(View.VISIBLE);
-        sobot_tv_dislikeBtn.setVisibility(View.GONE);
-        sobot_ll_likeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_dislikeBtn.setVisibility(View.GONE);
-        rightEmptyRL.setVisibility(View.VISIBLE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_likeBtn.setSelected(true);
+            sobot_tv_likeBtn.setEnabled(false);
+            sobot_tv_dislikeBtn.setEnabled(false);
+            sobot_tv_dislikeBtn.setSelected(false);
+            sobot_tv_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.VISIBLE);
+            rightEmptyRL.setVisibility(View.VISIBLE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_sel));
+        } else {
+            sobot_tv_bottom_likeBtn.setSelected(true);
+            sobot_tv_bottom_likeBtn.setEnabled(false);
+            sobot_tv_bottom_dislikeBtn.setEnabled(false);
+            sobot_tv_bottom_dislikeBtn.setSelected(false);
+            sobot_tv_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_sel));
+        }
     }
 
     /**
      * 显示踩之后的view
      */
     public void showDislikeWordView() {
-        sobot_tv_dislikeBtn.setSelected(true);
-        sobot_tv_dislikeBtn.setEnabled(false);
-        sobot_tv_likeBtn.setEnabled(false);
-        sobot_tv_likeBtn.setSelected(false);
-        sobot_tv_likeBtn.setVisibility(View.GONE);
-        sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_likeBtn.setVisibility(View.GONE);
-        sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
-        rightEmptyRL.setVisibility(View.VISIBLE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_dislikeBtn.setSelected(true);
+            sobot_tv_dislikeBtn.setEnabled(false);
+            sobot_tv_likeBtn.setEnabled(false);
+            sobot_tv_likeBtn.setSelected(false);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
+            rightEmptyRL.setVisibility(View.VISIBLE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_sel));
+        } else {
+            sobot_tv_bottom_dislikeBtn.setSelected(true);
+            sobot_tv_bottom_dislikeBtn.setEnabled(false);
+            sobot_tv_bottom_likeBtn.setEnabled(false);
+            sobot_tv_bottom_likeBtn.setSelected(false);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_sel));
+        }
     }
 }

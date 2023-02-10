@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -483,28 +484,33 @@ public class GifView2 extends View implements View.OnTouchListener {
     }
 
     public void displayImage(String url, File saveFile, final GifView2 gifView) {
-        // 下载图片
-        HttpUtils.getInstance().download(url, saveFile, null, new HttpUtils.FileCallBack() {
+        if (TextUtils.isEmpty(url)){
+            return;
+        }
+        if (url.startsWith("http") || url.startsWith("https")) {
+            // 下载图片
+            HttpUtils.getInstance().download(url, saveFile, null, new HttpUtils.FileCallBack() {
 
-            @Override
-            public void onResponse(File file) {
-                LogUtils.i("down load onSuccess gif"
-                        + file.getAbsolutePath());
-                // 把图片文件打开为文件流，然后解码为bitmap
-                if (null!=loadFinishListener)
-                    loadFinishListener.endCallBack(file.getAbsolutePath());
-            }
+                @Override
+                public void onResponse(File file) {
+                    LogUtils.i("down load onSuccess gif"
+                            + file.getAbsolutePath());
+                    // 把图片文件打开为文件流，然后解码为bitmap
+                    if (null != loadFinishListener)
+                        loadFinishListener.endCallBack(file.getAbsolutePath());
+                }
 
-            @Override
-            public void onError(Exception e, String msg, int responseCode) {
-                LogUtils.w("图片下载失败:" + msg,e);
-            }
+                @Override
+                public void onError(Exception e, String msg, int responseCode) {
+                    LogUtils.w("图片下载失败:" + msg, e);
+                }
 
-            @Override
-            public void inProgress(int progress) {
-                //LogUtils.i("gif图片下载进度:" + progress);
-            }
-        });
+                @Override
+                public void inProgress(int progress) {
+                    //LogUtils.i("gif图片下载进度:" + progress);
+                }
+            });
+        }
     }
 
     public interface LoadFinishListener{

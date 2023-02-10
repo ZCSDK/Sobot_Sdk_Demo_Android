@@ -11,15 +11,16 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.widget.SobotAutoGridView;
 
 /**
  * @author Created by jinxl on 2018/7/31.
  */
 public class SobotPlusPageView extends RelativeLayout {
 
-    private GridView mGvView;
+    private SobotAutoGridView mGvView;
 
-    public GridView getGridView() {
+    public SobotAutoGridView getGridView() {
         return mGvView;
     }
 
@@ -34,7 +35,7 @@ public class SobotPlusPageView extends RelativeLayout {
             return;
         }
         View view = inflater.inflate(ResourceUtils.getIdByName(context,"layout","sobot_item_pluspage"), this);
-        mGvView = (GridView) view.findViewById(ResourceUtils.getIdByName(context,"id", "sobot_gv"));
+        mGvView = (SobotAutoGridView) view.findViewById(ResourceUtils.getIdByName(context,"id", "sobot_gv"));
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             mGvView.setMotionEventSplittingEnabled(false);

@@ -19,17 +19,19 @@
         <Button
             android:id="@+id/sobot_btn_take_photo"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_gray1"
+            android:padding="10dp"
             android:textSize="@dimen/sobot_text_font_normal" />
 
         <Button
             android:id="@+id/sobot_btn_scan_qr_code"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_gray1"
+            android:padding="10dp"
             android:textSize="@dimen/sobot_text_font_normal"
             android:visibility="gone" />
 
@@ -46,7 +48,8 @@
         <Button
             android:id="@+id/sobot_btn_cancel"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_gray1"
             android:textSize="@dimen/sobot_text_font_normal" />

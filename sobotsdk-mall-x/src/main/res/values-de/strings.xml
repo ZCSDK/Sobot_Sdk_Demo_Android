@@ -229,4 +229,6 @@
        <string name="sobot_parsing">Analyse</string>
        <string name="sobot_keep_queuing">Warten Sie weiter</string>
        <string name="sobot_keep_queuing_string">Wenn Sie weiter warten, klicken Sie auf</string>
+       <string name="sobot_ding">вершина </string>
+       <string name="sobot_cai">наступать</string>
 </resources>

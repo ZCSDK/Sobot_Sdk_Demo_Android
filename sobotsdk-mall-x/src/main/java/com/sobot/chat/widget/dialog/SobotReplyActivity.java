@@ -38,7 +38,6 @@ import com.sobot.chat.api.model.ZhiChiUploadAppFileModelResult;
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.core.HttpUtils;
-import com.sobot.chat.listener.PermissionListener;
 import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
@@ -83,8 +82,6 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
      */
     protected SobotDeleteWorkOrderDialog seleteMenuWindow;
 
-    //权限回调
-    public PermissionListener permissionListener;
     protected File cameraFile;
     private String mUid = "";
     private String mCompanyId = "";
@@ -294,10 +291,12 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                                 SobotReplyActivity.this.startActivity(intent);
                                 return;
                             }
-                            //如果返回true,拦截;false 不拦截
-                            boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(getSobotBaseContext(),TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
-                            if (isIntercept) {
-                                return;
+                            if(SobotOption.imagePreviewListener != null) {
+                                //如果返回true,拦截;false 不拦截
+                                boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(getSobotBaseContext(), TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
+                                if (isIntercept) {
+                                    return;
+                                }
                             }
                             Intent intent = new Intent(SobotReplyActivity.this, SobotPhotoActivity.class);
                             intent.putExtra("imageUrL", TextUtils.isEmpty(result.getFileLocalPath()) ? result.getFileUrl() : result.getFileLocalPath());
@@ -358,7 +357,10 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                         ChatUtils.openSelectPic(SobotReplyActivity.this);
                     }
                 };
-                if (!checkStoragePermission()) {
+                if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 0)) {
+                    return;
+                }
+                if (!checkStoragePermission(0)) {
                     return;
                 }
                 ChatUtils.openSelectPic(SobotReplyActivity.this);
@@ -371,7 +373,10 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                         ChatUtils.openSelectVedio(SobotReplyActivity.this, null);
                     }
                 };
-                if (!checkStoragePermission()) {
+                if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 1)) {
+                    return;
+                }
+                if (!checkStoragePermission(1)) {
                     return;
                 }
                 ChatUtils.openSelectVedio(SobotReplyActivity.this, null);

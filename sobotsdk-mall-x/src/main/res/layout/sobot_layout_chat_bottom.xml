@@ -17,22 +17,24 @@
             android:id="@+id/sobot_custom_menu_linearlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp" />
+            android:orientation="horizontal" />
 
     </HorizontalScrollView>
 
     <TextView
         android:id="@+id/send_voice_robot_hint"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:background="#ff858f9a"
+        android:breakStrategy="simple"
         android:gravity="center"
+        android:padding="6dp"
         android:textColor="@color/sobot_white"
         android:textSize="12sp"
         android:visibility="gone" />
@@ -48,12 +50,12 @@
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:orientation="horizontal"
+        android:paddingStart="12dp"
         android:paddingLeft="12dp"
         android:paddingTop="6dp"
+        android:paddingEnd="12dp"
         android:paddingRight="12dp"
-        android:paddingBottom="6dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:paddingBottom="6dp">
 
         <!-- 转人工按钮 -->
 
@@ -62,21 +64,21 @@
             android:layout_width="27dp"
             android:layout_height="32dp"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="2dp"
             android:background="@drawable/sobot_manualwork_button_selector"
-            android:visibility="gone"
-            android:layout_marginEnd="12dp" />
+            android:visibility="gone" />
 
         <View
             android:id="@+id/sobot_view_model_split"
             android:layout_width="1dp"
             android:layout_height="26dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:background="@color/sobot_line_1dp"
-            android:visibility="gone"
-            android:layout_marginEnd="12dp" />
+            android:visibility="gone" />
 
         <!--从语音模式转到编辑模式-->
         <ImageButton
@@ -84,11 +86,11 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/sobot_keyboard_button_selector"
-            android:visibility="gone"
-            android:layout_marginEnd="12dp" />
+            android:visibility="gone" />
 
         <!--从编辑模式转到语音模式-->
         <ImageButton
@@ -96,11 +98,11 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/sobot_vioce_button_selector"
-            android:visibility="gone"
-            android:layout_marginEnd="12dp" />
+            android:visibility="gone" />
         <!-- 按住说话  start -->
 
         <LinearLayout
@@ -140,33 +142,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
+                android:layout_toStartOf="@+id/sobot_btn_ll_emoticon_view"
                 android:layout_toLeftOf="@+id/sobot_btn_ll_emoticon_view"
                 android:layout_weight="1"
                 android:background="@null"
                 android:imeOptions="actionDone"
                 android:maxHeight="96dp"
+                android:maxLength="1000"
                 android:minHeight="36dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:maxLength="1000"
                 android:textColor="@color/sobot_color_bottom_msg_input_color"
                 android:textSize="14sp"
-                android:visibility="visible"
-                android:layout_toStartOf="@+id/sobot_btn_ll_emoticon_view"
-                android:layout_marginStart="12dp" />
+                android:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/sobot_btn_ll_emoticon_view"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_gravity="bottom"
+                android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
+                android:orientation="vertical">
                 <!-- 表情按钮 -->
                 <ImageButton
                     android:id="@+id/sobot_btn_emoticon_view"
@@ -181,9 +183,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
-            android:orientation="horizontal"
-            android:layout_marginStart="12dp">
+            android:orientation="horizontal">
             <!-- 文本输入   end -->
             <Button
                 android:id="@+id/sobot_btn_send"
@@ -192,6 +194,7 @@
                 android:background="@drawable/sobot_btn_sendmsg_selector"
                 android:gravity="center"
                 android:stateListAnimator="@null"
+                android:textAllCaps="false"
                 android:textColor="@color/sobot_common_white"
                 android:textSize="14sp"
                 android:visibility="visible" />
@@ -231,13 +234,13 @@
         android:id="@+id/sobot_ll_restart_talk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="12dp"
+        android:paddingEnd="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="12dp"
-        android:visibility="gone"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

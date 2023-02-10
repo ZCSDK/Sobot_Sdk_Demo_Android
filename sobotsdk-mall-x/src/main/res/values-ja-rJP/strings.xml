@@ -229,4 +229,6 @@
        <string name="sobot_parsing">解析中...</string>
        <string name="sobot_keep_queuing">待ち続ける</string>
        <string name="sobot_keep_queuing_string">待ち続ける場合は、</string>
+       <string name="sobot_ding">トップ</string>
+       <string name="sobot_cai">踏む</string>
 </resources>

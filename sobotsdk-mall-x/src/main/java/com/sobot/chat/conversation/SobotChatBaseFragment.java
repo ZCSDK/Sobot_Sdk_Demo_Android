@@ -9,6 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioAttributes;
+import android.media.AudioDeviceInfo;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
@@ -209,10 +210,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             CommonUtils.sendLocalBroadcast(mAppContext, new Intent(Const.SOBOT_CHAT_CHECK_CONNCHANNEL));
         }
         NotificationUtils.cancleAllNotification(mAppContext);
-
-        if (_sensorManager != null) {
-            _sensorManager.registerListener(this, mProximiny, SensorManager.SENSOR_DELAY_NORMAL);
-        }
     }
 
     protected void finish() {
@@ -447,7 +444,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     // 人与机械人进行聊天
     protected void sendHttpRobotMessage(final String msgId, String requestText,
                                         String uid, String cid, final Handler handler, int questionFlag, String question, String serverInternationalLanguage) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("adminId", info.getChoose_adminid());//指定客服
         params.put("tranFlag", info.getTranReceptionistFlag() + "");//是否必转该指定客服
         params.put("groupId", info.getGroupid());//指定技能组
@@ -503,7 +500,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                                 current_client_model = ZhiChiConstant.client_model_customService;
                             } else {
                                 // 机械人的回答语
-                                sendTextMessageToHandler(msgId, null,simpleMessage.getDesensitizationWord(), handler, 1, UPDATE_TEXT,0, "");
+                                sendTextMessageToHandler(msgId, null, simpleMessage.getDesensitizationWord(), handler, 1, UPDATE_TEXT, 0, "");
                                 isAboveZero = true;
                                 simpleMessage.setId(id);
                                 simpleMessage.setSenderName(initModel.getRobotName());
@@ -587,7 +584,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                         if (!TextUtils.isEmpty(mid)) {
                             isAboveZero = true;
                             // 当发送成功的时候更新ui界面
-                            sendTextMessageToHandler(mid, null,commonModelBase.getDesensitizationWord(), handler, 1, UPDATE_TEXT,0, "");
+                            sendTextMessageToHandler(mid, null, commonModelBase.getDesensitizationWord(), handler, 1, UPDATE_TEXT, 0, "");
                         }
                     }
                 }
@@ -872,7 +869,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
      */
     protected void sendTextMessageToHandler(String id, String msgContent,
                                             Handler handler, int isSendStatus, int updateStatus, int sentisive, String sentisiveExplain) {
-        sendTextMessageToHandler(id, msgContent,"",
+        sendTextMessageToHandler(id, msgContent, "",
                 handler, isSendStatus, updateStatus, sentisive, sentisiveExplain);
     }
 
@@ -885,7 +882,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
      * @param isSendStatus 0 失败  1成功  2 正在发送
      * @param updateStatus
      */
-    protected void sendTextMessageToHandler(String id, String msgContent,String desensitizationWord,
+    protected void sendTextMessageToHandler(String id, String msgContent, String desensitizationWord,
                                             Handler handler, int isSendStatus, int updateStatus, int sentisive, String sentisiveExplain) {
         ZhiChiMessageBase myMessage = new ZhiChiMessageBase();
         myMessage.setId(id);
@@ -1159,11 +1156,20 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     // 设置听筒模式或者是正常模式的转换
     public void initAudioManager() {
         if (audioManager == null)
-            audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+            audioManager = (AudioManager) getSobotActivity().getSystemService(Context.AUDIO_SERVICE);
         if (_sensorManager == null)
-            _sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+            _sensorManager = (SensorManager) getSobotActivity().getSystemService(Context.SENSOR_SERVICE);
+
         if (_sensorManager != null) {
             mProximiny = _sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            _sensorManager.registerListener(this, mProximiny, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if (audioManager != null) {
+            audioManager.setSpeakerphoneOn(true);// 打开扬声器
+            audioManager.setMode(AudioManager.MODE_NORMAL);
+            //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,
+                    audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM), AudioManager.FX_KEY_CLICK);
         }
         audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
             @Override
@@ -1247,41 +1253,62 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        /* 获取当前手机品牌 过滤掉小米手机 */
+        if (isHeadphonesPlugged()) {
+            // 如果耳机已插入，设置距离传感器失效
+//            ToastUtil.showToast(getSobotActivity(),"耳机模式");
+            return;
+        }
         try {
-            String phoneName = android.os.Build.MODEL.toLowerCase();
-//            LogUtils.i("当前手机品牌是" + phoneName);
-//            LogUtils.i("监听模式的转换：" + f_proximiny + " 听筒的模式：" + mProximiny.getMaximumRange());
-            if (!phoneName.contains("mi") && audioManager != null) {
-                // 当前传感器距离
-                float f_proximiny = event.values[0];
-                if (f_proximiny >= mProximiny.getMaximumRange()) {
-                    audioManager.setSpeakerphoneOn(true);// 打开扬声器
-                    audioManager.setMode(AudioManager.MODE_NORMAL);
+            // 当前传感器距离
+            float f_proximiny = event.values[0];
+            if (f_proximiny >= mProximiny.getMaximumRange()) {
+                audioManager.setSpeakerphoneOn(true);// 打开扬声器
+                audioManager.setMode(AudioManager.MODE_NORMAL);
+                //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+                audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,
+                        audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM), AudioManager.FX_KEY_CLICK);
+                LogUtils.i("监听模式的转换：" + "正常模式");
+            } else {
+                LogUtils.i("监听模式的转换：" + "听筒模式");
+                audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+                // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+                //5.0以上
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
                     //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
-                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,
-                            audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM), AudioManager.FX_KEY_CLICK);
-//                    LogUtils.i("监听模式的转换：" + "正常模式");
+                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                            audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
                 } else {
-                    audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-                    // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-                    //5.0以上
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-                        //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
-                        audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
-                                audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
-                    } else {
-                        audioManager.setMode(AudioManager.MODE_IN_CALL);
-                        //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
-                        audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
-                                audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
-                    }
-                    //LogUtils.i("监听模式的转换：" + "听筒模式");
+                    audioManager.setMode(AudioManager.MODE_IN_CALL);
+                    //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                            audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
                 }
             }
         } catch (Exception e) {
 //			e.printStackTrace();
+        }
+    }
+
+    /**
+     * 判断是否是耳机播放
+     */
+    private boolean isHeadphonesPlugged() {
+        if (audioManager == null) {
+            return false;
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            AudioDeviceInfo[] audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
+            for (AudioDeviceInfo deviceInfo : audioDevices) {
+                if (deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
+                        || deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET || deviceInfo.getType() == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP
+                        || deviceInfo.getType() == AudioDeviceInfo.TYPE_BLUETOOTH_SCO || deviceInfo.getType() == AudioDeviceInfo.TYPE_USB_HEADSET) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return audioManager.isWiredHeadsetOn();
         }
     }
 
@@ -1651,7 +1678,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     private void pollingMsg() {
         String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
         if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
-            pollingParams.put("platformUserId", uid);
+            pollingParams.put("platformUserId", CommonUtils.getPlatformUserId(getSobotActivity()));
         } else {
             pollingParams.put("uid", uid);
             pollingParams.put("puid", puid);
@@ -1711,7 +1738,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
         String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
         if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
-            pollingParams.put("platformUserId", uid);
+            pollingParams.put("platformUserId", CommonUtils.getPlatformUserId(getSobotActivity()));
         } else {
             pollingParams.put("uid", uid);
             pollingParams.put("puid", puid);

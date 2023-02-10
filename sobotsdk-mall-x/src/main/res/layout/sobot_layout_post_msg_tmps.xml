@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:sobot_mhv_HeightRatio="0.7">
+        app:sobot_mhv_HeightRatio="0.8">
 
 
         <RelativeLayout
@@ -66,7 +66,7 @@
             android:layout_height="0.4dp"
             android:background="@color/sobot_line_1dp" />
 
-        <GridView
+        <com.sobot.chat.widget.SobotAutoGridView
             android:id="@+id/sobot_gv"
             style="@style/sobot_grid_view"
             android:layout_height="wrap_content"
@@ -79,6 +79,7 @@
             android:paddingBottom="40dp"
             android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style"
             android:scrollbars="none"
-            android:verticalSpacing="20dp" />
+            android:verticalSpacing="20dp"
+            android:numColumns="2"/>
     </com.sobot.chat.widget.SobotMHLinearLayout>
 </LinearLayout>

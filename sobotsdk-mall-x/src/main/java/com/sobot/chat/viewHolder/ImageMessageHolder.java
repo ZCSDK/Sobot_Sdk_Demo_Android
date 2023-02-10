@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.Suggestions;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
@@ -43,12 +44,11 @@ public class ImageMessageHolder extends MessageHolderBase {
     RelativeLayout sobot_pic_progress_rl;
 
     private RelativeLayout sobot_right_empty_rl;//顶踩
-    private LinearLayout sobot_chat_more_action;//包含以下所有控件
     private LinearLayout sobot_ll_transferBtn;//只包含转人工按钮
     private TextView sobot_tv_transferBtn;//机器人转人工按钮
 
-    public ImageMessageHolder(Context context, View convertView){
-        super(context,convertView);
+    public ImageMessageHolder(Context context, View convertView) {
+        super(context, convertView);
         isGif = (TextView) convertView.findViewById(ResourceUtils
                 .getIdByName(context, "id", "sobot_pic_isgif"));
         image = (SobotRCImageView) convertView.findViewById(ResourceUtils
@@ -67,22 +67,21 @@ public class ImageMessageHolder extends MessageHolderBase {
         answersList = (LinearLayout) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id",
                         "sobot_answersList"));
-        sobot_rl_real_pic= (RelativeLayout) convertView
+        sobot_rl_real_pic = (RelativeLayout) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id",
                         "sobot_rl_real_pic"));
         sobot_pic_progress_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_pic_progress_rl"));
         sobot_right_empty_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_right_empty_rl"));
-        sobot_chat_more_action = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_chat_more_action"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
         sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
     }
 
     @Override
-    public void bindData(final Context context,final ZhiChiMessageBase message) {
+    public void bindData(final Context context, final ZhiChiMessageBase message) {
         isGif.setVisibility(View.GONE);
         image.setVisibility(View.VISIBLE);
-        if(isRight){
+        if (isRight) {
             sobot_pic_progress_round.setVisibility(View.GONE);
             sobot_pic_progress_rl.setVisibility(View.VISIBLE);
             if (ZhiChiConstant.MSG_SEND_STATUS_ERROR == message.getSendSuccessState()) {
@@ -91,8 +90,8 @@ public class ImageMessageHolder extends MessageHolderBase {
                 sobot_pic_progress_round.setVisibility(View.GONE);
                 sobot_pic_progress_rl.setVisibility(View.GONE);
                 // 点击重新发送按钮
-                pic_send_status.setOnClickListener(new RetrySendImageLisenter(context,message
-                        .getId(), message.getAnswer().getMsg(), pic_send_status,msgCallBack));
+                pic_send_status.setOnClickListener(new RetrySendImageLisenter(context, message
+                        .getId(), message.getAnswer().getMsg(), pic_send_status, msgCallBack));
             } else if (ZhiChiConstant.MSG_SEND_STATUS_SUCCESS == message.getSendSuccessState()) {
                 pic_send_status.setVisibility(View.GONE);
                 pic_progress.setVisibility(View.GONE);
@@ -107,7 +106,7 @@ public class ImageMessageHolder extends MessageHolderBase {
                 sobot_pic_progress_round.setVisibility(View.GONE);
                 sobot_pic_progress_rl.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
                 resetAnswersList();
                 if (stripe != null) {
@@ -138,7 +137,7 @@ public class ImageMessageHolder extends MessageHolderBase {
 //            isGif.setVisibility(View.GONE);
 //        }
         SobotBitmapUtil.display(context, message.getAnswer().getMsg(), image);
-        image.setOnClickListener(new ImageClickLisenter(context,message.getAnswer().getMsg(), isRight));
+        image.setOnClickListener(new ImageClickLisenter(context, message.getAnswer().getMsg(), isRight));
     }
 
     //设置问题列表
@@ -210,8 +209,8 @@ public class ImageMessageHolder extends MessageHolderBase {
         private Context context;
         SobotMsgAdapter.SobotMsgCallBack mMsgCallBack;
 
-        public RetrySendImageLisenter(final Context context,String id, String imageUrl,
-                                      ImageView image,final SobotMsgAdapter.SobotMsgCallBack msgCallBack) {
+        public RetrySendImageLisenter(final Context context, String id, String imageUrl,
+                                      ImageView image, final SobotMsgAdapter.SobotMsgCallBack msgCallBack) {
             super();
             this.id = id;
             this.imageUrl = imageUrl;
@@ -226,12 +225,12 @@ public class ImageMessageHolder extends MessageHolderBase {
             if (img != null) {
                 img.setClickable(false);
             }
-            showReSendPicDialog(context, imageUrl, id,img);
+            showReSendPicDialog(context, imageUrl, id, img);
         }
 
         private void showReSendPicDialog(final Context context, final String mimageUrl, final String mid, final ImageView msgStatus) {
 
-            showReSendDialog(context,msgStatus,new ReSendListener(){
+            showReSendDialog(context, msgStatus, new ReSendListener() {
 
                 @Override
                 public void onReSend() {
@@ -243,7 +242,7 @@ public class ImageMessageHolder extends MessageHolderBase {
                         msgObj.setContent(mimageUrl);
                         msgObj.setId(mid);
                         msgObj.setSendSuccessState(ZhiChiConstant.MSG_SEND_STATUS_LOADING);
-                        if(mMsgCallBack != null){
+                        if (mMsgCallBack != null) {
                             mMsgCallBack.sendMessageToRobot(msgObj, 3, 3, "");
                         }
                     }
@@ -251,6 +250,7 @@ public class ImageMessageHolder extends MessageHolderBase {
             });
         }
     }
+
     private void checkShowTransferBtn() {
         if (message.isShowTransferBtn()) {
             showTransferBtn();
@@ -261,9 +261,9 @@ public class ImageMessageHolder extends MessageHolderBase {
 
     private void hideContainer() {
         if (!message.isShowTransferBtn()) {
-            sobot_chat_more_action.setVisibility(View.GONE);
+            sobot_ll_transferBtn.setVisibility(View.GONE);
         } else {
-            sobot_chat_more_action.setVisibility(View.VISIBLE);
+            sobot_ll_transferBtn.setVisibility(View.VISIBLE);
         }
     }
 
@@ -283,7 +283,6 @@ public class ImageMessageHolder extends MessageHolderBase {
      * 显示转人工按钮
      */
     public void showTransferBtn() {
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_transferBtn.setVisibility(View.VISIBLE);
         sobot_ll_transferBtn.setVisibility(View.VISIBLE);
         if (message != null) {
@@ -305,23 +304,29 @@ public class ImageMessageHolder extends MessageHolderBase {
         if (sobot_tv_likeBtn == null ||
                 sobot_tv_dislikeBtn == null ||
                 sobot_ll_likeBtn == null ||
-                sobot_ll_dislikeBtn == null) {
+                sobot_ll_dislikeBtn == null || sobot_tv_bottom_likeBtn == null ||
+                sobot_tv_bottom_dislikeBtn == null ||
+                sobot_ll_bottom_likeBtn == null ||
+                sobot_ll_bottom_dislikeBtn == null) {
             return;
         }
-        //顶 踩的状态 0 不显示顶踩按钮  1显示顶踩 按钮  2 显示顶之后的view  3显示踩之后view
-        switch (message.getRevaluateState()) {
-            case 1:
-                showRevaluateBtn();
-                break;
-            case 2:
-                showLikeWordView();
-                break;
-            case 3:
-                showDislikeWordView();
-                break;
-            default:
-                hideRevaluateBtn();
-                break;
+        try {
+            //顶 踩的状态 0 不显示顶踩按钮  1显示顶踩 按钮  2 显示顶之后的view  3显示踩之后view
+            switch (message.getRevaluateState()) {
+                case 1:
+                    showRevaluateBtn();
+                    break;
+                case 2:
+                    showLikeWordView();
+                    break;
+                case 3:
+                    showDislikeWordView();
+                    break;
+                default:
+                    hideRevaluateBtn();
+                    break;
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -329,15 +334,40 @@ public class ImageMessageHolder extends MessageHolderBase {
      * 显示 顶踩 按钮
      */
     public void showRevaluateBtn() {
-        sobot_tv_likeBtn.setVisibility(View.VISIBLE);
-        sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_likeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_right_empty_rl.setVisibility(View.VISIBLE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_right_empty_rl.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_def));
+            sobot_ll_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_def));
+        } else {
+            sobot_tv_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_def));
+            sobot_ll_bottom_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_def));
+        }
         sobot_tv_likeBtn.setEnabled(true);
         sobot_tv_dislikeBtn.setEnabled(true);
         sobot_tv_likeBtn.setSelected(false);
         sobot_tv_dislikeBtn.setSelected(false);
+
+        sobot_tv_bottom_likeBtn.setEnabled(true);
+        sobot_tv_bottom_dislikeBtn.setEnabled(true);
+        sobot_tv_bottom_likeBtn.setSelected(false);
+        sobot_tv_bottom_dislikeBtn.setSelected(false);
+
         sobot_tv_likeBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -350,7 +380,21 @@ public class ImageMessageHolder extends MessageHolderBase {
                 doRevaluate(false);
             }
         });
+
+        sobot_tv_bottom_likeBtn.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                doRevaluate(true);
+            }
+        });
+        sobot_tv_bottom_dislikeBtn.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                doRevaluate(false);
+            }
+        });
     }
+
 
     /**
      * 顶踩 操作
@@ -373,35 +417,81 @@ public class ImageMessageHolder extends MessageHolderBase {
         sobot_ll_likeBtn.setVisibility(View.GONE);
         sobot_right_empty_rl.setVisibility(View.GONE);
         sobot_ll_dislikeBtn.setVisibility(View.GONE);
+        sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+        sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+        sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+        sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
     }
 
     /**
      * 显示顶之后的view
      */
     public void showLikeWordView() {
-        sobot_tv_likeBtn.setSelected(true);
-        sobot_tv_likeBtn.setEnabled(false);
-        sobot_tv_dislikeBtn.setEnabled(false);
-        sobot_tv_dislikeBtn.setSelected(false);
-        sobot_tv_likeBtn.setVisibility(View.VISIBLE);
-        sobot_tv_dislikeBtn.setVisibility(View.GONE);
-        sobot_ll_likeBtn.setVisibility(View.VISIBLE);
-        sobot_right_empty_rl.setVisibility(View.VISIBLE);
-        sobot_ll_dislikeBtn.setVisibility(View.GONE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_likeBtn.setSelected(true);
+            sobot_tv_likeBtn.setEnabled(false);
+            sobot_tv_dislikeBtn.setEnabled(false);
+            sobot_tv_dislikeBtn.setSelected(false);
+            sobot_tv_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.VISIBLE);
+            sobot_right_empty_rl.setVisibility(View.VISIBLE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_sel));
+        } else {
+            sobot_tv_bottom_likeBtn.setSelected(true);
+            sobot_tv_bottom_likeBtn.setEnabled(false);
+            sobot_tv_bottom_dislikeBtn.setEnabled(false);
+            sobot_tv_bottom_dislikeBtn.setSelected(false);
+            sobot_tv_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_sel));
+        }
     }
 
     /**
      * 显示踩之后的view
      */
     public void showDislikeWordView() {
-        sobot_tv_dislikeBtn.setSelected(true);
-        sobot_tv_dislikeBtn.setEnabled(false);
-        sobot_tv_likeBtn.setEnabled(false);
-        sobot_tv_likeBtn.setSelected(false);
-        sobot_tv_likeBtn.setVisibility(View.GONE);
-        sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_right_empty_rl.setVisibility(View.VISIBLE);
-        sobot_ll_likeBtn.setVisibility(View.GONE);
-        sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_dislikeBtn.setSelected(true);
+            sobot_tv_dislikeBtn.setEnabled(false);
+            sobot_tv_likeBtn.setEnabled(false);
+            sobot_tv_likeBtn.setSelected(false);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_right_empty_rl.setVisibility(View.VISIBLE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_sel));
+        } else {
+            sobot_tv_bottom_dislikeBtn.setSelected(true);
+            sobot_tv_bottom_dislikeBtn.setEnabled(false);
+            sobot_tv_bottom_likeBtn.setEnabled(false);
+            sobot_tv_bottom_likeBtn.setSelected(false);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_sel));
+        }
     }
 }

@@ -550,7 +550,9 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
     }
 
     public void showHint(String content) {
-        CustomToast.makeText(getSobotBaseActivity(), content, 1000).show();
+        if (!TextUtils.isEmpty(content)) {
+            CustomToast.makeText(getSobotBaseActivity(), content, 1000).show();
+        }
     }
 
     @Override
@@ -633,22 +635,27 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
         zhiChiApi.postMsg(SobotMuItiPostMsgActivty.this, postParam, new StringResultCallBack<CommonModelBase>() {
             @Override
             public void onSuccess(CommonModelBase base) {
-                if (Integer.parseInt(base.getStatus()) == 0) {
-                    showHint(base.getMsg());
-                } else if (Integer.parseInt(base.getStatus()) == 1) {
-                    if (getSobotBaseActivity() == null) {
-                        return;
+                try {
+                    if (Integer.parseInt(base.getStatus()) == 0) {
+                        showHint(base.getMsg());
+                    } else if (Integer.parseInt(base.getStatus()) == 1) {
+                        if (getSobotBaseActivity() == null) {
+                            return;
+                        }
+                        KeyboardUtil.hideKeyboard(getSobotBaseActivity().getCurrentFocus());
+                        Intent intent = new Intent();
+                        intent.setAction(ZhiChiConstants.SOBOT_CHAT_MUITILEAVEMSG_TO_CHATLIST);
+                        Bundle bundle = new Bundle();
+                        SobotSerializableMap sobotSerializableMap = new SobotSerializableMap();
+                        sobotSerializableMap.setMap(tempMap);
+                        bundle.putSerializable("leaveMsgData", sobotSerializableMap);
+                        intent.putExtras(bundle);
+                        CommonUtils.sendLocalBroadcast(getSobotBaseActivity(), intent);
+                        finish();
                     }
-                    KeyboardUtil.hideKeyboard(getSobotBaseActivity().getCurrentFocus());
-                    Intent intent = new Intent();
-                    intent.setAction(ZhiChiConstants.SOBOT_CHAT_MUITILEAVEMSG_TO_CHATLIST);
-                    Bundle bundle = new Bundle();
-                    SobotSerializableMap sobotSerializableMap = new SobotSerializableMap();
-                    sobotSerializableMap.setMap(tempMap);
-                    bundle.putSerializable("leaveMsgData", sobotSerializableMap);
-                    intent.putExtras(bundle);
-                    CommonUtils.sendLocalBroadcast(getSobotBaseActivity(), intent);
-                    finish();
+                } catch (Exception e) {
+                    showHint(base.getMsg());
+                    e.printStackTrace();
                 }
             }
 

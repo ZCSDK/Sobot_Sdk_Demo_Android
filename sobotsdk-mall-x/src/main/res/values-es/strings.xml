@@ -229,4 +229,6 @@
        <string name="sobot_parsing">Analizar...</string>
        <string name="sobot_keep_queuing">Sigue haciendo cola</string>
        <string name="sobot_keep_queuing_string">Si continúa esperando, haga clic en</string>
+       <string name="sobot_ding">Top</string>
+       <string name="sobot_cai">Pisotear</string>
 </resources>

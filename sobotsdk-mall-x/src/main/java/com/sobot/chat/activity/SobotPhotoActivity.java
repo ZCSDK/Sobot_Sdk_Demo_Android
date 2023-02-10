@@ -32,7 +32,6 @@ import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class SobotPhotoActivity extends Activity implements View.OnLongClickListener {
 
@@ -216,7 +215,6 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
                     w, h);
             sobot_image_view.setLayoutParams(layoutParams);
         } catch (Exception e) {
-            e.printStackTrace();
         }
         sobot_rl_gif.setVisibility(View.VISIBLE);
         sobot_rl_gif.setOnLongClickListener(gifLongClickListener);
@@ -242,30 +240,35 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
 
     public void displayImage(String url, File saveFile, final GifView2 gifView) {
         sobot_progress.setVisibility(View.VISIBLE);
-        // 下载图片
-        HttpUtils.getInstance().download(url, saveFile, null, new FileCallBack() {
+        if (TextUtils.isEmpty(url)){
+            return;
+        }
+        if (url.startsWith("http") || url.startsWith("https")) {
+            // 下载图片
+            HttpUtils.getInstance().download(url, saveFile, null, new FileCallBack() {
 
-            @Override
-            public void onResponse(File file) {
-                LogUtils.i("down load onSuccess gif"
-                        + file.getAbsolutePath());
-                // 把图片文件打开为文件流，然后解码为bitmap
-                showView(file.getAbsolutePath());
-                sobot_progress.setProgress(100);
-                sobot_progress.setVisibility(View.GONE);
-            }
+                @Override
+                public void onResponse(File file) {
+                    LogUtils.i("down load onSuccess gif"
+                            + file.getAbsolutePath());
+                    // 把图片文件打开为文件流，然后解码为bitmap
+                    showView(file.getAbsolutePath());
+                    sobot_progress.setProgress(100);
+                    sobot_progress.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onError(Exception e, String msg, int responseCode) {
-                LogUtils.w("图片下载失败:" + msg, e);
-            }
+                @Override
+                public void onError(Exception e, String msg, int responseCode) {
+                    LogUtils.w("图片下载失败:" + msg, e);
+                }
 
-            @Override
-            public void inProgress(int progress) {
-                //LogUtils.i("图片下载进度:" + progress);
-                sobot_progress.setProgress(progress);
-            }
-        });
+                @Override
+                public void inProgress(int progress) {
+                    //LogUtils.i("图片下载进度:" + progress);
+                    sobot_progress.setProgress(progress);
+                }
+            });
+        }
     }
 
     public File getFilesDir(Context context, String tag) {

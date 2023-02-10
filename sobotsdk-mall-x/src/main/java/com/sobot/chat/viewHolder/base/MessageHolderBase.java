@@ -16,14 +16,18 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
+import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
+import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.ReSendDialog;
 import com.sobot.chat.widget.SobotImageView;
 
@@ -57,11 +61,18 @@ public abstract class MessageHolderBase {
     protected TextView sobot_tv_likeBtn;//机器人评价 顶 的按钮
     protected TextView sobot_tv_dislikeBtn;//机器人评价 踩 的按钮
 
+    protected LinearLayout sobot_ll_bottom_likeBtn;
+    protected LinearLayout sobot_ll_bottom_dislikeBtn;
+    protected TextView sobot_tv_bottom_likeBtn;//气泡下边 机器人评价 顶 的按钮
+    protected TextView sobot_tv_bottom_dislikeBtn;//气泡下边 机器人评价 踩 的按钮
+
     private TextView msgContentTV; // 聊天的消息内容
 
     protected View mItemView;
 
     protected int msgMaxWidth;//气泡最大宽度
+
+    public static ZhiChiInitModeBase initMode;
 
     public MessageHolderBase(Context context, View convertView) {
         mItemView = convertView;
@@ -84,10 +95,17 @@ public abstract class MessageHolderBase {
         sobot_tv_dislikeBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_dislikeBtn"));
         msgContentTV = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msg"));
 
+        sobot_ll_bottom_likeBtn = convertView.findViewById(R.id.sobot_ll_bottom_likeBtn);
+        sobot_ll_bottom_dislikeBtn = convertView.findViewById(R.id.sobot_ll_bottom_dislikeBtn);
+        sobot_tv_bottom_likeBtn = convertView.findViewById(R.id.sobot_tv_bottom_likeBtn);
+        sobot_tv_bottom_dislikeBtn = convertView.findViewById(R.id.sobot_tv_bottom_dislikeBtn);
+
         sobot_chat_file_bgColor = ResourceUtils.getIdByName(mContext, "color", "sobot_chat_file_bgColor");
         applyCustomHeadUI();
         //102=左间距12+内间距30+右间距60
         msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
+        initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
+                ZhiChiConstant.sobot_last_current_initModel);
     }
 
     public abstract void bindData(Context context, final ZhiChiMessageBase message);
@@ -165,27 +183,27 @@ public abstract class MessageHolderBase {
             //文件类型气泡颜色特殊处理
             int filleContainerBgColor = SobotUIConfig.DEFAULT != SobotUIConfig.sobot_chat_file_bgColor
                     ? SobotUIConfig.sobot_chat_file_bgColor : sobot_chat_file_bgColor;
-            Drawable drawable1=sobot_rl_hollow_container.getBackground().mutate();
-            GradientDrawable drawable = null ;
-            if (drawable1 instanceof GradientDrawable){
-                drawable= (GradientDrawable) drawable1;
+            Drawable drawable1 = sobot_rl_hollow_container.getBackground().mutate();
+            GradientDrawable drawable = null;
+            if (drawable1 instanceof GradientDrawable) {
+                drawable = (GradientDrawable) drawable1;
             }
 
             if (drawable != null) {
-                drawable.setStroke(ScreenUtils.dip2px(mContext,1), mContext.getResources().getColor(filleContainerBgColor));
+                drawable.setStroke(ScreenUtils.dip2px(mContext, 1), mContext.getResources().getColor(filleContainerBgColor));
             }
         }
         if (sobot_ll_hollow_container != null && sobot_ll_hollow_container.getBackground() != null) {
             //文件类型气泡颜色特殊处理
             int filleContainerBgColor = SobotUIConfig.DEFAULT != SobotUIConfig.sobot_chat_file_bgColor
                     ? SobotUIConfig.sobot_chat_file_bgColor : sobot_chat_file_bgColor;
-            Drawable drawable1=sobot_ll_hollow_container.getBackground().mutate();
-            GradientDrawable drawable = null ;
-            if (drawable1 instanceof GradientDrawable){
-                drawable= (GradientDrawable) drawable1;
+            Drawable drawable1 = sobot_ll_hollow_container.getBackground().mutate();
+            GradientDrawable drawable = null;
+            if (drawable1 instanceof GradientDrawable) {
+                drawable = (GradientDrawable) drawable1;
             }
             if (drawable != null) {
-                drawable.setStroke(ScreenUtils.dip2px(mContext,1), mContext.getResources().getColor(filleContainerBgColor));
+                drawable.setStroke(ScreenUtils.dip2px(mContext, 1), mContext.getResources().getColor(filleContainerBgColor));
             }
         }
 
@@ -295,12 +313,12 @@ public abstract class MessageHolderBase {
         @Override
         public void onClick(View arg0) {
             if (TextUtils.isEmpty(imageUrl)) {
-                ToastUtil.showToast(context, ResourceUtils.getResString(context,"sobot_pic_type_error"));
+                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_pic_type_error"));
                 return;
             }
             if (SobotOption.imagePreviewListener != null) {
                 //如果返回true,拦截;false 不拦截
-                boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(context,imageUrl);
+                boolean isIntercept = SobotOption.imagePreviewListener.onPreviewImage(context, imageUrl);
                 if (isIntercept) {
                     return;
                 }
@@ -335,5 +353,13 @@ public abstract class MessageHolderBase {
             return "•";
         }
         return num + ".";
+    }
+
+    //顶踩是否显示在气泡右侧，默认是的
+    public static boolean dingcaiIsShowRight() {
+        if (initMode != null && initMode.getRealuateStyle() == 1) {
+            return false;
+        }
+        return true;
     }
 }

@@ -208,7 +208,6 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
                 Uri content = Uri.parse(url);
                 intent.setData(content);
                 startActivity(intent);
-                finish();
             }
         });
         mWebView.removeJavascriptInterface("searchBoxJavaBridge_");
@@ -235,12 +234,13 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         mWebView.removeJavascriptInterface("accessibility");
         mWebView.removeJavascriptInterface("accessibilityTraversal");
 
+        //设置图片自适应屏幕
+        mWebView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小
+        mWebView.getSettings().setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
         // 应用可以有数据库
         mWebView.getSettings().setDatabaseEnabled(true);
 
-        // 应用可以有缓存
-        mWebView.getSettings().setAppCacheEnabled(true);
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -364,7 +364,8 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
     private void chooseAlbumPic() {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
-        i.setType("image/*");
+//        i.setType("image/*");
+        i.setType("video/*;image/*");
         startActivityForResult(Intent.createChooser(i, "Image Chooser"), REQUEST_CODE_ALBUM);
     }
 

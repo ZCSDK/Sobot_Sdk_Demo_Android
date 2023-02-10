@@ -33,6 +33,9 @@ import com.sobot.network.http.callback.StringResultCallBack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 技能组
+ */
 public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
 
     private LinearLayout sobot_btn_cancle;

@@ -209,4 +209,9 @@
     <color name="sobot_auto_complete_press">#EFF3FA</color>
     <color name="sobot_auto_complete">@color/sobot_white</color>
 
+    <!--顶踩选中 边框色-->
+    <color name="sobot_dingcai_sel_bg">#200DAEAF</color>
+    <!--顶踩选中 背景色-->
+    <color name="sobot_dingcai_stroke_color">#350DAEAF</color>
+
 </resources>

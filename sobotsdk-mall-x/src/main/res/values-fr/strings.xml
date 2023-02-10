@@ -229,4 +229,6 @@
        <string name="sobot_parsing">Parsing...</string>
        <string name="sobot_keep_queuing">Continuer à faire la queue</string>
        <string name="sobot_keep_queuing_string">Si vous continuez à attendre, cliquez sur</string>
+       <string name="sobot_ding">TOP</string>
+       <string name="sobot_cai">Marche!</string>
 </resources>

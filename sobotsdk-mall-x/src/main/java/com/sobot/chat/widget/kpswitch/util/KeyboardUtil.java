@@ -22,7 +22,6 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -419,7 +418,10 @@ public class KeyboardUtil {
                     isKeyboardShowing = lastKeyboardShowing;
                 } else {
 
-                    isKeyboardShowing = displayHeight < maxOverlayLayoutHeight
+//                    isKeyboardShowing = displayHeight < maxOverlayLayoutHeight
+//                            - getMinKeyboardHeight(getContext());
+                    //解决一屏多窗口（平板 平行视窗）开启后，聊天页面可以横竖屏切换导致的点击加号不显示菜单面板的问题
+                    isKeyboardShowing = displayHeight < actionBarOverlayLayoutHeight
                             - getMinKeyboardHeight(getContext());
 
                 }

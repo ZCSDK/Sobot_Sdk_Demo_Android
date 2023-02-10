@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.lzy.widget:view-core:0.1.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e048cdbd98fb312d7d967ee56894cfc7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e048cdbd98fb312d7d967ee56894cfc7/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e048cdbd98fb312d7d967ee56894cfc7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/299db2621ab77f559df0d77489df31af/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/299db2621ab77f559df0d77489df31af/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/299db2621ab77f559df0d77489df31af/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -17,9 +17,11 @@
         <Button
             android:id="@+id/btn_take_photo"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_wenzi_white"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:textSize="@dimen/sobot_text_font_normal" />
 
         <View
@@ -30,9 +32,11 @@
         <Button
             android:id="@+id/btn_pick_photo"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_wenzi_white"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:textSize="@dimen/sobot_text_font_normal" />
 
         <View
@@ -44,9 +48,11 @@
         <Button
             android:id="@+id/btn_pick_vedio"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_wenzi_white"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:textSize="@dimen/sobot_text_font_normal" />
 
 
@@ -58,9 +64,11 @@
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/sobot_item_setting_selector"
             android:textColor="@color/sobot_common_wenzi_white"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:textSize="@dimen/sobot_text_font_normal" />
     </LinearLayout>
 

@@ -43,6 +43,7 @@
                 android:layout_height="38dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginRight="6dp"
+                android:scaleType="centerCrop"
                 android:visibility="gone"
                 app:sobot_stroke_color="@color/sobot_line_1dp"
                 app:sobot_stroke_width="0.4dp" />

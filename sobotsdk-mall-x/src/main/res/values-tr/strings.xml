@@ -229,4 +229,6 @@
        <string name="sobot_parsing">ParsingAnalisi</string>
        <string name="sobot_keep_queuing">Devam et.</string>
        <string name="sobot_keep_queuing_string">Beklemeye devam ederseniz, tıklayın</string>
+       <string name="sobot_ding">top</string>
+       <string name="sobot_cai">Step on</string>
 </resources>

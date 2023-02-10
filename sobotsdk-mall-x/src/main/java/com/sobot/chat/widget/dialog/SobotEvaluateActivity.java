@@ -377,7 +377,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
 
         if (current_model == ZhiChiConstant.client_model_robot) {
             sobot_tv_evaluate_title.setText(getResString("sobot_robot_customer_service_evaluation"));
-            sobot_robot_center_title.setText(initModel.getRobotName() + ChatUtils.getResString(context, "sobot_question"));
+            sobot_robot_center_title.setText(initModel.getRobotName() + " " + ChatUtils.getResString(context, "sobot_question"));
             sobot_robot_relative.setVisibility(View.VISIBLE);
             sobot_custom_relative.setVisibility(View.GONE);
         } else {

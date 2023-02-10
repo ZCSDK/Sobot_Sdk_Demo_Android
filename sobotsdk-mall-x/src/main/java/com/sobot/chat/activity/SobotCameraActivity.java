@@ -145,7 +145,7 @@ public class SobotCameraActivity extends SobotBaseActivity {
             public void AudioPermissionError() {
                 permissionListener = new PermissionListenerImpl() {
                 };
-                if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2)) {
+                if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2,3)) {
                 } else {
                     if (!checkAudioPermission()) {
                     }

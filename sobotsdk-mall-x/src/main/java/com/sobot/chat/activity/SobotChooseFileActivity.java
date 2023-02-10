@@ -70,7 +70,7 @@ public class SobotChooseFileActivity extends SobotBaseActivity implements Adapte
 
     @Override
     protected void initData() {
-        if (!checkStoragePermission() || !CommonUtils.isExitsSdcard()) {
+        if (!checkStoragePermission(3) || !CommonUtils.isExitsSdcard()) {
             return;
         }
         mCurrentDir = mRootDir;

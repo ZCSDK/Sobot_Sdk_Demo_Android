@@ -268,4 +268,6 @@
     <!-- 3.1.5 新增-->
     <string name="sobot_keep_queuing">继续排队</string>
     <string name="sobot_keep_queuing_string">如果继续等待，点击</string>
+    <string name="sobot_ding">顶</string>
+    <string name="sobot_cai">踩</string>
 </resources>

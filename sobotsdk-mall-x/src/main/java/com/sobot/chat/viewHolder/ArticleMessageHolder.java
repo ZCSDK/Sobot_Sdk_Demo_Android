@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.model.ArticleModel;
 import com.sobot.chat.api.model.Suggestions;
@@ -37,7 +38,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
     private TextView tv_desc;
     private ArticleModel articleModel;
     private RelativeLayout sobot_right_empty_rl;//顶踩
-    private LinearLayout sobot_chat_more_action;//包含以下所有控件
     private LinearLayout sobot_ll_transferBtn;//只包含转人工按钮
     private TextView sobot_tv_transferBtn;//机器人转人工按钮
 
@@ -48,7 +48,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
         tv_title = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "tv_title"));
         tv_desc = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "tv_desc"));
         sobot_right_empty_rl = (RelativeLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_right_empty_rl"));
-        sobot_chat_more_action = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_chat_more_action"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
         sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
@@ -180,9 +179,9 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
 
     private void hideContainer() {
         if (!message.isShowTransferBtn()) {
-            sobot_chat_more_action.setVisibility(View.GONE);
+            sobot_ll_transferBtn.setVisibility(View.GONE);
         } else {
-            sobot_chat_more_action.setVisibility(View.VISIBLE);
+            sobot_ll_transferBtn.setVisibility(View.VISIBLE);
         }
     }
 
@@ -202,7 +201,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
      * 显示转人工按钮
      */
     public void showTransferBtn() {
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_transferBtn.setVisibility(View.VISIBLE);
         sobot_ll_transferBtn.setVisibility(View.VISIBLE);
         if (message != null) {
@@ -248,16 +246,40 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
      * 显示 顶踩 按钮
      */
     public void showRevaluateBtn() {
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
-        sobot_tv_likeBtn.setVisibility(View.VISIBLE);
-        sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_likeBtn.setVisibility(View.VISIBLE);
-        sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
-        sobot_right_empty_rl.setVisibility(View.VISIBLE);
+        if (dingcaiIsShowRight()) {
+            sobot_tv_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_right_empty_rl.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_def));
+            sobot_ll_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_right_def));
+        } else {
+            sobot_tv_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_likeBtn.setVisibility(View.VISIBLE);
+            sobot_ll_bottom_dislikeBtn.setVisibility(View.VISIBLE);
+            sobot_tv_likeBtn.setVisibility(View.GONE);
+            sobot_tv_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_likeBtn.setVisibility(View.GONE);
+            sobot_ll_dislikeBtn.setVisibility(View.GONE);
+            sobot_ll_bottom_likeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_def));
+            sobot_ll_bottom_dislikeBtn.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_chat_dingcai_bottom_def));
+        }
         sobot_tv_likeBtn.setEnabled(true);
         sobot_tv_dislikeBtn.setEnabled(true);
         sobot_tv_likeBtn.setSelected(false);
         sobot_tv_dislikeBtn.setSelected(false);
+
+        sobot_tv_bottom_likeBtn.setEnabled(true);
+        sobot_tv_bottom_dislikeBtn.setEnabled(true);
+        sobot_tv_bottom_likeBtn.setSelected(false);
+        sobot_tv_bottom_dislikeBtn.setSelected(false);
+
         sobot_tv_likeBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -265,6 +287,19 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
             }
         });
         sobot_tv_dislikeBtn.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                doRevaluate(false);
+            }
+        });
+
+        sobot_tv_bottom_likeBtn.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                doRevaluate(true);
+            }
+        });
+        sobot_tv_bottom_dislikeBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
                 doRevaluate(false);
@@ -303,7 +338,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
         sobot_tv_likeBtn.setEnabled(false);
         sobot_tv_dislikeBtn.setEnabled(false);
         sobot_tv_dislikeBtn.setSelected(false);
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_likeBtn.setVisibility(View.VISIBLE);
         sobot_tv_dislikeBtn.setVisibility(View.GONE);
         sobot_ll_likeBtn.setVisibility(View.VISIBLE);
@@ -319,7 +353,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
         sobot_tv_dislikeBtn.setEnabled(false);
         sobot_tv_likeBtn.setEnabled(false);
         sobot_tv_likeBtn.setSelected(false);
-        sobot_chat_more_action.setVisibility(View.VISIBLE);
         sobot_tv_likeBtn.setVisibility(View.GONE);
         sobot_tv_dislikeBtn.setVisibility(View.VISIBLE);
         sobot_right_empty_rl.setVisibility(View.VISIBLE);

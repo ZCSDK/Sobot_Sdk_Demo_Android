@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.sobot.library:picture_x:1.1.4@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08433b922079297e56b855fe8bfe2528/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08433b922079297e56b855fe8bfe2528/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

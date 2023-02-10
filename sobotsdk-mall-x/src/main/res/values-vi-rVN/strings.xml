@@ -229,4 +229,6 @@
        <string name="sobot_parsing">Đức</string>
        <string name="sobot_keep_queuing">Tiếp tục xếp hàng</string>
        <string name="sobot_keep_queuing_string">Nếu bạn tiếp tục đợi, hãy nhắp vào</string>
+       <string name="sobot_ding">Dịch vụ khách hàng trực tuyến đang phục vụ</string>
+       <string name="sobot_cai">trên</string>
 </resources>

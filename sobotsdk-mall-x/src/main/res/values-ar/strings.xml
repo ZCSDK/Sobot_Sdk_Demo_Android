@@ -71,7 +71,7 @@
        <string name="sobot_phone">الهاتف</string>
        <string name="sobot_outline_openNewWindows">لقد فتحت نافذة جديدة ، تم إغلاقها مؤقتًا</string>
        <string name="sobot_outline_leverByManager">مرحبا، لقد انتهت المحادثة</string>
-       <string name="sobot_outline_leavemsg">تم إرسال رسالتك بنجاح وانتهت هذه الجلسة. إذا كنت تريد متابعة الاستشارة ، يمكنك النقر فوق الزر "إعادة إنشاء الجلسة" أدناه.</string>
+       <string name="sobot_outline_leavemsg">وقد تم تقديم رسالتك بنجاح، وقد انتهت هذه الجلسة، ويمكن النقر على زر الاجتماع التالي إذا لزم الأمر مواصلة المشاورات</string>
        <string name="sobot_order_total_money">مجموع</string>
        <string name="sobot_order_status_7">إلغاء</string>
        <string name="sobot_order_status_6">في انتظار التقييم</string>
@@ -229,4 +229,6 @@
        <string name="sobot_parsing">في التحليل .</string>
        <string name="sobot_keep_queuing">تواصل الطابور</string>
        <string name="sobot_keep_queuing_string"> إذا كنت لا تزال تنتظر ، انقر فوق</string>
+       <string name="sobot_ding">توب .  </string>
+       <string name="sobot_cai"> تدوس</string>
 </resources>

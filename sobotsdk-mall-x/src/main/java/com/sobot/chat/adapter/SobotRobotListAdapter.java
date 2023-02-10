@@ -1,11 +1,13 @@
 package com.sobot.chat.adapter;
 
 import android.content.Context;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.adapter.base.SobotBaseGvAdapter;
 import com.sobot.chat.api.model.SobotRobot;
 import com.sobot.chat.utils.ResourceUtils;
@@ -43,11 +45,16 @@ public class SobotRobotListAdapter extends SobotBaseGvAdapter<SobotRobot> {
         public void bindData(SobotRobot sobotRobot, int position) {
             if (sobotRobot != null && !TextUtils.isEmpty(sobotRobot.getOperationRemark())) {
                 sobot_ll_content.setVisibility(View.VISIBLE);
-                sobot_ll_content.setSelected(sobotRobot.isSelected());
                 sobot_tv_content.setText(sobotRobot.getOperationRemark());
+                if (sobotRobot.isSelected()) {
+                    sobot_ll_content.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_oval_green_bg));
+                    sobot_tv_content.setTextColor(ContextCompat.getColor(mContext, R.color.sobot_common_white));
+                } else {
+                    sobot_ll_content.setBackground(mContext.getResources().getDrawable(R.drawable.sobot_oval_gray_bg));
+                    sobot_tv_content.setTextColor(ContextCompat.getColor(mContext, R.color.sobot_common_wenzi_green_white));
+                }
             } else {
                 sobot_ll_content.setVisibility(View.INVISIBLE);
-                sobot_ll_content.setSelected(false);
                 sobot_tv_content.setText("");
             }
         }

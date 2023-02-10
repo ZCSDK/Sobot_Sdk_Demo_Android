@@ -67,6 +67,7 @@ public class SobotTicketDetailActivity extends SobotBaseActivity implements View
      */
     public static Intent newIntent(Context context, String companyId, String uid, SobotUserTicketInfo ticketInfo) {
         Intent intent = new Intent(context, SobotTicketDetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(INTENT_KEY_UID, uid);
         intent.putExtra(INTENT_KEY_COMPANYID, companyId);
         intent.putExtra(INTENT_KEY_TICKET_INFO, ticketInfo);

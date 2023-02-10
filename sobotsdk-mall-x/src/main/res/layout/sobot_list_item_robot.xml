@@ -3,7 +3,7 @@
     android:id="@+id/sobot_ll_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/sobot_dialog_button_selector"
+    android:background="@drawable/sobot_oval_gray_bg"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible">
@@ -13,9 +13,8 @@
         android:id="@+id/sobot_tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
+        android:gravity="center"
         android:padding="8dp"
-        android:textColor="@drawable/sobot_btn_leavemsg_text_color_selector"
+        android:textColor="@color/sobot_common_wenzi_green_white"
         android:textSize="@dimen/sobot_text_font_small" />
 </LinearLayout>

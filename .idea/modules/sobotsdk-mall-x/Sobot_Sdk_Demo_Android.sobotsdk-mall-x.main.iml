@@ -29,8 +29,12 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/debug" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
@@ -40,9 +44,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/main/res" type="java-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.6.jar" level="project" />
+    <orderEntry type="library" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.9.jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.12.0" level="project" />
     <orderEntry type="library" name="Gradle: com.nostra13.universalimageloader:universal-image-loader:1.9.5" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:glide:3.8.0" level="project" />
@@ -52,11 +56,11 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.sobot.library:picture_x:1.1.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.sobot.library:net:1.1.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.sobot.library:picture_x:1.1.4@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.sobot.library:net:1.1.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-v4:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.sobot.chat:sobotsupport-glidev4:2.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.sobot.chat:sobotsupport-glidev4:1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.sobot.chat:sobotsdk-imageloader:2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.media:media:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.fragment:fragment:1.0.0@aar" level="project" />

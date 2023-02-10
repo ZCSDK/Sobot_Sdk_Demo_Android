@@ -510,7 +510,9 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
     }
 
     public void showHint(String content) {
-        CustomToast.makeText(getSobotActivity(), content, 1000).show();
+        if (!TextUtils.isEmpty(content)) {
+            CustomToast.makeText(getSobotActivity(), content, 1000).show();
+        }
     }
 
     @Override
@@ -576,16 +578,21 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         zhiChiApi.postMsg(SobotPostMsgFragment.this, postParam, new StringResultCallBack<CommonModelBase>() {
             @Override
             public void onSuccess(CommonModelBase base) {
-                if (Integer.parseInt(base.getStatus()) == 0) {
-                    showHint(base.getMsg());
-                } else if (Integer.parseInt(base.getStatus()) == 1) {
-                    if (getSobotActivity() == null) {
-                        return;
+                try {
+                    if (Integer.parseInt(base.getStatus()) == 0) {
+                        showHint(base.getMsg());
+                    } else if (Integer.parseInt(base.getStatus()) == 1) {
+                        if (getSobotActivity() == null) {
+                            return;
+                        }
+                        KeyboardUtil.hideKeyboard(getSobotActivity().getCurrentFocus());
+                        Intent intent = new Intent();
+                        intent.setAction(SobotPostMsgActivity.SOBOT_ACTION_SHOW_COMPLETED_VIEW);
+                        CommonUtils.sendLocalBroadcast(getSobotActivity(), intent);
                     }
-                    KeyboardUtil.hideKeyboard(getSobotActivity().getCurrentFocus());
-                    Intent intent = new Intent();
-                    intent.setAction(SobotPostMsgActivity.SOBOT_ACTION_SHOW_COMPLETED_VIEW);
-                    CommonUtils.sendLocalBroadcast(getSobotActivity(), intent);
+                } catch (Exception e) {
+                    showHint(base.getMsg());
+                    e.printStackTrace();
                 }
             }
 
@@ -622,13 +629,13 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                 if (tempActivity != null && tempActivity instanceof SobotPostMsgActivity) {
                     tempActivity.finish();
                     tempActivity.overridePendingTransition(ResourceUtils.getIdByName(tempActivity
-                            , "anim", "sobot_push_right_in"),
+                                    , "anim", "sobot_push_right_in"),
                             ResourceUtils.getIdByName(tempActivity, "anim", "sobot_push_right_out"));
                 }
             } else {
                 getSobotActivity().finish();
                 getSobotActivity().overridePendingTransition(ResourceUtils.getIdByName(getSobotActivity()
-                        , "anim", "sobot_push_right_in"),
+                                , "anim", "sobot_push_right_in"),
                         ResourceUtils.getIdByName(getSobotActivity(), "anim", "sobot_push_right_out"));
             }
         } else {
@@ -905,7 +912,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                     showHint(getResString("sobot_pic_select_again"));
                 }
             }
-        }else if(resultCode == SobotCameraActivity.RESULT_CODE){
+        } else if (resultCode == SobotCameraActivity.RESULT_CODE) {
             if (requestCode == REQUEST_CODE_CAMERA) {
                 int actionType = SobotCameraActivity.getActionType(data);
                 if (actionType == SobotCameraActivity.ACTION_TYPE_VIDEO) {

@@ -140,6 +140,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/sobot_normal_btn_bg"
             android:gravity="center"
+            android:textAllCaps="false"
             android:textColor="@color/sobot_common_white"
             android:textSize="17sp"
             android:textStyle="bold" />

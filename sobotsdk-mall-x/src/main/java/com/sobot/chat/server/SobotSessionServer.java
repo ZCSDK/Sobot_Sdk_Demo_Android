@@ -444,7 +444,6 @@ public class SobotSessionServer extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         // 取消广播接受者
         if (localBroadcastManager != null) {
             localBroadcastManager.unregisterReceiver(receiver);
@@ -453,7 +452,7 @@ public class SobotSessionServer extends Service {
             unregisterReceiver(receiverNet);
         }
         stopTimeTask();
-        LogUtils.i("SobotSessionServer  ---> onDestroy");
+        super.onDestroy();
     }
 
     public String getResString(String name) {

@@ -81,6 +81,7 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/sobot_normal_btn_bg"
                 android:gravity="center"
+                android:textAllCaps="false"
                 android:stateListAnimator="@null"
                 android:textColor="@color/sobot_common_white"
                 android:textSize="17sp"

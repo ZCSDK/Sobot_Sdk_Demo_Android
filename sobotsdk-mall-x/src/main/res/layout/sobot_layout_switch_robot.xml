@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sobot_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,69 +7,76 @@
     android:gravity="bottom"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.sobot.chat.widget.SobotMHLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/sobot_common_gray6"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:sobot_mhv_HeightRatio="0.8">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:orientation="vertical"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp">
-            <!-- 切换机器人按钮 -->
-            <TextView
-                android:id="@+id/sobot_tv_title"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/sobot_common_gray6"
+            android:gravity="center_vertical">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center"
-                android:textColor="@color/sobot_common_gray1"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:orientation="vertical">
+                <!-- 切换机器人按钮 -->
+                <TextView
+                    android:id="@+id/sobot_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/sobot_common_gray1"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/sobot_negativeButton"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true">
+            <LinearLayout
+                android:id="@+id/sobot_negativeButton"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
 
-            <TextView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="25dp"
-                android:background="@drawable/sobot_icon_evaluation_cancel"
-                android:layout_marginStart="25dp" />
-        </LinearLayout>
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/sobot_icon_evaluation_cancel" />
+            </LinearLayout>
+        </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.4dp"
-        android:background="@color/sobot_line_1dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:background="@color/sobot_line_1dp" />
 
-    <GridView
-        android:id="@+id/sobot_gv"
-        style="@style/sobot_grid_view"
-        android:layout_height="wrap_content"
-        android:horizontalSpacing="10dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="40dp"
-        android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style"
-        android:scrollbars="none"
-        android:verticalSpacing="20dp"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp" />
-
+        <com.sobot.chat.widget.SobotAutoGridView
+            android:id="@+id/sobot_gv"
+            style="@style/sobot_grid_view"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="40dp"
+            android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style"
+            android:scrollbars="none"
+            android:verticalSpacing="20dp" />
+    </com.sobot.chat.widget.SobotMHLinearLayout>
 </LinearLayout>

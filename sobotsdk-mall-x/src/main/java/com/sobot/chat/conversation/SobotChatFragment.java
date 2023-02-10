@@ -12,6 +12,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -2276,6 +2277,10 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 new StringResultCallBack<ZhiChiMessageBase>() {
                     @Override
                     public void onSuccess(ZhiChiMessageBase zhichiMessageBase) {
+                        //转人工接口执行完后，先断开通道和停止界面上的轮询,防止之前的轮询用的是上个会话的puid,导致拿不到新会话的消息
+                        zhiChiApi.disconnChannel();
+                        stopPolling();
+
                         LogUtils.i("connectCustomerService:zhichiMessageBase= " + zhichiMessageBase);
                         isConnCustomerService = false;
                         offlineMsgAdminId = "";
@@ -2835,6 +2840,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     // 点击播放录音及动画
     @Override
     public void clickAudioItem(ZhiChiMessageBase message) {
+        initAudioManager();
+        requestAudioFocus();
         if (mAudioPlayPresenter == null) {
             mAudioPlayPresenter = new AudioPlayPresenter(mAppContext);
         }
@@ -2843,8 +2850,6 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 @Override
                 public void onPlayStart(ZhiChiMessageBase mCurrentMsg) {
                     showVoiceAnim(mCurrentMsg, true);
-                    initAudioManager();
-                    requestAudioFocus();
                 }
 
                 @Override
@@ -2856,6 +2861,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         }
         mAudioPlayPresenter.clickAudio(message, mAudioPlayCallBack);
     }
+
 
     @Override
     public void sendMessage(String content) {
@@ -3288,7 +3294,17 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 if (btn_press_to_speak.getVisibility() == View.GONE) {
                     showVoiceBtn();
                 }
-                btn_set_mode_rengong.setVisibility(View.VISIBLE);
+                //机器人对话框
+                if (info.isArtificialIntelligence() && type == ZhiChiConstant.type_robot_first) {
+                    //智能转人工只适用于机器人优先
+                    if (showTimeVisiableCustomBtn >= info.getArtificialIntelligenceNum()) {
+                        btn_set_mode_rengong.setVisibility(View.VISIBLE);
+                    } else {
+                        btn_set_mode_rengong.setVisibility(View.GONE);
+                    }
+                } else {
+                    btn_set_mode_rengong.setVisibility(View.VISIBLE);
+                }
                 btn_emoticon_view.setVisibility(View.GONE);
                 if (image_reLoading.getVisibility() == View.VISIBLE) {
                     sobot_ll_bottom.setVisibility(View.VISIBLE);/* 底部聊天布局 */
@@ -3425,7 +3441,8 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     protected void onCloseMenuClick() {
         hidePanelAndKeyboard(mPanelRoot);
         if (isActive()) {
-            if (info.isShowCloseSatisfaction()) {
+            //添加是否本地设置过，如果没有设置过，走服务端邀请评价
+            if (info.isShowCloseSatisfaction() || (info.getIsSetCloseShowSatisfaction() == 0 && initModel != null && initModel.getCommentFlag() == 1)) {
                 if (isAboveZero && !isComment) {
                     // 退出时 之前没有评价过的话 才能 弹评价框
                     mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, true, initModel,
@@ -3449,7 +3466,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     protected void onLeftBackColseClick() {
         hidePanelAndKeyboard(mPanelRoot);
         if (isActive()) {
-            if (info.isShowSatisfaction()) {
+            if (info.isShowSatisfaction() || (info.getIsSetShowSatisfaction() == 0 && initModel != null && initModel.getCommentFlag() == 1)) {
                 if (isAboveZero && !isComment) {
                     // 退出时 之前没有评价过的话 才能 弹评价框
                     mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, true, initModel,
@@ -3776,14 +3793,21 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
      */
     @Override
     public void chooseFile() {
-        if (Build.VERSION.SDK_INT < 30 || CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) < 30) {
-            if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1)) {
-                return;
+        permissionListener = new PermissionListenerImpl() {
+            @Override
+            public void onPermissionSuccessListener() {
+                hidePanelAndKeyboard(mPanelRoot);
+                Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
+                startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
             }
-            // 选择文件
-            if (!checkStoragePermission()) {
-                return;
-            }
+        };
+
+        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 3)) {
+            return;
+        }
+        // 选择文件
+        if (!checkStoragePermission(3)) {
+            return;
         }
         hidePanelAndKeyboard(mPanelRoot);
         Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
@@ -4272,7 +4296,17 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                             }
                         } else {
                             // 用户被下线
+                            if (initModel.getCommentFlag() == 1) {
+                                if (isAboveZero && !isComment && customerState == CustomerState.Online) {
+                                    // 满足评价条件，并且之前没有评价过的话 才能 弹评价框
+                                    pushMessage.setIsQuestionFlag(1);
+                                    ZhiChiMessageBase customEvaluateMode = ChatUtils.getCustomEvaluateMode(pushMessage);
+                                    // 更新界面的操作
+                                    updateUiMessage(messageAdapter, customEvaluateMode);
+                                }
+                            }
                             customerServiceOffline(initModel, Integer.parseInt(pushMessage.getStatus()));
+
                         }
                     } else if (ZhiChiConstant.push_message_transfer == pushMessage.getType()) {
                         LogUtils.i("用户被转接--->" + pushMessage.getName());
@@ -4701,7 +4735,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     showAudioRecorder();
                 }
             };
-            if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2)) {
+            if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2, 3)) {
                 return;
             }
             if (!checkAudioPermission()) {
@@ -5299,13 +5333,14 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 hidePanelAndKeyboard(mPanelRoot);
                 return;
             } else {
-                if (info.isShowSatisfaction()) {
+                if (info.isShowSatisfaction() || (info.getIsSetShowSatisfaction() == 0 && initModel != null && initModel.getCommentFlag() == 1)) {
                     if (isAboveZero && !isComment) {
                         // 退出时 之前没有评价过的话 才能 弹评价框
                         mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, false, initModel,
                                 current_client_model, 1, currentUserName, 5, 0, "", true, true);
                         return;
                     }
+
                 }
             }
             finish();
@@ -5458,6 +5493,14 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 sobot_tv_right_third.setCompoundDrawables(null, null, img, null);
             }
 
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mPanelRoot != null) {
+            hidePanelAndKeyboard(mPanelRoot);
         }
     }
 }

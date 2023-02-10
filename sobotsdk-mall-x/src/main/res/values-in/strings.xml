@@ -229,4 +229,6 @@
        <string name="sobot_parsing">Menganalisis</string>
        <string name="sobot_keep_queuing">Lanjutkan barisan</string>
        <string name="sobot_keep_queuing_string">Jika Anda terus menunggu, klik</string>
+       <string name="sobot_ding">atas</string>
+       <string name="sobot_cai">langkah ke</string>
 </resources>

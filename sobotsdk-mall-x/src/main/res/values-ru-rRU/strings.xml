@@ -229,4 +229,6 @@
        <string name="sobot_parsing">анализ...</string>
        <string name="sobot_keep_queuing">продолжайте стоять в очереди</string>
        <string name="sobot_keep_queuing_string">если ждать, нажмите</string>
+       <string name="sobot_ding">интернет - сервис обслуживает вас</string>
+       <string name="sobot_cai">представлять и консультироваться</string>
 </resources>

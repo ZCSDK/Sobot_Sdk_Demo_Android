@@ -169,8 +169,9 @@ public class FileOpenHelper {
         }
         return uri;
     }
+
     public static Uri getUri(Context context, String filePath) {
-        File file=new File(filePath);
+        File file = new File(filePath);
         return getUri(context, file);
     }
 
@@ -206,34 +207,34 @@ public class FileOpenHelper {
             return;
         }
         if (file != null && file.exists() && file.isFile()) {
-            String fileName = file.getName().toLowerCase();
-            Intent intent;
-            if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingPackage")) {
-                intent = getOtherFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingVideo")) {
-                intent = getVideoFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingAudio")) {
-                intent = getAudioFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingWord")) {
-                intent = getWordFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingExcel")) {
-                intent = getExcelFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingPPT")) {
-                intent = getPptFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingPdf")) {
-                intent = getPdfFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingText")) {
-                intent = getTextFileIntent(context, file);
-            } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingImage")) {
-                intent = getImageFileIntent(context, file);
-            } else {
-                intent = getOtherFileIntent(context, file);
-            }
             try {
+                String fileName = file.getName().toLowerCase();
+                Intent intent;
+                if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingPackage")) {
+                    intent = getOtherFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingVideo")) {
+                    intent = getVideoFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingAudio")) {
+                    intent = getAudioFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingWord")) {
+                    intent = getWordFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingExcel")) {
+                    intent = getExcelFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingPPT")) {
+                    intent = getPptFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingPdf")) {
+                    intent = getPdfFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingText")) {
+                    intent = getTextFileIntent(context, file);
+                } else if (checkEndsWithInStringArray(fileName, context, "sobot_fileEndingImage")) {
+                    intent = getImageFileIntent(context, file);
+                } else {
+                    intent = getOtherFileIntent(context, file);
+                }
                 context.startActivity(intent);
             } catch (Exception e) {
                 //ignor
-                ToastUtil.showToast(context,ResourceUtils.getResString(context,"sobot_cannot_open_file"));
+                ToastUtil.showToast(context, ResourceUtils.getResString(context, "sobot_cannot_open_file"));
 //                e.printStackTrace();
             }
         }
