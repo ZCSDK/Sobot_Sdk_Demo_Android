@@ -1,5 +1,6 @@
 package com.sobot.chat.camera.state;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -15,9 +16,11 @@ class PreviewState implements State {
     public static final String TAG = "PreviewState";
 
     private CameraMachine machine;
+    private Context context;
 
-    PreviewState(CameraMachine machine) {
+    PreviewState(CameraMachine machine, Context context) {
         this.machine = machine;
+        this.context = context;
     }
 
     @Override
@@ -58,12 +61,12 @@ class PreviewState implements State {
                 machine.setState(machine.getBorrowPictureState());
                 StCmeraLog.i("capture");
             }
-        });
+        },context);
     }
 
     @Override
     public void record(Surface surface, float screenProp) {
-        CameraInterface.getInstance().startRecord(surface, screenProp, null);
+        CameraInterface.getInstance().startRecord(surface, screenProp, null,context);
     }
 
     @Override

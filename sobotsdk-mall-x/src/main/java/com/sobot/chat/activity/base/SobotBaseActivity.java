@@ -90,7 +90,8 @@ public abstract class SobotBaseActivity extends FragmentActivity {
             // 设置Activity全屏
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-
+        //修改国际化语言
+        changeAppLanguage();
         setContentView(getContentViewResId());
         try {
             String host = SharedPreferencesUtil.getStringData(getSobotBaseContext(), ZhiChiConstant.SOBOT_SAVE_HOST_AFTER_INITSDK, SobotBaseUrl.getApi_Host());
@@ -124,9 +125,6 @@ public abstract class SobotBaseActivity extends FragmentActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //修改国际化语言
-        changeAppLanguage();
 
         //左上角返回按钮水滴屏适配
         if (getLeftMenu() != null) {
@@ -164,7 +162,7 @@ public abstract class SobotBaseActivity extends FragmentActivity {
     }
 
     public void changeAppLanguage() {
-        Locale language = (Locale) SharedPreferencesUtil.getObject(SobotBaseActivity.this, "SobotLanguage");
+        Locale language = (Locale) SharedPreferencesUtil.getObject(SobotBaseActivity.this, ZhiChiConstant.SOBOT_LANGUAGE);
         try {
             if (language != null) {
                 // 本地语言设置

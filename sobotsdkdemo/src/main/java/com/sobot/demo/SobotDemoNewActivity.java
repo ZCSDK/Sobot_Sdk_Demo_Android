@@ -22,7 +22,6 @@ import java.util.List;
 
 public class SobotDemoNewActivity extends AppCompatActivity {
 
-    private SobotNotificationClickReceiver nClickReceiver;//点击通知以后发出的广播接收者
     private SobotUnReadMsgReceiver unReadMsgReceiver;//获取未读消息数的广播接收者
 
     @Override
@@ -63,11 +62,6 @@ public class SobotDemoNewActivity extends AppCompatActivity {
 
     private void regReceiver(){
         IntentFilter filter = new IntentFilter();
-        if (nClickReceiver == null){
-            nClickReceiver = new SobotNotificationClickReceiver();
-        }
-        filter.addAction(ZhiChiConstant.SOBOT_NOTIFICATION_CLICK);
-        registerReceiver(nClickReceiver, filter);
 
         if (unReadMsgReceiver == null){
             unReadMsgReceiver = new SobotUnReadMsgReceiver();
@@ -79,10 +73,6 @@ public class SobotDemoNewActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         try {
-            if (nClickReceiver != null){
-                unregisterReceiver(nClickReceiver);
-            }
-
             if (unReadMsgReceiver != null){
                 unregisterReceiver(unReadMsgReceiver);
             }

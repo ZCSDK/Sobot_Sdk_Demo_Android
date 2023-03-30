@@ -97,7 +97,6 @@ public class CameraInterface implements Camera.PreviewCallback {
     private int mediaQuality = StCameraView.MEDIA_QUALITY_MIDDLE;
     private SensorManager sm = null;
 
-    private Context mContext;
 
     //获取CameraInterface单例
     public static synchronized CameraInterface getInstance() {
@@ -443,7 +442,9 @@ public class CameraInterface implements Camera.PreviewCallback {
                 Log.i(TAG, "=== Destroy Camera ===");
             } catch (Exception e) {
                 e.printStackTrace();
-                errorLisenter.onError();
+                if(null!=errorLisenter) {
+                    errorLisenter.onError();
+                }
                 destroyCameraInterface();
             }
         } else {
@@ -457,7 +458,7 @@ public class CameraInterface implements Camera.PreviewCallback {
      */
     private int nowAngle;
 
-    public void takePicture(final TakePictureCallback callback) {
+    public void takePicture(final TakePictureCallback callback, final Context mContext) {
         if (mCamera == null) {
             return;
         }
@@ -501,7 +502,7 @@ public class CameraInterface implements Camera.PreviewCallback {
     }
 
     //启动录像
-    public void startRecord(Surface surface, float screenProp, ErrorCallback callback) {
+    public void startRecord(Surface surface, float screenProp, ErrorCallback callback,Context mContext) {
         if (mCamera == null) {
             openCamera(SELECTED_CAMERA);
             if (mCamera == null) {
@@ -814,10 +815,6 @@ public class CameraInterface implements Camera.PreviewCallback {
             sm.unregisterListener(sensorEventListener);
         }
         sm = null;
-    }
-
-    public void setContext(Context context) {
-        mContext = context.getApplicationContext();
     }
 
     void isPreview(boolean res) {

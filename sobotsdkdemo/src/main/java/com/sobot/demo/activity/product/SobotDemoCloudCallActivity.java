@@ -2,6 +2,7 @@ package com.sobot.demo.activity.product;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,6 +45,10 @@ public class SobotDemoCloudCallActivity extends AppCompatActivity implements Vie
         if (v == sobot_demo_bottom_layout){
             Information information = (Information) SobotSPUtil.getObject(this, "sobot_demo_infomation");
             if (information != null) {
+                String sobot_custom_language_value = SobotSPUtil.getStringData(this, "custom_language_value", "");
+                if (!TextUtils.isEmpty(sobot_custom_language_value)) {
+                    ZCSobotApi.setInternationalLanguage(this, sobot_custom_language_value, true, false);
+                }
                 ZCSobotApi.openZCChat(this, information);
             }
         }

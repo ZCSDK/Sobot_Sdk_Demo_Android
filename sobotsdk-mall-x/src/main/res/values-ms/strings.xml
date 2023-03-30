@@ -28,7 +28,7 @@
        <string name="sobot_switch">Tukar kumpulan lain</string>
        <string name="sobot_suggestions_are_required">Ini cadangan yang mesti diisi</string>
        <string name="sobot_str_bottom_satisfaction">Penilaian</string>
-       <string name="sobot_str_bottom_message">Tinggal mesej</string>
+       <string name="sobot_str_bottom_message">Mesej</string>
        <string name="sobot_service_accept_start">Halo, ini pengkhidmat pelanggan</string>
        <string name="sobot_service_accept_end">telah menerima permintaan anda</string>
        <string name="sobot_server_request_wrong">Permintaan server salah!</string>
@@ -42,11 +42,11 @@
        <string name="sobot_robot_customer_service_evaluation">Penilaian perkhidmat pelanggan robot</string>
        <string name="sobot_robot_auto_transfer_tip">Minta maaf, tidak dapat mengatasi masalah anda, kami sedang beralih kepada perkhidmat pelanggan manual</string>
        <string name="sobot_retracted_msg_tip_end">telah memanggil balik mesej</string>
-       <string name="sobot_restart_talk">Membina perbincangan semula</string>
+       <string name="sobot_restart_talk">Sesi baru</string>
        <string name="sobot_resendmsg">Hantarkan semula</string>
        <string name="sobot_required">Mesti mengisi</string>
        <string name="sobot_reply">Balasan</string>
-       <string name="sobot_release_to_cancel">Lepaskan jari untuk membatal penghantaran</string>
+       <string name="sobot_release_to_cancel">Lepaskan batalkan hantar</string>
        <string name="sobot_receive_new_message">Anda ada satu mesej baru</string>
        <string name="sobot_rating_score">Skor</string>
        <string name="sobot_rating_dec">Komen</string>
@@ -64,7 +64,7 @@
        <string name="sobot_please_input_reply_hint">Sila masukkan kandungan balasan anda</string>
        <string name="sobot_please_input">Sila masukkan</string>
        <string name="sobot_please_evaluate_this_service">Penilaian perkhidmatan</string>
-       <string name="sobot_please_evaluate">mengajak anda untuk menilai perkhidmatan ini</string>
+       <string name="sobot_please_evaluate">Maklum balas</string>
        <string name="sobot_please_comment">Sila menilai perkhidmatan ini</string>
        <string name="sobot_pic_type_error">Format foto salah</string>
        <string name="sobot_phone_no_empty">Nombor telefon bimbit tidak dapat kosong</string>
@@ -86,7 +86,7 @@
        <string name="sobot_not_find_pic">Foto tidak ditemui</string>
        <string name="sobot_no_read">Mesej yang belum dibaca di bawah</string>
        <string name="sobot_no_content">Tidak ada kandungan mengenainya sementara</string>
-       <string name="sobot_no_access">Belum perkhidmat pelanggan dalam talian sementara</string>
+       <string name="sobot_no_access">Tiada CS</string>
        <string name="sobot_new_ticket_info_update">Membarui</string>
        <string name="sobot_new_ticket_info">Status pesanan anda telah</string>
        <string name="sobot_new_msg">batang mesej baru</string>
@@ -94,7 +94,7 @@
        <string name="sobot_net_work_err">Rangkaian salah</string>
        <string name="sobot_my_service_comment">Penilaian perkhidmatan saya</string>
        <string name="sobot_my_reply">Balasan saya</string>
-       <string name="sobot_move_up_to_cancel">Luncurkan jari ke atas untuk membatal penghantaran</string>
+       <string name="sobot_move_up_to_cancel">Leret ke atas untuk membatalkan</string>
        <string name="sobot_money_trading_tip">Petunjuk hangat: Menurut operasi normal untuk transaksi dari laman web. Jangan-jangan mempercayai mesej yang memberi kod pengesahan, akaun dan mesej privasi lain untuk mengelakkan penipuan!</string>
        <string name="sobot_money_format">Yuan</string>
        <string name="sobot_message_record">Catatan yang meninggalkan pesanan</string>
@@ -102,7 +102,7 @@
        <string name="sobot_location">Lokasi</string>
        <string name="sobot_line_transfinite_def_hint">Minta maaf, jumlah orang barisan manual telah melebihi, sila tinggalkan pesanan. Kami ada kakitangan khas untuk mengatasi masalah yang anda menyerahkan</string>
        <string name="sobot_leaveMsg_to_ticket">Pergi ke catatan yang meninggalkan pesanan</string>
-       <string name="sobot_leavemsg_title">Informasi yang meninggalkan pesanan</string>
+       <string name="sobot_leavemsg_title">Mesej</string>
        <string name="sobot_leavemsg_success_tip">Berjaya penyerahan</string>
        <string name="sobot_leavemsg_error_tip">Serahkan gagal</string>
        <string name="sobot_leaveMsg_create_success_des">Kami akan memaklumbalas kepada anda dalam perbincangan secara pautan</string>
@@ -124,8 +124,8 @@
        <string name="sobot_file_download">Memuat turun segera</string>
        <string name="sobot_evaluation_completed_exit">Selepas menyerahkan penilaian, perbincangan akan tamat</string>
        <string name="sobot_evaluate_zero_score_des">Penilaian anda memperbaiki perkhidmatan kami</string>
-       <string name="sobot_evaluate_yes">Telah diatasi</string>
-       <string name="sobot_evaluate_no">Belum diatasi</string>
+       <string name="sobot_evaluate_yes">Ya</string>
+       <string name="sobot_evaluate_no">Tidak</string>
        <string name="sobot_empty_data">Tidak ada informasi mengenainya</string>
        <string name="sobot_email_no_empty">E-mel tidak boleh kosong</string>
        <string name="sobot_email_dialog_hint">Format E-mel anda salah</string>
@@ -163,11 +163,11 @@
        <string name="sobot_chat_free_account_tip">Ciri-ciri telah dimatikan kerana kelulusan perkhidmatan</string>
        <string name="sobot_cancle_conversation">Tamat perbincangan</string>
        <string name="sobot_can">Anda boleh</string>
-       <string name="sobot_button_send">Hantarkan</string>
+       <string name="sobot_button_send">Hantar</string>
        <string name="sobot_btn_submit_text">Serahkan</string>
        <string name="sobot_btn_submit">Pasti</string>
        <string name="sobot_btn_cancle">Batal</string>
-       <string name="sobot_attach_take_pic">Mengambil gambar</string>
+       <string name="sobot_attach_take_pic">Kamera</string>
        <string name="sobot_already_save_to_picture">Telah disimpan pada foto album sistem</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Kualiti perkhidmatan hanya dapat dinilai setelah berunding</string>
        <string name="sobot__is_null">Tidak boleh kosong</string>

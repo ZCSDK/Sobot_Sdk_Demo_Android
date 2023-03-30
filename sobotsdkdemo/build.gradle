@@ -14,8 +14,8 @@ android {
         applicationId "com.sobot.demo"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 36
-        versionName "3.1.9"
+        versionCode 39
+        versionName "3.2.0"
 
         ndk {
             //设置支持的SO库架构

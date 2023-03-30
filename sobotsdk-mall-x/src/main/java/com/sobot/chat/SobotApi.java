@@ -24,8 +24,6 @@ import com.sobot.chat.api.model.CommonModel;
 import com.sobot.chat.api.model.ConsultingContent;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.OrderCardContentModel;
-import com.sobot.chat.api.model.SobotCusFieldConfig;
-import com.sobot.chat.api.model.SobotFieldModel;
 import com.sobot.chat.api.model.SobotLeaveMsgConfig;
 import com.sobot.chat.api.model.SobotLocationModel;
 import com.sobot.chat.api.model.SobotMsgCenterModel;
@@ -53,7 +51,6 @@ import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.network.apiUtils.SobotHttpUtils;
 import com.sobot.network.http.callback.StringResultCallBack;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -843,18 +840,6 @@ public class SobotApi {
                     public void onSuccess(ZhiChiInitModeBase initModel) {
                         SharedPreferencesUtil.saveObject(context,
                                 ZhiChiConstant.sobot_last_current_info, info);
-                        List<SobotFieldModel> sobotFieldModels = new ArrayList<>();
-                        if (info.getLeaveCusFieldMap() != null && info.getLeaveCusFieldMap().size() > 0) {
-                            for (String key :
-                                    info.getLeaveCusFieldMap().keySet()) {
-                                SobotFieldModel sobotFieldModel = new SobotFieldModel();
-                                SobotCusFieldConfig sobotCusFieldConfig = new SobotCusFieldConfig();
-                                sobotCusFieldConfig.setFieldId(key);
-                                sobotCusFieldConfig.setValue(info.getLeaveCusFieldMap().get(key));
-                                sobotFieldModel.setCusFieldConfig(sobotCusFieldConfig);
-                                sobotFieldModels.add(sobotFieldModel);
-                            }
-                        }
                         SobotLeaveMsgConfig config = new SobotLeaveMsgConfig();
                         config.setEmailFlag(initModel.isEmailFlag());
                         config.setEmailShowFlag(initModel.isEmailShowFlag());
@@ -882,7 +867,6 @@ public class SobotApi {
                         intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUSTOMERID, initModel.getCustomerId());
                         intent.putExtra(ZhiChiConstant.FLAG_EXIT_SDK, false);
                         intent.putExtra(StPostMsgPresenter.INTENT_KEY_GROUPID, info.getLeaveMsgGroupId());
-                        intent.putExtra(StPostMsgPresenter.INTENT_KEY_CUS_FIELDS, (Serializable) sobotFieldModels);
                         intent.putExtra(StPostMsgPresenter.INTENT_KEY_IS_SHOW_TICKET, isOnlyShowTicket);
                         context.startActivity(intent);
                     }

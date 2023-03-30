@@ -34,6 +34,7 @@ import com.sobot.chat.api.model.CommonModelBase;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.PostParamModel;
 import com.sobot.chat.api.model.SobotCacheFile;
+import com.sobot.chat.api.model.SobotCusFieldConfig;
 import com.sobot.chat.api.model.SobotFieldModel;
 import com.sobot.chat.api.model.SobotLeaveMsgConfig;
 import com.sobot.chat.api.model.SobotLeaveMsgParamModel;
@@ -99,8 +100,6 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
     protected SobotDeleteWorkOrderDialog seleteMenuWindow;
 
     private ArrayList<SobotFieldModel> mFields;
-    //startToPostMsgActivty 追加的自定义字段
-    private ArrayList<SobotFieldModel> mCusAddFields;
 
     private LinearLayout sobot_post_msg_layout;
 
@@ -146,7 +145,6 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             if (bundle != null) {
                 uid = bundle.getString(StPostMsgPresenter.INTENT_KEY_UID);
                 mGroupId = bundle.getString(StPostMsgPresenter.INTENT_KEY_GROUPID);
-                mCusAddFields = (ArrayList<SobotFieldModel>) bundle.getSerializable(StPostMsgPresenter.INTENT_KEY_CUS_FIELDS);
                 flag_exit_type = bundle.getInt(ZhiChiConstant.FLAG_EXIT_TYPE, -1);
                 flag_exit_sdk = bundle.getBoolean(ZhiChiConstant.FLAG_EXIT_SDK, false);
                 mConfig = (SobotLeaveMsgConfig) bundle.getSerializable(StPostMsgPresenter.INTENT_KEY_CONFIG);
@@ -567,11 +565,20 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         if (sobot_post_question_type.getTag() != null && !TextUtils.isEmpty(sobot_post_question_type.getTag().toString())) {
             postParam.setTicketTypeId(sobot_post_question_type.getTag().toString());
         }
-        if (mCusAddFields != null && mCusAddFields.size() > 0) {
-            if (mFields == null) {
-                mFields = new ArrayList<>();
+        if (mFields == null) {
+            mFields = new ArrayList<>();
+        }
+
+        if (information.getLeaveCusFieldMap() != null && information.getLeaveCusFieldMap().size() > 0) {
+            for (String key :
+                    information.getLeaveCusFieldMap().keySet()) {
+                SobotFieldModel sobotFieldModel = new SobotFieldModel();
+                SobotCusFieldConfig sobotCusFieldConfig = new SobotCusFieldConfig();
+                sobotCusFieldConfig.setFieldId(key);
+                sobotCusFieldConfig.setValue(information.getLeaveCusFieldMap().get(key));
+                sobotFieldModel.setCusFieldConfig(sobotCusFieldConfig);
+                mFields.add(sobotFieldModel);
             }
-            mFields.addAll(mCusAddFields);
         }
         postParam.setExtendFields(StCusFieldPresenter.getSaveFieldVal(mFields));
 

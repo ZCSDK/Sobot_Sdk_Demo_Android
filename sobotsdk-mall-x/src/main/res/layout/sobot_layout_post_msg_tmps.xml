@@ -40,6 +40,12 @@
                     android:gravity="center"
                     android:textColor="@color/sobot_color_title_bar_title"
                     android:textSize="17sp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:autoSizePresetSizes="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeMaxTextSize="17sp"
                     android:textStyle="bold" />
             </LinearLayout>
 

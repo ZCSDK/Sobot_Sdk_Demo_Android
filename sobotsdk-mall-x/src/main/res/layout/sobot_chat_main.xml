@@ -23,9 +23,9 @@
             android:layout_height="36dp"
             android:background="@color/sobot_announcement_bgcolor"
             android:orientation="horizontal"
+            android:paddingEnd="12dp"
             android:paddingRight="12dp"
-            android:visibility="gone"
-            android:paddingEnd="12dp">
+            android:visibility="gone">
 
             <!--通告图标-->
             <ImageView
@@ -33,10 +33,10 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="3dp"
-                android:src="@drawable/sobot_announcement_img_icon"
-                android:layout_marginStart="15dp" />
+                android:src="@drawable/sobot_announcement_img_icon" />
 
             <!--通告标题-->
             <TextView
@@ -44,31 +44,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/sobot_announcement_right_icon"
                 android:layout_toLeftOf="@+id/sobot_announcement_right_icon"
+                android:layout_toEndOf="@+id/sobot_announcement_icon"
                 android:layout_toRightOf="@+id/sobot_announcement_icon"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
                 android:textColor="@color/sobot_announcement_title_color"
-                android:textSize="14sp"
-                android:layout_marginEnd="10dp"
-                android:layout_toEndOf="@+id/sobot_announcement_icon"
-                android:layout_toStartOf="@+id/sobot_announcement_right_icon"
-                android:layout_marginStart="15dp" />
+                android:textSize="14sp" />
 
             <!--通告右边的箭头-->
             <TextView
                 android:id="@+id/sobot_announcement_right_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/sobot_icon_right_selector"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp" />
+                android:background="@drawable/sobot_icon_right_selector" />
         </RelativeLayout>
 
         <!-- 中间聊天部分 -->
@@ -89,47 +89,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/sobot_bar_bottom"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
             android:layout_marginBottom="30dp"
             android:clickable="true"
-            android:orientation="vertical"
             android:gravity="center"
-            android:visibility="gone"
+            android:orientation="vertical"
             android:paddingStart="5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp">
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:paddingTop="18dp"
-                android:paddingRight="19dp"
-                android:paddingLeft="19dp"
-                android:paddingBottom="20dp"
-                android:src="@drawable/sobot_icon_switch_robot"
-                android:scaleType="fitXY"
                 android:background="@drawable/sobot_icon_switch_circle_img"
+                android:paddingStart="19dp"
+                android:paddingLeft="19dp"
+                android:paddingTop="18dp"
                 android:paddingEnd="19dp"
-                android:paddingStart="19dp" />
+                android:paddingRight="19dp"
+                android:paddingBottom="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/sobot_icon_switch_robot" />
 
             <TextView
                 android:id="@+id/sobot_tv_switch_robot"
                 android:layout_width="wrap_content"
-                android:layout_height="33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="-12dp"
+                android:layout_marginTop="-4dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/sobot_switch_text_img"
+                android:background="@drawable/sobot_switch_robot_bg"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:maxWidth="120dp"
+                android:maxLines="2"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="2dp"
                 android:textColor="@color/sobot_color"
                 android:textSize="9sp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- 语音功能布局 -->
@@ -173,9 +181,9 @@
                     android:id="@+id/sobot_mic_image_animate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
                     android:layout_marginLeft="2dp"
-                    android:contentDescription="@null"
-                    android:layout_marginStart="2dp" />
+                    android:contentDescription="@null" />
             </LinearLayout>
 
             <!-- 结束语音图片 -->
@@ -202,14 +210,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
+                android:paddingStart="4dp"
                 android:paddingLeft="4dp"
                 android:paddingTop="2dp"
+                android:paddingEnd="4dp"
                 android:paddingRight="4dp"
                 android:paddingBottom="4dp"
                 android:textColor="@color/sobot_common_white"
-                android:textSize="14sp"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -224,18 +232,18 @@
             android:id="@+id/notReadInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/sobot_not_readinfo"
             android:drawableLeft="@drawable/sobot_not_readinfo"
             android:drawablePadding="10dp"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="6dp"
+            android:paddingEnd="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="6sp"
             android:textColor="@color/sobot_color"
             android:textSize="12sp"
-            android:visibility="gone"
-            android:paddingEnd="10dp"
-            android:drawableStart="@drawable/sobot_not_readinfo"
-            android:paddingStart="10dp" />
+            android:visibility="gone" />
     </FrameLayout>
 
     <!-- loading布局 -->

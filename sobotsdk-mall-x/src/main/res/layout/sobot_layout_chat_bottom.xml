@@ -61,8 +61,8 @@
 
         <ImageButton
             android:id="@+id/sobot_btn_set_mode_rengong"
-            android:layout_width="27dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
@@ -121,7 +121,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/sobot_common_gray1"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizePresetSizes="1sp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="14sp"
+                android:ellipsize="end"
+                android:lines="1"/>
         </LinearLayout>
 
         <!-- 文本输入  start -->
@@ -197,7 +205,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/sobot_common_white"
                 android:textSize="14sp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <!-- 加号按钮 -->
             <Button
@@ -206,6 +214,16 @@
                 android:layout_height="36dp"
                 android:background="@drawable/sobot_picture_button_selector"
                 android:gravity="center" />
+            <!-- 发送按钮 -->
+            <Button
+                android:id="@+id/sobot_btn_send_view"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/sobot_pic_send_icon"
+                android:visibility="gone"
+                android:gravity="center"
+                android:button="@null"
+                />
         </LinearLayout>
     </LinearLayout>
 

@@ -88,7 +88,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_alignParentEnd="true">
 
-                <Button
+                <TextView
                     android:id="@+id/sobot_goods_sendBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -97,6 +97,7 @@
                     android:paddingTop="1dp"
                     android:paddingRight="15dp"
                     android:paddingBottom="1dp"
+                    android:gravity="center"
                     android:textColor="@color/sobot_common_white"
                     android:textSize="14sp"
                     android:paddingEnd="15dp"

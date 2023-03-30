@@ -64,6 +64,10 @@ public class SobotStartSobotFunctionActivity extends AppCompatActivity implement
         if (v == sobot_tv_start) {
             if (information != null) {
                 information.setUseRobotVoice(true);
+                String sobot_custom_language_value = SobotSPUtil.getStringData(this, "custom_language_value", "");
+                if (!TextUtils.isEmpty(sobot_custom_language_value)) {
+                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_custom_language_value, true, false);
+                }
                 ZCSobotApi.openZCChat(getContext(), information);
             }
         }

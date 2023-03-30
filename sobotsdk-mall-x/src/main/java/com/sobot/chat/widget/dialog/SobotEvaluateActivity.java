@@ -377,7 +377,11 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
 
         if (current_model == ZhiChiConstant.client_model_robot) {
             sobot_tv_evaluate_title.setText(getResString("sobot_robot_customer_service_evaluation"));
-            sobot_robot_center_title.setText(initModel.getRobotName() + " " + ChatUtils.getResString(context, "sobot_question"));
+            if (CommonUtils.checkSDKIsZh(context)) {
+                sobot_robot_center_title.setText(initModel.getRobotName() + " " + ChatUtils.getResString(context, "sobot_question"));
+            } else {
+                sobot_robot_center_title.setText(ChatUtils.getResString(context, "sobot_question"));
+            }
             sobot_robot_relative.setVisibility(View.VISIBLE);
             sobot_custom_relative.setVisibility(View.GONE);
         } else {
@@ -391,7 +395,13 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             }
             sobot_tv_evaluate_title.setText(getResString("sobot_please_evaluate_this_service"));
             sobot_robot_center_title.setText(customName + " " + ChatUtils.getResString(context, "sobot_question"));
-            sobot_custom_center_title.setText(customName + " " + ChatUtils.getResString(context, "sobot_please_evaluate"));
+            if (CommonUtils.checkSDKIsZh(context)) {
+                sobot_robot_center_title.setText(customName + " " + ChatUtils.getResString(context, "sobot_question"));
+                sobot_custom_center_title.setText(customName + " " + ChatUtils.getResString(context, "sobot_please_evaluate"));
+            } else {
+                sobot_robot_center_title.setText(ChatUtils.getResString(context, "sobot_question"));
+                sobot_custom_center_title.setText(ChatUtils.getResString(context, "sobot_please_evaluate"));
+            }
             sobot_robot_relative.setVisibility(View.GONE);
             sobot_custom_relative.setVisibility(View.VISIBLE);
         }

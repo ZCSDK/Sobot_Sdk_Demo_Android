@@ -19,7 +19,7 @@
        <string name="sobot_title">หัวข้อ</string>
        <string name="sobot_the_label_is_required">จำเป็นต้องเลือกฉลาก</string>
        <string name="sobot_thank_dialog_hint">ขอบคุณสำหรับความคิดเห็นของคุณ!</string>
-       <string name="sobot_temporary_leave">จากไปชั่วคราว</string>
+       <string name="sobot_temporary_leave">ออกชั่วคราว</string>
        <string name="sobot_temporarily_not_evaluation">ยังไม่รีวิว</string>
        <string name="sobot_tap_hold_camera">แตะเพื่อถ่ายรูป กดค้างไว้เพื่อถ่ายวีดีโอ</string>
        <string name="sobot_switch_robot_title_2">โปรดเลือกเรื่องที่จะสอบถาม</string>
@@ -42,11 +42,11 @@
        <string name="sobot_robot_customer_service_evaluation">รีวิวการบริการลูกค้าบอท</string>
        <string name="sobot_robot_auto_transfer_tip">ขออภัยที่ไม่สามารถแก้ปัญหาของคุณได้ กำลังโอนสายไปยังแอดมินบริการลูกค้า</string>
        <string name="sobot_retracted_msg_tip_end">ถอนข้อความ</string>
-       <string name="sobot_restart_talk">สร้างสนทนาใหม่</string>
+       <string name="sobot_restart_talk">เซสชันใหม่</string>
        <string name="sobot_resendmsg">ส่งอีกครั้ง</string>
        <string name="sobot_required">จำเป็น</string>
        <string name="sobot_reply">ตอบกลับ</string>
-       <string name="sobot_release_to_cancel">ปล่อยนิ้วเพื่อยกเลิกการส่ง</string>
+       <string name="sobot_release_to_cancel">ยกเลิกการส่ง</string>
        <string name="sobot_receive_new_message">คุณได้รับข้อความใหม่</string>
        <string name="sobot_rating_score">ให้คะแนน</string>
        <string name="sobot_rating_dec">ความคิดเห็นลูกค้า</string>
@@ -64,7 +64,7 @@
        <string name="sobot_please_input_reply_hint">กรุณาป้อนคำตอบของคุณ</string>
        <string name="sobot_please_input">กรุณาป้อนข้อมูล</string>
        <string name="sobot_please_evaluate_this_service">รีวิวบริการ</string>
-       <string name="sobot_please_evaluate">เชิญคุณแสดงความคิดเห็นสำหรับบริการครั้งนี้</string>
+       <string name="sobot_please_evaluate">ข้อเสนอแนะ</string>
        <string name="sobot_please_comment">โปรดรีวิวบริการครั้งนี้</string>
        <string name="sobot_pic_type_error">รูปแบบภาพผิดพลาด</string>
        <string name="sobot_phone_no_empty">หมายเลขโทรศัพท์ต้องไม่ว่างเปล่า</string>
@@ -86,7 +86,7 @@
        <string name="sobot_not_find_pic">ไม่พบรูปภาพ</string>
        <string name="sobot_no_read">ต่อไปนี้เป็นข้อความที่ยังไม่ได้อ่าน</string>
        <string name="sobot_no_content">ไม่มีเนื้อหาที่เกี่ยวข้อง</string>
-       <string name="sobot_no_access">ไม่มีแอดมินบริการลูกค้าออนไลน์อยู่</string>
+       <string name="sobot_no_access">แอดมินออฟไลน์แล้ว</string>
        <string name="sobot_new_ticket_info_update">อัปเดต</string>
        <string name="sobot_new_ticket_info">สถานะการฝากข้อความของคุณคือ</string>
        <string name="sobot_new_msg">ข้อความใหม่</string>
@@ -94,7 +94,7 @@
        <string name="sobot_net_work_err">เครือข่ายผิดพลาด</string>
        <string name="sobot_my_service_comment">การประเมินบริการของฉัน</string>
        <string name="sobot_my_reply">คำตอบของฉัน</string>
-       <string name="sobot_move_up_to_cancel">เลื่อนนิ้วขึ้นเพื่อยกเลิกการส่ง</string>
+       <string name="sobot_move_up_to_cancel">ปัดขึ้นเพื่อยกเลิก</string>
        <string name="sobot_money_trading_tip">การแจ้งเตือน：โปรดทำธุรกรรมตามการดำเนินงานปกติจากเว็บไซต์ทางการและอย่าให้รหัสยืนยันหมายเลขบัญชีและข้อมูลส่วนตัวอื่น ๆ ระวังการถูกโกง!</string>
        <string name="sobot_money_format">บาท</string>
        <string name="sobot_message_record">บันทึกข้อความ</string>
@@ -102,7 +102,7 @@
        <string name="sobot_location">ตำแหน่ง</string>
        <string name="sobot_line_transfinite_def_hint">ขออภัย คิวติดต่อแอดมินเต็มแล้ว กรุณาฝากข้อความทิ้งไว้ เราจะมีเจ้าหน้าที่เฉพาะดำเนินการจัดการกับคำถามที่คุณส่งมาโดยตรง ~</string>
        <string name="sobot_leaveMsg_to_ticket">ไปที่บันทึกข้อความ</string>
-       <string name="sobot_leavemsg_title">ข้อความฝาก</string>
+       <string name="sobot_leavemsg_title">ฝากข้อความ</string>
        <string name="sobot_leavemsg_success_tip">ส่งสำเร็จแล้ว</string>
        <string name="sobot_leavemsg_error_tip">ส่งล้มเหลว</string>
        <string name="sobot_leaveMsg_create_success_des">เราจะแจ้งคุณสถานะการดำเนินการของใบงานในรูปแบบของลิงค์</string>
@@ -124,8 +124,8 @@
        <string name="sobot_file_download">ดาวน์โหลดทันที</string>
        <string name="sobot_evaluation_completed_exit">สนทนาจะสิ้นสุดลงหลังส่งรีวิวเสร็จ</string>
        <string name="sobot_evaluate_zero_score_des">การรีวิวของคุณจะทำให้เราพัฒนาได้ดีขึ้น</string>
-       <string name="sobot_evaluate_yes">แก้ไขแล้ว</string>
-       <string name="sobot_evaluate_no">ยังไม่แก้ไข</string>
+       <string name="sobot_evaluate_yes">ใช่</string>
+       <string name="sobot_evaluate_no">เลขที่</string>
        <string name="sobot_empty_data">ไม่มีข้อมูลที่เกี่ยวข้อง</string>
        <string name="sobot_email_no_empty">อีเมลต้องไม่ว่างเปล่า</string>
        <string name="sobot_email_dialog_hint">รูปแบบอีเมลของคุณผิด</string>
@@ -167,7 +167,7 @@
        <string name="sobot_btn_submit_text">ส่ง</string>
        <string name="sobot_btn_submit">ยืนยัน</string>
        <string name="sobot_btn_cancle">ยกเลิก</string>
-       <string name="sobot_attach_take_pic">ถ่าย</string>
+       <string name="sobot_attach_take_pic">กล้อง</string>
        <string name="sobot_already_save_to_picture">บันทึกเข้าอัลบั้มระบบแล้ว</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">โปรดรีวิวคุณภาพบริการหลังใช้บริการ</string>
        <string name="sobot__is_null">ต้องไม่ว่างเปล่า</string>

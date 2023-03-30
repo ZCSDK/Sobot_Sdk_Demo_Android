@@ -83,6 +83,8 @@
         <item name="android:textColor">@color/sobot_color_bottom_btn_wz_color</item>
         <item name="android:textSize">12sp</item>
         <item name="android:visibility">visible</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
     </style>
 
     <style name="sobot_chatting_nickname">

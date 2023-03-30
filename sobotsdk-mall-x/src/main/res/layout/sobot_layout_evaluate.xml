@@ -18,7 +18,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top">
 
             <LinearLayout
@@ -30,6 +30,8 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginRight="60dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -40,6 +42,12 @@
                     android:gravity="center"
                     android:textColor="@color/sobot_common_gray1"
                     android:textSize="17sp"
+                    android:autoSizePresetSizes="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeMaxTextSize="17sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,19 +55,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:layout_marginBottom="6dp"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="12sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/sobot_negativeButton"
                 android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end|center_vertical">
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_marginTop="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:layout_width="15dp"
@@ -71,7 +83,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/sobot_evaluate_cancel"
+                android:id="@+id/sobot_evaluate_right"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|start"
@@ -123,7 +135,7 @@
                         android:textColor="@color/sobot_common_gray1"
                         android:textSize="15sp" />
 
-                    <RadioGroup
+                    <com.sobot.chat.widget.FlowRadioGroup
                         android:id="@+id/sobot_readiogroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,7 +146,7 @@
                         <RadioButton
                             android:id="@+id/sobot_btn_ok_robot"
                             style="@style/sobot_rb_evaluate_style"
-                            android:layout_gravity="start"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginEnd="30dp"
                             android:layout_marginRight="30dp"
                             android:drawableStart="@drawable/sobot_evaluate_btn_yes_selector"
@@ -143,9 +155,10 @@
                         <RadioButton
                             android:id="@+id/sobot_btn_no_robot"
                             style="@style/sobot_rb_evaluate_style"
+                            android:layout_gravity="center_horizontal"
                             android:drawableStart="@drawable/sobot_evaluate_btn_no_selector"
                             android:drawableLeft="@drawable/sobot_evaluate_btn_no_selector" />
-                    </RadioGroup>
+                    </com.sobot.chat.widget.FlowRadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
@@ -334,13 +347,12 @@
             android:id="@+id/sobot_close_now"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_marginBottom="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="30dp"
             android:background="@drawable/sobot_evaluate_commit_selector"
             android:gravity="center"
             android:textColor="@drawable/sobot_text_button_color_selector"
@@ -348,6 +360,25 @@
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:textStyle="bold" />
-
+    <TextView
+        android:id="@+id/sobot_evaluate_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/sobot_ll_evaluate_title"
+        android:layout_toLeftOf="@+id/sobot_ll_evaluate_title"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/sobot_temporarily_not_evaluation"
+        android:textColor="@color/sobot_common_gray1"
+        android:visibility="gone" />
     </com.sobot.chat.widget.SobotMHLinearLayout>
 </LinearLayout>

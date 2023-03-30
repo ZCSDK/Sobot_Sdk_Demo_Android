@@ -370,4 +370,14 @@ public final class StringUtils {
             return false;
     }
 
+    //判断系统语言是否是英文 true 是 false 不是
+    public static boolean isEn(Context context) {
+        Locale locale = context.getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+        if (language.endsWith("en"))
+            return true;
+        else
+            return false;
+    }
+
 }

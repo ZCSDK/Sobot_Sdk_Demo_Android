@@ -23,7 +23,7 @@ public class CameraMachine implements State {
     public CameraMachine(Context context, StICameraView view, CameraInterface.CameraOpenOverCallback
             cameraOpenOverCallback) {
         this.context = context;
-        previewState = new PreviewState(this);
+        previewState = new PreviewState(this,context);
         borrowPictureState = new BorrowPictureState(this);
         borrowVideoState = new BorrowVideoState(this);
         //默认设置为空闲状态

@@ -326,7 +326,7 @@ public class ChatUtils {
         handler.sendMessage(message);
     }
 
-    public static void sendPicture(Context context, String cid, String uid,
+    public static void sendPicture(final Context context, String cid, String uid,
                                    final String filePath, final Handler handler, final String id,
                                    final ListView lv_message, final SobotMsgAdapter messageAdapter) {
         SobotMsgManager.getInstance(context).getZhiChiApi().sendFile(cid, uid, filePath, "", new ResultCallBack<ZhiChiMessage>() {
@@ -334,11 +334,34 @@ public class ChatUtils {
             public void onSuccess(ZhiChiMessage zhiChiMessage) {
                 if (ZhiChiConstant.result_success_code == Integer
                         .parseInt(zhiChiMessage.getCode())) {
+                    if (1 == Integer
+                            .parseInt(zhiChiMessage.getData().getStatus())) {
+                        if (id != null) {
+                            Message message = handler.obtainMessage();
+                            message.what = ZhiChiConstant.hander_sendPicStatus_success;
+                            message.obj = id;
+                            handler.sendMessage(message);
+                        }
+                    } else {
+                        if (id != null) {
+                            Message message = handler.obtainMessage();
+                            message.what = ZhiChiConstant.hander_sendPicStatus_fail;
+                            message.obj = id;
+                            handler.sendMessage(message);
+                        }
+                        if (TextUtils.isEmpty(zhiChiMessage.getMsg())) {
+                            ToastUtil.showToast(context, zhiChiMessage.getMsg());
+                        }
+                    }
+                } else {
                     if (id != null) {
                         Message message = handler.obtainMessage();
-                        message.what = ZhiChiConstant.hander_sendPicStatus_success;
+                        message.what = ZhiChiConstant.hander_sendPicStatus_fail;
                         message.obj = id;
                         handler.sendMessage(message);
+                    }
+                    if (TextUtils.isEmpty(zhiChiMessage.getMsg())) {
+                        ToastUtil.showToast(context, zhiChiMessage.getMsg());
                     }
                 }
             }
@@ -1257,6 +1280,8 @@ public class ChatUtils {
     public static TextView initAnswerItemTextView(Context context, boolean isHistoryMsg) {
         TextView answer = new TextView(context);
         answer.setTextSize(14);
+        answer.setMaxLines(2);
+        answer.setEllipsize(TextUtils.TruncateAt.END);
         answer.setPadding(0, ScreenUtils.dip2px(context, 7), 0, ScreenUtils.dip2px(context, 7));
         answer.setLineSpacing(2f, 1f);
         // 设置字体的颜色的样式

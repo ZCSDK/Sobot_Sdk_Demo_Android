@@ -24,6 +24,7 @@ import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.notchlib.utils.ScreenUtil;
 import com.sobot.chat.utils.ChatUtils;
+import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
@@ -214,9 +215,13 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         }
 
 
-        sobot_center_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_question"));
-        sobot_tv_star_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_please_evaluate"));
-
+        if (CommonUtils.checkSDKIsZh(context)) {
+            sobot_center_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_question"));
+            sobot_tv_star_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_please_evaluate"));
+        } else {
+            sobot_center_title.setText(ChatUtils.getResString(context, "sobot_question"));
+            sobot_tv_star_title.setText(ChatUtils.getResString(context, "sobot_please_evaluate"));
+        }
         checkQuestionFlag();
         refreshItem();
 

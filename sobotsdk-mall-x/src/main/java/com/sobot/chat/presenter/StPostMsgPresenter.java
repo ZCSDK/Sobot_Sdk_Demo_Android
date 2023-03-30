@@ -34,7 +34,6 @@ public class StPostMsgPresenter {
     public static final String INTENT_KEY_CUSTOMERID = "intent_key_customerid";
     public static final String INTENT_KEY_COMPANYID = "intent_key_companyid";
     public static final String INTENT_KEY_IS_SHOW_TICKET = "intent_key_is_show_ticket";
-    public static final String INTENT_KEY_CUS_FIELDS = "intent_key_cus_fields";
 
     private StPostMsgPresenter() {
     }

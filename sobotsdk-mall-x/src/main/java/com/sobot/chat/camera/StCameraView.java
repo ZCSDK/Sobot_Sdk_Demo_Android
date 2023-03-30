@@ -142,7 +142,6 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
         zoomGradient = (int) (layout_width / 16f);
         StCmeraLog.i("zoom = " + zoomGradient);
         machine = new CameraMachine(getContext(), this, this);
-        CameraInterface.getInstance().setContext(getContext());
     }
 
     private void initView() {

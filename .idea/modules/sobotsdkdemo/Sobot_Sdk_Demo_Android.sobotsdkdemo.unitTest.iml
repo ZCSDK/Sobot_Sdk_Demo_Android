@@ -26,7 +26,7 @@
     <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.1.9.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.0.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:2.4.3" level="project" />

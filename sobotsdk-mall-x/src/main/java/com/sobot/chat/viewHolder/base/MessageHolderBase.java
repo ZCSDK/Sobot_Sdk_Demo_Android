@@ -22,6 +22,7 @@ import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.adapter.SobotMsgAdapter;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
+import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
@@ -106,6 +107,15 @@ public abstract class MessageHolderBase {
         msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
                 ZhiChiConstant.sobot_last_current_initModel);
+        if(null!=sobot_tv_bottom_likeBtn && null!=sobot_tv_dislikeBtn){
+            if (CommonUtils.checkSDKIsZh(mContext) || CommonUtils.checkSDKIsEn(mContext)){
+                sobot_tv_bottom_likeBtn.setText(ResourceUtils.getResString(mContext,"sobot_ding"));
+                sobot_tv_dislikeBtn.setText(ResourceUtils.getResString(mContext,"sobot_cai"));
+            }else{
+                sobot_tv_bottom_likeBtn.setText("");
+                sobot_tv_dislikeBtn.setText("");
+            }
+        }
     }
 
     public abstract void bindData(Context context, final ZhiChiMessageBase message);

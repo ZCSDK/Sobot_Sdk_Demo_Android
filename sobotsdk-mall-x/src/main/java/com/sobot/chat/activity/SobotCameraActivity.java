@@ -117,6 +117,9 @@ public class SobotCameraActivity extends SobotBaseActivity {
 
     @Override
     protected void onDestroy() {
+        if(null!=jCameraView){
+            jCameraView.setErrorLisenter(null);
+        }
         MyApplication.getInstance().deleteActivity(this);
         super.onDestroy();
     }

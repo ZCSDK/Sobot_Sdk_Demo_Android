@@ -77,6 +77,10 @@ public class SobotDemoWelcomeFragment extends Fragment implements View.OnClickLi
                         ToastUtil.showCustomToast(getActivity(), "请前往基础设置中初始化后再启动");
                         return;
                     }
+                    String sobot_custom_language_value = SobotSPUtil.getStringData(getActivity(), "custom_language_value", "");
+                    if (!TextUtils.isEmpty(sobot_custom_language_value)) {
+                        ZCSobotApi.setInternationalLanguage(getActivity(), sobot_custom_language_value, true, false);
+                    }
                     ZCSobotApi.openZCChat(getContext(), information);
                 }
                 break;

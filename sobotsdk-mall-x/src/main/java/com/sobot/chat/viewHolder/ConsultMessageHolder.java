@@ -24,7 +24,7 @@ import com.sobot.pictureframe.SobotBitmapUtil;
 public class ConsultMessageHolder extends MessageHolderBase implements View.OnClickListener {
     private TextView tv_title;//   商品标题页title    商品描述  商品图片   发送按钮  商品标签
     private ImageView iv_pic;
-    private Button btn_sendBtn;
+    private TextView btn_sendBtn;
     private View sobot_container;
     private TextView tv_lable;
     private TextView tv_des;
@@ -33,8 +33,12 @@ public class ConsultMessageHolder extends MessageHolderBase implements View.OnCl
 
     public ConsultMessageHolder(Context context, View convertView) {
         super(context, convertView);
-        btn_sendBtn = (Button) convertView.findViewById(ResourceUtils.getResId(context, "sobot_goods_sendBtn"));
-        btn_sendBtn.setText(ResourceUtils.getResString(context,"sobot_send_cus_service"));
+        btn_sendBtn =  convertView.findViewById(ResourceUtils.getResId(context, "sobot_goods_sendBtn"));
+        if(CommonUtils.checkSDKIsZh(mContext)){
+            btn_sendBtn.setText(ResourceUtils.getResString(context,"sobot_send_cus_service"));
+        }else{
+            btn_sendBtn.setText(ResourceUtils.getResString(context,"sobot_button_send"));
+        }
         sobot_container = convertView.findViewById(ResourceUtils.getResId(context, "sobot_container"));
         iv_pic = (ImageView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_goods_pic"));
         tv_title = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_goods_title"));

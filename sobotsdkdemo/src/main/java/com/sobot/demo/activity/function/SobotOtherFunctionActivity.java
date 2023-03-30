@@ -137,13 +137,15 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
                 ZCSobotApi.setSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE, status478);
                 SobotSPUtil.saveBooleanData(this, "auto_match_timezone", status478);
                 String scope_time = sobot_et_scope_time.getText().toString().trim();
-                SobotApi.setScope_time(getContext(), Integer.parseInt(scope_time));
+                if (!TextUtils.isEmpty(scope_time)) {
+                    ZCSobotApi.setScope_time(getContext(), Long.parseLong(scope_time));
+                }
                 ToastUtil.showToast(getContext(), "已保存");
                 if (TextUtils.isEmpty(sobot_et_langue.getText().toString().trim())) {
-                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), false, true);
+                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), false, false);
                     ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
                 } else {
-                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), true, true);
+                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), true, false);
                     ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
                 }
                 SobotSPUtil.saveStringData(this, "custom_language_value", sobot_et_langue.getText().toString().trim());
