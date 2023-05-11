@@ -4,11 +4,6 @@
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="debug" />
-        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
-        <afterSyncTasks>
-          <task>generateDebugSources</task>
-        </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
@@ -18,7 +13,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+    <output url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/intermediates/javac/debugUnitTest/compileDebugUnitTestJavaWithJavac/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/aidl_source_output_dir/debug/compileDebugAidl/out" />
     <content url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/renderscript_source_output_dir/debug/compileDebugRenderscript/out" />
@@ -26,12 +23,8 @@
     <content url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/res/rs/debug" />
     <content url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/apt/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/apt/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/apt/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/apt/debug" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/buildConfig/debug">
-      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdkdemo/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../sobotsdkdemo/src/debug" />
@@ -43,7 +36,7 @@
     <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" />
-    <orderEntry type="library" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.0.jar" level="project" />
+    <orderEntry type="library" name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.0.jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:2.4.3" level="project" />

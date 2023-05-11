@@ -4,11 +4,6 @@
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="debug" />
-        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
-        <afterSyncTasks>
-          <task>generateDebugSources</task>
-        </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
@@ -19,19 +14,23 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+    <output url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/intermediates/javac/debugUnitTest/compileDebugUnitTestJavaWithJavac/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/aidl_source_output_dir/debugAndroidTest/compileDebugAndroidTestAidl/out" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/renderscript_source_output_dir/debugAndroidTest/compileDebugAndroidTestRenderscript/out" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/res/resValues/androidTest/debug" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/res/rs/androidTest/debug" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/androidTest/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/buildConfig/androidTest/debug" isTestSource="true" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/androidTestDebug" />
-    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 33 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="Gradle: ./sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.0.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture_x:1.1.4@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:net:1.1.5@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:1.0@aar" level="project" />

@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.library:net:1.1.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b56a1e094b1aaf6f49ee4aac7deb47b4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b56a1e094b1aaf6f49ee4aac7deb47b4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dba431f2c1d78040ce7d1dbd77644139/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dba431f2c1d78040ce7d1dbd77644139/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://E:/androidtools/.gradle/caches/modules-2/files-2.1/com.sobot.library/net/1.1.5/9423d10fd7caa96fe86417bc46b201484dbf232c/net-1.1.5-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

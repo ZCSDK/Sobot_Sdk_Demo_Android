@@ -24,23 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SobotDemoNewActivity" />
-        <activity android:name=".activity.more.SobotDemoMasterActivity" />
-        <activity android:name=".activity.more.SobotPersonSetActivity" />
-        <activity android:name=".activity.more.SobotConsultationSetActivity" />
-        <activity android:name=".activity.more.SobotDemoInitModeTypeActivity" />
-        <activity android:name=".activity.more.SobotTransferCustomActivity" />
-        <activity android:name=".activity.more.SobotReceptionistIdSetActivity" />
-        <activity android:name=".activity.more.SobotCloseButtonSetActivity" />
-        <activity android:name=".activity.more.SobotSwitchAllSetActivity" />
-        <activity android:name=".activity.more.SobotSkillSetActivity" />
-        <activity android:name=".activity.more.SobotRobotSetActivity" />
-        <activity android:name=".activity.more.SobotSatisfactionSetActivity" />
-        <activity android:name=".activity.more.SobotAccessSetActivity" />
-        <activity android:name=".activity.more.SobotCustomTitleActivity" />
-        <activity android:name=".activity.more.SobotIsUseVoiceSetActivity" />
-        <activity android:name=".activity.more.SobotHistoryRulerActivity" />
-        <activity android:name=".activity.more.SobotNotificationSetActivity" />
-        <activity android:name=".activity.more.SobotCustomReplyActivity" />
         <activity android:name=".activity.product.SobotDemoRobotActivity" />
         <activity android:name=".activity.product.SobotDemoCustomActivity" />
         <activity android:name=".activity.product.SobotDemoCloudCallActivity" />
@@ -63,9 +46,6 @@
             </intent-filter>
         </receiver>
         -->
-
-
-        <activity android:name=".SobotDemoSettingActivity" />
 
 
         <activity android:name=".activity.function.SobotBaseFunctionActivity" />

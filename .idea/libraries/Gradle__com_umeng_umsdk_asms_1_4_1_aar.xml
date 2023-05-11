@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.umeng.umsdk:asms:1.4.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bcdd9d11e29720b401cc9043027f092b/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bcdd9d11e29720b401cc9043027f092b/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bcdd9d11e29720b401cc9043027f092b/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f7efe7e27548ee1491a4d52c5da7fe08/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f7efe7e27548ee1491a4d52c5da7fe08/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f7efe7e27548ee1491a4d52c5da7fe08/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

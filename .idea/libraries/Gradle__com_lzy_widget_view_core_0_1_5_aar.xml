@@ -1,11 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.lzy.widget:view-core:0.1.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a255a5f89f5aca15c5a3a5d3d9533edb/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a255a5f89f5aca15c5a3a5d3d9533edb/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a255a5f89f5aca15c5a3a5d3d9533edb/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a41608e2f251f574a9b786caf91ffcc/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a41608e2f251f574a9b786caf91ffcc/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a41608e2f251f574a9b786caf91ffcc/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://E:/androidtools/.gradle/caches/modules-2/files-2.1/com.lzy.widget/view-core/0.1.5/157846dcad0afe425e8bd566b60b572f86db9937/view-core-0.1.5-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
