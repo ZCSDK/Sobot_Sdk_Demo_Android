@@ -38,140 +38,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7131948a-cca0-4901-8f33-175813d1b00c" name="Default Changelist" comment="升级3.1.9">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____sobotsdk_mall_x_libs_sobot_sdk_mall_x_lib_3_2_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_alibaba_fastjson_1_2_73.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_alibaba_fastjson_1_2_73.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_9_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_9_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_8_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_8_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lzy_widget_view_core_0_1_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lzy_widget_view_core_0_1_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nostra13_universalimageloader_universal_image_loader_1_9_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nostra13_universalimageloader_universal_image_loader_1_9_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsdk_imageloader_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsdk_imageloader_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_chat_sobotsupport_glidev4_2_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_net_1_1_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_net_1_1_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_picture_x_1_1_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sobot_library_picture_x_1_1_4_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_logging_interceptor_4_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_logging_interceptor_4_4_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_4_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_4_4_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_2_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_2_4_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_apm_1_5_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_apm_1_5_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_asms_1_4_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_asms_1_4_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_common_9_4_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_umeng_umsdk_common_9_4_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_61.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_61.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdk-mall-x/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.unitTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdk/Sobot_Sdk_Demo_Android.sobotsdk-mall-x.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sobotsdkdemo/Sobot_Sdk_Demo_Android.sobotsdkdemo.unitTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_8_6__11_10_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_8_6__11_10_AM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdkdemo/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/SettingItemView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/SobotDemoExitDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/SobotDemoSettingActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/SobotDemoSettingFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/SobotNotificationClickReceiver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotAccessSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotCloseButtonSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotConsultationSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotCustomReplyActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotCustomTitleActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotDemoInitModeTypeActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotDemoMasterActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotHistoryRulerActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotIsUseVoiceSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotNotificationSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotPersonSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotReceptionistIdSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotRobotSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotSatisfactionSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotSkillSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotSwitchAllSetActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/java/com/sobot/demo/activity/more/SobotTransferCustomActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_access_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_consultation_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_custom_reply_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_custom_title_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_exit_dialog.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_infomation_func_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_init_mode_type_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_initplatform_sobot_func_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_initsobot_func_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_demo_master_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_history_ruler_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_isuse_voice_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_notification_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_person_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_receptionistid_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_robot_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_satisfaction_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_satisfaction_set_close_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_setting_item_view1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_setting_item_view2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_skill_set_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_switch_all_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sobotsdkdemo/src/main/res/layout/sobot_transfer_custom_activity.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="7131948a-cca0-4901-8f33-175813d1b00c" name="Default Changelist" comment="清理demo 无用资源" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -596,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676025797506</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="清理demo 无用资源">
+      <created>1683794770435</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1683794770435</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -676,7 +550,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="升级版本2.9.1" />
     <MESSAGE value="升级版本2.9.2" />
     <MESSAGE value="升级版本2.9.3" />
     <MESSAGE value="更新jar" />
@@ -701,7 +574,8 @@
     <MESSAGE value="升级3.1.5" />
     <MESSAGE value="升级3.1.6" />
     <MESSAGE value="升级3.1.9" />
-    <option name="LAST_COMMIT_MESSAGE" value="升级3.1.9" />
+    <MESSAGE value="清理demo 无用资源" />
+    <option name="LAST_COMMIT_MESSAGE" value="清理demo 无用资源" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
