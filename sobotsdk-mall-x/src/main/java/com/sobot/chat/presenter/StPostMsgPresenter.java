@@ -187,12 +187,14 @@ public class StPostMsgPresenter {
      * @param uid
      * @param templateId
      */
-    public void obtainTmpConfigToMuItiPostMsg(final String uid, final String templateId) {
+    public void obtainTmpConfigToMuItiPostMsg(final String uid, final String templateId,final String tipMsgId) {
         mApi.getMsgTemplateConfig(mCancelTag, uid, templateId, new StringResultCallBack<SobotLeaveMsgConfig>() {
             @Override
             public void onSuccess(SobotLeaveMsgConfig data) {
                 Intent intent = new Intent(mContext, SobotMuItiPostMsgActivty.class);
                 intent.putExtra(INTENT_KEY_UID, uid);
+                intent.putExtra("templateId", templateId);
+                intent.putExtra("tipMsgId", tipMsgId);
                 intent.putExtra(INTENT_KEY_CONFIG, data);
                 mContext.startActivity(intent);
             }

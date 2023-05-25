@@ -99,7 +99,7 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
                 String stripeContent = message.getStripe() != null ? message.getStripe().trim() : "";
                 if (!TextUtils.isEmpty(stripeContent)) {
                     //去掉p标签
-                    stripeContent = stripeContent.replace("<p>", "").replace("</p>", "");
+                    stripeContent = stripeContent.replace("<p>", "").replace("</p>", "<br/>");
                     // 设置提醒的内容
                     stripe.setVisibility(View.VISIBLE);
                     HtmlTools.getInstance(context).setRichText(stripe, stripeContent, getLinkTextColor());

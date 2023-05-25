@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">Nếu bạn tiếp tục đợi, hãy nhắp vào</string>
        <string name="sobot_ding">trên</string>
        <string name="sobot_cai">bước lên</string>
+       <string name="sobot_re_commit">Bạn chưa gửi thông tin, vui lòng</string>
+       <string name="sobot_re_write">Điền lại thông tin</string>
 </resources>

@@ -123,7 +123,7 @@ public class SobotPostLeaveMsgActivity extends SobotBaseActivity implements View
     @Override
     public void onClick(View v) {
         if (v == sobot_btn_submit) {
-            final String content = sobot_post_et_content.getText().toString();
+            final String content = sobot_post_et_content.getText().toString().trim();
             if (TextUtils.isEmpty(content) || TextUtils.isEmpty(mUid)) {
                 CustomToast.makeText(SobotPostLeaveMsgActivity.this, ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot_problem_description") + ResourceUtils.getResString(SobotPostLeaveMsgActivity.this, "sobot__is_null"), 1000).show();
                 return;

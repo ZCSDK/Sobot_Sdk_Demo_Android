@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">如果繼續等待，點擊</string>
        <string name="sobot_ding">頂</string>
        <string name="sobot_cai">踩</string>
+       <string name="sobot_re_commit">您未提交資訊，請</string>
+       <string name="sobot_re_write">重新填寫資訊</string>
 </resources>

@@ -135,7 +135,7 @@
                         android:textColor="@color/sobot_common_gray1"
                         android:textSize="15sp" />
 
-                    <com.sobot.chat.widget.FlowRadioGroup
+                    <RadioGroup
                         android:id="@+id/sobot_readiogroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -149,6 +149,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginEnd="30dp"
                             android:layout_marginRight="30dp"
+                            android:text="@string/sobot_evaluate_yes"
                             android:drawableStart="@drawable/sobot_evaluate_btn_yes_selector"
                             android:drawableLeft="@drawable/sobot_evaluate_btn_yes_selector" />
 
@@ -156,9 +157,10 @@
                             android:id="@+id/sobot_btn_no_robot"
                             style="@style/sobot_rb_evaluate_style"
                             android:layout_gravity="center_horizontal"
+                            android:text="@string/sobot_evaluate_no"
                             android:drawableStart="@drawable/sobot_evaluate_btn_no_selector"
                             android:drawableLeft="@drawable/sobot_evaluate_btn_no_selector" />
-                    </com.sobot.chat.widget.FlowRadioGroup>
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout

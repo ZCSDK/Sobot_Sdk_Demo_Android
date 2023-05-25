@@ -205,6 +205,16 @@
                 android:layout_height="36dp"
                 android:background="@drawable/sobot_picture_button_selector"
                 android:gravity="center" />
+            <!-- 发送按钮 -->
+            <Button
+                android:id="@+id/sobot_btn_send_view"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/sobot_pic_send_icon"
+                android:visibility="gone"
+                android:gravity="center"
+                android:button="@null"
+                />
         </LinearLayout>
     </LinearLayout>
 

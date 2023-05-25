@@ -25,8 +25,6 @@ import com.sobot.chat.utils.StMapOpenHelper;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.kpswitch.view.ChattingPanelUploadView;
 import com.sobot.demo.model.SobotDemoOtherModel;
-import com.umeng.commonsdk.UMConfigure;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,13 +66,6 @@ public class App extends Application {
         ZCSobotApi.setSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH, SobotSPUtil.getBooleanData(this, "display_innotch", false));
         ZCSobotApi.setSwitchMarkStatus(MarkConfig.LEAVE_COMPLETE_CAN_REPLY, SobotSPUtil.getBooleanData(this, "leave_complete_can_reply", false));
 
-        //友盟 初始化SDK
-        UMConfigure.init(this, "5e66514bdbc2ec0777a3acd7", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
-        /**
-         * 设置组件化的Log开关
-         * 参数: boolean 默认为false，如需查看LOG设置为true
-         */
-        UMConfigure.setLogEnabled(true);
 
         //-----------拦截事件️-------------
 

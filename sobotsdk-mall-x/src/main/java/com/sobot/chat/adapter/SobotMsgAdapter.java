@@ -425,6 +425,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
         }
     }
 
+
     public void updateVoiceStatusById(String id, int sendStatus, String duration) {
         ZhiChiMessageBase info = getMsgInfo(id);
         if (info != null) {
@@ -480,13 +481,25 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     }
 
     private ZhiChiMessageBase getMsgInfo(String id) {
-
         for (int i = list.size() - 1; i >= 0; i--) {
             ZhiChiMessageBase msgInfo = list.get(i);
             if (msgInfo == null) {
                 continue;
             }
             if (msgInfo.getId() != null && msgInfo.getId().equals(id)) {
+                return msgInfo;
+            }
+        }
+        return null;
+    }
+
+    public ZhiChiMessageBase getMsgInfoByMsgId(String msgId) {
+        for (int i = list.size() - 1; i >= 0; i--) {
+            ZhiChiMessageBase msgInfo = list.get(i);
+            if (msgInfo == null) {
+                continue;
+            }
+            if (msgInfo.getMsgId() != null && msgInfo.getMsgId().equals(msgId)) {
                 return msgInfo;
             }
         }
@@ -936,6 +949,14 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                 //发送消息触发隐私，同意后的系统消息
                 return MSG_TYPE_TIP;
             }
+            else if (ZhiChiConstant.action_mulit_postmsg_tip_can_click.equals(message.getAction())) {
+                //多轮收集节点提醒消息 可以点击
+                return MSG_TYPE_TIP;
+            }
+            else if (ZhiChiConstant.action_mulit_postmsg_tip_nocan_click.equals(message.getAction())) {
+                //多轮收集节点提醒消息 不可以点击
+                return MSG_TYPE_TIP;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return MSG_TYPE_ILLEGAL;
@@ -1090,6 +1111,6 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
 
         void addMessage(ZhiChiMessageBase message);
 
-        void mulitDiaToLeaveMsg(String leaveTemplateId);
+        void mulitDiaToLeaveMsg(String leaveTemplateId,String tipMsgId);
     }
 }

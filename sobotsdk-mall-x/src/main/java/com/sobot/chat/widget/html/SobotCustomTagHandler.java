@@ -61,13 +61,11 @@ public class SobotCustomTagHandler implements Html.TagHandler {
                           XMLReader xmlReader) {
         try {
             processAttributes(xmlReader);
-            if (tag.equalsIgnoreCase(NEW_SPAN) || tag.equalsIgnoreCase(NEW_FONT)) {
                 if (opening) {
                     startFont(tag, output, xmlReader);
                 } else {
                     endFont(tag, output, xmlReader);
                     attributes.clear();
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">Jika anda terus menunggu, klik</string>
        <string name="sobot_ding">atas</string>
        <string name="sobot_cai">langkah ke depan</string>
+       <string name="sobot_re_commit">Anda tidak menghantar sebarang maklumat. Sila</string>
+       <string name="sobot_re_write">Isi maklumat lagi</string>
 </resources>

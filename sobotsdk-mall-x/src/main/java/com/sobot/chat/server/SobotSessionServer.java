@@ -64,10 +64,11 @@ public class SobotSessionServer extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        LogUtils.i2Local("SobotSessionServer onStartCommand", "SobotSessionServer服务启动");
         if (intent != null) {
             currentUid = intent.getStringExtra(ZhiChiConstant.SOBOT_CURRENT_IM_PARTNERID);
         }
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -125,13 +126,17 @@ public class SobotSessionServer extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (ZhiChiConstants.receiveMessageBrocast.equals(intent.getAction())) {
+
                 // 接受下推的消息
                 try {
                     Bundle extras = intent.getExtras();
                     if (extras != null) {
                         ZhiChiPushMessage pushMessage = (ZhiChiPushMessage) extras.getSerializable(ZhiChiConstants.ZHICHI_PUSH_MESSAGE);
                         if (pushMessage != null && isNeedShowMessage(pushMessage.getAppId())) {
+                            LogUtils.i2Local("收到消息4", "接受到广播（SobotSessionServer）: " +pushMessage.getMsgId());
                             receiveMessage(context, pushMessage);
+                        }else{
+                            LogUtils.i2Local("收到消息4", "接受到广播（SobotSessionServer）: pushMessage是否为空："+(pushMessage == null)+"或isNeedShowMessage为true" );
                         }
                     }
                 } catch (Exception e) {
@@ -198,6 +203,7 @@ public class SobotSessionServer extends Service {
                         config.isShowUnreadUi = false;
                     }
                     config.addMessage(base);
+                    LogUtils.i2Local("收到消息5", "加入到config中 msgId:"+base.getMsgId() );
                     if (config.customerState == CustomerState.Online) {
                         config.customTimeTask = false;
                         config.userInfoTimeTask = true;
@@ -452,6 +458,7 @@ public class SobotSessionServer extends Service {
             unregisterReceiver(receiverNet);
         }
         stopTimeTask();
+        LogUtils.i2Local("SobotSessionServer onDestroy", "SobotSessionServer服务被销毁");
         super.onDestroy();
     }
 

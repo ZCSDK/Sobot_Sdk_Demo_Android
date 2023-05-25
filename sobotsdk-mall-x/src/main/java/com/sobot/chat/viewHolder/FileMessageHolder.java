@@ -23,6 +23,7 @@ import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.chat.widget.SobotSectorProgressView;
@@ -302,6 +303,9 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
 
         @Override
         public void onError(SobotProgress progress) {
+            if (holder.mContext != null && progress != null && progress.exception != null && !TextUtils.isEmpty(progress.exception.getMessage())) {
+                ToastUtil.showToast(holder.mContext, progress.exception.getMessage());
+            }
             if (tag == holder.getTag()) {
                 holder.refreshUploadUi(progress);
             }

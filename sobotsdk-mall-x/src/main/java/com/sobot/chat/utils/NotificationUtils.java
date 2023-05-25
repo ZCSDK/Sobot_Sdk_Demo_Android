@@ -20,9 +20,13 @@ import com.sobot.chat.api.model.SobotUserTicketInfo;
 import com.sobot.chat.api.model.ZhiChiPushMessage;
 import com.sobot.chat.conversation.SobotChatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NotificationUtils {
 
     private static final String SOBOT_CHANNEL_ID = "sobot_channel_id";
+    private static List<Integer> notifyIds = new ArrayList<>();
 
     public static void createNotification(Context context, String title, String content, String ticker, int id, ZhiChiPushMessage pushMessage) {
 
@@ -72,11 +76,12 @@ public class NotificationUtils {
             manager.createNotificationChannel(mChannel);
             builder.setChannelId(SOBOT_CHANNEL_ID);
         }
-
         Notification notify2 = builder.getNotification();
         notify2.flags |= Notification.FLAG_AUTO_CANCEL;
 
         notify2.defaults = Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND;
+
+        notifyIds.add(id);
         manager.notify(id, notify2);
     }
 
@@ -89,6 +94,7 @@ public class NotificationUtils {
             SobotUserTicketInfo item = new SobotUserTicketInfo();
             if (leaveReplyModel != null) {
                 item.setTicketId(leaveReplyModel.getTicketId());
+                LogUtils.i(" 留言回复：" + leaveReplyModel);
             }
             Intent detailIntent = new Intent(context, SobotTicketDetailActivity.class);
             detailIntent.putExtra(SobotTicketDetailActivity.INTENT_KEY_UID, uid);
@@ -96,7 +102,7 @@ public class NotificationUtils {
             detailIntent.putExtra(SobotTicketDetailActivity.INTENT_KEY_TICKET_INFO, item);
             //传递数据想要成功，需要设置这里的flag参数
             detailIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            LogUtils.i(" 留言回复：" + leaveReplyModel);
+
             detailIntent.setPackage(context.getPackageName());
             int flag = PendingIntent.FLAG_UPDATE_CURRENT;
             if (Build.VERSION.SDK_INT >= 23) {
@@ -117,7 +123,6 @@ public class NotificationUtils {
 //                .setLargeIcon(bitmap)
                     .setTicker(ticker)
                     .setContentTitle(title)
-                    .setWhen(leaveReplyModel.getReplyTime() * 1000)
                     .setShowWhen(true)
                     .setContentText(Html.fromHtml(content))
                     .setContentIntent(pendingIntent2);
@@ -136,8 +141,11 @@ public class NotificationUtils {
             notify2.flags |= Notification.FLAG_AUTO_CANCEL;
 
             notify2.defaults = Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND;
-            manager.notify(getNotificationId(), notify2);
+            int noId = getNotificationId();
+            notifyIds.add(noId);
+            manager.notify(noId, notify2);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -145,7 +153,12 @@ public class NotificationUtils {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (nm != null) {
             try {
-                nm.cancelAll();
+                if(notifyIds!=null && notifyIds.size()>0) {
+                    for (int i = 0; i < notifyIds.size(); i++) {
+                        nm.cancel(notifyIds.get(i));
+                    }
+                    notifyIds.clear();
+                }
             } catch (Exception e) {
                 //ignore
             }

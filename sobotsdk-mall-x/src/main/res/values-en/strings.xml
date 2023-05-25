@@ -229,6 +229,8 @@
        <string name="sobot_parsing">Parsing</string>
        <string name="sobot_keep_queuing">Continue queuing</string>
        <string name="sobot_keep_queuing_string">If you continue to wait, click </string>
-       <string name="sobot_ding">Like</string>
-       <string name="sobot_cai">Dislike</string>
+       <string name="sobot_ding">top</string>
+       <string name="sobot_cai">step on</string>
+       <string name="sobot_re_commit">You have not submitted any information. Please</string>
+       <string name="sobot_re_write">Fill in the information again</string>
 </resources>

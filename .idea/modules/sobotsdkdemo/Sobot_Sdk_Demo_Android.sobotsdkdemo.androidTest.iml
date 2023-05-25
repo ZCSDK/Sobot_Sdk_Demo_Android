@@ -30,7 +30,7 @@
     <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.1.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:2.4.3" level="project" />
@@ -43,7 +43,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation:1.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:disklrucache:4.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:annotations:4.9.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.umeng.umsdk:common:9.4.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.alibaba:fastjson:1.2.73" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture_x:1.1.4@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:2.1@aar" level="project" />
@@ -79,8 +78,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.umeng.umsdk:asms:1.4.1@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.umeng.umsdk:apm:1.5.2@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Sobot_Sdk_Demo_Android.sobotsdkdemo.main" />
 </module>

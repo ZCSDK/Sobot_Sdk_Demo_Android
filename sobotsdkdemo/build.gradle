@@ -15,7 +15,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 30
         versionCode 39
-        versionName "3.2.0"
+        versionName "3.2.1"
 
         ndk {
             //设置支持的SO库架构
@@ -71,9 +71,6 @@ dependencies {
 
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
-    implementation  'com.umeng.umsdk:common:9.4.4'
-    implementation  'com.umeng.umsdk:asms:1.4.1'
-    implementation 'com.umeng.umsdk:apm:1.5.2'
     implementation 'com.alibaba:fastjson:1.2.73'
     //AlphaIndicatorView
     implementation('com.lzy.widget:view-core:0.1.5') {

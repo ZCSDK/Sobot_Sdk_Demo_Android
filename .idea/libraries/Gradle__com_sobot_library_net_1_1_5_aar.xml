@@ -5,8 +5,6 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dba431f2c1d78040ce7d1dbd77644139/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://E:/androidtools/.gradle/caches/modules-2/files-2.1/com.sobot.library/net/1.1.5/9423d10fd7caa96fe86417bc46b201484dbf232c/net-1.1.5-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

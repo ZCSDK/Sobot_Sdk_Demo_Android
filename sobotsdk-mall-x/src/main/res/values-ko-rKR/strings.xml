@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">계속 기다리면 클릭</string>
        <string name="sobot_ding">꼭대기</string>
        <string name="sobot_cai">밟다</string>
+       <string name="sobot_re_commit">정보를 제출하지 않았습니다.</string>
+       <string name="sobot_re_write">정보 다시 작성</string>
 </resources>

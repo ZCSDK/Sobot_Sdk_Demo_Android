@@ -136,11 +136,11 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
             public void onSuccess(CommonModel data) {
                 isSubmitting = false;
                 if (data != null && "1".equals(data.getCode())) {
-                    CustomToast.makeText(getBaseContext(), ResourceUtils.getResString(getBaseContext(), "sobot_leavemsg_success_tip"), 1000,
-                            ResourceUtils.getDrawableId(getBaseContext(), "sobot_iv_login_right")).show();
+                    CustomToast.makeText(getApplicationContext(), ResourceUtils.getResString(SobotQueryFromActivity.this, "sobot_leavemsg_success_tip"), 1000,
+                            ResourceUtils.getDrawableId(SobotQueryFromActivity.this, "sobot_iv_login_right")).show();
                     saveIntentWithFinish();
                 } else if (data != null && "0".equals(data.getCode())) {
-                    ToastUtil.showToast(getSobotBaseActivity(), data.getMsg());
+                    ToastUtil.showToast(getApplicationContext(), data.getMsg());
                 }
             }
 

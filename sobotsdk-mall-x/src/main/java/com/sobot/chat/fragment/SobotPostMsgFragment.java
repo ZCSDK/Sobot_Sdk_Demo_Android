@@ -3,7 +3,6 @@ package com.sobot.chat.fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,7 +68,6 @@ import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
 import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -760,10 +758,10 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
 
 
         if (information != null && information.getLeaveMsgTemplateContent() != null) {
-            sobot_et_content.setHint(Html.fromHtml(information.getLeaveMsgTemplateContent().replace("<br/>", "")));
+            sobot_et_content.setHint(Html.fromHtml(information.getLeaveMsgTemplateContent().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>")));
         } else {
             if (!TextUtils.isEmpty(mConfig.getMsgTmp())) {
-                mConfig.setMsgTmp(mConfig.getMsgTmp().replace("<br/>", "").replace("<p>", "").replace("</p>", ""));
+                mConfig.setMsgTmp(mConfig.getMsgTmp().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>"));
                 sobot_et_content.setHint(Html.fromHtml(mConfig.getMsgTmp()));
             }
         }
@@ -772,11 +770,11 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             if (TextUtils.isEmpty(information.getLeaveMsgGuideContent())) {
                 sobot_tv_post_msg.setVisibility(View.GONE);
             }
-            HtmlTools.getInstance(getSobotActivity().getApplicationContext()).setRichText(sobot_tv_post_msg, information.getLeaveMsgGuideContent().replace("<br/>", ""),
+            HtmlTools.getInstance(getSobotActivity().getApplicationContext()).setRichText(sobot_tv_post_msg, information.getLeaveMsgGuideContent().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>"),
                     ResourceUtils.getIdByName(getSobotActivity(), "color", "sobot_postMsg_url_color"));
         } else {
             if (!TextUtils.isEmpty(mConfig.getMsgTxt())) {
-                mConfig.setMsgTxt(mConfig.getMsgTxt().replace("<br/>", "").replace("<p>", "").replace("</p>", "").replace("\n", ""));
+                mConfig.setMsgTxt(mConfig.getMsgTxt().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>"));
                 HtmlTools.getInstance(getSobotActivity().getApplicationContext()).setRichText(sobot_tv_post_msg, mConfig.getMsgTxt(),
                         ResourceUtils.getIdByName(getSobotActivity(), "color", "sobot_postMsg_url_color"));
             } else {
@@ -876,14 +874,13 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                     String path = ImageUtils.getPath(getSobotActivity(), selectedImage);
                     if (!StringUtils.isEmpty(path)) {
                         if (MediaFileUtils.isVideoFileType(path)) {
-                            MediaPlayer mp = new MediaPlayer();
                             try {
-                                mp.setDataSource(getSobotActivity(), selectedImage);
-                                mp.prepare();
-                                int videoTime = mp.getDuration();
-                                if (videoTime / 1000 > 15) {
-                                    ToastUtil.showToast(getSobotActivity(), getResString("sobot_upload_vodie_length"));
-                                    return;
+                                File selectedFile = new File(path);
+                                if (selectedFile.exists()) {
+                                    if (selectedFile.length() > 50 * 1024 * 1024) {
+                                        ToastUtil.showToast(getContext(), getResString("sobot_file_upload_failed"));
+                                        return;
+                                    }
                                 }
                                 SobotDialogUtils.startProgressDialog(getSobotActivity());
 //                            ChatUtils.sendPicByFilePath(getSobotActivity(),path,sendFileListener,false);
@@ -897,7 +894,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                                     return;
                                 }
                                 sendFileListener.onSuccess(filePath);
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 

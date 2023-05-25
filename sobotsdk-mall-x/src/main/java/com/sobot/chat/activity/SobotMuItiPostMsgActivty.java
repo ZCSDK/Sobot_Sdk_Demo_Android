@@ -5,7 +5,6 @@ import static com.sobot.chat.fragment.SobotBaseFragment.REQUEST_CODE_CAMERA;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,6 +31,7 @@ import com.sobot.chat.activity.base.SobotDialogBaseActivity;
 import com.sobot.chat.adapter.SobotPicListAdapter;
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
+import com.sobot.chat.api.model.CommonModel;
 import com.sobot.chat.api.model.CommonModelBase;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.api.model.PostParamModel;
@@ -71,11 +72,12 @@ import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
 import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 多伦 工单节点对应的 留言弹窗界面
@@ -95,6 +97,9 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
     private SobotPicListAdapter adapter;
     private SobotSelectPicDialog menuWindow;
     private String mUid = "";
+    //临时 回显提示语时使用
+    private String templateId = "";
+    private String tipMsgId = "";
 
     /**
      * 删除图片弹窗
@@ -155,17 +160,21 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
         sobot_tv_title.setText(getResString("sobot_write_info_string"));
         sobot_btn_cancle = (LinearLayout) findViewById(ResourceUtils.getIdByName(
                 this, "id", "sobot_btn_cancle"));
-        sobot_btn_cancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(getSobotBaseContext(),
-                ZhiChiConstant.sobot_last_current_initModel);
+        templateId = getIntent().getStringExtra("templateId");
+        tipMsgId = getIntent().getStringExtra("tipMsgId");
         mUid = getIntent().getStringExtra(StPostMsgPresenter.INTENT_KEY_UID);
         mConfig = (SobotLeaveMsgConfig) getIntent().getSerializableExtra(StPostMsgPresenter.INTENT_KEY_CONFIG);
         mGroupId = getIntent().getStringExtra(StPostMsgPresenter.INTENT_KEY_GROUPID);
+        ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(getSobotBaseContext(),
+                ZhiChiConstant.sobot_last_current_initModel);
+        sobot_btn_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                infoCollection();
+                finish();
+            }
+        });
+
         if (mConfig == null) {
             //如果mConfig 为空，直接从初始化接口获取配置信息
             Information info = (Information) SharedPreferencesUtil.getObject(getSobotBaseContext(), "sobot_last_current_info");
@@ -650,8 +659,31 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                         SobotSerializableMap sobotSerializableMap = new SobotSerializableMap();
                         sobotSerializableMap.setMap(tempMap);
                         bundle.putSerializable("leaveMsgData", sobotSerializableMap);
+                        bundle.putString("tipMsgId",tipMsgId);
                         intent.putExtras(bundle);
                         CommonUtils.sendLocalBroadcast(getSobotBaseActivity(), intent);
+                        if (!TextUtils.isEmpty(tipMsgId)) {
+                            final ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(getSobotBaseContext(),
+                                    ZhiChiConstant.sobot_last_current_initModel);
+                            Map map = new HashMap();
+                            map.put("uid", initMode.getPartnerid());
+                            map.put("cid", initMode.getCid());
+                            map.put("msg", ResourceUtils.getResString(getSobotBaseActivity(), "sobot_re_commit") + " <a>" + ResourceUtils.getResString(getSobotBaseActivity(), "sobot_re_write") + "</a>");
+                            map.put("msgId", tipMsgId);
+                            map.put("deployId", templateId);
+                            map.put("updateStatus", 1);//0表示插入 1表示更新
+                            zhiChiApi.infoCollection(SobotMuItiPostMsgActivty.this, map, new StringResultCallBack<CommonModel>() {
+                                @Override
+                                public void onSuccess(CommonModel commonModel) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Exception e, String s) {
+
+                                }
+                            });
+                        }
                         finish();
                     }
                 } catch (Exception e) {
@@ -782,10 +814,10 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
 
 
         if (information != null && information.getLeaveMsgTemplateContent() != null) {
-            sobot_et_content.setHint(Html.fromHtml(information.getLeaveMsgTemplateContent().replace("<br/>", "")));
+            sobot_et_content.setHint(Html.fromHtml(information.getLeaveMsgTemplateContent().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>")));
         } else {
             if (!TextUtils.isEmpty(mConfig.getMsgTmp())) {
-                mConfig.setMsgTmp(mConfig.getMsgTmp().replace("<br/>", "").replace("<p>", "").replace("</p>", ""));
+                mConfig.setMsgTmp(mConfig.getMsgTmp().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>"));
                 sobot_et_content.setHint(Html.fromHtml(mConfig.getMsgTmp()));
             }
         }
@@ -794,11 +826,11 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
             if (TextUtils.isEmpty(information.getLeaveMsgGuideContent())) {
                 sobot_tv_post_msg.setVisibility(View.GONE);
             }
-            HtmlTools.getInstance(getSobotBaseActivity().getApplicationContext()).setRichText(sobot_tv_post_msg, information.getLeaveMsgGuideContent().replace("<br/>", ""),
+            HtmlTools.getInstance(getSobotBaseActivity().getApplicationContext()).setRichText(sobot_tv_post_msg, information.getLeaveMsgGuideContent().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>"),
                     ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_postMsg_url_color"));
         } else {
             if (!TextUtils.isEmpty(mConfig.getMsgTxt())) {
-                mConfig.setMsgTxt(mConfig.getMsgTxt().replace("<br/>", "").replace("<p>", "").replace("</p>", "").replace("\n", ""));
+                mConfig.setMsgTxt(mConfig.getMsgTxt().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>"));
                 HtmlTools.getInstance(getSobotBaseActivity().getApplicationContext()).setRichText(sobot_tv_post_msg, mConfig.getMsgTxt(),
                         ResourceUtils.getIdByName(getSobotBaseActivity(), "color", "sobot_postMsg_url_color"));
             } else {
@@ -915,14 +947,13 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                     String path = ImageUtils.getPath(getSobotBaseActivity(), selectedImage);
                     if (!StringUtils.isEmpty(path)) {
                         if (MediaFileUtils.isVideoFileType(path)) {
-                            MediaPlayer mp = new MediaPlayer();
                             try {
-                                mp.setDataSource(getSobotBaseActivity(), selectedImage);
-                                mp.prepare();
-                                int videoTime = mp.getDuration();
-                                if (videoTime / 1000 > 15) {
-                                    ToastUtil.showToast(getSobotBaseActivity(), getResString("sobot_upload_vodie_length"));
-                                    return;
+                               File selectedFile = new File(path);
+                                if (selectedFile.exists()) {
+                                    if (selectedFile.length() > 50 * 1024 * 1024) {
+                                        ToastUtil.showToast(getContext(), getResString("sobot_file_upload_failed"));
+                                        return;
+                                    }
                                 }
                                 SobotDialogUtils.startProgressDialog(getSobotBaseActivity());
 //                            ChatUtils.sendPicByFilePath(getSobotBaseActivity(),path,sendFileListener,false);
@@ -936,7 +967,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                                     return;
                                 }
                                 sendFileListener.onSuccess(filePath);
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
@@ -1053,6 +1084,54 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                 }
             default:
                 break;
+        }
+    }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (event.getY() <= 0) {
+                infoCollection();
+                finish();
+            }
+        }
+        return true;
+    }
+
+    //关闭按钮关闭界面和点击空白区域关闭界面,插入系统消息
+    private void infoCollection() {
+        if (TextUtils.isEmpty(tipMsgId)) {
+            final ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(getSobotBaseContext(),
+                    ZhiChiConstant.sobot_last_current_initModel);
+            Map map = new HashMap();
+            map.put("uid", initMode.getPartnerid());
+            map.put("cid", initMode.getCid());
+            map.put("msg", ResourceUtils.getResString(getSobotBaseActivity(), "sobot_re_commit") + " <a>" + ResourceUtils.getResString(getSobotBaseActivity(), "sobot_re_write") + "</a>");
+            String msgId = UUID.randomUUID().toString();
+            if (!TextUtils.isEmpty(msgId)) {
+                msgId = msgId.replace("-", "") + System.currentTimeMillis();
+            } else {
+                msgId = System.currentTimeMillis() + "";
+            }
+            map.put("msgId", msgId);
+            map.put("deployId", templateId);
+            map.put("updateStatus", 0);
+            Intent intent = new Intent();
+            intent.setAction(ZhiChiConstants.SOBOT_CHAT_MUITILEAVEMSG_TO_CHATLIST);
+            intent.putExtra("msgId", msgId);
+            intent.putExtra("deployId", templateId);
+            intent.putExtra("msg", ResourceUtils.getResString(getSobotBaseActivity(), "sobot_re_commit") + " <a>" + ResourceUtils.getResString(getSobotBaseActivity(), "sobot_re_write") + "</a>");
+            CommonUtils.sendLocalBroadcast(getSobotBaseActivity(), intent);
+            zhiChiApi.infoCollection(SobotMuItiPostMsgActivty.this, map, new StringResultCallBack<CommonModel>() {
+                @Override
+                public void onSuccess(CommonModel commonModel) {
+
+                }
+
+                @Override
+                public void onFailure(Exception e, String s) {
+
+                }
+            });
         }
     }
 }

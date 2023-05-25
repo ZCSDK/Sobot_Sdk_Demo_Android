@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string"> إذا كنت لا تزال تنتظر ، انقر فوق</string>
        <string name="sobot_ding">توب .  </string>
        <string name="sobot_cai"> تدوس</string>
+       <string name="sobot_re_commit"> أنت لم تقدم المعلومات ، يرجى</string>
+       <string name="sobot_re_write"> إعادة ملء المعلومات </string>
 </resources>

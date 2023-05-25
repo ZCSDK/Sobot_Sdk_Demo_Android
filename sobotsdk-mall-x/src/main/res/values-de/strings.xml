@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">Wenn Sie weiter warten, klicken Sie auf</string>
        <string name="sobot_ding">вершина </string>
        <string name="sobot_cai">наступать</string>
+       <string name="sobot_re_commit">Sie haben keine Informationen übermittelt. Bitte</string>
+       <string name="sobot_re_write">Füllen Sie die Informationen erneut aus</string>
 </resources>

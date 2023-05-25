@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import android.text.TextUtils;
@@ -59,7 +58,6 @@ import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
 import com.sobot.network.http.callback.StringResultCallBack;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -223,7 +221,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
         if (v == sobotBtnSubmit) {//提交
             KeyboardUtil.hideKeyboard(sobotBtnSubmit);
             if (StringUtils.isEmpty(sobotReplyEdit.getText().toString().trim())) {
-                Toast.makeText(getContext(), ResourceUtils.getResString(getContext(), "sobot_please_input_reply_no_empty"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), ResourceUtils.getResString(getContext(), "sobot_please_input_reply_no_empty"), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (FastClickUtils.isCanClick()) {
@@ -232,7 +230,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                     @Override
                     public void onSuccess(String s) {
                         LogUtils.e(s);
-                        CustomToast.makeText(SobotReplyActivity.this, ResourceUtils.getResString(SobotReplyActivity.this, "sobot_leavemsg_success_tip"), 1000, ResourceUtils.getDrawableId(SobotReplyActivity.this, "sobot_iv_login_right")).show();
+                        CustomToast.makeText(getApplicationContext(), ResourceUtils.getResString(SobotReplyActivity.this, "sobot_leavemsg_success_tip"), 1000, ResourceUtils.getDrawableId(SobotReplyActivity.this, "sobot_iv_login_right")).show();
                         try {
                             Thread.sleep(500);//睡眠一秒  延迟拉取数据
                         } catch (InterruptedException e) {
@@ -250,7 +248,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
 
                     @Override
                     public void onFailure(Exception e, String des) {
-                        ToastUtil.showCustomToast(SobotReplyActivity.this,ResourceUtils.getResString(SobotReplyActivity.this, "sobot_leavemsg_error_tip"));
+                        ToastUtil.showCustomToast(getApplicationContext(),ResourceUtils.getResString(SobotReplyActivity.this, "sobot_leavemsg_error_tip"));
                         e.printStackTrace();
                         SobotDialogUtils.stopProgressDialog(SobotReplyActivity.this);
                     }
@@ -426,14 +424,13 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                     }
                     String path = ImageUtils.getPath(this, selectedImage);
                     if (MediaFileUtils.isVideoFileType(path)) {
-                        MediaPlayer mp = new MediaPlayer();
                         try {
-                            mp.setDataSource(this, selectedImage);
-                            mp.prepare();
-                            int videoTime = mp.getDuration();
-                            if (videoTime / 1000 > 15) {
-                                ToastUtil.showToast(this, getResString("sobot_upload_vodie_length"));
-                                return;
+                            File selectedFile = new File(path);
+                            if (selectedFile.exists()) {
+                                if (selectedFile.length() > 50 * 1024 * 1024) {
+                                    ToastUtil.showToast(getApplicationContext(), getResString("sobot_file_upload_failed"));
+                                    return;
+                                }
                             }
                             SobotDialogUtils.startProgressDialog(this);
 //                            ChatUtils.sendPicByFilePath(this,path,sendFileListener,false);
@@ -443,11 +440,11 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
                                 filePath = FileUtil.saveImageFile(this, selectedImage, fName + FileUtil.getFileEndWith(path), path);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                ToastUtil.showToast(this, ResourceUtils.getResString(this, "sobot_pic_type_error"));
+                                ToastUtil.showToast(getApplicationContext(), ResourceUtils.getResString(this, "sobot_pic_type_error"));
                                 return;
                             }
                             sendFileListener.onSuccess(filePath);
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -494,7 +491,7 @@ public class SobotReplyActivity extends SobotDialogBaseActivity implements Adapt
     }
 
     public void showHint(String content) {
-        CustomToast.makeText(this, content, 1000).show();
+        CustomToast.makeText(getApplicationContext(), content, 1000).show();
     }
 
     private ChatUtils.SobotSendFileListener sendFileListener = new ChatUtils.SobotSendFileListener() {

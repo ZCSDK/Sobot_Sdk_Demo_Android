@@ -121,7 +121,19 @@ public class ChatUtils {
                 act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
             }
         } catch (Exception e) {
-            ToastUtil.showToast(act.getApplicationContext(), ResourceUtils.getResString(act, "sobot_not_open_album"));
+            e.printStackTrace();
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            try {
+                if (childFragment != null) {
+                    childFragment.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
+                } else {
+                    act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                ToastUtil.showToast(act.getApplicationContext(), ResourceUtils.getResString(act, "sobot_not_open_album"));
+            }
         }
     }
 
@@ -146,7 +158,8 @@ public class ChatUtils {
             act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
         } catch (Exception e) {
             e.printStackTrace();
-            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("video/*");
             try {
                 act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
             } catch (Exception exception) {
@@ -180,8 +193,8 @@ public class ChatUtils {
                 act.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("video/*");
             try {
                 if (childFragment != null) {
                     childFragment.startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);

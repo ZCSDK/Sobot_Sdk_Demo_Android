@@ -371,8 +371,8 @@
     <style name="sobot_msg_right_content_ll_bg_no_padding_style">
         <item name="android:layout_marginLeft">60dp</item>
         <item name="android:layout_marginStart">60dp</item>
-        <item name="android:layout_marginRight">11dp</item>
-        <item name="android:layout_marginEnd">11dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
     </style>
 
     <!--语音消息右侧气泡背景  左侧无间距-->

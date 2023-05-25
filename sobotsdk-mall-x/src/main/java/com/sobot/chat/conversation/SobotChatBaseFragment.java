@@ -647,10 +647,9 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 if (!isActive()) {
                     return;
                 }
-                final Map<String, String> map = new HashMap<>();
+                final Map<String, Object> map = new HashMap<>();
                 String cotent = e.toString() + des;
                 map.put("sendHttpCardMsg", cotent);
-                LogUtils.i2Local(map, LogUtils.LOGTYPE_ERROE);
                 LogUtils.i("sendHttpCardMsg error:" + e.toString());
 //                sendTextMessageToHandler(mid, null, handler, 0, UPDATE_TEXT);
             }
@@ -703,10 +702,9 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 if (!isActive()) {
                     return;
                 }
-                final Map<String, String> map = new HashMap<>();
+                final Map<String, Object> map = new HashMap<>();
                 String cotent = e.toString() + des;
                 map.put("sendHttpOrderCardMsg", cotent);
-                LogUtils.i2Local(map, LogUtils.LOGTYPE_ERROE);
                 LogUtils.i("sendHttpOrderCardMsg error:" + e.toString());
 //                sendTextMessageToHandler(mid, null, handler, 0, UPDATE_TEXT);
             }
@@ -1064,10 +1062,9 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                             if (!isActive()) {
                                 return;
                             }
-                            final Map<String, String> map = new HashMap<>();
+                            final Map<String, Object> map = new HashMap<>();
                             String cotent = e.toString() + des;
                             map.put("sendHttpCustomServiceMessage", cotent);
-                            LogUtils.i2Local(map, LogUtils.LOGTYPE_ERROE);
                             LogUtils.i("发送语音error:" + des + "exception:" + e.toString());
                             sendVoiceMessageToHandler(voiceMsgId, filePath, voiceTimeLongStr, 0, UPDATE_VOICE, handler);
                         }
@@ -1798,12 +1795,14 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                             //队列中没有 表示是新数据
                             //新数据就添加进队列中
                             receiveMsgQueue.offer(msgId);
-                            Util.notifyMsg(mContext, data);
+                            Util.notifyMsg(mContext, data,"fragment 轮询： 新数据插入到receiveMsgQueue中  msgId: " +msgId);
+                        }else{
+                            LogUtils.i2Local("fragment 轮询","已经插入过receiveMsgQueue,不操作  msgId: " +msgId);
                         }
                         //生成 回执
                         acks.put(new JSONObject("{msgId:" + msgId + "}"));
                     } else {
-                        Util.notifyMsg(mContext, data);
+                        Util.notifyMsg(mContext, data,"fragment 轮询： receiveMsgQueue为空，不缓存直接广播   msgId: " + msgId);
                     }
                 }
             } catch (JSONException e) {

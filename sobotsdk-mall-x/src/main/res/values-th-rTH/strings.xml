@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">ถ้ารอต่อไปให้คลิก</string>
        <string name="sobot_ding">เสริมยอด</string>
        <string name="sobot_cai">ย่ำ</string>
+       <string name="sobot_re_commit">คุณไม่ได้ส่งข้อมูล</string>
+       <string name="sobot_re_write">กรอกข้อมูลใหม่</string>
 </resources>

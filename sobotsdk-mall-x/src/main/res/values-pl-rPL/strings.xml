@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">Jeśli nadal będziesz czekać, kliknij</string>
        <string name="sobot_ding">na górze</string>
        <string name="sobot_cai">krok na</string>
+       <string name="sobot_re_commit">Nie podałeś żadnych informacji. Proszę</string>
+       <string name="sobot_re_write">Wypełnij ponownie informacje</string>
 </resources>

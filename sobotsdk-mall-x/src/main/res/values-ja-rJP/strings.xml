@@ -231,4 +231,6 @@
        <string name="sobot_keep_queuing_string">待ち続ける場合は、</string>
        <string name="sobot_ding">トップ</string>
        <string name="sobot_cai">踏む</string>
+       <string name="sobot_re_commit">情報をコミットしていません。</string>
+       <string name="sobot_re_write">情報の再入力</string>
 </resources>
