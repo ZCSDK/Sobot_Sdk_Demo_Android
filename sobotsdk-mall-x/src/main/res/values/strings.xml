@@ -243,6 +243,8 @@
 
     <!-- 3.0.3 新增-->
     <string name="sobot_cant_solve_problem">未解决问题？点击</string>
+    <!-- 3.2.4 优化  -->
+    <string name="sobot_cant_solve_problem_new">未解决问题？点击 %s </string>
     <string name="sobot_customer_service">转人工服务</string>
 
     <!-- 3.0.5 新增-->
@@ -272,4 +274,11 @@
     <string name="sobot_cai">踩</string>
     <string name="sobot_re_commit">您未提交信息，请</string>
     <string name="sobot_re_write">重新填写信息</string>
+    <!--3.2.3-->
+    <string name="sobo_outline_closed">会话已结束，可重新发起咨询</string>
+<!--    3.2.4-->
+    <string name="sobot_str_please_check_is_solve">请选择是否解决了您的问题</string>
+    <!--   3.2.5   -->
+    <string name="sobot_evaluate_lab">标签：</string>
+    <string name="sobot_evaluate_issolve">是否解决：</string>
 </resources>

@@ -20,10 +20,11 @@
             android:id="@+id/sobot_dialog_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:minHeight="84dp"
             android:gravity="center"
+            android:minHeight="84dp"
+            android:padding="15dp"
             android:textColor="@color/sobot_common_gray1"
-            android:textSize="17sp" />
+            android:textSize="14dp" />
 
         <View
             android:layout_width="match_parent"

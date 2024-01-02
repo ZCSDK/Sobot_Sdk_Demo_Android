@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,8 +39,8 @@ public class ImageMessageHolder extends MessageHolderBase {
     ImageView pic_send_status;
     public ProgressBar pic_progress;
     public RoundProgressBar sobot_pic_progress_round;
-    TextView isGif;
     RelativeLayout sobot_pic_progress_rl;
+    private LinearLayout sobot_ll_content;
 
     private RelativeLayout sobot_right_empty_rl;//顶踩
     private LinearLayout sobot_ll_transferBtn;//只包含转人工按钮
@@ -49,11 +48,11 @@ public class ImageMessageHolder extends MessageHolderBase {
 
     public ImageMessageHolder(Context context, View convertView) {
         super(context, convertView);
-        isGif = (TextView) convertView.findViewById(ResourceUtils
-                .getIdByName(context, "id", "sobot_pic_isgif"));
         image = (SobotRCImageView) convertView.findViewById(ResourceUtils
                 .getIdByName(context, "id", "sobot_iv_picture"));
-
+        sobot_ll_content = convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_ll_content"));
         pic_send_status = (ImageView) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id",
                         "sobot_pic_send_status"));
@@ -79,7 +78,6 @@ public class ImageMessageHolder extends MessageHolderBase {
 
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {
-        isGif.setVisibility(View.GONE);
         image.setVisibility(View.VISIBLE);
         if (isRight) {
             sobot_pic_progress_round.setVisibility(View.GONE);
@@ -108,6 +106,7 @@ public class ImageMessageHolder extends MessageHolderBase {
             }
         } else {
             if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
+                sobot_ll_content.setPadding(ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 11), ScreenUtils.dip2px(mContext, 15), 0);
                 resetAnswersList();
                 if (stripe != null) {
                     // 回复语的答复
@@ -124,19 +123,14 @@ public class ImageMessageHolder extends MessageHolderBase {
                     }
                 }
             } else {
+                sobot_ll_content.setPadding(0, 0, 0, 0);
                 answersList.setVisibility(View.GONE);
+                stripe.setVisibility(View.GONE);
             }
             refreshItem();
             checkShowTransferBtn();
         }
-
-//        String picPath = message.getAnswer().getMsg();
-//        if(!TextUtils.isEmpty(picPath) && (picPath.endsWith("gif") || picPath.endsWith("GIF"))){
-//            isGif.setVisibility(View.VISIBLE);
-//        }else{
-//            isGif.setVisibility(View.GONE);
-//        }
-        SobotBitmapUtil.display(context, message.getAnswer().getMsg(), image);
+        SobotBitmapUtil.display(context, message.getAnswer().getMsg(), image,R.drawable.sobot_default_pic, R.drawable.sobot_default_pic_err);
         image.setOnClickListener(new ImageClickLisenter(context, message.getAnswer().getMsg(), isRight));
     }
 
@@ -179,11 +173,7 @@ public class ImageMessageHolder extends MessageHolderBase {
         resetMaxWidth();
     }
 
-    private int msgMaxWidth;//气泡最大宽度
-
     private void resetMaxWidth() {
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         if (answersList != null) {
             ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
             layoutParams.width = msgMaxWidth;

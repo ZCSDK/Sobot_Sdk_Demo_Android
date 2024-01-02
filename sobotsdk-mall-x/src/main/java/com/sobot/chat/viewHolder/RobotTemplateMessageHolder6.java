@@ -27,7 +27,6 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
     public ZhiChiMessageBase message;
     private LinearLayout sobot_ll_transferBtn;//只包含转人工按钮
     private TextView sobot_tv_transferBtn;//机器人转人工按钮
-
     public RobotTemplateMessageHolder6(Context context, View convertView) {
         super(context, convertView);
         sobot_template6_msg = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template6_msg"));
@@ -39,6 +38,7 @@ public class RobotTemplateMessageHolder6 extends MessageHolderBase {
         sobot_template6_title.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
         sobot_template6_msg.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
     }
+
 
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {

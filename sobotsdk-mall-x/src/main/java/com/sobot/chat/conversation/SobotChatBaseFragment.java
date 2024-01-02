@@ -111,6 +111,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
 
     protected String currentUserName;
     private String adminFace = "";
+    private String adminName = "";
 
     protected boolean isAboveZero = false;//是否咨询过（给机器人或这客服发过消息）
     protected int remindRobotMessageTimes = 0;//机器人的提醒次数
@@ -418,8 +419,17 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     }
 
     protected void setAdminFace(String str) {
-        LogUtils.i("头像地址是" + str);
+        LogUtils.i("客服头像地址是" + str);
         this.adminFace = str;
+    }
+
+    protected String getAdminName() {
+        return this.adminName;
+    }
+
+    protected void setAdminName(String str) {
+        LogUtils.i("客服名字是" + str);
+        this.adminName = str;
     }
 
     /**
@@ -548,11 +558,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     LogUtils.i2Local("开启轮询 fragment ", "switchFlag=" + switchFlag + " " + map.toString());
                     //不管是什么方式（service 还是定时器里边的轮询），至少先执行一次轮询接口
                     pollingMsgForOne();
-                    try {
-                        //上传日志
-                        SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
-                    } catch (Exception e) {
-                    }
                     if (!CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
                         LogUtils.i2Local("开启轮询", "SobotTCPServer 没运行，直接走fragment 界面的轮询");
                         SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().disconnChannel();
@@ -579,7 +584,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 } else {
                     if (ZhiChiConstant.client_sendmsg_to_custom_fali.equals(commonModelBase.getStatus())) {
                         sendTextMessageToHandler(mid, null, handler, 0, UPDATE_TEXT);
-                        customerServiceOffline(initModel, 1);
+                        customerServiceOffline(initModel, 2);
                     } else if (ZhiChiConstant.client_sendmsg_to_custom_success.equals(commonModelBase.getStatus())) {
                         if (!TextUtils.isEmpty(mid)) {
                             isAboveZero = true;
@@ -620,7 +625,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 }
                 if (ZhiChiConstant.client_sendmsg_to_custom_fali.equals(commonModelBase.getStatus())) {
 //                    sendTextMessageToHandler(mid, null, handler, 0, UPDATE_TEXT);
-                    customerServiceOffline(initModel, 1);
+                    customerServiceOffline(initModel, 2);
                 } else if (ZhiChiConstant.client_sendmsg_to_custom_success.equals(commonModelBase.getStatus())) {
                     if (!TextUtils.isEmpty(mid)) {
                         isAboveZero = true;
@@ -675,7 +680,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 }
                 if (ZhiChiConstant.client_sendmsg_to_custom_fali.equals(commonModelBase.getStatus())) {
 //                    sendTextMessageToHandler(mid, null, handler, 0, UPDATE_TEXT);
-                    customerServiceOffline(initModel, 1);
+                    customerServiceOffline(initModel, 2);
                 } else if (ZhiChiConstant.client_sendmsg_to_custom_success.equals(commonModelBase.getStatus())) {
                     if (!TextUtils.isEmpty(mid)) {
                         isAboveZero = true;
@@ -720,7 +725,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             String fileName = selectedFile.getName().toLowerCase();
             if (fileName.endsWith(".gif") || fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
                 ChatUtils.sendPicLimitBySize(selectedFile.getAbsolutePath(), initModel.getCid(),
-                        initModel.getPartnerid(), handler, mAppContext, lv_message, messageAdapter, isCamera);
+                        initModel.getPartnerid(), handler, getSobotActivity(), lv_message, messageAdapter, isCamera);
             } else {
                 if (selectedFile.length() > 50 * 1024 * 1024) {
                     ToastUtil.showToast(getContext(), getResString("sobot_file_upload_failed"));
@@ -762,7 +767,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 }
                 if (ZhiChiConstant.client_sendmsg_to_custom_fali.equals(commonModelBase.getStatus())) {
                     updateMsgToHandler(finalMsgId, handler, ZhiChiConstant.MSG_SEND_STATUS_ERROR);
-                    customerServiceOffline(initModel, 1);
+                    customerServiceOffline(initModel, 2);
                 } else if (ZhiChiConstant.client_sendmsg_to_custom_success.equals(commonModelBase.getStatus())) {
                     if (!TextUtils.isEmpty(finalMsgId)) {
                         isAboveZero = true;
@@ -1045,13 +1050,13 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                                     sendVoiceMessageToHandler(voiceMsgId, filePath, voiceTimeLongStr, 1, UPDATE_VOICE, handler);
                                 } else {
                                     sendVoiceMessageToHandler(voiceMsgId, filePath, voiceTimeLongStr, 0, UPDATE_VOICE, handler);
-                                    if (TextUtils.isEmpty(zhiChiMessage.getMsg())) {
+                                    if (!TextUtils.isEmpty(zhiChiMessage.getMsg())) {
                                         ToastUtil.showToast(getSobotActivity(), zhiChiMessage.getMsg());
                                     }
                                 }
                             } else {
                                 sendVoiceMessageToHandler(voiceMsgId, filePath, voiceTimeLongStr, 0, UPDATE_VOICE, handler);
-                                if (TextUtils.isEmpty(zhiChiMessage.getMsg())) {
+                                if (!TextUtils.isEmpty(zhiChiMessage.getMsg())) {
                                     ToastUtil.showToast(getSobotActivity(), zhiChiMessage.getMsg());
                                 }
                             }
@@ -1472,6 +1477,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                                 }
                                 if (current_client_model == ZhiChiConstant.client_model_robot) {
                                     robot.setSenderFace(initModel.getRobotLogo());
+                                    robot.setSenderName(initModel.getRobotName());
                                     robot.setSenderType(ZhiChiConstant.message_sender_type_robot_guide + "");
                                     Message message = handler.obtainMessage();
                                     message.what = ZhiChiConstant.hander_robot_message;
@@ -1684,11 +1690,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             public void onSuccess(BaseCode baseCode) {
                 if (isWritePollingLog) {
                     LogUtils.i2Local("SobotChatBaseFragment 轮询结果", baseCode.toString());
-                    try {
-                        //上传日志
-                        SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
-                    } catch (Exception e) {
-                    }
                 }
                 isWritePollingLog = false;
                 LogUtils.i("fragment pollingMsg 轮询请求结果:" + baseCode.getData().toString());
@@ -1717,11 +1718,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 getPollingHandler().postDelayed(pollingRun, 10 * 1000);
                 LogUtils.i("msg::::" + des);
                 LogUtils.i2Local("轮询接口失败", "SobotChatBaseFragment 轮询:" + "请求参数 " + pollingParams != null ? GsonUtil.map2Json(pollingParams) : "" + e.toString());
-                try {
-                    //上传日志
-                    SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
-                } catch (Exception exception) {
-                }
             }
         });
     }
@@ -1764,11 +1760,6 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             public void onFailure(Exception e, String des) {
                 LogUtils.i("msg::::" + des);
                 LogUtils.i2Local("轮询接口失败", "请求参数 " + pollingParams != null ? GsonUtil.map2Json(pollingParams) : "" + e.toString());
-                try {
-                    //上传日志
-                    SobotMsgManager.getInstance(getSobotActivity()).getZhiChiApi().logCollect(getSobotActivity(), SharedPreferencesUtil.getAppKey(getSobotActivity(), ""), true);
-                } catch (Exception exception) {
-                }
             }
         });
     }

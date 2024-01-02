@@ -214,6 +214,7 @@
        <string name="sobot_microphone_yongtu">Вы можете использовать голос для быстрого общения, когда консультируетесь со службой поддержки и оставляете сообщения</string>
        <string name="sobot_very_dissatisfied">очень недовольный</string>
        <string name="sobot_cant_solve_problem">Не решил вашу проблему?</string>
+       <string name="sobot_cant_solve_problem_new">Не решил вашу проблему? %s </string>
        <string name="sobot_customer_service">Сферы услуг </string>
        <string name="sobot_msg_open_see_all">Разверните сообщение</string>
        <string name="sobot_agree_sentisive_send">Продолжайте отправлять</string>
@@ -233,4 +234,8 @@
        <string name="sobot_cai">представлять и консультироваться</string>
        <string name="sobot_re_commit">Вы не предоставили информацию, пожалуйста</string>
        <string name="sobot_re_write">Повторное заполнение информации</string>
+       <string name="sobo_outline_closed">Сеанс окончен, консультации могут быть возобновлены</string>
+       <string name="sobot_str_please_check_is_solve">Пожалуйста, выберите, решили ли ваши проблемы.</string>
+       <string name="sobot_evaluate_lab">Метки:</string>
+       <string name="sobot_evaluate_issolve">Разрешены ли:</string>
 </resources>

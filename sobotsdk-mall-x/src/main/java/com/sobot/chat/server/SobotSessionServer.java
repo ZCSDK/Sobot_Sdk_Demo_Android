@@ -90,11 +90,13 @@ public class SobotSessionServer extends Service {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ZhiChiConstants.receiveMessageBrocast);
         filter.addAction(ZhiChiConstants.SOBOT_TIMER_BROCAST);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         // 注册广播接收器
         localBroadcastManager.registerReceiver(receiver, filter);
-        registerReceiver(receiverNet, filter);
+        // 创建过滤器，并指定action，使之用于接收同action的广播
+        IntentFilter systemfilter = new IntentFilter();
+        systemfilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION); // 检测网络的状态
+        registerReceiver(receiverNet, systemfilter);
     }
 
     /**
@@ -170,6 +172,7 @@ public class SobotSessionServer extends Service {
         ZhiChiMessageBase base = new ZhiChiMessageBase();
         base.setT(Calendar.getInstance().getTime().getTime() + "");
         base.setSenderName(pushMessage.getAname());
+        base.setSenderName(pushMessage.getFace());
         config = SobotMsgManager.getInstance(getApplication()).getConfig(pushMessage.getAppId());
         if (ZhiChiConstant.push_message_createChat == pushMessage.getType()) {
             if (config.getInitModel() != null) {
@@ -199,7 +202,7 @@ public class SobotSessionServer extends Service {
                     // 更新界面的操作
                     //添加“以下为未读消息”
                     if (config.isShowUnreadUi) {
-                        config.addMessage(ChatUtils.getUnreadMode(getApplicationContext()));
+                        config.addMessage(ChatUtils.getUnreadMode(this));
                         config.isShowUnreadUi = false;
                     }
                     config.addMessage(base);
@@ -306,9 +309,10 @@ public class SobotSessionServer extends Service {
                 config.adminFace = pushMessage.getFace();
                 config.currentUserName = pushMessage.getName();
                 if (isNeedShowMessage(pushMessage.getAppId())) {
-                    showNotification(ChatUtils.getResString(context, "sobot_service_accept_start") + " " + pushMessage.getName() + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), pushMessage, false);
+//                    showNotification(ChatUtils.getResString(context.get, "sobot_service_accept_start") + " " + pushMessage.getName() + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), pushMessage, false);
+                    showNotification(getResString("sobot_service_accept_start") + " " + pushMessage.getName() + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), pushMessage, false);
                 }
-                sendBroadcast(pushMessage, ChatUtils.getResString(context, "sobot_service_accept_start") + " " + pushMessage.getName() + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), false);
+                sendBroadcast(pushMessage, getResString("sobot_service_accept_start") + " " + pushMessage.getName() + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), false);
             }
         } else if (ZhiChiConstant.push_message_retracted == pushMessage.getType()) {
             if (config.getInitModel() != null) {
@@ -330,7 +334,7 @@ public class SobotSessionServer extends Service {
             if (config.getInitModel() != null) {
                 if (config.isAboveZero && !config.isComment && config.customerState == CustomerState.Online) {
                     // 满足评价条件，并且之前没有评价过的话 才能 弹评价框
-                    ZhiChiMessageBase customEvaluateMode = ChatUtils.getCustomEvaluateMode(pushMessage);
+                    ZhiChiMessageBase customEvaluateMode = ChatUtils.getCustomEvaluateMode(SobotSessionServer.this,pushMessage);
                     config.addMessage(customEvaluateMode);
                     if (isNeedShowMessage(pushMessage.getAppId())) {
                         showNotification(getResString("sobot_cus_service") + " " + pushMessage.getAname() + " " + getResString("sobot_please_evaluate"), pushMessage, false);
@@ -418,11 +422,11 @@ public class SobotSessionServer extends Service {
         config.queueNum = 0;
         config.currentUserName = TextUtils.isEmpty(name) ? "" : name;
         //显示被xx客服接入
-        config.addMessage(ChatUtils.getServiceAcceptTip(getApplicationContext(), name));
+        config.addMessage(ChatUtils.getServiceAcceptTip(this, name));
         if (isNeedShowMessage(pushMessage.getAppId())) {
             showNotification(getResString("sobot_receive_new_message"), pushMessage, false);
         }
-        sendBroadcast(pushMessage, ChatUtils.getResString(context, "sobot_service_accept_start") + " " + name + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), false);
+        sendBroadcast(pushMessage, getResString("sobot_service_accept_start") + " " + name + " " + ChatUtils.getResString(context, "sobot_service_accept_end"), false);
 
         //显示人工欢迎语
         if (initModel.isAdminHelloWordFlag()) {
@@ -499,7 +503,7 @@ public class SobotSessionServer extends Service {
                 .SOBOT_NOTIFICATION_FLAG, false);
 
         if (notification_flag) {
-            String notificationTitle = ResourceUtils.getResString(getApplicationContext(), "sobot_notification_tip_title");
+            String notificationTitle = getResString( "sobot_notification_tip_title");
             String contentTmp;
             if (!TextUtils.isEmpty(pushMessage.getAname()) && isShowKefuName) {
                 contentTmp = getResString("sobot_cus_service") + " " + pushMessage.getAname() + "：" + content;

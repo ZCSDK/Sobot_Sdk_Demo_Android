@@ -214,6 +214,7 @@
        <string name="sobot_microphone_yongtu">คุณสามารถใช้เสียงเพื่อสื่อสารได้อย่างรวดเร็วเมื่อปรึกษาฝ่ายบริการลูกค้าและฝากข้อความ</string>
        <string name="sobot_very_dissatisfied">ไม่พอใจมาก</string>
        <string name="sobot_cant_solve_problem">ไม่ได้แก้ปัญหาของคุณ?</string>
+       <string name="sobot_cant_solve_problem_new">ไม่ได้แก้ปัญหาของคุณ? %s </string>
        <string name="sobot_customer_service">บริการมนุษย์ </string>
        <string name="sobot_msg_open_see_all">ขยายข้อความ</string>
        <string name="sobot_agree_sentisive_send">ส่งเรื่อยๆ</string>
@@ -233,4 +234,8 @@
        <string name="sobot_cai">ย่ำ</string>
        <string name="sobot_re_commit">คุณไม่ได้ส่งข้อมูล</string>
        <string name="sobot_re_write">กรอกข้อมูลใหม่</string>
+       <string name="sobo_outline_closed">เซสชันสิ้นสุดลงและสามารถเริ่มการให้คำปรึกษาใหม่ได้</string>
+       <string name="sobot_str_please_check_is_solve">โปรดเลือกว่าจะแก้ปัญหาของคุณหรือไม่</string>
+       <string name="sobot_evaluate_lab">ป้ายกำกับ:</string>
+       <string name="sobot_evaluate_issolve">ไม่ว่าจะเป็นการแก้ปัญหา:</string>
 </resources>

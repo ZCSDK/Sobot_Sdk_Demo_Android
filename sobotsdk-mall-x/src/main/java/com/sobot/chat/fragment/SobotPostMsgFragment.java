@@ -349,7 +349,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
             sobot_enclosure_container.setVisibility(View.GONE);
         }
 
-        if (mConfig.isTicketTypeFlag()) {
+        if (mConfig.isTicketTypeFlag()&& mConfig.getType()!=null && mConfig.getType().size()>0) {
             sobot_post_question_ll.setVisibility(View.VISIBLE);
             sobot_post_question_line.setVisibility(View.VISIBLE);
             sobot_post_question_sec_line.setVisibility(View.VISIBLE);

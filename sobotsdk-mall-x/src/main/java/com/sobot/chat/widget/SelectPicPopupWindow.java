@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -268,14 +268,11 @@ public class SelectPicPopupWindow extends PopupWindow {
         try {
             if (file != null && file.exists() && !TextUtils.isEmpty(fileName)) {
                 MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
+                MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, null);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(file);
-        intent.setData(uri);
-        context.sendBroadcast(intent);
         showHint(ResourceUtils.getResString(context, "sobot_already_save_to_picture"));
     }
 

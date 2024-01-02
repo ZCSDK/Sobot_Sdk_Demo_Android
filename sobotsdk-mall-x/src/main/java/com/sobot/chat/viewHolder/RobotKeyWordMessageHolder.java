@@ -48,6 +48,8 @@ public class RobotKeyWordMessageHolder extends MessageHolderBase {
                         model.setTempGroupId(groupList.get(i).getGroupId());
                         model.setKeyword(sobotKeyWordTransfer.getKeyword());
                         model.setKeywordId(sobotKeyWordTransfer.getKeywordId());
+                        model.setAnwerMsgId(message.getMsgId());
+                        model.setRuleld(message.getRuleId());
                         TextView tv = ChatUtils.initAnswerItemTextView(context, false);
                         tv.setText(groupList.get(i).getGroupName());
                         tv.setTag(model);
@@ -70,6 +72,8 @@ public class RobotKeyWordMessageHolder extends MessageHolderBase {
             intent.putExtra("tempGroupId", sobotKeyWordTransfer.getTempGroupId());
             intent.putExtra("keyword", sobotKeyWordTransfer.getKeyword());
             intent.putExtra("keywordId", sobotKeyWordTransfer.getKeywordId());
+            intent.putExtra("anwerMsgId", sobotKeyWordTransfer.getAnwerMsgId());
+            intent.putExtra("ruleld", sobotKeyWordTransfer.getRuleld());
             CommonUtils.sendLocalBroadcast(mContext,intent);
         }
     };
@@ -78,6 +82,25 @@ public class RobotKeyWordMessageHolder extends MessageHolderBase {
         private String tempGroupId;
         private String keyword;
         private String keywordId;
+
+        private String anwerMsgId;
+        private String ruleld;
+
+        public String getAnwerMsgId() {
+            return anwerMsgId;
+        }
+
+        public void setAnwerMsgId(String anwerMsgId) {
+            this.anwerMsgId = anwerMsgId;
+        }
+
+        public String getRuleld() {
+            return ruleld;
+        }
+
+        public void setRuleld(String ruleld) {
+            this.ruleld = ruleld;
+        }
 
         public String getTempGroupId() {
             return tempGroupId;

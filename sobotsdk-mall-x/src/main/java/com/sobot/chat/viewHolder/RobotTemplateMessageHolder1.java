@@ -48,7 +48,6 @@ public class RobotTemplateMessageHolder1 extends MessageHolderBase {
     private PageBuilder pageBuilder;
 
     public ZhiChiMessageBase message;
-
     public RobotTemplateMessageHolder1(Context context, View convertView) {
         super(context, convertView);
         tv_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot__template1_msg"));

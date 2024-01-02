@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -53,7 +52,6 @@ public class TextMessageHolder extends MessageHolderBase {
     Button sobot_sentisive_ok_send; //继续发送
     Button sobot_sentisive_cancle_send;//拒绝发送
     TextView sobot_sentisive_cancle_tip;//点击拒绝发送后的提示语
-    private int msgMaxWidth;//气泡最大宽度
 
     public TextMessageHolder(Context context, View convertView) {
         super(context, convertView);
@@ -75,8 +73,6 @@ public class TextMessageHolder extends MessageHolderBase {
         sobot_sentisive_ok_send = (Button) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_ok_send"));
         sobot_sentisive_cancle_send = (Button) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_cancle_send"));
         sobot_sentisive_cancle_tip = (TextView) convertView.findViewById(ResourceUtils.getResId(context, "sobot_sentisive_cancle_tip"));
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         msg.setMaxWidth(msgMaxWidth);
     }
 
@@ -101,7 +97,9 @@ public class TextMessageHolder extends MessageHolderBase {
                     ImageView image_link = view.findViewById(ResourceUtils.getIdByName(context, "id", "image_link"));
                     tv_title.setText(message.getSobotLink().getTitle());
                     tv_des.setText(TextUtils.isEmpty(message.getSobotLink().getDesc()) ? content : message.getSobotLink().getDesc());
-                    SobotBitmapUtil.display(mContext, message.getSobotLink().getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                    if(!TextUtils.isEmpty(message.getSobotLink().getImgUrl())) {
+                        SobotBitmapUtil.display(mContext, message.getSobotLink().getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                    }
                 } else {
                     SobotMsgManager.getInstance(mContext).getZhiChiApi().getHtmlAnalysis(context, content, new StringResultCallBack<SobotLink>() {
                         @Override
@@ -113,7 +111,9 @@ public class TextMessageHolder extends MessageHolderBase {
                                 ImageView image_link = view.findViewById(ResourceUtils.getIdByName(context, "id", "image_link"));
                                 tv_title.setText(link.getTitle());
                                 tv_des.setText(TextUtils.isEmpty(link.getDesc()) ? content : link.getDesc());
-                                SobotBitmapUtil.display(mContext, link.getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                                if(!TextUtils.isEmpty(link.getImgUrl())) {
+                                    SobotBitmapUtil.display(mContext, link.getImgUrl(), image_link, ResourceUtils.getDrawableId(mContext, "sobot_link_image"), ResourceUtils.getDrawableId(mContext, "sobot_link_image"));
+                                }
                             }
                         }
 

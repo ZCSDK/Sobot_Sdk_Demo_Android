@@ -21,7 +21,7 @@ dependencies {
     compileOnly 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compileOnly 'com.github.bumptech.glide:glide:3.8.0'
     compileOnly 'com.squareup.picasso:picasso:2.5.2'
-//    api 'com.sobot.library:picture:1.1.4'
     api 'com.sobot.library:picture_x:1.1.4'
-    api 'com.sobot.library:net:1.1.5'
+    api 'com.sobot.library:net:1.1.8'
+    api 'com.sobot.library:gson:1.1.1'
 }

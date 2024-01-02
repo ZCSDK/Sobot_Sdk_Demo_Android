@@ -214,6 +214,7 @@
        <string name="sobot_microphone_yongtu">Puede utilizar la voz para comunicarse rápidamente cuando consulte con el servicio de atención al cliente y deje mensajes</string>
        <string name="sobot_very_dissatisfied">Muy insatisfecho</string>
        <string name="sobot_cant_solve_problem">¿No resolvió tu problema?</string>
+       <string name="sobot_cant_solve_problem_new">¿No resolvió tu problema? %s </string>
        <string name="sobot_customer_service">Servicios Humanos </string>
        <string name="sobot_msg_open_see_all">Expandir el mensaje</string>
        <string name="sobot_agree_sentisive_send">Sigue enviando</string>
@@ -233,4 +234,8 @@
        <string name="sobot_cai">Pisotear</string>
        <string name="sobot_re_commit">No ha presentado la información, por favor</string>
        <string name="sobot_re_write">Rellenar la información</string>
+       <string name="sobo_outline_closed">La sesión ha terminado y se puede reiniciar la consulta</string>
+       <string name="sobot_str_please_check_is_solve">Por favor, elija si ha resuelto su problema.</string>
+       <string name="sobot_evaluate_lab">Etiquetas:</string>
+       <string name="sobot_evaluate_issolve">Si se resuelve:</string>
 </resources>

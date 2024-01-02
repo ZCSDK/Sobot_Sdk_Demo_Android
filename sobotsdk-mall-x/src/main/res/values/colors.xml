@@ -103,6 +103,10 @@
     <color name="sobot_chat_left_bgColor">@color/sobot_common_gray4</color>
     <!-- 消息气泡右侧背景默认颜色 -->
     <color name="sobot_chat_right_bgColor">@color/sobot_color</color>
+    <!-- 左侧消息气泡昵称颜色 -->
+    <color name="sobot_chat_left_nikename_color">@color/sobot_common_gray2</color>
+    <!-- 右侧消息气泡昵称颜色 -->
+    <color name="sobot_chat_right_nikename_color">@color/sobot_common_gray2</color>
 
     <!-- 底部 -->
     <!-- 点击加号后 面板背景 -->

@@ -117,6 +117,7 @@
                     android:id="@+id/sobot_ten_root_ll"
                     android:layout_width="254dp"
                     android:layout_marginBottom="10dp"
+                    android:minHeight="50dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -155,7 +156,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
                     </com.sobot.chat.widget.SobotTenRatingLayout>
                 </LinearLayout>
@@ -164,6 +166,10 @@
                     android:id="@+id/sobot_ratingBar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingRight="20dp"
                     android:textColor="@color/sobot_color_evaluate_ratingBar_des_tv"
                     android:textSize="12sp" />
 

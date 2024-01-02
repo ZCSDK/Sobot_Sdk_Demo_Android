@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
 import com.sobot.chat.api.model.SobotMsgCenterModel;
 import com.sobot.chat.api.model.ZhiChiPushMessage;
+import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
 
 import java.util.Calendar;
@@ -42,7 +43,7 @@ public abstract class SobotMsgCenterReceiver extends BroadcastReceiver {
                         if (sobotMsgCenterModel.getInfo() != null && pushMessage.getAppId().equals(sobotMsgCenterModel.getInfo().getApp_key())) {
                             sobotMsgCenterModel.setLastDateTime(Calendar.getInstance().getTime().getTime() + "");
                             if (pushMessage.getAnswer() != null) {
-                                sobotMsgCenterModel.setLastMsg(pushMessage.getAnswer().getMsg());
+                                sobotMsgCenterModel.setLastMsg(ChatUtils.getLastMsg(context,pushMessage));//这里应该判断显示类型
                             }
                             int unreadCount = sobotMsgCenterModel.getUnreadCount() + 1;
                             sobotMsgCenterModel.setUnreadCount(unreadCount);

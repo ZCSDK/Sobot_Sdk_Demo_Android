@@ -250,7 +250,33 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     }
 
     public void addData(List<ZhiChiMessageBase> moreList) {
+        if (moreList == null) {
+            return;
+        }
         setDefaultCid(moreList);
+        long previousMsgTime = 0;
+        String previousMsgSenderName = "";
+        for (int i = 0; i < moreList.size(); i++) {
+            ZhiChiMessageBase base = moreList.get(i);
+            //相邻两条消息是同一个人发的，并且时间相隔1分钟，不显示头像昵称
+            if (previousMsgTime != 0 &&
+                    !TextUtils.isEmpty(base.getT())
+                    && ((Long.parseLong(base.getT()) - previousMsgTime) < (1000 * 60))
+                    && !TextUtils.isEmpty(previousMsgSenderName)
+                    && previousMsgSenderName.equals(base.getSenderType())) {
+                base.setShowFaceAndNickname(false);
+            } else {
+                base.setShowFaceAndNickname(true);
+            }
+            if (base.getT() != null) {
+                try {
+                    previousMsgTime = Long.parseLong(base.getT());
+                } catch (Exception e) {
+
+                }
+            }
+            previousMsgSenderName = base.getSenderType();
+        }
         list.addAll(0, moreList);
     }
 
@@ -335,13 +361,37 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                         zhiChiMessageBase.setListSuggestions(null);
                         zhiChiMessageBase.setStripe("");
                     }
-                    list.add(zhiChiMessageBase);
+                    addMsg(zhiChiMessageBase);
                 }
             }
         } else {
-            list.add(message);
+            addMsg(message);
         }
 
+    }
+
+    private void addMsg(ZhiChiMessageBase message) {
+        if (message == null) {
+            return;
+        }
+        try {
+            if (list.size() > 0 && (list.get(list.size() - 1) != null) && !TextUtils.isEmpty(list.get(list.size() - 1).getT())) {
+                long previousMsgTime = Long.parseLong(list.get(list.size() - 1).getT());
+                String previousMsgSenderName = list.get(list.size() - 1).getSenderName();
+                //相邻两条消息是同一个人发的，并且时间相隔1分钟，不显示头像昵称
+                if (previousMsgTime != 0 &&
+                        !TextUtils.isEmpty(message.getT())
+                        && ((Long.parseLong(message.getT()) - previousMsgTime) < (1000 * 60))
+                        && !TextUtils.isEmpty(previousMsgSenderName)
+                        && previousMsgSenderName.equals(message.getSenderName())) {
+                    message.setShowFaceAndNickname(false);
+                } else {
+                    message.setShowFaceAndNickname(true);
+                }
+            }
+        } catch (Exception e) {
+        }
+        list.add(message);
     }
 
     /**
@@ -369,7 +419,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
     /**
      * 删除已有的数据
      *
-     * @param when    当前数据类型（action）=when时   才进行删除操作
+     * @param when 当前数据类型（action）=when时   才进行删除操作
      */
     public void removeByAction(String when) {
         //倒叙判断，然后删
@@ -530,9 +580,9 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             MessageHolderBase holder = (MessageHolderBase) convertView.getTag();
             holder.setMsgCallBack(mMsgCallBack);
             handerRemindTiem(holder, position);
-            holder.initNameAndFace(itemType);
             holder.applyCustomUI();//设置UI
             holder.bindZhiChiMessageBase(message);//设置message
+            holder.initNameAndFace(itemType);
             holder.bindData(context, message);
         }
         return convertView;
@@ -912,7 +962,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
                         }
                     } else if (ZhiChiConstant.message_type_muiti_leave_msg.equals(message.getAnswer().getMsgType())) {
                         return MSG_TYPE_MUITI_LEAVE_MSG_R;
-                    }else if (ZhiChiConstant.message_type_article_card_msg.equals(message.getAnswer().getMsgType())) {
+                    } else if (ZhiChiConstant.message_type_article_card_msg.equals(message.getAnswer().getMsgType())) {
                         return MSG_TYPE_ARTICLE_CARD_L;
                     }
                 } else {
@@ -948,12 +998,10 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
             } else if (ZhiChiConstant.action_sensitive_auth_agree.equals(message.getAction())) {
                 //发送消息触发隐私，同意后的系统消息
                 return MSG_TYPE_TIP;
-            }
-            else if (ZhiChiConstant.action_mulit_postmsg_tip_can_click.equals(message.getAction())) {
+            } else if (ZhiChiConstant.action_mulit_postmsg_tip_can_click.equals(message.getAction())) {
                 //多轮收集节点提醒消息 可以点击
                 return MSG_TYPE_TIP;
-            }
-            else if (ZhiChiConstant.action_mulit_postmsg_tip_nocan_click.equals(message.getAction())) {
+            } else if (ZhiChiConstant.action_mulit_postmsg_tip_nocan_click.equals(message.getAction())) {
                 //多轮收集节点提醒消息 不可以点击
                 return MSG_TYPE_TIP;
             }
@@ -1111,6 +1159,6 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
 
         void addMessage(ZhiChiMessageBase message);
 
-        void mulitDiaToLeaveMsg(String leaveTemplateId,String tipMsgId);
+        void mulitDiaToLeaveMsg(String leaveTemplateId, String tipMsgId);
     }
 }

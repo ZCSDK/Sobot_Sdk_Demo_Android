@@ -122,7 +122,7 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
                     "    <body>" + mUrl + "  </body>\n" +
                     "</html>";
             //显示文本内容
-            mWebView.loadDataWithBaseURL("about:blank", mUrl.replace("<p> </p>","<br/>").replace("<p></p>","<br/>"), "text/html", "utf-8", null);
+            mWebView.loadDataWithBaseURL("about:blank", mUrl.replace("</p>","<br/>").replace("<P>","").replace("</P>","<br/>"), "text/html", "utf-8", null);
         }
         LogUtils.i("webViewActivity---" + mUrl);
     }
@@ -233,11 +233,6 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
         mWebView.removeJavascriptInterface("searchBoxJavaBridge_");
         mWebView.removeJavascriptInterface("accessibility");
         mWebView.removeJavascriptInterface("accessibilityTraversal");
-
-        //设置图片自适应屏幕
-        mWebView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小
-        mWebView.getSettings().setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
         // 应用可以有数据库
         mWebView.getSettings().setDatabaseEnabled(true);
 

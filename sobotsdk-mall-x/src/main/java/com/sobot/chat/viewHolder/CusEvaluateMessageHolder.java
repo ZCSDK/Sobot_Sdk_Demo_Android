@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.ZhiChiApi;
 import com.sobot.chat.api.model.Information;
@@ -24,7 +25,6 @@ import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.notchlib.utils.ScreenUtil;
 import com.sobot.chat.utils.ChatUtils;
-import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
@@ -64,7 +64,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
     SobotEvaluateModel sobotEvaluateModel;
     public ZhiChiMessageBase message;
 
-
+    private SatisfactionSet mSatisfactionSet;//评价配置信息
     private List<SatisfactionSetBase> satisFactionList;
     private int deftaultScore = 0;
 
@@ -100,7 +100,6 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         sobot_submit.setText(ResourceUtils.getResString(context, "sobot_btn_submit_text"));
         sobot_ratingBar_split_view = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar_split_view"));
-        sobot_btn_ok_robot.setSelected(true);
         sobot_ratingBar_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 "sobot_ratingBar_title"));
         sobot_ratingBar_title.setText(ResourceUtils.getResString(context, "sobot_great_satisfaction"));
@@ -108,123 +107,6 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                 "sobot_hide_layout"));
         sobot_evaluate_lable_autoline = convertView.findViewById(ResourceUtils.getIdByName(context, "id",
                 ("sobot_evaluate_lable_autoline")));
-    }
-
-    @Override
-    public void bindData(final Context context, final ZhiChiMessageBase message) {
-        information = (Information) SharedPreferencesUtil.getObject(context, "sobot_last_current_info");
-        if (!information.isHideManualEvaluationLabels()) {
-            sobot_ratingBar_title.setVisibility(View.VISIBLE);
-        } else {
-            sobot_ratingBar_title.setVisibility(View.GONE);
-        }
-        sobot_submit.setVisibility(View.GONE);
-        this.message = message;
-        this.sobotEvaluateModel = message.getSobotEvaluateModel();
-        if (satisFactionList == null || satisFactionList.size() == 0) {
-            //2.8.5 获取人工满意度配置信息，默认几星和5星时展示对应标签
-            ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
-            ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
-                    ZhiChiConstant.sobot_last_current_initModel);
-            zhiChiApi.satisfactionMessage(CusEvaluateMessageHolder.this, initMode.getPartnerid(), new ResultCallBack<SatisfactionSet>() {
-                @Override
-                public void onSuccess(SatisfactionSet satisfactionSet) {
-                    sobot_submit.setVisibility(View.VISIBLE);
-                    if (satisfactionSet != null && "1".equals(satisfactionSet.getCode()) && satisfactionSet.getData() != null && satisfactionSet.getData().size() != 0) {
-                        satisFactionList = satisfactionSet.getData();
-                        int score = 0;
-                        if (satisFactionList.get(0).getScoreFlag() == 0) {
-                            //defaultType 0-默认5星,1-默认0星
-                            if (satisFactionList.get(0) != null) {
-                                score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
-                                deftaultScore = score;
-                            }
-                            sobotEvaluateModel.setScore(deftaultScore);
-                            sobot_ratingBar.setRating(deftaultScore);
-                            sobot_ten_root_ll.setVisibility(View.GONE);
-                            sobot_ratingBar.setVisibility(View.VISIBLE);
-                            ratingType = 0;//5星
-                        } else {
-                            sobot_ten_root_ll.setVisibility(View.VISIBLE);
-                            sobot_ratingBar.setVisibility(View.GONE);
-                            ratingType = 1;//十分
-                            // defaultType 0-默认10分,1-默认5分,2-默认0分
-                            if (satisFactionList.get(0).getDefaultType() == 2) {
-                                score = 0;
-                            } else if (satisFactionList.get(0).getDefaultType() == 1) {
-                                score = 5;
-                            } else {
-                                score = 10;
-                            }
-                            deftaultScore = score;
-                            sobotEvaluateModel.setScore(deftaultScore);
-                            sobot_ten_rating_ll.removeAllViews();
-                            sobot_ten_rating_ll.init(score, false);
-                        }
-
-
-                        if (ratingType == 0) {
-                            if (0 == score) {
-                                sobot_hide_layout.setVisibility(View.GONE);
-                                sobot_submit.setVisibility(View.GONE);
-                                sobot_ratingBar_title.setText(ResourceUtils.getResString(context, "sobot_evaluate_zero_score_des"));
-                                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_common_gray3")));
-                            } else {
-                                //根据infomation 配置是否隐藏人工评价标签
-                                if (!information.isHideManualEvaluationLabels()) {
-                                    sobot_hide_layout.setVisibility(View.VISIBLE);
-                                } else {
-                                    sobot_hide_layout.setVisibility(View.GONE);
-                                }
-                                sobot_submit.setVisibility(View.VISIBLE);
-                                sobot_ratingBar_title.setText(satisFactionList.get(4).getScoreExplain());
-                                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_color_evaluate_ratingBar_des_tv")));
-                            }
-                        } else {
-                            //根据infomation 配置是否隐藏人工评价标签
-                            if (!information.isHideManualEvaluationLabels()) {
-                                sobot_hide_layout.setVisibility(View.VISIBLE);
-                            } else {
-                                sobot_hide_layout.setVisibility(View.GONE);
-                            }
-                            sobot_submit.setVisibility(View.VISIBLE);
-                            sobot_ratingBar_title.setText(satisFactionList.get(deftaultScore).getScoreExplain());
-                            sobot_ratingBar_title.setTextColor(ContextCompat.getColor(context, ResourceUtils.getResColorId(context, "sobot_color_evaluate_ratingBar_des_tv")));
-                        }
-
-
-                        SatisfactionSetBase satisfactionSetBase = getSatisFaction(score, satisFactionList);
-                        if (satisfactionSetBase != null && !TextUtils.isEmpty(satisfactionSetBase.getLabelName())) {
-                            String tmpData[] = convertStrToArray(satisfactionSetBase.getLabelName());
-                            setLableViewVisible(tmpData);
-                        } else {
-                            setLableViewVisible(null);
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Exception e, String des) {
-                    sobot_submit.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onLoading(long total, long current, boolean isUploading) {
-                }
-            });
-        }
-
-
-        if (CommonUtils.checkSDKIsZh(context)) {
-            sobot_center_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_question"));
-            sobot_tv_star_title.setText(message.getSenderName() + " " + ChatUtils.getResString(context, "sobot_please_evaluate"));
-        } else {
-            sobot_center_title.setText(ChatUtils.getResString(context, "sobot_question"));
-            sobot_tv_star_title.setText(ChatUtils.getResString(context, "sobot_please_evaluate"));
-        }
-        checkQuestionFlag();
-        refreshItem();
-
         sobot_readiogroup.setOnCheckedChangeListener(this);
         sobot_ratingBar.setOnRatingBarChangeListener(this);
         sobot_submit.setOnClickListener(new View.OnClickListener() {
@@ -241,24 +123,40 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
                     if (TextUtils.isEmpty(checkBoxIsChecked()) && satisFactionList != null && satisFactionList.size() == 5
                             && satisFactionList.get(4).getIsTagMust()
                             && !TextUtils.isEmpty(satisFactionList.get(4).getLabelName()) && !information.isHideManualEvaluationLabels()) {
-                        ToastUtil.showToast(mContext, ResourceUtils.getResString(mContext, "sobot_the_label_is_required"));//标签必选
+                        ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.sobot_the_label_is_required));//标签必选
                         return;
                     }
                 } else {
-                    if (satisFactionList != null && satisFactionList.size() == 11
+                    if (deftaultScore>=0 && satisFactionList != null && satisFactionList.size() == 11 &&deftaultScore<satisFactionList.size()
                             && satisFactionList.get(deftaultScore).getIsInputMust()) {
                         //校验10分评价建议是否必填写，如果是，弹出评价pop再去提交
                         doEvaluate(false, deftaultScore);
                         return;
                     }
                     //校验评价标签是否必选
-                    if (TextUtils.isEmpty(checkBoxIsChecked()) && satisFactionList != null && satisFactionList.size() == 11
+                    if (TextUtils.isEmpty(checkBoxIsChecked()) && satisFactionList != null && satisFactionList.size() == 11 && deftaultScore>=0 && deftaultScore < satisFactionList.size()
                             && satisFactionList.get(deftaultScore).getIsTagMust()
                             && !TextUtils.isEmpty(satisFactionList.get(deftaultScore).getLabelName()) && !information.isHideManualEvaluationLabels()) {
-                        ToastUtil.showToast(mContext, ResourceUtils.getResString(mContext, "sobot_the_label_is_required"));//标签必选
+                        ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.sobot_the_label_is_required));//标签必选
                         return;
                     }
 
+                }
+                if (mSatisfactionSet != null) {
+                    int tempResolved = -1;
+                    if (sobot_btn_ok_robot.isChecked()) {
+                        tempResolved = 1;
+                    } else if (sobot_btn_no_robot.isChecked()) {
+                        tempResolved = 0;
+                    }
+                    //如果开启了是否解决问题
+                    if (mSatisfactionSet != null && mSatisfactionSet.getIsQuestionFlag() == 1) {
+                        //“问题是否解决”是否为必填选项： 0-非必填 1-必填
+                        if (tempResolved == -1 && mSatisfactionSet.getIsQuestionMust() == 1) {
+                            ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.sobot_str_please_check_is_solve));//标签必选
+                            return;
+                        }
+                    }
                 }
                 // true 直接提交  false 打开评价窗口 显示提交 肯定是5星
                 doEvaluate(true, deftaultScore);
@@ -267,7 +165,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         sobot_ten_rating_ll.setOnClickItemListener(new SobotTenRatingLayout.OnClickItemListener() {
             @Override
             public void onClickItem(int selectIndex) {
-                if (sobotEvaluateModel != null && 0 == sobotEvaluateModel.getEvaluateStatus() && selectIndex > 0 && deftaultScore != selectIndex) {
+                if (sobotEvaluateModel != null && 0 == sobotEvaluateModel.getEvaluateStatus() && selectIndex >= 0 ) {
                     //未评价时进行评价
                     sobotEvaluateModel.setScore(selectIndex);
                     doEvaluate(false, selectIndex);
@@ -276,6 +174,142 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         });
     }
 
+    @Override
+    public void bindData(final Context context, final ZhiChiMessageBase message) {
+        information = (Information) SharedPreferencesUtil.getObject(context, "sobot_last_current_info");
+        if (!information.isHideManualEvaluationLabels()) {
+            sobot_ratingBar_title.setVisibility(View.VISIBLE);
+        } else {
+            sobot_ratingBar_title.setVisibility(View.GONE);
+        }
+        this.message = message;
+        boolean refrashSatisfactionConfig = SharedPreferencesUtil.getBooleanData(mContext,"refrashSatisfactionConfig",false);
+        this.sobotEvaluateModel = message.getSobotEvaluateModel();
+        if(refrashSatisfactionConfig){
+            SharedPreferencesUtil.saveBooleanData(mContext,"refrashSatisfactionConfig",false);
+            satisFactionList=null;
+        }
+        if (satisFactionList == null || satisFactionList.size() == 0) {
+            //2.8.5 获取人工满意度配置信息，默认几星和5星时展示对应标签
+            ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
+            ZhiChiInitModeBase initMode = (ZhiChiInitModeBase) SharedPreferencesUtil.getObject(context,
+                    ZhiChiConstant.sobot_last_current_initModel);
+            if (initMode != null ) {
+
+                zhiChiApi.satisfactionMessage(CusEvaluateMessageHolder.this, initMode.getPartnerid(), new ResultCallBack<SatisfactionSet>() {
+                    @Override
+                    public void onSuccess(SatisfactionSet satisfactionSet) {
+                        if (satisfactionSet != null) {
+                            mSatisfactionSet = satisfactionSet;
+                            satisFactionList = satisfactionSet.getList();
+                            sobotEvaluateModel.setIsResolved(satisfactionSet.getDefaultQuestionFlag());
+                            showData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Exception e, String des) {
+                        sobot_submit.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onLoading(long total, long current, boolean isUploading) {
+                    }
+                });
+            }
+        }else {
+            showData();
+        }
+    }
+
+    private void showData(){
+        int score = 0;
+        if (mSatisfactionSet.getScoreFlag() == 0) {
+            //defaultType 0-默认5星,1-默认0星
+            score = (mSatisfactionSet.getDefaultType() == 0) ? 5 : 0;
+            deftaultScore = score;
+            sobotEvaluateModel.setScore(deftaultScore);
+            sobot_ratingBar.setRating(deftaultScore);
+            sobot_ten_root_ll.setVisibility(View.GONE);
+            sobot_ratingBar.setVisibility(View.VISIBLE);
+            ratingType = 0;//5星
+            if(mSatisfactionSet.getDefaultType() == 0 && score>0) {
+                sobot_submit.setVisibility(View.VISIBLE);
+            }
+        } else {
+            sobot_ten_root_ll.setVisibility(View.VISIBLE);
+            sobot_ratingBar.setVisibility(View.GONE);
+            ratingType = 1;//十分
+            //0-10分，1-5分，2-0分，3-不选中
+            if (mSatisfactionSet.getDefaultType() == 2) {
+                score = 0;
+            } else if (mSatisfactionSet.getDefaultType() == 1) {
+                score = 5;
+            } else if (mSatisfactionSet.getDefaultType() == 3) {
+                score = -1;
+            } else {
+                score = 10;
+            }
+            if(mSatisfactionSet.getDefaultType() != 3) {
+                sobot_submit.setVisibility(View.VISIBLE);
+            }
+            deftaultScore = score;
+            sobotEvaluateModel.setScore(deftaultScore);
+            if(sobot_ten_rating_ll.isInit()) {
+                sobot_ten_rating_ll.init(score, false, 34);
+            }
+        }
+
+
+        if (ratingType == 0) {
+            if (0 == score) {
+                sobot_hide_layout.setVisibility(View.GONE);
+                sobot_ratingBar_title.setText(R.string.sobot_evaluate_zero_score_des);
+                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(mContext, R.color.sobot_common_gray3));
+            } else {
+                //根据infomation 配置是否隐藏人工评价标签
+                if (!information.isHideManualEvaluationLabels()) {
+                    sobot_hide_layout.setVisibility(View.VISIBLE);
+                } else {
+                    sobot_hide_layout.setVisibility(View.GONE);
+                }
+                sobot_ratingBar_title.setText(satisFactionList.get(4).getScoreExplain());
+                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(mContext, R.color.sobot_color_evaluate_ratingBar_des_tv));
+            }
+        } else {
+            //根据infomation 配置是否隐藏人工评价标签
+            if (!information.isHideManualEvaluationLabels()) {
+                sobot_hide_layout.setVisibility(View.VISIBLE);
+            } else {
+                sobot_hide_layout.setVisibility(View.GONE);
+            }
+            if (-1 == score) {
+                sobot_hide_layout.setVisibility(View.GONE);
+                sobot_ratingBar_title.setText(R.string.sobot_evaluate_zero_score_des);
+                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(mContext, R.color.sobot_common_gray3));
+            } else {
+                sobot_ratingBar_title.setText(satisFactionList.get(deftaultScore).getScoreExplain());
+                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(mContext, R.color.sobot_color_evaluate_ratingBar_des_tv));
+            }
+        }
+
+
+        SatisfactionSetBase satisfactionSetBase = getSatisFaction(score, satisFactionList);
+        if (satisfactionSetBase != null && !TextUtils.isEmpty(satisfactionSetBase.getLabelName())) {
+            String tmpData[] = convertStrToArray(satisfactionSetBase.getLabelName());
+            setLableViewVisible(tmpData);
+        } else {
+            setLableViewVisible(null);
+        }
+
+        sobot_center_title.setText(message.getSenderName() + " " + ChatUtils.getResString(mContext, "sobot_question"));
+        sobot_tv_star_title.setText(message.getSenderName() + " " + ChatUtils.getResString(mContext, "sobot_please_evaluate"));
+
+        checkQuestionFlag();
+        refreshItem();
+        LogUtils.d("========sobot_ten_root_ll.getVisibility()==View.GONE=="+(sobot_ten_root_ll.getVisibility()==View.GONE));
+
+    }
     /**
      * 检查是否开启   是否已解决配置
      */
@@ -306,36 +340,28 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
             return;
         }
         if (0 == sobotEvaluateModel.getEvaluateStatus()) {
-
             //未评价
             setNotEvaluatedLayout();
-            if (satisFactionList != null) {
-                sobot_submit.setVisibility(View.VISIBLE);
-            }
         } else if (1 == sobotEvaluateModel.getEvaluateStatus()) {
             //已评价
             setEvaluatedLayout();
-            sobot_submit.setVisibility(View.GONE);
         }
     }
 
     private void setEvaluatedLayout() {
         if (sobot_readiogroup.getVisibility() == View.VISIBLE) {
+            sobot_btn_ok_robot.setVisibility(View.VISIBLE);
+            sobot_btn_no_robot.setVisibility(View.VISIBLE);
+            //是否解决问题 0:已解决，1：未解决，-1：都不选
             if (sobotEvaluateModel.getIsResolved() == -1) {
                 sobot_btn_ok_robot.setChecked(false);
                 sobot_btn_no_robot.setChecked(false);
-                sobot_btn_ok_robot.setVisibility(View.VISIBLE);
-                sobot_btn_no_robot.setVisibility(View.VISIBLE);
             } else if (sobotEvaluateModel.getIsResolved() == 0) {
                 sobot_btn_ok_robot.setChecked(true);
                 sobot_btn_no_robot.setChecked(false);
-                sobot_btn_ok_robot.setVisibility(View.VISIBLE);
-                sobot_btn_no_robot.setVisibility(View.GONE);
             } else {
                 sobot_btn_ok_robot.setChecked(false);
                 sobot_btn_no_robot.setChecked(true);
-                sobot_btn_ok_robot.setVisibility(View.GONE);
-                sobot_btn_no_robot.setVisibility(View.VISIBLE);
             }
         }
 //        sobot_ratingBar.setRating(sobotEvaluateModel.getScore());
@@ -346,22 +372,18 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
         if (sobotEvaluateModel == null) {
             return;
         }
+        sobot_btn_ok_robot.setVisibility(View.VISIBLE);
+        sobot_btn_no_robot.setVisibility(View.VISIBLE);
         if (sobot_readiogroup.getVisibility() == View.VISIBLE) {
-            if (sobotEvaluateModel.getIsResolved() == -1) {
+            if (sobotEvaluateModel.getIsResolved() == 0) {
                 sobot_btn_ok_robot.setChecked(false);
                 sobot_btn_no_robot.setChecked(false);
-                sobot_btn_ok_robot.setVisibility(View.VISIBLE);
-                sobot_btn_no_robot.setVisibility(View.VISIBLE);
-            } else if (sobotEvaluateModel.getIsResolved() == 0) {
+            } else if (sobotEvaluateModel.getIsResolved() == 1) {
                 sobot_btn_ok_robot.setChecked(true);
                 sobot_btn_no_robot.setChecked(false);
-                sobot_btn_ok_robot.setVisibility(View.VISIBLE);
-                sobot_btn_no_robot.setVisibility(View.VISIBLE);
-            } else {
-                sobot_btn_ok_robot.setChecked(false);
-                sobot_btn_no_robot.setChecked(true);
-                sobot_btn_ok_robot.setVisibility(View.VISIBLE);
-                sobot_btn_no_robot.setVisibility(View.VISIBLE);
+            } else if (sobotEvaluateModel.getIsResolved() == -1) {
+                sobot_btn_ok_robot.setChecked(true);
+                sobot_btn_no_robot.setChecked(false);
             }
         }
 
@@ -376,17 +398,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
      */
     private void doEvaluate(boolean evaluateFlag, int score) {
         if (mContext != null && message != null && message.getSobotEvaluateModel() != null) {
-            int resolved = sobotEvaluateModel.getIsResolved();
-            if (ChatUtils.isQuestionFlag(message.getSobotEvaluateModel())) {
-                if (sobot_btn_ok_robot.isChecked()) {
-                    resolved = 0;
-                } else if (sobot_btn_no_robot.isChecked()) {
-                    resolved = 1;
-                } else if (message.getSobotEvaluateModel().getScore() == 5) {
-                    resolved = 0;
-                }
-            }
-            message.getSobotEvaluateModel().setIsResolved(resolved);
+            message.getSobotEvaluateModel().setIsResolved(getResovled());
             message.getSobotEvaluateModel().setScore(score);
             message.getSobotEvaluateModel().setScoreFlag(ratingType);
             message.getSobotEvaluateModel().setProblem(checkBoxIsChecked());
@@ -395,7 +407,18 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
             }
         }
     }
-
+    private int getResovled() {
+        if (mSatisfactionSet != null && mSatisfactionSet.getIsQuestionFlag() == 1) {
+            if (sobot_btn_ok_robot.isChecked()) {
+                return 0;
+            } else if (sobot_btn_no_robot.isChecked()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+        return -1;
+    }
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         if (sobotEvaluateModel == null) {
@@ -420,7 +443,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
         LogUtils.i(sobotEvaluateModel.getScore() + "-----" + deftaultScore + "=====" + rating);
-        if (sobotEvaluateModel != null && 0 == sobotEvaluateModel.getEvaluateStatus() && rating > 0 && deftaultScore != (int) Math.ceil(rating)) {
+        if (sobotEvaluateModel != null && 0 == sobotEvaluateModel.getEvaluateStatus() && rating > 0 ) {
             //未评价时进行评价
             int score = (int) Math.ceil(rating);
             sobotEvaluateModel.setScore(score);
@@ -474,6 +497,7 @@ public class CusEvaluateMessageHolder extends MessageHolderBase implements Radio
     private void createChildLableView(SobotAntoLineLayout antoLineLayout, String tmpData[]) {
         if (antoLineLayout != null) {
             antoLineLayout.removeAllViews();
+            checkBoxList.clear();
             for (int i = 0; i < tmpData.length; i++) {
                 LayoutInflater inflater = LayoutInflater.from(mContext);
                 View view = inflater.inflate(ResourceUtils.getResLayoutId(mContext, "sobot_layout_evaluate_item"), null);

@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -20,7 +19,6 @@ import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
 import com.sobot.pictureframe.SobotBitmapUtil;
@@ -56,8 +54,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
                         "sobot_answersList"));
         stripe = (TextView) convertView.findViewById(ResourceUtils
                 .getIdByName(context, "id", "sobot_stripe"));
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         ViewGroup.LayoutParams layoutParams = sobot_ll_content.getLayoutParams();
         layoutParams.width = msgMaxWidth;
         sobot_ll_content.setLayoutParams(layoutParams);
@@ -71,7 +67,7 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
         articleModel = message.getArticleModel();
         if (articleModel != null) {
             if (!TextUtils.isEmpty(articleModel.getSnapshot())) {
-                SobotBitmapUtil.display(mContext, articleModel.getSnapshot(), iv_snapshot);
+                SobotBitmapUtil.display(mContext, articleModel.getSnapshot(), iv_snapshot,R.drawable.sobot_default_pic, R.drawable.sobot_default_pic_err);
                 iv_snapshot.setVisibility(View.VISIBLE);
             } else {
                 iv_snapshot.setVisibility(View.GONE);
@@ -112,6 +108,7 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
             answersList.setVisibility(View.GONE);
         }
     }
+
     //设置问题列表
     private void resetAnswersList() {
         if (message == null) {
@@ -149,9 +146,6 @@ public class ArticleMessageHolder extends MessageHolderBase implements View.OnCl
             }
         }
     }
-
-    private int msgMaxWidth;//气泡最大宽度
-
 
     @Override
     public void onClick(View v) {

@@ -31,20 +31,49 @@
             android:paddingLeft="20dp"
             android:paddingTop="16dp"
             android:paddingRight="20dp"
+            android:text="我的服务评价"
             android:textColor="@color/sobot_common_gray1"
             android:textSize="14sp"
             android:textStyle="bold"
             android:paddingStart="20dp"
             android:paddingEnd="20dp" />
+        <LinearLayout
+            android:id="@+id/sobot_ll_isSolve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:background="@color/sobot_common_gray6"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/sobot_tv_my_evaluate_isSolve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sobot_common_gray2"
+                android:text="@string/sobot_evaluate_issolve"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/sobot_tv_isSolve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/sobot_ll_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="7dp"
+            android:paddingTop="16dp"
             android:background="@color/sobot_common_gray6"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingStart="20dp"
@@ -54,7 +83,7 @@
                 android:id="@+id/sobot_tv_my_evaluate_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/sobot_common_gray1"
+                android:textColor="@color/sobot_common_gray2"
                 android:textSize="12sp" />
 
             <RatingBar
@@ -62,6 +91,7 @@
                 style="@style/sobot_small_roomRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="12dp"
+                android:layout_marginTop="2dp"
                 android:layout_gravity="center_vertical"
                 android:numStars="5"
                 android:rating="5"
@@ -71,12 +101,40 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sobot_ll_lab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:background="@color/sobot_common_gray6"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/sobot_tv_my_evaluate_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sobot_common_gray2"
+                android:text="@string/sobot_evaluate_lab"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/sobot_tv_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sobot_common_gray1"
+                android:layout_marginTop="2dp"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/sobot_ll_remark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:paddingTop="16dp"
             android:background="@color/sobot_common_gray6"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingStart="20dp"
@@ -86,13 +144,14 @@
                 android:id="@+id/sobot_tv_my_evaluate_remark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/sobot_common_gray1"
+                android:textColor="@color/sobot_common_gray2"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/sobot_tv_remark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/sobot_common_gray1"
                 android:textSize="12sp" />
         </LinearLayout>

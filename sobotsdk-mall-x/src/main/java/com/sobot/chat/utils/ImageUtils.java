@@ -502,34 +502,43 @@ public class ImageUtils {
                 ContentResolver contentResolver = context.getContentResolver();
                 Cursor cursor = contentResolver.query(uri, null, null, null, null);
                 if (cursor.moveToFirst()) {
-                    String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    InputStream is = null;
-                    FileOutputStream fos = null;
-                    try {
-                        is = contentResolver.openInputStream(uri);
-                        File cache = new File(context.getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
-                        fos = new FileOutputStream(cache);
-                        IOUtils.copyFileWithStream(fos, is);
-                        file = cache;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            if(cursor != null){
-                                cursor.close();
+                    int cIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (cIndex > -1) {
+                        String displayName = cursor.getString(cIndex);
+                        if (!TextUtils.isEmpty(displayName)) {
+                            String[] temp = displayName.split("/");
+                            if (temp.length > 0) {
+                                displayName = temp[temp.length - 1];
                             }
-                            if (fos != null) {
-                                fos.close();
+                            InputStream is = null;
+                            FileOutputStream fos = null;
+                            try {
+                                is = contentResolver.openInputStream(uri);
+                                File cache = new File(context.getExternalCacheDir().getAbsolutePath(), System.currentTimeMillis() + displayName);
+                                fos = new FileOutputStream(cache);
+                                IOUtils.copyFileWithStream(fos, is);
+                                file = cache;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                try {
+                                    if (cursor != null) {
+                                        cursor.close();
+                                    }
+                                    if (fos != null) {
+                                        fos.close();
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    if (is != null) {
+                                        is.close();
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            if (is != null) {
-                                is.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                     }
                 }

@@ -175,17 +175,7 @@ public abstract class SobotBaseFragment extends Fragment {
                         //判断权限的结果，如果有被拒绝，就return
                         if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             String permissionTitle = "sobot_no_permission_text";
-                            if (permissions[i] != null && permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                                permissionTitle = "sobot_no_write_external_storage_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                                 permissionTitle = "sobot_no_write_external_storage_permission";
                                 if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
                                     ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
@@ -376,18 +366,10 @@ public abstract class SobotBaseFragment extends Fragment {
                 }
             }
         } else if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //申请WRITE_EXTERNAL_STORAGE权限
-                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        , Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 //申请READ_EXTERNAL_STORAGE权限
-                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        , Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
                 return false;
             }
         }
@@ -426,8 +408,7 @@ public abstract class SobotBaseFragment extends Fragment {
                 }
             }
         } else if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }

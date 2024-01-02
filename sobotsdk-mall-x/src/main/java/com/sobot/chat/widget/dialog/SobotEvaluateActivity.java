@@ -3,6 +3,7 @@ package com.sobot.chat.widget.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -21,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.activity.base.SobotDialogBaseActivity;
 import com.sobot.chat.api.ResultCallBack;
 import com.sobot.chat.api.ZhiChiApi;
@@ -57,7 +59,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
     private final String CANCEL_TAG = SobotEvaluateActivity.class.getSimpleName();
     private Activity context;
     private int score;//默认 选中几颗星 从前面界面传过来
-    private int isSolve;//默认 是否已解决 从前面界面传过来  0 是已解决  1 未解决
+    private int isSolve = -1;//是否解决问题 0:已解决，1：未解决，-1：都不选
     private boolean isFinish;
     private boolean isExitSession;
     private boolean isSessionOver;//会话是否已经结束
@@ -67,6 +69,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
     private int current_model;
     private int commentType;/*commentType 评价类型 主动评价1 邀请评价0*/
     private String customName;
+    private SatisfactionSet mSatisfactionSet;//评价配置信息
     private List<SatisfactionSetBase> satisFactionList;
     private SatisfactionSetBase satisfactionSetBase;
     private LinearLayout sobot_negativeButton;
@@ -113,7 +116,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         information = (Information) SharedPreferencesUtil.getObject(getContext(), "sobot_last_current_info");
         context = getContext();
         score = getIntent().getIntExtra("score", 0);
-        evaluateChecklables = getIntent().getStringExtra("evaluateChecklables");
+        evaluateChecklables = getIntent().getStringExtra("checklables");
         isFinish = getIntent().getBooleanExtra("isFinish", false);
         isSessionOver = getIntent().getBooleanExtra("isSessionOver", false);
         isExitSession = getIntent().getBooleanExtra("isExitSession", false);
@@ -122,7 +125,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         current_model = getIntent().getIntExtra("current_model", 0);
         commentType = getIntent().getIntExtra("commentType", 0);
         customName = getIntent().getStringExtra("customName");
-        isSolve = getIntent().getIntExtra("isSolve", 0);
+        isSolve = getIntent().getIntExtra("isSolve", -1);
         sobot_close_now = (Button) findViewById(getResId("sobot_close_now"));
         sobot_close_now.setText(ResourceUtils.getResString(context, "sobot_btn_submit_text"));
         sobot_readiogroup = (RadioGroup) findViewById(getResId("sobot_readiogroup"));
@@ -165,7 +168,6 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         sobot_add_content.setHint(ResourceUtils.getResString(context, "sobot_edittext_hint"));
         sobot_btn_ok_robot = (RadioButton) findViewById(getResId("sobot_btn_ok_robot"));
         sobot_btn_ok_robot.setText(ResourceUtils.getResString(context, "sobot_evaluate_yes"));
-        sobot_btn_ok_robot.setChecked(true);
         sobot_btn_no_robot = (RadioButton) findViewById(getResId("sobot_btn_no_robot"));
         sobot_btn_no_robot.setText(ResourceUtils.getResString(context, "sobot_evaluate_no"));
         sobot_robot_relative = (LinearLayout) findViewById(getResId("sobot_robot_relative"));
@@ -191,97 +193,134 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 @Override
                 public void onSuccess(SatisfactionSet satisfactionSet) {
                     sobot_close_now.setVisibility(View.VISIBLE);
-                    if (satisfactionSet != null && "1".equals(satisfactionSet.getCode()) && satisfactionSet.getData() != null && satisfactionSet.getData().size() != 0) {
-                        satisFactionList = satisfactionSet.getData();
-                        if (commentType == 1) {
-                            //主动评价需要判断默认星级
-                            if (satisFactionList.get(0) != null) {
-                                if (satisFactionList.get(0).getScoreFlag() == 0) {
-                                    //defaultType 0-默认5星,1-默认0星
-                                    score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
-                                    sobot_ten_root_ll.setVisibility(View.GONE);
-                                    sobot_ratingBar.setVisibility(View.VISIBLE);
-                                    ratingType = 0;//5星
-                                } else {
-                                    sobot_ten_root_ll.setVisibility(View.VISIBLE);
-                                    sobot_ratingBar.setVisibility(View.GONE);
-                                    ratingType = 1;//十分
-                                    // defaultType 0-默认10分,1-默认5分,2-默认0分
-                                    if (satisFactionList.get(0).getDefaultType() == 2) {
-                                        score = 0;
-                                    } else if (satisFactionList.get(0).getDefaultType() == 1) {
-                                        score = 5;
+                    if(satisfactionSet!=null) {
+                        mSatisfactionSet = satisfactionSet;
+                        if ("1".equals(satisfactionSet.getCode()) && satisfactionSet.getList() != null && satisfactionSet.getList().size() != 0) {
+                            satisFactionList = satisfactionSet.getList();
+                            if (commentType == 1) {
+                                //主动评价需要判断默认星级
+                                if (satisFactionList.get(0) != null) {
+                                    if (satisFactionList.get(0).getScoreFlag() == 0) {
+                                        //defaultType 0-默认5星,1-默认0星
+                                        score = (satisFactionList.get(0).getDefaultType() == 0) ? 5 : 0;
+                                        sobot_ten_root_ll.setVisibility(View.GONE);
+                                        sobot_ratingBar.setVisibility(View.VISIBLE);
+                                        ratingType = 0;//5星
                                     } else {
-                                        score = 10;
+                                        sobot_ten_root_ll.setVisibility(View.VISIBLE);
+                                        sobot_ratingBar.setVisibility(View.GONE);
+                                        ratingType = 1;//十分
+                                        // defaultType 0-默认10分,1-默认5分,2-默认0分
+                                        if (satisFactionList.get(0).getDefaultType() == 2) {
+                                            score = 0;
+                                        } else if (satisFactionList.get(0).getDefaultType() == 1) {
+                                            score = 5;
+                                        } else {
+                                            score = 10;
+                                        }
                                     }
-                                }
-                            } else {
-                                return;
-                            }
-                        } else {
-                            if (satisFactionList.get(0) != null) {
-                                if (satisFactionList.get(0).getScoreFlag() == 0) {
-                                    //defaultType 0-默认5星,1-默认0星
-                                    sobot_ten_root_ll.setVisibility(View.GONE);
-                                    sobot_ratingBar.setVisibility(View.VISIBLE);
-                                    ratingType = 0;//5星
                                 } else {
-                                    sobot_ten_root_ll.setVisibility(View.VISIBLE);
-                                    sobot_ratingBar.setVisibility(View.GONE);
-                                    ratingType = 1;//十分
+                                    return;
                                 }
                             } else {
-                                return;
-                            }
-                        }
-                        if (ratingType == 0) {
-                            if (score == -1) {
-                                score = 5;
-                            }
-                            sobot_ratingBar.setRating(score);
-                        } else {
-                            if (score == -1) {
-                                score = 10;
-                            }
-                            sobot_ten_rating_ll.init(score, true);
-                        }
-
-                        if (isSolve == 0) {
-                            sobot_btn_ok_robot.setChecked(true);
-                            sobot_btn_no_robot.setChecked(false);
-                        } else {
-                            sobot_btn_ok_robot.setChecked(false);
-                            sobot_btn_no_robot.setChecked(true);
-                        }
-
-                        setCustomLayoutViewVisible(score, satisFactionList);
-                        if (ratingType == 0) {
-                            if (0 == score) {
-                                sobot_close_now.setVisibility(View.GONE);
-                                sobot_ratingBar_title.setText(ResourceUtils.getResString(getContext(), "sobot_evaluate_zero_score_des"));
-                                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_common_gray3")));
-                            } else {
-                                sobot_close_now.setVisibility(View.VISIBLE);
-                                if (satisfactionSetBase != null) {
-                                    sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
+                                if (satisFactionList.get(0) != null) {
+                                    if (satisFactionList.get(0).getScoreFlag() == 0) {
+                                        //defaultType 0-默认5星,1-默认0星
+                                        sobot_ten_root_ll.setVisibility(View.GONE);
+                                        sobot_ratingBar.setVisibility(View.VISIBLE);
+                                        ratingType = 0;//5星
+                                    } else {
+                                        sobot_ten_root_ll.setVisibility(View.VISIBLE);
+                                        sobot_ratingBar.setVisibility(View.GONE);
+                                        ratingType = 1;//十分
+                                    }
+                                } else {
+                                    return;
                                 }
-                                sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
                             }
-                        } else {
-                            sobot_close_now.setVisibility(View.VISIBLE);
-                            if (satisfactionSetBase != null) {
-                                sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
+                            if (ratingType == 0) {
+                                if (score == -1) {
+                                    score = 5;
+                                }
+                                sobot_ratingBar.setRating(score);
+                            } else {
+                                if (score == -1) {
+                                    score = 10;
+                                }
+                                sobot_ten_rating_ll.init(score, true,41);
                             }
-                            sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
+                            //是否解决问题 0:已解决，1：未解决，-1：都不选
+                            if (isSolve == -1) {
+                                //主动评价 问题是否解决 获取默认值
+                                if(satisfactionSet.getDefaultQuestionFlag() ==1) {
+                                    isSolve = 0;
+                                }else if(satisfactionSet.getDefaultQuestionFlag() ==0){
+                                    isSolve = 1;
+                                }
+                            }
+                            if (isSolve == 0) {
+                                sobot_btn_ok_robot.setChecked(true);
+                                sobot_btn_no_robot.setChecked(false);
+                            } else if(isSolve == 1){
+                                sobot_btn_ok_robot.setChecked(false);
+                                sobot_btn_no_robot.setChecked(true);
+                            }else{
+                                sobot_btn_ok_robot.setChecked(false);
+                                sobot_btn_no_robot.setChecked(false);
+                            }
 
-                        }
+                            setCustomLayoutViewVisible(score, satisFactionList);
+                            if (ratingType == 0) {
+                                if (0 == score) {
+                                    changeCommitButtonUi(false);
+                                    sobot_close_now.setVisibility(View.GONE);
+                                    sobot_ratingBar_title.setText(ResourceUtils.getResString(getContext(), "sobot_evaluate_zero_score_des"));
+                                    sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_common_gray3")));
+                                } else {
+                                    changeCommitButtonUi(true);
+                                    sobot_close_now.setVisibility(View.VISIBLE);
+                                    if (satisfactionSetBase != null) {
+                                        sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
+                                    }
+                                    sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
+                                }
+                            } else {
+                                if (-1 == score) {
+                                    changeCommitButtonUi(false);
+                                    sobot_ratingBar_title.setText(R.string.sobot_evaluate_zero_score_des);
+                                    sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), R.color.sobot_common_gray3));
+                                } else {
+                                    changeCommitButtonUi(true);
+                                    sobot_close_now.setVisibility(View.VISIBLE);
+                                    if (satisfactionSetBase != null) {
+                                        sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
+                                    }
+                                    sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
+                                }
+                            }
 
-                        if (satisFactionList.get(0).getIsQuestionFlag()) {
-                            sobot_robot_relative.setVisibility(View.VISIBLE);
-                            sobot_ratingBar_split_view.setVisibility(View.VISIBLE);
-                        } else {
-                            sobot_robot_relative.setVisibility(View.GONE);
-                            sobot_ratingBar_split_view.setVisibility(View.GONE);
+                            if (satisFactionList.get(0).getIsQuestionFlag()) {
+                                sobot_robot_relative.setVisibility(View.VISIBLE);
+                                sobot_ratingBar_split_view.setVisibility(View.VISIBLE);
+                            } else {
+                                sobot_robot_relative.setVisibility(View.GONE);
+                                sobot_ratingBar_split_view.setVisibility(View.GONE);
+                            }
+                            //是否是默认评价提示语
+                            if(satisfactionSet.getIsDefaultGuide()==0 && !TextUtils.isEmpty(satisfactionSet.getGuideCopyWriting())){
+                                sobot_tv_evaluate_title.setText(satisfactionSet.getGuideCopyWriting());
+                            }
+                            //是否显示评价输入框
+                            if(satisfactionSet.getTxtFlag()==0){
+                                //关闭评价输入框
+                                setl_submit_content.setVisibility(View.GONE);
+                            }else{
+                                setl_submit_content.setVisibility(View.VISIBLE);
+                            }
+                            //是否是默认提交按钮
+                            if(satisfactionSet.getIsDefaultButton()==0 && !TextUtils.isEmpty(satisfactionSet.getButtonDesc())){
+                                sobot_close_now.setText(satisfactionSet.getButtonDesc());
+                            }
                         }
                     }
                 }
@@ -294,6 +333,9 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 public void onLoading(long total, long current, boolean isUploading) {
                 }
             });
+        }else {
+            //机器人模式下，默认选中已解决
+            sobot_btn_ok_robot.setChecked(true);
         }
     }
 
@@ -301,9 +343,6 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         sobot_ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (satisfactionSetBase != null) {
-                    sobot_close_now.setVisibility(View.VISIBLE);
-                }
                 int score = (int) Math.ceil(sobot_ratingBar.getRating());
                 if (score == 0) {
                     sobot_ratingBar.setRating(1);
@@ -312,6 +351,10 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                     sobot_close_now.setSelected(true);
                     setCustomLayoutViewVisible(score, satisFactionList);
                 }
+                if (satisfactionSetBase != null) {
+                    sobot_close_now.setVisibility(View.VISIBLE);
+                }
+                changeCommitButtonUi(true);
             }
         });
 
@@ -321,10 +364,8 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 if (current_model == ZhiChiConstant.client_model_robot && initModel != null) {
                     if (checkedId == getResId("sobot_btn_ok_robot")) {
                         sobot_hide_layout.setVisibility(View.GONE);
-                        setl_submit_content.setVisibility(View.GONE);
                     } else if (checkedId == getResId("sobot_btn_no_robot")) {
                         sobot_hide_layout.setVisibility(View.VISIBLE);
-                        setl_submit_content.setVisibility(View.VISIBLE);
                         String tmpData[] = convertStrToArray(initModel.getRobotCommentTitle());
                         if (tmpData != null && tmpData.length > 0) {
                             setLableViewVisible(tmpData);
@@ -417,16 +458,21 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
         if (satisfactionSetBase != null) {
             sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
             sobot_ratingBar_title.setTextColor(ContextCompat.getColor(getContext(), ResourceUtils.getResColorId(getContext(), "sobot_color_evaluate_ratingBar_des_tv")));
-            if (!TextUtils.isEmpty(satisfactionSetBase.getInputLanguage())) {
-                if (satisfactionSetBase.getIsInputMust()) {
-                    sobot_add_content.setHint(getResString("sobot_required") + satisfactionSetBase.getInputLanguage().replace("<br/>", "\n"));
+            if(satisfactionSetBase.getTxtFlag()==1) {
+                setl_submit_content.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(satisfactionSetBase.getInputLanguage())) {
+                    if (satisfactionSetBase.getIsInputMust()) {
+                        sobot_add_content.setHint(getResources().getString(R.string.sobot_required) + satisfactionSetBase.getInputLanguage().replace("<br/>", "\n"));
+                    } else {
+                        sobot_add_content.setHint(satisfactionSetBase.getInputLanguage().replace("<br/>", "\n"));
+                    }
                 } else {
-                    sobot_add_content.setHint(satisfactionSetBase.getInputLanguage().replace("<br/>", "\n"));
+                    sobot_add_content.setHint(String.format(ChatUtils.getResString(SobotEvaluateActivity.this, "sobot_edittext_hint")));
                 }
-            } else {
-                sobot_add_content.setHint(String.format(ChatUtils.getResString(context, "sobot_edittext_hint")));
+            }else{
+                //隐藏输入框
+                setl_submit_content.setVisibility(View.GONE);
             }
-
             if (!TextUtils.isEmpty(satisfactionSetBase.getLabelName())) {
                 String tmpData[] = convertStrToArray(satisfactionSetBase.getLabelName());
                 setLableViewVisible(tmpData);
@@ -441,7 +487,6 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 sobot_ratingBar_title.setVisibility(View.GONE);
             }
             if (score == 5) {
-//                sobot_hide_layout.setVisibility(View.GONE);
                 setl_submit_content.setVisibility(View.VISIBLE);
                 sobot_ratingBar_title.setText(satisfactionSetBase.getScoreExplain());
             } else {
@@ -537,11 +582,13 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                 return 1;
             }
         } else if (current_model == ZhiChiConstant.client_model_customService) {
-            if (satisfactionSetBase != null && satisfactionSetBase.getIsQuestionFlag()) {
+            if (mSatisfactionSet != null && mSatisfactionSet.getIsQuestionFlag() == 1) {
                 if (sobot_btn_ok_robot.isChecked()) {
                     return 0;
-                } else {
+                } else if (sobot_btn_no_robot.isChecked()) {
                     return 1;
+                } else {
+                    return -1;
                 }
             }
         }
@@ -591,6 +638,36 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
      */
     private boolean checkInput() {
         if (current_model == ZhiChiConstant.client_model_customService) {
+            //如果开启了是否解决问题
+            if (mSatisfactionSet != null && mSatisfactionSet.getIsQuestionFlag() == 1) {
+                SobotCommentParam commentParam = getCommentParam();
+                //“问题是否解决”是否为必填选项： 0-非必填 1-必填
+                if (commentParam.getIsresolve() == -1 && mSatisfactionSet.getIsQuestionMust() == 1) {
+                    ToastUtil.showToast(context, getResString("sobot_str_please_check_is_solve"));//标签必选
+                    return false;
+                }
+            }
+            //评分是否未0
+            int score=-1;
+            if (ratingType == 0) {
+                score = (int) Math.ceil(sobot_ratingBar.getRating());
+                //五星评价分不能传0
+                if(score<1){
+                    ToastUtil.showToast(context, getResString("sobot_rating_score")+getResString("sobot__is_null"));//评分必选
+                    return false;
+                }
+            } else {
+                score = sobot_ten_rating_ll.getSelectContent();
+                //10分的评价分值可以传0，但不能不选
+                if(score<0){
+                    ToastUtil.showToast(context, getResString("sobot_rating_score")+getResString("sobot__is_null"));//评分必选
+                    return false;
+                }
+            }
+            if(score<0){
+                ToastUtil.showToast(context, getResString("sobot_rating_score")+getResString("sobot__is_null"));//评分必选
+                return false;
+            }
             if (satisfactionSetBase != null) {
                 SobotCommentParam commentParam = getCommentParam();
                 if (!TextUtils.isEmpty(satisfactionSetBase.getLabelName()) && satisfactionSetBase.getIsTagMust()) {
@@ -600,7 +677,7 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
                     }
                 }
 
-                if (satisfactionSetBase.getIsInputMust()) {
+                if (satisfactionSetBase.getTxtFlag()==1 && satisfactionSetBase.getIsInputMust()) {
                     if (TextUtils.isEmpty(commentParam.getSuggest().trim())) {
                         ToastUtil.showToast(context, getResString("sobot_suggestions_are_required"));//建议必填
                         return false;
@@ -734,6 +811,17 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             }
         }
         return false;
+    }
+    private void changeCommitButtonUi(boolean isCanClick) {
+        if (isCanClick) {
+            sobot_close_now.setFocusable(true);
+            sobot_close_now.setClickable(true);
+            sobot_close_now.getBackground().setAlpha(255);
+        } else {
+            sobot_close_now.setFocusable(false);
+            sobot_close_now.setClickable(false);
+            sobot_close_now.getBackground().setAlpha(90);
+        }
     }
 
     public Activity getContext() {

@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.sobot.chat.listener.NoDoubleClickListener;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -65,7 +63,7 @@ public class MiniProgramMessageHolder extends MessageHolderBase implements View.
         miniProgramModel = message.getMiniProgramModel();
         if (miniProgramModel != null) {
             if (!TextUtils.isEmpty(miniProgramModel.getLogo())) {
-                SobotBitmapUtil.display(mContext, miniProgramModel.getLogo(), tv_mimi_logo);
+                SobotBitmapUtil.display(mContext, miniProgramModel.getLogo(), tv_mimi_logo, R.drawable.sobot_default_pic, R.drawable.sobot_default_pic_err);
                 tv_mimi_logo.setVisibility(View.VISIBLE);
             } else {
                 tv_mimi_logo.setVisibility(View.GONE);
@@ -84,7 +82,7 @@ public class MiniProgramMessageHolder extends MessageHolderBase implements View.
             }
 
             if (!TextUtils.isEmpty(miniProgramModel.getThumbUrl())) {
-                SobotBitmapUtil.display(mContext, miniProgramModel.getThumbUrl(), tv_mimi_thumbUrl);
+                SobotBitmapUtil.display(mContext, miniProgramModel.getThumbUrl(), tv_mimi_thumbUrl, R.drawable.sobot_default_pic, R.drawable.sobot_default_pic_err);
                 tv_mimi_thumbUrl.setVisibility(View.VISIBLE);
             } else {
                 tv_mimi_thumbUrl.setVisibility(View.GONE);
@@ -153,11 +151,7 @@ public class MiniProgramMessageHolder extends MessageHolderBase implements View.
         resetMaxWidth();
     }
 
-    private int msgMaxWidth;//气泡最大宽度
-
     private void resetMaxWidth() {
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         if (answersList != null) {
             ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
             layoutParams.width = msgMaxWidth;
@@ -180,6 +174,7 @@ public class MiniProgramMessageHolder extends MessageHolderBase implements View.
             }
         }
     }
+
     private void checkShowTransferBtn() {
         if (message.isShowTransferBtn()) {
             showTransferBtn();

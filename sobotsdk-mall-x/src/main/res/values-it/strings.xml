@@ -214,6 +214,7 @@
        <string name="sobot_microphone_yongtu">Puoi utilizzare la voce per comunicare rapidamente quando consulti il ​​servizio clienti e lasci messaggi</string>
        <string name="sobot_very_dissatisfied">Molto insoddisfatto</string>
        <string name="sobot_cant_solve_problem">Non hai risolto il tuo problema?</string>
+       <string name="sobot_cant_solve_problem_new">Non hai risolto il tuo problema? %s </string>
        <string name="sobot_customer_service">Servizi Umani </string>
        <string name="sobot_msg_open_see_all">Espandi il messaggio</string>
        <string name="sobot_agree_sentisive_send">Continua a inviare</string>
@@ -233,4 +234,8 @@
        <string name="sobot_cai">passo avanti</string>
        <string name="sobot_re_commit">Non hai inviato alcuna informazione. Per favore</string>
        <string name="sobot_re_write">Compila nuovamente le informazioni</string>
+       <string name="sobo_outline_closed">La sessione è terminata, la consultazione può essere ripresa</string>
+       <string name="sobot_str_please_check_is_solve">Scegliere se il problema è stato risolto</string>
+       <string name="sobot_evaluate_lab">Etichetta:</string>
+       <string name="sobot_evaluate_issolve">Risolto:</string>
 </resources>

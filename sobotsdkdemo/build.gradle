@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     // 签名配置
     signingConfigs {
 
@@ -13,9 +13,9 @@ android {
     defaultConfig {
         applicationId "com.sobot.demo"
         minSdkVersion 17
-        targetSdkVersion 30
-        versionCode 39
-        versionName "3.2.1"
+        targetSdkVersion 33
+        versionCode 46
+        versionName "3.2.7"
 
         ndk {
             //设置支持的SO库架构

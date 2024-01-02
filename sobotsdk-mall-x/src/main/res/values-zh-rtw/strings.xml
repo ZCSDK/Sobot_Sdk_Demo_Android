@@ -7,23 +7,23 @@
        <string name="sobot_voice_file_error">語音地址錯誤</string>
        <string name="sobot_ver_code">驗證碼</string>
        <string name="sobot_upload_vodie_length">上傳視頻長度不能超過15s</string>
-       <string name="sobot_upload_video">視頻</string>
+       <string name="sobot_upload_video">影片</string>
        <string name="sobot_upload">圖片</string>
-       <string name="sobot_up_send">松開 發送</string>
+       <string name="sobot_up_send">鬆開 發送</string>
        <string name="sobot_unable_transfer_to_customer_service">暫時無法轉接人工客服</string>
        <string name="sobot_unable_to_evaluate">暫時無法評價</string>
-       <string name="sobot_try_again">網絡錯誤，請檢查網絡後重試</string>
+       <string name="sobot_try_again">網路錯誤，請檢查網路後重試</string>
        <string name="sobot_transfer_to_customer_service">轉人工</string>
        <string name="sobot_title_time">時間</string>
        <string name="sobot_title_date">日期</string>
        <string name="sobot_title">標題</string>
-       <string name="sobot_the_label_is_required">標簽為必選</string>
+       <string name="sobot_the_label_is_required">標籤為必選</string>
        <string name="sobot_thank_dialog_hint">感謝您的評價!</string>
        <string name="sobot_temporary_leave">暫時離開</string>
        <string name="sobot_temporarily_not_evaluation">暫不評價</string>
-       <string name="sobot_tap_hold_camera">輕觸拍照，按住攝像</string>
-       <string name="sobot_switch_robot_title_2">請選擇要咨詢的內容</string>
-       <string name="sobot_switch_robot_title">請選擇要咨詢的業務</string>
+       <string name="sobot_tap_hold_camera">輕觸拍照，按住拍攝</string>
+       <string name="sobot_switch_robot_title_2">請選擇要諮詢的內容</string>
+       <string name="sobot_switch_robot_title">請選擇要諮詢的業務</string>
        <string name="sobot_switch_business">換業務</string>
        <string name="sobot_switch">換壹組</string>
        <string name="sobot_suggestions_are_required">建議為必填</string>
@@ -38,7 +38,7 @@
        <string name="sobot_sdcard_does_not_exist">沒有sd卡</string>
        <string name="sobot_scan_qr_code">識別二維碼</string>
        <string name="sobot_save_pic">保存圖片</string>
-       <string name="sobot_robot_voice_hint">機器人咨詢模式下，語音將自動轉化為文字發送</string>
+       <string name="sobot_robot_voice_hint">機器人諮詢模式下，語音將自動轉化為文字發送</string>
        <string name="sobot_robot_customer_service_evaluation">機器人客服評價</string>
        <string name="sobot_robot_auto_transfer_tip">對不起，未能解決您的問題，正在為您轉接人工客服</string>
        <string name="sobot_retracted_msg_tip_end">撤回了壹條消息</string>
@@ -111,7 +111,7 @@
        <string name="sobot_in_line">排隊中...</string>
        <string name="sobot_help_center_title">客戶服務中心</string>
        <string name="sobot_help_center_online_service">在線客服</string>
-       <string name="sobot_help_center_no_data_describe">可點擊下方按鈕咨詢人工客服</string>
+       <string name="sobot_help_center_no_data_describe">可點擊下方按鈕諮詢人工客服</string>
        <string name="sobot_help_center_no_data">暫無幫助內容</string>
        <string name="sobot_great_satisfaction">非常滿意</string>
        <string name="sobot_file_upload_failed">不能上傳50m以上的文件</string>
@@ -169,7 +169,7 @@
        <string name="sobot_btn_cancle">取消</string>
        <string name="sobot_attach_take_pic">拍攝</string>
        <string name="sobot_already_save_to_picture">已保存到系統相冊</string>
-       <string name="sobot_after_consultation_to_evaluate_custome_service">咨詢後才能評價服務質量</string>
+       <string name="sobot_after_consultation_to_evaluate_custome_service">諮詢後才能評價服務質量</string>
        <string name="sobot__is_null">不能為空</string>
        <string name="sobot_reunicon">點擊重新連接</string>
        <string name="sobot_pic_select_again">請重新選擇或拍攝</string>
@@ -214,6 +214,7 @@
        <string name="sobot_microphone_yongtu">您可以在諮詢客服和留言時，使用語音快速溝通</string>
        <string name="sobot_very_dissatisfied">非常不滿意</string>
        <string name="sobot_cant_solve_problem">沒有解決你的問題？</string>
+       <string name="sobot_cant_solve_problem_new">沒有解決你的問題？ %s </string>
        <string name="sobot_customer_service">人工服務</string>
        <string name="sobot_msg_open_see_all">展開消息</string>
        <string name="sobot_agree_sentisive_send">繼續發送</string>
@@ -233,4 +234,8 @@
        <string name="sobot_cai">踩</string>
        <string name="sobot_re_commit">您未提交資訊，請</string>
        <string name="sobot_re_write">重新填寫資訊</string>
+       <string name="sobo_outline_closed">會話已結束，可重新發起諮詢</string>
+       <string name="sobot_str_please_check_is_solve">請選擇是否解决了您的問題</string>
+       <string name="sobot_evaluate_lab">標籤：</string>
+       <string name="sobot_evaluate_issolve">是否解决：</string>
 </resources>

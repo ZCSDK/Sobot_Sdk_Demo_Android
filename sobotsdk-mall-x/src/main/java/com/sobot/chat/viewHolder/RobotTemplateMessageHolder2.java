@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,8 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
     private HorizontalGridPage pageView;
     private Context mContext;
     private PageBuilder pageBuilder;
+
+    private FrameLayout sobot_content;
 
     public RobotTemplateMessageHolder2(Context context, View convertView) {
         super(context, convertView);
@@ -113,7 +116,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                     ((Template2ViewHolder) holder).sobotTitle.setPadding(0, 0, 0, 0);
                     if (adapter.getZhiChiMessageBaseData().getSugguestionsFontColor() == 0) {
                         ((Template2ViewHolder) holder).sobotTitle.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_color_link")));
-                    }else{
+                    } else {
                         ((Template2ViewHolder) holder).sobotTitle.setTextColor(ContextCompat.getColor(mContext, ResourceUtils.getResColorId(mContext, "sobot_common_gray1")));
                     }
                 }
@@ -144,7 +147,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
                 if (multiDiaRespInfo != null && multiDiaRespInfo.getEndFlag() && !TextUtils.isEmpty(lablesViewModel.getAnchor())) {
                     if (SobotOption.newHyperlinkListener != null) {
                         //如果返回true,拦截;false 不拦截
-                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,lablesViewModel.getAnchor());
+                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, lablesViewModel.getAnchor());
                         if (isIntercept) {
                             return;
                         }
@@ -342,7 +345,7 @@ public class RobotTemplateMessageHolder2 extends MessageHolderBase {
         if (msgCallBack != null && message != null) {
             ZhiChiMessageBase msgObj = new ZhiChiMessageBase();
             Map<String, String> map = new HashMap<>();
-            map.put("level", multiDiaRespInfo.getLevel()+"");
+            map.put("level", multiDiaRespInfo.getLevel() + "");
             map.put("conversationId", multiDiaRespInfo.getConversationId());
             if (outputParam != null) {
                 if (outputParam.length == 1) {

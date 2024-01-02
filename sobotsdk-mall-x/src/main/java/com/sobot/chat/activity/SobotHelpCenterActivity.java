@@ -68,6 +68,7 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
             tv_sobot_layout_online_tel.setVisibility(View.GONE);
         }
         displayInNotch(mGridView);
+        displayInNotch(mBottomBtn);
     }
 
     @Override

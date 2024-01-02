@@ -10,6 +10,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.HtmlTools;
@@ -158,7 +159,7 @@ public class RemindMessageHolder extends MessageHolderBase {
     private void setRemindPostMsg(Context context, TextView remindInfo, ZhiChiMessageBase message, boolean haveDH) {
         int isLeaveMsg = SharedPreferencesUtil.getIntData(context, ZhiChiConstant.sobot_msg_flag, ZhiChiConstant.sobot_msg_flag_open);
         String postMsg = (haveDH ? "，" : " ") + ResourceUtils.getResString(context, "sobot_can") + "<a href='sobot:SobotPostMsgActivity'> " + ResourceUtils.getResString(context, "sobot_str_bottom_message") + "</a>";
-        String content = message.getAnswer().getMsg().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>");
+        String content = message.getAnswer().getMsg().replace("<p>", "").replace("</p>", "").replace("\n", "<br/>");
         if (isLeaveMsg == ZhiChiConstant.sobot_msg_flag_open) {
             content = content + postMsg;
         }
@@ -173,8 +174,9 @@ public class RemindMessageHolder extends MessageHolderBase {
      * @param remindInfo
      */
     private void setRemindToCustom(Context context, TextView remindInfo) {
-        String content = ResourceUtils.getResString(context, "sobot_cant_solve_problem") + "<a href='sobot:SobotToCustomer'> " + ResourceUtils.getResString(context, "sobot_customer_service") + "</a>";
-        HtmlTools.getInstance(context).setRichText(remindInfo, content, ResourceUtils.getIdByName
+        String content = context.getResources().getString(R.string.sobot_cant_solve_problem_new);
+        String click = "<a href='sobot:SobotToCustomer'> " + context.getResources().getString(R.string.sobot_customer_service) + "</a>";
+        HtmlTools.getInstance(context).setRichText(remindInfo, String.format(content,click),ResourceUtils.getIdByName
                 (context, "color", "sobot_color_link_remind"));
         remindInfo.setEnabled(true);
     }

@@ -234,8 +234,9 @@ public class SobotApi {
      * 退出客服，用于用户退出登录时调用
      *
      * @param context 上下文对象
+     * @param reason  手动结束会话的原因，非必填
      */
-    public static void exitSobotChat(final Context context) {
+    public static void exitSobotChat(final Context context,String reason) {
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_IS_EXIT, true);
         if (context == null) {
             return;
@@ -255,7 +256,10 @@ public class SobotApi {
 
             if (!TextUtils.isEmpty(cid) && !TextUtils.isEmpty(uid)) {
                 ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
-                zhiChiApi.out(cid, uid, new StringResultCallBack<CommonModel>() {
+                if (TextUtils.isEmpty(reason)) {
+                    reason = "客户手动调用结束会话";
+                }
+                zhiChiApi.out(cid, uid, reason,new StringResultCallBack<CommonModel>() {
                     @Override
                     public void onSuccess(CommonModel result) {
                         LogUtils.i("下线成功");

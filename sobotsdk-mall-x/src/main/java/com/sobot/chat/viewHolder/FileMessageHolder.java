@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -22,7 +21,6 @@ import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.HtmlTools;
 import com.sobot.chat.utils.ResourceUtils;
-import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.viewHolder.base.MessageHolderBase;
@@ -77,8 +75,6 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
         if (sobot_msgStatus != null) {
             sobot_msgStatus.setOnClickListener(this);
         }
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         if (sobot_rl_hollow_container != null) {
             sobot_rl_hollow_container.setOnClickListener(this);
             ViewGroup.LayoutParams layoutParams = sobot_rl_hollow_container.getLayoutParams();
@@ -128,6 +124,7 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
                 }
             } else {
                 answersList.setVisibility(View.GONE);
+                stripe.setVisibility(View.GONE);
             }
             refreshItem();
             checkShowTransferBtn();
@@ -173,7 +170,6 @@ public class FileMessageHolder extends MessageHolderBase implements View.OnClick
         resetMaxWidth();
     }
 
-    private int msgMaxWidth;//气泡最大宽度
 
     private void resetMaxWidth() {
         if (answersList != null) {

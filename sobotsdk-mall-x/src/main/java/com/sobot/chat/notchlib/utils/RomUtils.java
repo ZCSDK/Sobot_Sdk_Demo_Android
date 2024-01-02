@@ -20,11 +20,13 @@ public final class RomUtils {
     private static final String VIVO = "vivo";
     private static final String XIAOMI = "xiaomi";
     private static final String OPPO = "oppo";
+    private static final String OnePlus = "oneplus";
 
     private static final String VERSION_PROPERTY_HUAWEI = "ro.build.version.emui";
     private static final String VERSION_PROPERTY_VIVO = "ro.vivo.os.build.display.id";
     private static final String VERSION_PROPERTY_XIAOMI = "ro.build.version.incremental";
     private static final String VERSION_PROPERTY_OPPO = "ro.build.version.opporom";
+    private static final String VERSION_PROPERTY_ONEPLUS = "ro.build.version.opporom";
     private static final String UNKNOWN = "unknown";
 
     private static RomInfo bean = null;
@@ -68,6 +70,9 @@ public final class RomUtils {
     public static boolean isOppo() {
         return OPPO.equals(getRomInfo().name);
     }
+    public static boolean isOnePlus() {
+        return OnePlus.equals(getRomInfo().name);
+    }
 
     /**
      * Return the rom's information.
@@ -103,6 +108,13 @@ public final class RomUtils {
         if (isRightRom(brand, manufacturer, OPPO)) {
             bean.name = OPPO;
             bean.version = getRomVersion(VERSION_PROPERTY_OPPO);
+            return bean;
+        } else {
+            bean.name = manufacturer;
+        }
+        if (isRightRom(brand, manufacturer, OnePlus)) {
+            bean.name = OnePlus;
+            bean.version = getRomVersion(VERSION_PROPERTY_ONEPLUS);
             return bean;
         } else {
             bean.name = manufacturer;

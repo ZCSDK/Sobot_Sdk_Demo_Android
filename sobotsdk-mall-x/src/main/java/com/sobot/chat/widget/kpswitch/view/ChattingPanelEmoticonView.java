@@ -1,6 +1,7 @@
 package com.sobot.chat.widget.kpswitch.view;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -114,6 +115,7 @@ public class ChattingPanelEmoticonView extends BaseChattingPanelView implements 
                     viewHolder.iv_emoticon.setVisibility(View.GONE);
                     viewHolder.tv_emoticon.setVisibility(View.VISIBLE);
                     viewHolder.tv_emoticon.setText(emoticonEntity.getEmojiCode());
+                    viewHolder.tv_emoticon.setTextSize(TypedValue.COMPLEX_UNIT_DIP,22);
                 }
 
                 viewHolder.rootView.setOnClickListener(new View.OnClickListener() {

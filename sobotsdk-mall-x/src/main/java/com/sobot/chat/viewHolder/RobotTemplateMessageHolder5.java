@@ -34,16 +34,17 @@ public class RobotTemplateMessageHolder5 extends MessageHolderBase {
         sobot_template5_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template5_title"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
-        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context,"sobot_transfer_to_customer_service"));
+        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
         //102=左间距12+内间距30+右间距60
         sobot_template5_title.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
         sobot_template5_msg.setMaxWidth(ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102));
-
     }
+
+
 
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {
-        this.message=message;
+        this.message = message;
         if (message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null) {
             checkShowTransferBtn();
             final SobotMultiDiaRespInfo multiDiaRespInfo = message.getAnswer().getMultiDiaRespInfo();
@@ -148,6 +149,7 @@ public class RobotTemplateMessageHolder5 extends MessageHolderBase {
         } catch (Exception e) {
         }
     }
+
     /**
      * 显示 顶踩 按钮
      */

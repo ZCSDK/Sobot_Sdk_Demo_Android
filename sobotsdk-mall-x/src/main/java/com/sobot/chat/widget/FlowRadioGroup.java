@@ -2,11 +2,7 @@ package com.sobot.chat.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.sobot.chat.utils.LogUtils;
@@ -46,7 +42,6 @@ public class FlowRadioGroup extends RadioGroup {
                 }
                 int height = child.getMeasuredHeight();
                 x += width;
-                LogUtils.d(index+"===width====="+width+",===x=="+x+"======oneWidth==="+oneWidth);
                 y = row * height + height;
                 if (x > maxWidth) {
                     x = width;
@@ -55,7 +50,6 @@ public class FlowRadioGroup extends RadioGroup {
                 }
             }
         }
-        LogUtils.d(maxWidth+"===row====="+row+",===x=="+x);
         if(row>=1){
             isOutSize = true;
             // 设置容器所需的宽度和高度
@@ -66,7 +60,6 @@ public class FlowRadioGroup extends RadioGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        LogUtils.d("==onLayout=="+changed+"===l====="+l+",===r=="+r);
         super.onLayout(changed,l,t,r,b);
 
             final int childCount = getChildCount();

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/sobot_msg_top_bottom_style"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
 
-    <!-- 中间提醒内容 -->
+    <!-- 中间时间提醒 -->
     <TextView
         android:id="@+id/sobot_reminde_time_Text"
         style="@style/sobot_center_remind_time" />
@@ -13,33 +15,32 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start">
+        android:layout_marginStart="@dimen/sobot_msg_margin_edge"
+        android:layout_marginLeft="@dimen/sobot_msg_margin_edge">
 
         <!--头像-->
-        <com.sobot.chat.widget.SobotImageView
-            android:id="@+id/sobot_imgHead"
-            style="@style/sobot_chatting_imghead"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:visibility="gone"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp" />
+        <com.sobot.chat.widget.image.SobotRCImageView
+            android:id="@+id/sobot_msg_face_iv"
+            style="@style/sobot_chatting_left_face_style"
+            android:visibility="gone" />
 
         <!-- 昵称 -->
         <TextView
-            android:id="@+id/sobot_name"
+            android:id="@+id/sobot_msg_nike_name_tv"
             style="@style/sobot_chatting_nickname"
-            android:layout_toRightOf="@+id/sobot_imgHead"
-            android:visibility="gone"
-            android:layout_toEndOf="@+id/sobot_imgHead" />
+            android:layout_toEndOf="@+id/sobot_msg_face_iv"
+            android:layout_toRightOf="@+id/sobot_msg_face_iv"
+            android:visibility="gone" />
+
 
         <RelativeLayout
             android:id="@+id/sobot_msg_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sobot_name"
-            android:layout_toRightOf="@+id/sobot_imgHead"
-            android:layout_toEndOf="@+id/sobot_imgHead">
+            android:layout_below="@id/sobot_msg_nike_name_tv"
+            android:layout_toEndOf="@+id/sobot_msg_face_iv"
+            android:layout_toRightOf="@+id/sobot_msg_face_iv"
+            android:orientation="horizontal">
 
             <!-- 机械人的消息内容 -->
             <LinearLayout
@@ -56,7 +57,7 @@
                     android:lineSpacingExtra="@dimen/sobot_DIMEN_5PX"
                     android:textColor="@color/sobot_left_msg_text_color"
                     android:textSize="@dimen/sobot_robot_msg_text_size"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -68,9 +69,12 @@
             android:layout_height="100dp"
             android:layout_below="@+id/sobot_msg_rl"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/sobot_msg_face_iv"
+            android:layout_toRightOf="@+id/sobot_msg_face_iv"
             android:fadingEdge="none"
             android:overScrollMode="never"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
                 android:id="@+id/sobot_template1_horizontal_scrollview_layout"
@@ -82,7 +86,5 @@
             </LinearLayout>
 
         </HorizontalScrollView>
-
     </RelativeLayout>
-
 </LinearLayout>

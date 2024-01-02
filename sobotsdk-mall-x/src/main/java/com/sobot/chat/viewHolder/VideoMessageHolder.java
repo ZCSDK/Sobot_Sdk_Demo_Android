@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -41,6 +40,7 @@ import java.util.ArrayList;
  */
 public class VideoMessageHolder extends MessageHolderBase implements View.OnClickListener {
     private LinearLayout answersList;
+    private RelativeLayout sobot_video_root;
     private TextView stripe;
     private RoundProgressBar sobot_progress;
     private ImageView sobot_msgStatus;
@@ -70,6 +70,9 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
         answersList = (LinearLayout) convertView
                 .findViewById(ResourceUtils.getIdByName(context, "id",
                         "sobot_answersList"));
+        sobot_video_root = convertView
+                .findViewById(ResourceUtils.getIdByName(context, "id",
+                        "sobot_video_root"));
         sobot_progress.setTextDisplayable(false);
         if (sobot_msgStatus != null) {
             sobot_msgStatus.setOnClickListener(this);
@@ -99,6 +102,7 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
         }
         if (!isRight) {
             if (message.getSugguestions() != null && message.getSugguestions().length > 0) {
+                sobot_video_root.setPadding(ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 11), ScreenUtils.dip2px(mContext, 15), 0);
                 resetAnswersList();
                 if (stripe != null) {
                     // 回复语的答复
@@ -115,7 +119,9 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
                     }
                 }
             } else {
+                sobot_video_root.setPadding(0, 0, 0, 0);
                 answersList.setVisibility(View.GONE);
+                stripe.setVisibility(View.GONE);
             }
             refreshItem();
             checkShowTransferBtn();
@@ -161,19 +167,11 @@ public class VideoMessageHolder extends MessageHolderBase implements View.OnClic
         resetMaxWidth();
     }
 
-    private int msgMaxWidth;//气泡最大宽度
-
     private void resetMaxWidth() {
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         if (answersList != null) {
             ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
             layoutParams.width = msgMaxWidth;
             answersList.setLayoutParams(layoutParams);
-        }
-        if (sobot_rl_hollow_container != null) {
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) sobot_rl_hollow_container.getLayoutParams();
-            lp.setMargins(ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 15), ScreenUtils.dip2px(mContext, 15), 0);
         }
         if (stripe != null) {
             ViewGroup.LayoutParams stripelayoutParams = stripe.getLayoutParams();

@@ -3,6 +3,7 @@ package com.sobot.chat.viewHolder;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.api.apiUtils.GsonUtil;
@@ -30,6 +31,18 @@ public class RobotAnswerItemsMsgHolder extends MessageHolderBase implements View
         super(context, convertView);
         tv_msg = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template2_msg"));
         answersListView = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_answersList"));
+        sobot_ll_content = convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_content"));
+        resetMaxWidth(sobot_ll_content);
+    }
+
+    public void resetMaxWidth(View view) {
+        if (view != null) {
+            if (sobot_ll_content instanceof RelativeLayout) {
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) sobot_ll_content.getLayoutParams();
+                layoutParams.width = msgMaxWidth;
+                view.setLayoutParams(layoutParams);
+            }
+        }
     }
 
     @Override
@@ -73,7 +86,7 @@ public class RobotAnswerItemsMsgHolder extends MessageHolderBase implements View
             ZhiChiMessageBase msgObj = new ZhiChiMessageBase();
 
             Map<String, String> map = new HashMap<>();
-            map.put("level", multiDiaRespInfo.getLevel()+"");
+            map.put("level", multiDiaRespInfo.getLevel() + "");
             map.put("conversationId", multiDiaRespInfo.getConversationId());
             map.putAll(tmpMap);
             msgObj.setContent(GsonUtil.map2Str(map));
@@ -97,10 +110,11 @@ public class RobotAnswerItemsMsgHolder extends MessageHolderBase implements View
 
     /**
      * 判断数据是否为历史记录
+     *
      * @param message
      * @return
      */
-    private boolean isHistoryMsg(ZhiChiMessageBase message){
+    private boolean isHistoryMsg(ZhiChiMessageBase message) {
         return message.getSugguestionsFontColor() == 1;
     }
 }

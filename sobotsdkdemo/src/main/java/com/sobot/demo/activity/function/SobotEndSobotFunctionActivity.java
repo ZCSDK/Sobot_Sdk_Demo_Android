@@ -61,7 +61,7 @@ public class SobotEndSobotFunctionActivity extends AppCompatActivity implements 
         }
         if (v == sobot_tv_end) {
             if (information != null) {
-                ZCSobotApi.outCurrentUserZCLibInfo(getContext());
+                ZCSobotApi.outCurrentUserZCLibInfo(getContext(),"");
                 ToastUtil.showToast(getContext(),"已结束会话");
                 finish();
             }

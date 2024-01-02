@@ -391,14 +391,14 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
             sobot_post_email_lable.setTextSize(12);
         }
 
-        if (mConfig.isEnclosureShowFlag()) {
+        if (mConfig.isEnclosureShowFlag() && mConfig.getType()!=null && mConfig.getType().size()>0) {
             sobot_enclosure_container.setVisibility(View.VISIBLE);
             initPicListView();
         } else {
             sobot_enclosure_container.setVisibility(View.GONE);
         }
 
-        if (mConfig.isTicketTypeFlag()) {
+        if (mConfig.isTicketTypeFlag()&& mConfig.getType()!=null && mConfig.getType().size()>0) {
             sobot_post_question_ll.setVisibility(View.VISIBLE);
             sobot_post_question_line.setVisibility(View.VISIBLE);
             sobot_post_question_sec_line.setVisibility(View.VISIBLE);
@@ -621,7 +621,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
             tempMap.put(sobot_post_title_lable.getText().toString().replace(" *", ""), StringUtils.isEmpty(title) ? " - -" : title);
         }
 
-        if (mConfig.isTicketTypeFlag()) {
+        if (mConfig.isTicketTypeFlag() && mConfig.getType()!=null && mConfig.getType().size()>0) {
             tempMap.put(sobot_post_question_lable.getText().toString().replace(" *", ""), StringUtils.isEmpty(sobot_post_question_type.getText().toString()) ? " - -" : sobot_post_question_type.getText().toString());
         }
         if (mFields != null && mFields.size() > 0) {
@@ -1133,5 +1133,11 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        infoCollection();
+        super.onBackPressed();
     }
 }

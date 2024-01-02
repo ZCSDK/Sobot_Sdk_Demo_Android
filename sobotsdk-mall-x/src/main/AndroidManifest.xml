@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -24,7 +23,7 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <application android:usesCleartextTraffic="true">
+    <application>
         <activity
             android:name=".conversation.SobotChatActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|touchscreen|navigation|locale|fontScale|uiMode|screenLayout|smallestScreenSize"

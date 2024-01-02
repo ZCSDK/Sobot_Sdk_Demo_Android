@@ -25,6 +25,7 @@ import com.sobot.chat.camera.listener.StVideoListener;
 import com.sobot.chat.camera.util.AudioUtil;
 import com.sobot.chat.camera.util.ScreenUtils;
 import com.sobot.chat.camera.util.StCmeraLog;
+import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 
 import java.io.File;
@@ -90,6 +91,31 @@ public class StVideoView extends FrameLayout implements SurfaceHolder.Callback, 
         setOnClickListener(this);
         mBack.setOnClickListener(this);
         ib_playBtn.setOnClickListener(this);
+        st_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                LogUtils.d("====progress====" + progress);
+                if (mMediaPlayer !=null  && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    mMediaPlayer.seekTo(progress, MediaPlayer.SEEK_CLOSEST);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                if (mMediaPlayer != null) {
+//                    mMediaPlayer.pause();
+                    onPause();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (mMediaPlayer != null) {
+                    playPauseDrawable.setPause(true);
+                    startVideo();
+                }
+            }
+        });
     }
 
     //生命周期onResume
@@ -149,7 +175,7 @@ public class StVideoView extends FrameLayout implements SurfaceHolder.Callback, 
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-//        LogUtils.i("progress:" + progress + "  total:" + total);
+        LogUtils.i("progress:" + progress + "  total:" + total);
         if (mMediaPlayer == null || !mMediaPlayer.isPlaying()) {
             return;
         }
@@ -202,6 +228,7 @@ public class StVideoView extends FrameLayout implements SurfaceHolder.Callback, 
             mVideoListener.onEnd();
         }
         st_seekbar.setProgress(0);
+        st_currentTime.setText(AudioUtil.getReadableDurationString(0));
     }
 
     /**************************************************

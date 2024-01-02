@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_sobot_help_center_no_data"

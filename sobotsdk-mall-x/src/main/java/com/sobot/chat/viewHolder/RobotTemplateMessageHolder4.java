@@ -43,15 +43,16 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
         sobot_template4_title = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template4_title"));
         sobot_template4_summary = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template4_summary"));
         sobot_template4_anchor = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_template4_anchor"));
-        sobot_template4_anchor.setText(ResourceUtils.getResString(context,"sobot_see_detail"));
+        sobot_template4_anchor.setText(ResourceUtils.getResString(context, "sobot_see_detail"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
-        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context,"sobot_transfer_to_customer_service"));
+        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
     }
+
 
     @Override
     public void bindData(final Context context, final ZhiChiMessageBase message) {
-        this.message=message;
+        this.message = message;
         if (message.getAnswer() != null && message.getAnswer().getMultiDiaRespInfo() != null) {
 
             checkShowTransferBtn();
@@ -59,6 +60,7 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
             String msgStr = ChatUtils.getMultiMsgTitle(multiDiaRespInfo);
             if (!TextUtils.isEmpty(msgStr)) {
                 HtmlTools.getInstance(context).setRichText(sobot_template4_temp_title, msgStr.replaceAll("\n", "<br/>"), getLinkTextColor());
+                applyTextViewUIConfig(sobot_template4_temp_title);
                 sobot_ll_content.setVisibility(View.VISIBLE);
             } else {
                 sobot_ll_content.setVisibility(View.INVISIBLE);
@@ -84,7 +86,7 @@ public class RobotTemplateMessageHolder4 extends MessageHolderBase {
                                 public void onClick(View v) {
                                     if (SobotOption.newHyperlinkListener != null) {
                                         //如果返回true,拦截;false 不拦截
-                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,interfaceRet.get("anchor"));
+                                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, interfaceRet.get("anchor"));
                                         if (isIntercept) {
                                             return;
                                         }

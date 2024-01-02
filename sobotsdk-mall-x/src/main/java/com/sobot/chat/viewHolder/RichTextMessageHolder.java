@@ -1,6 +1,5 @@
 package com.sobot.chat.viewHolder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.core.content.ContextCompat;
@@ -72,12 +71,9 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
     private LinearLayout sobot_ll_switch;//换一组按钮
     private TextView sobot_tv_switch;
     private View sobot_view_split;//换一组和查看详情分割线
-    private int msgMaxWidth;//气泡最大宽度
 
     public RichTextMessageHolder(Context context, View convertView) {
         super(context, convertView);
-        //102=左间距12+内间距30+右间距60
-        msgMaxWidth = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 102);
         msg = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msg"));
         sobot_rich_ll = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_rich_ll"));
         sobot_msgStripe = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_msgStripe"));
@@ -135,6 +131,8 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
             stripe.setText(null);
             stripe.setVisibility(View.GONE);
         }
+        resetMaxWidth(stripe);
+        resetMaxWidth(sobot_msgStripe);
 
         if (message.isGuideGroupFlag()//有分组
                 && message.getListSuggestions() != null//有分组问题列表
@@ -209,15 +207,9 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                 answersList.addView(answer);
             }
         }
-        resetMaxWidth();
-    }
-
-    private void resetMaxWidth() {
-        if (sobot_ll_content != null) {
-            ViewGroup.LayoutParams layoutParams = sobot_ll_content.getLayoutParams();
-            layoutParams.width = ScreenUtils.getScreenWidth((Activity) mContext) - ScreenUtils.dip2px(mContext, 72);
-            sobot_ll_content.setLayoutParams(layoutParams);
-        }
+        ViewGroup.LayoutParams layoutParams = answersList.getLayoutParams();
+        layoutParams.width = msgMaxWidth;
+        answersList.setLayoutParams(layoutParams);
     }
 
     private void resetMinWidth() {
@@ -596,9 +588,9 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
             try {
                 if (message.getAnswer().getRichList().size() > 1) {
                     //richList 数量大于1个，如果里边有不是卡片的超链接，超链接的上个又是文本的情况，需要单独处理（合并到上个文本后边）
+                    //处理后的临时richList,替换旧的richList
                     List<ChatMessageRichListModel> tempRichList = new ArrayList<>();
                     for (int i = 0; i < message.getAnswer().getRichList().size(); i++) {
-                        //处理后的临时richList,替换旧的richList
                         ChatMessageRichListModel richListModel = message.getAnswer().getRichList().get(i);
                         if (richListModel != null) {
                             //如果当前是文本,文本又不是卡片，需要处理
@@ -768,7 +760,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                         ImageView imageView = new ImageView(mContext);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(mlayoutParams);
-                        SobotBitmapUtil.display(mContext, richListModel.getMsg(), imageView);
+                        SobotBitmapUtil.display(mContext, richListModel.getMsg(), imageView, R.drawable.sobot_default_pic, R.drawable.sobot_default_pic_err);
                         imageView.setOnClickListener(new ImageClickLisenter(context, richListModel.getMsg(), isRight));
                         sobot_rich_ll.addView(imageView);
                     } else if (richListModel.getType() == 3 && HtmlTools.isHasPatterns(richListModel.getMsg())) {

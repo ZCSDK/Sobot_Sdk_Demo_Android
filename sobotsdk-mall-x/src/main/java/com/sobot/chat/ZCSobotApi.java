@@ -33,7 +33,6 @@ import com.sobot.chat.api.model.SobotMsgCenterModel;
 import com.sobot.chat.api.model.SobotTransferOperatorParam;
 import com.sobot.chat.api.model.ZhiChiInitModeBase;
 import com.sobot.chat.conversation.SobotChatActivity;
-import com.sobot.chat.core.HttpUtils;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.listener.HyperlinkListener;
@@ -61,7 +60,6 @@ import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.network.apiUtils.SobotHttpUtils;
 import com.sobot.network.http.callback.StringResultCallBack;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -509,8 +507,9 @@ public class ZCSobotApi {
      * 关闭通道，退出客服，用于用户退出登录时调用
      *
      * @param context 上下文对象
+     * @param reason  手动结束会话的原因，非必填
      */
-    public static void outCurrentUserZCLibInfo(final Context context) {
+    public static void outCurrentUserZCLibInfo(final Context context, String reason) {
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_IS_EXIT, true);
         if (context == null) {
             return;
@@ -530,7 +529,10 @@ public class ZCSobotApi {
 
             if (!TextUtils.isEmpty(cid) && !TextUtils.isEmpty(uid)) {
                 ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
-                zhiChiApi.out(cid, uid, new StringResultCallBack<CommonModel>() {
+                if (TextUtils.isEmpty(reason)) {
+                    reason = "客户手动调用结束会话";
+                }
+                zhiChiApi.out(cid, uid, reason, new StringResultCallBack<CommonModel>() {
                     @Override
                     public void onSuccess(CommonModel result) {
                         LogUtils.i("下线成功");
@@ -567,7 +569,7 @@ public class ZCSobotApi {
             SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_CONFIG_APPKEY, appkey);
             SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_SAVE_HOST_AFTER_INITSDK, SobotBaseUrl.getApi_Host());
             //清空sdk 语言设置
-            SharedPreferencesUtil.removeKey(context,ZhiChiConstant.SOBOT_LANGUAGE);
+            SharedPreferencesUtil.removeKey(context, ZhiChiConstant.SOBOT_LANGUAGE);
             SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, "");
             SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, false);
             SharedPreferencesUtil.saveStringData(context, SOBOT_LANGUAGE_STRING_PATH, "");
@@ -1228,69 +1230,40 @@ public class ZCSobotApi {
      * @param isReDownload 是否重新下载语言包 true 重新下载，false 不重新下载,默认false
      */
     public static void setInternationalLanguage(final Context context, final String language, boolean isUse, boolean isReDownload) {
-        if (context == null || TextUtils.isEmpty(language)) {
+        if (context == null) {
             return;
         }
         //清空sdk 语言设置
-        SharedPreferencesUtil.removeKey(context, ZhiChiConstant.SOBOT_LANGUAGE);
-        SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
+        SharedPreferencesUtil.removeKey(context,ZhiChiConstant.SOBOT_LANGUAGE);
+        SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, "");
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, false);
-        SharedPreferencesUtil.saveStringData(context, SOBOT_LANGUAGE_STRING_PATH, "");
-
+        if (TextUtils.isEmpty(language)) {
+            return;
+        }
         if (!isUse) {
             //不使用指定语言,直接返回,使用sdk自带的国际化语言
             return;
-        }
-        SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_NAME, "sobot_android_strings_" + language);
-        String languageFileName = "sobot_android_strings_" + language + ".json";
-        //指定语言包保存路径
-        final String languagePath = CommonUtils.getPrivatePath(context) + File.separator + getAppName(context) + "sobot_language" + File.separator + ZhiChiUrlApi.LANGUAGE_VERSION + File.separator + languageFileName;
-        File file = new File(languagePath);
-        if (isReDownload && file.exists()) {
-            //如果指定语言包已存在，并且要重新下载使用最新，先删除本地已存在的
-            file.delete();
-            SharedPreferencesUtil.saveStringData(context, SOBOT_LANGUAGE_STRING_PATH, "");
-        }
-        if ("ar".equals(language)) {
-            //添加sdk语言，设置成阿拉伯语
-            Locale locale = new Locale("ar");
-            SharedPreferencesUtil.saveObject(context, ZhiChiConstant.SOBOT_LANGUAGE, locale);
         }
         if ("he".equals(language)) {
             //添加sdk语言，设置成希伯来文
             Locale locale = new Locale("iw");
             SharedPreferencesUtil.saveObject(context, ZhiChiConstant.SOBOT_LANGUAGE, locale);
+        } else if ("zh-Hans".equals(language)) {
+            //添加sdk语言，设置成中文
+            Locale locale = new Locale("zh");
+            SharedPreferencesUtil.saveObject(context, ZhiChiConstant.SOBOT_LANGUAGE, locale);
+        } else if ("zh-Hant".equals(language)) {
+            //添加sdk语言，设置成中文繁体
+            Locale locale = new Locale("zh", "TW");
+            SharedPreferencesUtil.saveObject(context, ZhiChiConstant.SOBOT_LANGUAGE, locale);
+        } else {
+            //添加sdk语言，设置成指定语言
+            Locale locale = new Locale(language);
+            SharedPreferencesUtil.saveObject(context, ZhiChiConstant.SOBOT_LANGUAGE, locale);
         }
-        SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, isUse);
-        if (file.exists()) {
-            //如果该语言包已存在,直接使用
-            SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_PATH, languagePath);
-            //保存客服设置的语言，例如en,zh_rtw等
-            SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
-            return;
-        }
 
-        HttpUtils.getInstance().download("https://img.sobot.com/mobile/multilingual/android/" + ZhiChiUrlApi.LANGUAGE_VERSION + "/" + languageFileName, file, null, new HttpUtils.FileCallBack() {
-
-            @Override
-            public void onResponse(File result) {
-                //保存客服设置的语言，例如en,zh_rtw等
-                SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
-                SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_LANGUAGE_STRING_PATH, languagePath);
-                SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, true);
-                LogUtils.i(" 国际化语言包保存路径:" + result.getPath());
-            }
-
-            @Override
-            public void onError(Exception e, String msg, int responseCode) {
-                LogUtils.i(" 国际化语言包下载失败:", e);
-                SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, false);
-            }
-
-            @Override
-            public void inProgress(int progress) {
-            }
-        });
+        SharedPreferencesUtil.saveStringData(context, ZhiChiConstant.SOBOT_USER_SETTTINNG_LANGUAGE, language);
+        SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_USE_LANGUAGE, true);
     }
 
     /**

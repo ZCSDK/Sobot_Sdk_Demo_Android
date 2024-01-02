@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sobot_real_ll_content"
     style="@style/sobot_msg_top_bottom_style"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- 中间提醒内容 -->
+    <!-- 时间 -->
     <TextView
         android:id="@+id/sobot_reminde_time_Text"
         style="@style/sobot_center_remind_time" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end">
-
-        <!-- 我的名称 -->
-        <TextView
-            android:id="@+id/sobot_name"
-            style="@style/sobot_chatting_nickname"
-            android:layout_toLeftOf="@+id/sobot_imgHead"
-            android:visibility="gone"
-            android:layout_toStartOf="@+id/sobot_imgHead" />
-
-        <com.sobot.chat.widget.SobotImageView
-            android:id="@+id/sobot_imgHead"
-            style="@style/sobot_chatting_imghead"
-            android:layout_alignParentRight="true"
-            android:contentDescription="@null"
-            android:visibility="gone"
-            tools:background="@drawable/sobot_chatting_default_head"
-            android:layout_alignParentEnd="true" />
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/sobot_msg_margin_edge"
+        android:layout_marginRight="@dimen/sobot_msg_margin_edge"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/sobot_ll_content"
-            style="@style/sobot_msg_right_content_ll_bg_style"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sobot_name"
-            android:layout_toLeftOf="@+id/sobot_imgHead"
-            android:orientation="vertical"
-            android:layout_toStartOf="@+id/sobot_imgHead"
-            android:layout_marginStart="15dp">
-
+            android:layout_weight="1"
+            android:gravity="end"
+            android:orientation="vertical">
+            <!-- 昵称 -->
             <TextView
-                android:id="@+id/sobot_sdk_history_msg"
+                android:id="@+id/sobot_msg_nike_name_tv"
+                style="@style/sobot_chatting_right_nickname"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/sobot_ll_content"
+                style="@style/sobot_msg_right_content_ll_bg_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="1dp"
-                android:textColor="@color/sobot_right_msg_text_color"
-                android:textSize="@dimen/sobot_msg_text_size"
-                android:visibility="visible" />
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sobot_sdk_history_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="1dp"
+                    android:textColor="@color/sobot_right_msg_text_color"
+                    android:textSize="@dimen/sobot_msg_text_size"
+                    android:visibility="visible" />
+            </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout>
+        <!--头像-->
+        <com.sobot.chat.widget.image.SobotRCImageView
+            android:id="@+id/sobot_msg_face_iv"
+            style="@style/sobot_chatting_right_face_style"
+            android:visibility="gone" />
 
+    </LinearLayout>
 </LinearLayout>

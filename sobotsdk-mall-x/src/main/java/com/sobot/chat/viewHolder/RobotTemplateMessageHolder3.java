@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ public class RobotTemplateMessageHolder3 extends MessageHolderBase {
     private HorizontalGridPage pageView;
     private Context mContext;
     private PageBuilder pageBuilder;
+    private FrameLayout sobot_content;
 
     public RobotTemplateMessageHolder3(Context context, View convertView) {
         super(context, convertView);
@@ -56,7 +58,7 @@ public class RobotTemplateMessageHolder3 extends MessageHolderBase {
         pageView = (HorizontalGridPage) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "pageView"));
         sobot_ll_transferBtn = (LinearLayout) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_ll_transferBtn"));
         sobot_tv_transferBtn = (TextView) convertView.findViewById(ResourceUtils.getIdByName(context, "id", "sobot_tv_transferBtn"));
-        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context,"sobot_transfer_to_customer_service"));
+        sobot_tv_transferBtn.setText(ResourceUtils.getResString(context, "sobot_transfer_to_customer_service"));
         this.mContext = context;
     }
 
@@ -142,7 +144,7 @@ public class RobotTemplateMessageHolder3 extends MessageHolderBase {
                 if (mMultiDiaRespInfo.getEndFlag() && !TextUtils.isEmpty(mInterfaceRet.get("anchor"))) {
                     if (SobotOption.newHyperlinkListener != null) {
                         //如果返回true,拦截;false 不拦截
-                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext,mInterfaceRet.get("anchor"));
+                        boolean isIntercept = SobotOption.newHyperlinkListener.onUrlClick(mContext, mInterfaceRet.get("anchor"));
                         if (isIntercept) {
                             return;
                         }

@@ -138,10 +138,12 @@ public class SobotPhotoActivity extends Activity implements View.OnLongClickList
                     if (degree > 0) {
                         bitmap = ImageUtils.rotateBitmap(bitmap, degree);
                     }
+                    if(bitmap !=null){
+                        mImageView.setImage(ImageSource.bitmap(bitmap));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mImageView.setImage(ImageSource.bitmap(bitmap));
                 mImageView.setVisibility(View.VISIBLE);
 
                 mImageView.setMinimumDpi(50);

@@ -22,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.sobot.chat.MarkConfig;
+import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
@@ -631,20 +632,27 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
         private TextView sobot_tv_my_evaluate_remark;
 
         private LinearLayout sobot_my_evaluate_ll;
+        private LinearLayout sobot_ll_lab;
+        private LinearLayout sobot_ll_isSolve;
+        private TextView sobot_tv_isSolve,sobot_tv_lab;
 
         Type4ViewHolder(Context context, View view) {
             super(context, view);
-            sobot_ll_score = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_ll_score"));
-            sobot_tv_remark = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_remark"));
-            sobot_ll_remark = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_ll_remark"));
-            sobot_ratingBar = (RatingBar) view.findViewById(ResourceUtils.getResId(context, "sobot_ratingBar"));
-            sobot_my_evaluate_tv = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_my_evaluate_tv"));
-            sobot_my_evaluate_tv.setText(ResourceUtils.getResString(context, "sobot_my_service_comment"));
-            sobot_tv_my_evaluate_score = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_my_evaluate_score"));
-            sobot_tv_my_evaluate_score.setText(ResourceUtils.getResString(context, "sobot_rating_score")+"：");
-            sobot_tv_my_evaluate_remark = (TextView) view.findViewById(ResourceUtils.getResId(context, "sobot_tv_my_evaluate_remark"));
-            sobot_tv_my_evaluate_remark.setText(ResourceUtils.getResString(context, "sobot_rating_dec")+"：");
-            sobot_my_evaluate_ll = (LinearLayout) view.findViewById(ResourceUtils.getResId(context, "sobot_my_evaluate_ll"));
+            sobot_ll_score = (LinearLayout) view.findViewById(R.id.sobot_ll_score);
+            sobot_ll_lab = (LinearLayout) view.findViewById(R.id.sobot_ll_lab);
+            sobot_ll_isSolve = (LinearLayout) view.findViewById(R.id.sobot_ll_isSolve);
+            sobot_tv_isSolve = (TextView) view.findViewById(R.id.sobot_tv_isSolve);
+            sobot_tv_lab = (TextView) view.findViewById(R.id.sobot_tv_lab);
+            sobot_tv_remark = (TextView) view.findViewById(R.id.sobot_tv_remark);
+            sobot_ll_remark = (LinearLayout) view.findViewById(R.id.sobot_ll_remark);
+            sobot_ratingBar = (RatingBar) view.findViewById(R.id.sobot_ratingBar);
+            sobot_my_evaluate_tv = (TextView) view.findViewById(R.id.sobot_my_evaluate_tv);
+            sobot_my_evaluate_tv.setText(R.string.sobot_my_service_comment);
+            sobot_tv_my_evaluate_score = (TextView) view.findViewById(R.id.sobot_tv_my_evaluate_score);
+            sobot_tv_my_evaluate_score.setText(context.getResources().getString(R.string.sobot_rating_score)+"：");
+            sobot_tv_my_evaluate_remark = (TextView) view.findViewById(R.id.sobot_tv_my_evaluate_remark);
+            sobot_tv_my_evaluate_remark.setText(context.getResources().getString(R.string.sobot_rating_dec)+"：");
+            sobot_my_evaluate_ll = (LinearLayout) view.findViewById(R.id.sobot_my_evaluate_ll);
         }
 
         void bindData(Object item, int position) {
@@ -654,21 +662,63 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
                 if (mEvaluate.isEvalution()) {
                     sobot_ratingBar.setIsIndicator(true);
                     //已评价
+                    sobot_ll_score.setVisibility(View.VISIBLE);
+                    sobot_ll_remark.setVisibility(View.VISIBLE);
                     sobot_my_evaluate_tv.setVisibility(View.VISIBLE);
                     sobot_my_evaluate_ll.setVisibility(View.VISIBLE);
-                    List<SobotUserTicketEvaluate.TicketScoreInfooListBean> infooList = mEvaluate.getTicketScoreInfooList();
-                    if (infooList != null && infooList.size() >= mEvaluate.getScore()) {
-                        sobot_ll_score.setVisibility(View.VISIBLE);
+                    if ( mEvaluate.getScore()>0) {
                         sobot_ratingBar.setRating(mEvaluate.getScore());
                     } else {
-                        sobot_ll_score.setVisibility(View.GONE);
+                        sobot_ratingBar.setRating(0);
                     }
-
-                    if (TextUtils.isEmpty(mEvaluate.getRemark())) {
-                        sobot_ll_remark.setVisibility(View.GONE);
-                    } else {
+                    if(mEvaluate.getTxtFlag()==1) {
                         sobot_ll_remark.setVisibility(View.VISIBLE);
-                        sobot_tv_remark.setText(mEvaluate.getRemark());
+                        if (TextUtils.isEmpty(mEvaluate.getRemark())) {
+                            sobot_tv_remark.setText("--");
+                        } else {
+                            sobot_tv_remark.setText(mEvaluate.getRemark());
+                        }
+                    }else{
+                        sobot_ll_remark.setVisibility(View.GONE);
+                    }
+                    if(mEvaluate.getIsTagFlag()==1) {
+                        sobot_ll_lab.setVisibility(View.VISIBLE);
+                        if (TextUtils.isEmpty(mEvaluate.getTag())) {
+                            sobot_tv_lab.setText("--");
+                        } else {
+                            sobot_tv_lab.setText(mEvaluate.getTag().replace(",", "；"));
+                        }
+                    }else{
+                        boolean showTag = false;
+                        if(mEvaluate.getScoreInfo()!=null&& mEvaluate.getScoreInfo().size()>0) {
+                            for (int j = 0; j < mEvaluate.getScoreInfo().size(); j++) {
+                                if(mEvaluate.getScoreInfo().get(j).getTags()!=null && mEvaluate.getScoreInfo().get(j).getTags().size()>0){
+                                    showTag = true;
+                                }
+                            }
+                        }
+                        if(showTag){
+                            sobot_ll_lab.setVisibility(View.VISIBLE);
+                            if (TextUtils.isEmpty(mEvaluate.getTag())) {
+                                sobot_tv_lab.setText("--");
+                            } else {
+                                sobot_tv_lab.setText(mEvaluate.getTag().replace(",", "；"));
+                            }
+                        }else {
+                            sobot_ll_lab.setVisibility(View.GONE);
+                        }
+                    }
+                    if(mEvaluate.getIsQuestionFlag()==1) {
+                        sobot_ll_isSolve.setVisibility(View.VISIBLE);
+                        if (mEvaluate.getDefaultQuestionFlagValue() == 0) {
+                            sobot_tv_isSolve.setText(R.string.sobot_evaluate_no);
+                        } else if (mEvaluate.getDefaultQuestionFlagValue() == 1) {
+                            sobot_tv_isSolve.setText(R.string.sobot_evaluate_yes);
+                        } else {
+                            sobot_tv_isSolve.setText("--");
+                        }
+                    }else{
+                        sobot_ll_isSolve.setVisibility(View.GONE);
                     }
                 } else {
                     sobot_my_evaluate_tv.setVisibility(View.GONE);

@@ -15,6 +15,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,10 +43,10 @@ import com.sobot.chat.api.model.ZhiChiMessage;
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.api.model.ZhiChiPushMessage;
 import com.sobot.chat.api.model.ZhiChiReplyAnswer;
-import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.core.channel.Const;
 import com.sobot.chat.core.channel.SobotMsgManager;
+import com.sobot.chat.notchlib.utils.RomUtils;
 import com.sobot.chat.viewHolder.ImageMessageHolder;
 import com.sobot.chat.widget.dialog.SobotDialogUtils;
 import com.sobot.chat.widget.dialog.SobotEvaluateDialog;
@@ -85,7 +87,7 @@ public class ChatUtils {
                     }
                 }
             }
-        }, 2000);
+        }, 200);
     }
 
     /**
@@ -147,7 +149,7 @@ public class ChatUtils {
             return;
         }
         Intent intent;
-        if (Build.VERSION.SDK_INT < 19) {
+        if (Build.VERSION.SDK_INT < 19||RomUtils.isOppo()||RomUtils.isOnePlus()) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("video/*");
         } else {
@@ -179,7 +181,7 @@ public class ChatUtils {
             return;
         }
         Intent intent;
-        if (Build.VERSION.SDK_INT < 19) {
+        if (Build.VERSION.SDK_INT < 19|| RomUtils.isOppo()||RomUtils.isOnePlus()) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("video/*");
         } else {
@@ -226,7 +228,6 @@ public class ChatUtils {
 
     public static String getResString(Context context, String name) {
         return ResourceUtils.getResString(context, name);
-//        return context.getResources().getString(ChatUtils.getResStringId(context, name));
     }
 
     public static void sendPicByUri(Context context, Handler handler,
@@ -362,7 +363,7 @@ public class ChatUtils {
                             message.obj = id;
                             handler.sendMessage(message);
                         }
-                        if (TextUtils.isEmpty(zhiChiMessage.getMsg())) {
+                        if (!TextUtils.isEmpty(zhiChiMessage.getMsg())) {
                             ToastUtil.showToast(context, zhiChiMessage.getMsg());
                         }
                     }
@@ -373,7 +374,7 @@ public class ChatUtils {
                         message.obj = id;
                         handler.sendMessage(message);
                     }
-                    if (TextUtils.isEmpty(zhiChiMessage.getMsg())) {
+                    if (!TextUtils.isEmpty(zhiChiMessage.getMsg())) {
                         ToastUtil.showToast(context, zhiChiMessage.getMsg());
                     }
                 }
@@ -428,7 +429,7 @@ public class ChatUtils {
         if (1 == type) {// 管理员下线
             return initModel.isServiceEndPushFlag() && !TextUtils.isEmpty(initModel.getServiceEndPushMsg()) ? initModel.getServiceEndPushMsg() : "";//ResourceUtils.getResString(context,"sobot_outline_leverByManager");
         } else if (2 == type) { // 被管理员移除结束会话
-            return initModel.isServiceEndPushFlag() && !TextUtils.isEmpty(initModel.getServiceEndPushMsg()) ? initModel.getServiceEndPushMsg() : "";
+            return ResourceUtils.getResString(context, "sobo_outline_closed");
         } else if (3 == type) { // 被加入黑名单
             return ResourceUtils.getResString(context, "sobot_outline_leverByManager");
         } else if (4 == type) { // 超时下线
@@ -467,10 +468,10 @@ public class ChatUtils {
      * @param pushMessage 推送的信息
      * @return
      */
-    public static ZhiChiMessageBase getCustomEvaluateMode(ZhiChiPushMessage pushMessage) {
+    public static ZhiChiMessageBase getCustomEvaluateMode(Context context,ZhiChiPushMessage pushMessage) {
         ZhiChiMessageBase base = new ZhiChiMessageBase();
         base.setT(Calendar.getInstance().getTime().getTime() + "");
-        base.setSenderName(TextUtils.isEmpty(pushMessage.getAname()) ? ResourceUtils.getResString(MyApplication.getInstance(), "sobot_cus_service") : pushMessage.getAname());
+        base.setSenderName(TextUtils.isEmpty(pushMessage.getAname()) ? ResourceUtils.getResString(context, "sobot_cus_service") : pushMessage.getAname());
         SobotEvaluateModel sobotEvaluateModel = new SobotEvaluateModel();
         sobotEvaluateModel.setIsQuestionFlag(pushMessage.getIsQuestionFlag());
         sobotEvaluateModel.setIsResolved((pushMessage.getIsQuestionFlag() == 1) ? 0 : -1);
@@ -690,7 +691,7 @@ public class ChatUtils {
      * @param current_model      评价对象
      * @param commentType        commentType 评价类型 主动评价1 邀请评价0
      * @param isBackShowEvaluate 弹出评价窗 是否显示暂不评价（暂不评价和关闭图片只能显示一个）  true 是 false 否
-     * @param isBackShowEvaluate 是否是返回时弹出评价窗  true 是 false 否
+     * @param canBackWithNotEvaluation 是否是返回时弹出评价窗  true 是 false 否
      */
     public static SobotEvaluateDialog showEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitCommit, ZhiChiInitModeBase
             initModel, int current_model, int commentType, String customName, int scroe, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
@@ -963,9 +964,9 @@ public class ChatUtils {
      * 退出登录
      *
      * @param context
+     * @param reason  手动结束会话的原因，非必填
      */
-    public static void userLogout(final Context context) {
-
+    public static void userLogout(final Context context, String reason) {
         SharedPreferencesUtil.saveBooleanData(context, ZhiChiConstant.SOBOT_IS_EXIT, true);
         String cid = SharedPreferencesUtil.getStringData(context, Const.SOBOT_CID, "");
         String uid = SharedPreferencesUtil.getStringData(context, Const.SOBOT_UID, "");
@@ -973,7 +974,7 @@ public class ChatUtils {
         ZCSobotApi.closeIMConnection(context);
         if (!TextUtils.isEmpty(cid) && !TextUtils.isEmpty(uid)) {
             ZhiChiApi zhiChiApi = SobotMsgManager.getInstance(context).getZhiChiApi();
-            zhiChiApi.out(cid, uid, new StringResultCallBack<CommonModel>() {
+            zhiChiApi.out(cid, uid, reason, new StringResultCallBack<CommonModel>() {
                 @Override
                 public void onSuccess(CommonModel result) {
                 }
@@ -1161,10 +1162,28 @@ public class ChatUtils {
                                 } else if ((ZhiChiConstant.message_type_file + "").equals(tempMsg.getAnswer().getMsgType())) {
                                     lastMsg = ResourceUtils.getResString(context, "sobot_choose_file");
                                 } else {
-                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_other_msg");
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_receive_new_message");
+                                }
+                            } else if (tempMsg.getSdkMsg() != null) {
+                                if (tempMsg.getSdkMsg().getAnswer().getMsgType().equals(ZhiChiConstant.message_type_text + "")) {
+                                    lastMsg = tempMsg.getSdkMsg().getAnswer().getMsg();
+                                } else if ((ZhiChiConstant.message_type_pic + "").equals(tempMsg.getSdkMsg().getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_upload");
+                                } else if ((ZhiChiConstant.message_type_voice + "").equals(tempMsg.getSdkMsg().getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_voice");
+                                } else if ((ZhiChiConstant.message_type_card + "").equals(tempMsg.getSdkMsg().getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_goods");
+                                } else if ((ZhiChiConstant.message_type_ordercard + "").equals(tempMsg.getSdkMsg().getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_card");
+                                } else if ((ZhiChiConstant.message_type_video + "").equals(tempMsg.getSdkMsg().getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_upload_video");
+                                } else if ((ZhiChiConstant.message_type_file + "").equals(tempMsg.getSdkMsg().getAnswer().getMsgType())) {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_choose_file");
+                                } else {
+                                    lastMsg = ResourceUtils.getResString(context, "sobot_receive_new_message");
                                 }
                             } else {
-                                lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_rich_text");
+                                lastMsg = ResourceUtils.getResString(context, "sobot_receive_new_message");
                             }
                         }
                     }
@@ -1181,7 +1200,7 @@ public class ChatUtils {
                 }
                 if (!msgDatas.contains(appkey)) {
                     msgDatas.add(appkey);
-                    sobotCache.put(SobotMsgManager.getMsgCenterListKey(info.getPartnerid()), msgDatas);
+                    sobotCache.put(SobotMsgManager.getMsgCenterListKey(info.getPartnerid()), msgDatas);//存的时候，文本的显示成了富文本
                 }
                 SharedPreferencesUtil.removeKey(context, ZhiChiConstant.SOBOT_CURRENT_IM_APPID);
                 Intent lastMsgIntent = new Intent(ZhiChiConstant.SOBOT_ACTION_UPDATE_LAST_MSG);
@@ -1193,6 +1212,36 @@ public class ChatUtils {
         } catch (Exception e) {
             //
         }
+    }
+
+    public static String getLastMsg(Context context, ZhiChiPushMessage tempMsg) {
+        String lastMsg = "";
+        if ((ZhiChiConstant.message_type_pic + "").equals(tempMsg.getAnswer().getMsgType())) {
+            lastMsg = ResourceUtils.getResString(context, "sobot_upload");
+        } else {
+            if (tempMsg.getAnswer() != null) {
+                if (tempMsg.getAnswer().getMsgType().equals(ZhiChiConstant.message_type_text + "")) {
+                    lastMsg = tempMsg.getAnswer().getMsg();
+                } else if ((ZhiChiConstant.message_type_pic + "").equals(tempMsg.getAnswer().getMsgType())) {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_upload");
+                } else if ((ZhiChiConstant.message_type_voice + "").equals(tempMsg.getAnswer().getMsgType())) {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_voice");
+                } else if ((ZhiChiConstant.message_type_card + "").equals(tempMsg.getAnswer().getMsgType())) {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_goods");
+                } else if ((ZhiChiConstant.message_type_ordercard + "").equals(tempMsg.getAnswer().getMsgType())) {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_chat_type_card");
+                } else if ((ZhiChiConstant.message_type_video + "").equals(tempMsg.getAnswer().getMsgType())) {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_upload_video");
+                } else if ((ZhiChiConstant.message_type_file + "").equals(tempMsg.getAnswer().getMsgType())) {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_choose_file");
+                } else {
+                    lastMsg = ResourceUtils.getResString(context, "sobot_receive_new_message");
+                }
+            } else {
+                lastMsg = ResourceUtils.getResString(context, "sobot_receive_new_message");
+            }
+        }
+        return lastMsg;
     }
 
     public static void sendMultiRoundQuestions(Context context, SobotMultiDiaRespInfo multiDiaRespInfo, Map<String, String> interfaceRet, SobotMsgAdapter.SobotMsgCallBack msgCallBack) {
@@ -1267,16 +1316,16 @@ public class ChatUtils {
         return data;
     }
 
-    public static void msgLogicalProcess(ZhiChiInitModeBase initModel, SobotMsgAdapter messageAdapter, ZhiChiPushMessage pushMessage) {
-        if (initModel != null && ChatUtils.isNeedWarning(pushMessage.getContent(), initModel.getAccountStatus())) {
-            messageAdapter.justAddData(ChatUtils.getTipByText(ResourceUtils.getResString(MyApplication.getInstance(), "sobot_money_trading_tip")));
+    public static void msgLogicalProcess(Context context,ZhiChiInitModeBase initModel, SobotMsgAdapter messageAdapter, ZhiChiPushMessage pushMessage) {
+        if (initModel != null && ChatUtils.isNeedWarning(context,pushMessage.getContent(), initModel.getAccountStatus())) {
+            messageAdapter.justAddData(ChatUtils.getTipByText(ResourceUtils.getResString(context, "sobot_money_trading_tip")));
         }
     }
 
-    private static boolean isNeedWarning(String content, int accountStatus) {
+    private static boolean isNeedWarning(Context context,String content, int accountStatus) {
         return !TextUtils.isEmpty(content) && (accountStatus == ZhiChiConstant.SOBOT_ACCOUNTSTATUS_FREE_EDITION
                 || accountStatus == ZhiChiConstant.SOBOT_ACCOUNTSTATUS_TRIAL_EDITION)
-                && content.contains(ResourceUtils.getResString(MyApplication.getInstance(), "sobot_ver_code"));
+                && content.contains(ResourceUtils.getResString(context, "sobot_ver_code"));
     }
 
     //是否是免费版（待激活（-1）、免费版（0））
@@ -1292,6 +1341,7 @@ public class ChatUtils {
      */
     public static TextView initAnswerItemTextView(Context context, boolean isHistoryMsg) {
         TextView answer = new TextView(context);
+        answer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         answer.setTextSize(14);
         answer.setMaxLines(2);
         answer.setEllipsize(TextUtils.TruncateAt.END);

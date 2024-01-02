@@ -49,4 +49,22 @@
     <!--聊天界面 图片消息气泡中的 单独一张图片高度 -->
     <dimen name="sobot_msg_picture_heigh">120dp</dimen>
 
+
+    <!--聊天界面 中间消息列表 -->
+    <!--两个消息 上下间 间距 -->
+    <dimen name="sobot_msg_top_bottom_margin">9dp</dimen>
+    <!--头像 宽高 -->
+    <dimen name="sobot_msg_face_width_heigth">36dp</dimen>
+    <!--昵称 文字 大小 -->
+    <dimen name="sobot_msg_nickname_size">12sp</dimen>
+    <!--左、右侧消息 距屏幕边 间距 -->
+    <dimen name="sobot_msg_margin_edge">12dp</dimen>
+    <!--左、右侧消息 气泡左右内间距 -->
+    <dimen name="sobot_msg_left_right_padding_edge">15dp</dimen>
+    <!--左、右侧消息 气泡上下内间距 -->
+    <dimen name="sobot_msg_top_bottom_padding_edge">12dp</dimen>
+    <!--左、右侧消息 气泡 圆角大小 -->
+    <dimen name="sobot_msg_corner_radius">4dp</dimen>
+    <!--右侧消息 (文件、商品卡片、订单卡片、文件类型的气泡) 线框边框宽度 -->
+    <dimen name="sobot_right_msg_line_width">1dp</dimen>
 </resources>
