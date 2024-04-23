@@ -63,17 +63,17 @@
                     android:textSize="@dimen/sobot_robot_msg_text_size"
                     android:visibility="visible" />
 
-                <com.sobot.chat.widget.horizontalgridpage.HorizontalGridPage
-                    android:id="@+id/pageView"
+                <com.sobot.chat.widget.RobotTemplateViewPager
+                    android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp" />
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:id="@+id/ll_sobot_template2_item_page"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
                     android:paddingStart="30dp"
                     android:paddingLeft="30dp"
                     android:paddingEnd="30dp"

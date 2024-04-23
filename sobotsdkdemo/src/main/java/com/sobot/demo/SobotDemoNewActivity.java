@@ -1,6 +1,8 @@
 package com.sobot.demo;
 
+import android.content.Context;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -67,7 +69,11 @@ public class SobotDemoNewActivity extends AppCompatActivity {
             unReadMsgReceiver = new SobotUnReadMsgReceiver();
         }
         filter.addAction(ZhiChiConstant.sobot_unreadCountBrocast);
-        registerReceiver(unReadMsgReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(unReadMsgReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        }else {
+            registerReceiver(unReadMsgReceiver, filter);
+        }
     }
 
     @Override

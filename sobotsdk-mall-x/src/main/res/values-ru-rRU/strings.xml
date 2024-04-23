@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">Сохранено в системные альбомы</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Только после консультации можно оценить качество обслуживания</string>
        <string name="sobot__is_null">Обязательный</string>
-       <string name="sobot_reunicon">Нажмите, чтобы загрузить снова</string>
+       <string name="sobot_reunicon">перезагрузить</string>
        <string name="sobot_pic_select_again">Пожалуйста, выберите или снимите снова</string>
        <string name="sobot_only_can_write">Введите только</string>
        <string name="sobot_loading">Загрузка</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">Пожалуйста, выберите, решили ли ваши проблемы.</string>
        <string name="sobot_evaluate_lab">Метки:</string>
        <string name="sobot_evaluate_issolve">Разрешены ли:</string>
+       <string name="sobot_str_select_pic_video">Выберите фото и видео</string>
+       <string name="sobot_str_goto_setting_info">В настоящее время разрешен доступ только к некоторым фотографиям или видео</string>
+       <string name="sobot_str_goto_setting_allow">Разрешить все ></string>
 </resources>

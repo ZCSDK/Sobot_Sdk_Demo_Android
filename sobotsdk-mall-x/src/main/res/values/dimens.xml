@@ -23,7 +23,7 @@
     <dimen name="sobot_robot_msg_text_size">14sp</dimen>
     <dimen name="sobot_msg_text_size">14sp</dimen>
     <dimen name="sobot_msg_voice_text_size">16sp</dimen>
-    <dimen name="sobot_min_panel_height">220dp</dimen>
+    <dimen name="sobot_min_panel_height">280dp</dimen>
     <dimen name="sobot_max_panel_height">380dp</dimen>
     <dimen name="sobot_min_keyboard_height">80dp</dimen>
 

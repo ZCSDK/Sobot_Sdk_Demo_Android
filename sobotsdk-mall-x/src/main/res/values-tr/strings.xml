@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">Sistem albümüne kaydedildi</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Danışmadan sonra hizmet kalitesi değerlendirilebilir</string>
        <string name="sobot__is_null">Boş olmamalı</string>
-       <string name="sobot_reunicon">Tıklayıp yeniden bağlat</string>
+       <string name="sobot_reunicon">Yeniden yükle</string>
        <string name="sobot_pic_select_again">Yeniden seç yada çek</string>
        <string name="sobot_only_can_write">Yalnız yazılabilir</string>
        <string name="sobot_loading">Lütfen bekleyin</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">Lütfen sorununuz çözüldüğünü seçin.</string>
        <string name="sobot_evaluate_lab">Etiket:</string>
        <string name="sobot_evaluate_issolve">Çözümlenmiş:</string>
+       <string name="sobot_str_select_pic_video">Fotoğrafları ve videoları seçin</string>
+       <string name="sobot_str_goto_setting_info">Şu anda fotoğraflara ya da videolara sadece parçacık erişim izin verildi.</string>
+       <string name="sobot_str_goto_setting_allow">Bütün izin verin></string>
 </resources>

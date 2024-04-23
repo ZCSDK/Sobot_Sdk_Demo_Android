@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Gradle: com.squareup.okhttp3:okhttp:4.4.1">
+  <library name="Gradle: com.squareup.okhttp3:okhttp:4.4.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.squareup.okhttp3" artifactId="okhttp" version="4.4.1" />
     <CLASSES>
       <root url="jar://E:/androidtools/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.4.1/d2e71a032b1927539c07adc3a9f36336d6fbf4b9/okhttp-4.4.1.jar!/" />
     </CLASSES>

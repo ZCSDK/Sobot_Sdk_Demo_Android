@@ -422,11 +422,13 @@ public class SobotEvaluateDialog extends SobotActionSheet {
             @Override
             public void onClick(View v) {
                 dismiss();
-                Intent intent = new Intent();
-                intent.setAction(ZhiChiConstants.sobot_close_now);
-                LogUtils.i("isBackShowEvaluate:  " + isBackShowEvaluate + "--------canBackWithNotEvaluation:   " + canBackWithNotEvaluation);
-                intent.putExtra("isBackShowEvaluate", isBackShowEvaluate);
-                CommonUtils.sendLocalBroadcast(context.getApplicationContext(), intent);
+                if(isExitSession) {
+                    Intent intent = new Intent();
+                    intent.setAction(ZhiChiConstants.sobot_close_now);
+                    LogUtils.i("isBackShowEvaluate:  " + isBackShowEvaluate + "--------canBackWithNotEvaluation:   " + canBackWithNotEvaluation);
+                    intent.putExtra("isBackShowEvaluate", isBackShowEvaluate);
+                    CommonUtils.sendLocalBroadcast(context.getApplicationContext(), intent);
+                }
             }
         });
         //监听10分评价选择变化

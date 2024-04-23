@@ -393,6 +393,7 @@
                     android:visibility="visible" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/sobot_rl_4_6_1_3"
                 android:layout_width="match_parent"
@@ -400,8 +401,8 @@
                 android:visibility="visible">
 
                 <TextView
-                    style="@style/TxtTitle_Des"
                     android:id="@+id/sobot_tv_4_6_1_3"
+                    style="@style/TxtTitle_Des"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -429,14 +430,14 @@
                     android:id="@+id/sobot_et_custom_right_button_call"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/sobot_tv_4_6_1_3"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/sobot_editview_stocke_bg"
                     android:enabled="true"
+                    android:hint="请输入电话号，只有右上角电话按钮显示时才有用"
                     android:inputType="textMultiLine"
                     android:padding="6dp"
-                    android:layout_below="@id/sobot_tv_4_6_1_3"
-                    android:hint="请输入电话号，只有右上角电话按钮显示时才有用"
                     android:scrollbars="none"
                     android:textColor="@color/sobot_common_gray1"
                     android:textColorHint="@color/sobot_common_gray3"
@@ -444,6 +445,43 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="聊天界面头部标题栏的昵称"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="[说明:只能输入数字，夜间模式默认-1根据系统变化，0:根据当前时间在day/night主题间切换,1 : 白天，2:夜间模式 其它：跟随系统]"
+                android:textColor="@color/sobot_common_gray1"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/sobot_common_gray1" />
+
+            <EditText
+                android:id="@+id/sobot_et_localmodel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/sobot_editview_stocke_bg"
+                android:enabled="true"
+                android:inputType="number"
+                android:padding="6dp"
+                android:scrollbars="none"
+                android:textColor="@color/sobot_common_gray1"
+                android:textColorHint="@color/sobot_common_gray3"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"

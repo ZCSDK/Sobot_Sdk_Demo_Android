@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sobot_ll_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/sobot_common_gray4">
+
+    <ImageView
+        android:id="@+id/sobot_iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginBottom="6dp"
+        android:drawableStart="@drawable/sobot_album_tag_video_white"
+        android:drawableLeft="@drawable/sobot_album_tag_video_white"
+        android:drawablePadding="6dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/sobot_common_white"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/view_masking_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/sobot_half_transparent"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_open_other"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sobot_icon_add" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="3dp"
+        android:background="@drawable/sobot_bg_checkbox"
+        android:button="@null"
+        android:clickable="false"
+        android:enabled="false" />
+</FrameLayout>

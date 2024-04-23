@@ -41,7 +41,7 @@
             android:layout_below="@id/sobot_msg_nike_name_tv"
             android:layout_toEndOf="@+id/sobot_msg_face_iv"
             android:layout_toRightOf="@+id/sobot_msg_face_iv"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/sobot_keyword_tips_msg"

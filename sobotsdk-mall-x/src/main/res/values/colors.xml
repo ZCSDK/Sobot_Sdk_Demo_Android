@@ -208,6 +208,8 @@
 
     <!--文件进度条前景色-->
     <color name="sobot_sectorProgressView_fgColor">#4D000000</color>
+    <!--半透明-->
+    <color name="sobot_half_transparent">#73000000</color>
 
     <!--自动补全背景色-->
     <color name="sobot_auto_complete_press">#EFF3FA</color>

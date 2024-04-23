@@ -28,14 +28,14 @@
                 android:id="@+id/sobot_tv_post_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
+                android:paddingEnd="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@color/sobot_common_gray2"
-                android:textSize="@dimen/sobot_listview_remind_text_size"
-                android:paddingEnd="20dp"
-                android:layout_marginStart="20dp" />
+                android:textSize="@dimen/sobot_listview_remind_text_size" />
 
 
             <View
@@ -52,10 +52,10 @@
                 android:background="@color/sobot_common_gray6"
                 android:gravity="center_vertical"
                 android:minHeight="54dp"
+                android:paddingStart="20dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:paddingEnd="20dp"
-                android:paddingStart="20dp">
+                android:paddingRight="20dp">
 
 
                 <LinearLayout
@@ -75,11 +75,11 @@
                         android:id="@+id/sobot_post_title_lable_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/sobot_common_gray1"
                         android:textColorHint="@color/sobot_common_gray3"
-                        android:textSize="@dimen/sobot_text_font_small"
-                        android:layout_marginStart="10dp" />
+                        android:textSize="@dimen/sobot_text_font_small" />
 
 
                 </LinearLayout>
@@ -122,10 +122,10 @@
                 android:gravity="center_vertical"
                 android:minHeight="54dp"
                 android:orientation="horizontal"
+                android:paddingStart="20dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:paddingEnd="20dp"
-                android:paddingStart="20dp">
+                android:paddingRight="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -157,10 +157,10 @@
                     android:id="@+id/work_order_customer_field_text_img"
                     android:layout_width="7dp"
                     android:layout_height="12dp"
-                    android:layout_marginLeft="4dp"
-                    android:background="@drawable/sobot_right_arrow_icon"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="4dp" />
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:background="@drawable/sobot_right_arrow_icon" />
             </LinearLayout>
 
             <View
@@ -200,13 +200,13 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ll_problem_description_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:layout_marginStart="20dp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/sobot_tv_problem_description"
@@ -216,18 +216,22 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_problem_description_required"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" *"
-                        android:textColor="#f9676f" />
+                        android:textColor="#f9676f"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <EditText
                     android:id="@+id/sobot_post_et_content"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/sobot_edittext_noborder_shape"
@@ -239,36 +243,28 @@
                     android:padding="12dp"
                     android:textColor="@color/sobot_common_gray1"
                     android:textColorHint="@color/sobot_common_gray3"
-                    android:textSize="15sp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp" />
+                    android:textSize="15sp" />
 
-                <LinearLayout
-                    android:id="@+id/sobot_enclosure_container"
+
+                <com.sobot.chat.widget.SobotGridView
+                    android:id="@+id/sobot_post_msg_pic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:fadingEdge="none"
+                    android:horizontalSpacing="6dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="4"
+                    android:overScrollMode="never"
+                    android:verticalSpacing="2dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:orientation="vertical"
-                    android:visibility="gone"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
-
-                    <GridView
-                        android:id="@+id/sobot_post_msg_pic"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:cacheColorHint="@android:color/transparent"
-                        android:fadingEdge="none"
-                        android:horizontalSpacing="6dp"
-                        android:listSelector="@android:color/transparent"
-                        android:numColumns="4"
-                        android:overScrollMode="never"
-                        android:verticalSpacing="2dp" />
-
-                </LinearLayout>
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -284,9 +280,9 @@
                 android:layout_height="wrap_content"
                 android:background="@color/sobot_common_gray6"
                 android:minHeight="54dp"
+                android:paddingEnd="20dp"
                 android:paddingRight="20dp"
-                android:weightSum="30"
-                android:paddingEnd="20dp">
+                android:weightSum="30">
 
                 <View
                     android:layout_width="wrap_content"
@@ -298,11 +294,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
                     android:minHeight="54dp"
-                    android:orientation="vertical"
-                    android:layout_marginStart="20dp">
+                    android:orientation="vertical">
 
 
                     <LinearLayout
@@ -322,11 +318,11 @@
                             android:id="@+id/sobot_post_email_lable_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:layout_marginLeft="10dp"
-                            android:textColorHint="@color/sobot_common_gray3"
                             android:textColor="@color/sobot_common_gray1"
-                            android:textSize="@dimen/sobot_text_font_small"
-                            android:layout_marginStart="10dp" />
+                            android:textColorHint="@color/sobot_common_gray3"
+                            android:textSize="@dimen/sobot_text_font_small" />
 
 
                     </LinearLayout>
@@ -339,8 +335,8 @@
                         android:layout_below="@+id/sobot_post_email_lable_ll"
                         android:layout_marginTop="5dp"
                         android:background="@null"
-                        android:textColorHint="@color/sobot_common_gray3"
                         android:textColor="@color/sobot_common_gray1"
+                        android:textColorHint="@color/sobot_common_gray3"
                         android:textSize="@dimen/sobot_text_font_small"
                         android:textStyle="bold"
                         android:visibility="gone" />
@@ -362,10 +358,10 @@
                 android:background="@color/sobot_common_gray6"
                 android:gravity="center_vertical"
                 android:minHeight="54dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp">
 
 
                 <LinearLayout
@@ -385,11 +381,11 @@
                         android:id="@+id/sobot_post_phone_lable_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
-                        android:textColorHint="@color/sobot_common_gray3"
                         android:textColor="@color/sobot_common_gray1"
-                        android:textSize="@dimen/sobot_text_font_small"
-                        android:layout_marginStart="10dp" />
+                        android:textColorHint="@color/sobot_common_gray3"
+                        android:textSize="@dimen/sobot_text_font_small" />
 
 
                 </LinearLayout>
@@ -425,8 +421,8 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/sobot_normal_btn_bg"
                 android:gravity="center"
-                android:textAllCaps="false"
                 android:stateListAnimator="@null"
+                android:textAllCaps="false"
                 android:textColor="@color/sobot_common_white"
                 android:textSize="17sp"
                 android:textStyle="bold" />

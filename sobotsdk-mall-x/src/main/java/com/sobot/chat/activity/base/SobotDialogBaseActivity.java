@@ -20,8 +20,6 @@ import com.sobot.chat.utils.ResourceUtils;
 
 /**
  * 从界面下方弹出的activity
- *
- * @author Created by jinxl on 2019/2/21.
  */
 public abstract class SobotDialogBaseActivity extends SobotBaseActivity {
 
@@ -36,8 +34,9 @@ public abstract class SobotDialogBaseActivity extends SobotBaseActivity {
 
             }
         }
+        //去掉dialog 的标题栏（不然弹窗会显示app名字）
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
         //窗口对齐屏幕宽度
         Window win = this.getWindow();
         WindowManager.LayoutParams lp = win.getAttributes();

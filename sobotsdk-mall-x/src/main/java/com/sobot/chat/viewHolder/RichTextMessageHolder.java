@@ -642,6 +642,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                     if (richListModel.getType() == 0) {
                         TextView textView = new TextView(mContext);
                         textView.setTextSize(14);
+                        textView.setIncludeFontPadding(false);
                         textView.setLayoutParams(wlayoutParams);
                         textView.setMaxWidth(msgMaxWidth);
                         //设置行间距
@@ -803,6 +804,7 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                     SobotCacheFile cacheFile = new SobotCacheFile();
                                     cacheFile.setFileName(richListModel.getName());
                                     cacheFile.setUrl(richListModel.getMsg());
+                                    cacheFile.setFileSize(TextUtils.isEmpty(richListModel.getFileSize()) ? "" : richListModel.getFileSize());
                                     cacheFile.setFileType(FileTypeConfig.getFileType(FileUtil.checkFileEndWith(richListModel.getMsg())));
                                     cacheFile.setMsgId(message.getMsgId() + richListModel.getMsg());
                                     intent.putExtra(ZhiChiConstant.SOBOT_INTENT_DATA_SELECTED_FILE, cacheFile);

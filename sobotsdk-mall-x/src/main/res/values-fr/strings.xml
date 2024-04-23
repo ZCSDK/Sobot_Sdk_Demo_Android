@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">Enregistré dans l\'album système</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">La qualité du service ne peut être évaluée qu\'après consultation</string>
        <string name="sobot__is_null">Ne peux pas être vide</string>
-       <string name="sobot_reunicon">Cliquez pour vous reconnecter</string>
+       <string name="sobot_reunicon">Recharger</string>
        <string name="sobot_pic_select_again">Veuillez resélectionner ou tirer</string>
        <string name="sobot_only_can_write">Peut seulement entrer :</string>
        <string name="sobot_loading">Veuillez patienter</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">Veuillez choisir si votre problème est résolu</string>
        <string name="sobot_evaluate_lab">Étiquette:</string>
        <string name="sobot_evaluate_issolve">Est - ce résolu:</string>
+       <string name="sobot_str_select_pic_video">L\'accès à certaines photos ou vidéos n\'est actuellement autorisé que</string>
+       <string name="sobot_str_goto_setting_info">Choisissez des photos et des vidéos</string>
+       <string name="sobot_str_goto_setting_allow">Autoriser tout ></string>
 </resources>

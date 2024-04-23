@@ -21,9 +21,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -107,6 +109,7 @@ import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.SobotPathManager;
 import com.sobot.chat.utils.SobotSerializableMap;
 import com.sobot.chat.utils.StServiceUtils;
+import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.TimeTools;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConfig;
@@ -774,7 +777,28 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                             messageAdapter.justAddData(zhiChiMessageBasebase);
                         }
                     } else {
-                        messageAdapter.justAddData(zhiChiMessageBasebase);
+                        if (zhiChiMessageBasebase.getAnswer() != null && StringUtils.isNoEmpty(zhiChiMessageBasebase.getAnswerType()) && "1526".equals(zhiChiMessageBasebase.getAnswerType())) {
+                            //多轮 1526 转人工节点
+                            SobotMultiDiaRespInfo multiDiaRespInfo = zhiChiMessageBasebase.getAnswer().getMultiDiaRespInfo();
+                            String msgStr = StringUtils.stripHtml(ChatUtils.getMultiMsgTitle(multiDiaRespInfo));
+                            ZhiChiMessageBase messageBase = ChatUtils.getTipByText(StringUtils.checkStringIsNull(msgStr));
+                            messageAdapter.justAddData(messageBase);
+                            if (StringUtils.isNoEmpty(zhiChiMessageBasebase.getNodeTransferFlag())) {
+                                //1526类型 写死transferType=11（转人工类型）,  activeTransfer=0(机器人人触发)
+                                if ("1".equals(zhiChiMessageBasebase.getNodeTransferFlag())) {
+                                    //指定客服转 需要同时设置强转
+                                    transfer2Custom(ZhiChiConstant.SOBOT_TYEP_TRANSFER_CUSTOM_DUOLUN1526, StringUtils.checkStringIsNull(zhiChiMessageBasebase.getTransferTargetId()), null, null, null, true, 11, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                } else if ("2".equals(zhiChiMessageBasebase.getNodeTransferFlag())) {
+                                    //指定技能组转
+                                    transfer2Custom(0, null, StringUtils.checkStringIsNull(zhiChiMessageBasebase.getTransferTargetId()), null, null, true, 11, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                } else {
+                                    //默认转
+                                    transfer2Custom(0, null, null, null, null, true, 11, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                }
+                            }
+                        } else {
+                            messageAdapter.justAddData(zhiChiMessageBasebase);
+                        }
                         if (type != ZhiChiConstant.type_robot_only) {
                             //仅机器人不触发转人工
                             if (zhiChiMessageBasebase.getTransferType() == 1
@@ -797,13 +821,13 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                     } else if ("3".equals(zhiChiMessageBasebase.getAnswerType())) {
                                         transferType = 9;
                                     }
-                                    transfer2Custom(null, null, null, true, transferType, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                    transfer2Custom(0,null, null, null, null, true, transferType, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
                                 } else if (zhiChiMessageBasebase.getTransferType() == 3) {
                                     //关键字转人工
-                                    transfer2Custom(null, zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeyword(), zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeywordId(), true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                    transfer2Custom(0,null, null, zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeyword(), zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeywordId(), true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
 
                                 } else {
-                                    transfer2Custom(null, null, null, true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                    transfer2Custom(0,null, null, null, null, true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
                                 }
                             }
                         }
@@ -915,7 +939,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         if (!TextUtils.isEmpty(keyWordTransfer.getTransferTips())) {
             ZhiChiMessageBase base = new ZhiChiMessageBase();
             base.setT(Calendar.getInstance().getTime().getTime() + "");
-            base.setId(System.currentTimeMillis() + "");
+            base.setId((initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "");
             base.setSenderType(ZhiChiConstant.message_sender_type_remide_info + "");
             ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
             reply.setRemindType(ZhiChiConstant.sobot_remind_type_simple_tip);
@@ -1518,6 +1542,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 SharedPreferencesUtil.saveStringData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_groupid, TextUtils.isEmpty(info.getGroupid()) ? "" : info.getGroupid());
                 SharedPreferencesUtil.saveIntData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_service_mode, info.getService_mode());
                 SharedPreferencesUtil.saveStringData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_customer_fields, TextUtils.isEmpty(info.getCustomer_fields()) ? "" : info.getCustomer_fields());
+                SharedPreferencesUtil.saveStringData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_params, TextUtils.isEmpty(info.getParams()) ? "" : info.getParams());
                 SharedPreferencesUtil.saveStringData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_isvip, TextUtils.isEmpty(info.getIsVip()) ? "" : info.getIsVip());
                 SharedPreferencesUtil.saveStringData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_vip_level, TextUtils.isEmpty(info.getVip_level()) ? "" : info.getVip_level());
                 SharedPreferencesUtil.saveStringData(mAppContext, info.getApp_key() + "_" + ZhiChiConstant.sobot_last_current_user_label, TextUtils.isEmpty(info.getUser_label()) ? "" : info.getUser_label());
@@ -1641,12 +1666,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 if (!isActive()) {
                     return;
                 }
-                if (e instanceof IllegalArgumentException && !TextUtils.isEmpty(des)) {
-                    ToastUtil.showToast(mAppContext, des);
-                    finish();
-                } else {
-                    showInitError();
-                }
+                showInitError();
                 isSessionOver = true;
             }
         });
@@ -2030,11 +2050,11 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, int transferType, String anwerMsgId, String ruleld) {
-        transfer2Custom(tempGroupId, keyword, keywordId, isShowTips, transferType, "", "", "0", anwerMsgId, ruleld);
+        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, transferType, "", "", "0", anwerMsgId, ruleld);
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, String activeTransfer, String anwerMsgId, String ruleld) {
-        transfer2Custom(tempGroupId, keyword, keywordId, isShowTips, 0, "", "", activeTransfer, anwerMsgId, ruleld);
+        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", activeTransfer, anwerMsgId, ruleld);
     }
 
 
@@ -2043,97 +2063,70 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
      * 如果用户传入了skillId 那么就用这个id直接转人工
      * 如果没有传  那么就检查技能组开关是否打开
      *
-     * @param tempGroupId     技能组id
-     * @param keyword         触发转人工的关键词
-     * @param keywordId       触发转人工的关键词id
-     * @param isShowTips      是否显示提示
-     * @param transferType    转人工类型 重复提问、情绪负向转人工 传入后台做统计用
-     *                        0普通 1重复提问 2情绪负向 转人工 3-关键词转人工 4-多伦会话转人工
-     *                        5:机器人自动转人工(拆分 6-9 activeTransfer此时为1 根据answerType转换6-9)
-     *                        6直接转人工，7理解转人工，8引导转人工，9未知转人工 10，点踩转人工
-     * @param docId           词条触发转人工的词条id 指得是之前的transferType=5，现在的（6-9）的时候的词条id
-     * @param unknownQuestion 未知问题触发转人工的客户问的未知问题
-     * @param activeTransfer  转人工方式  0：机器人触发转人工 1：客户主动转人工
-     * @param answerMsgId     消息id（直接回答的转人工按钮，对应的消息id）
-     * @param ruleId          一问多答时的规则id，没有传入“”
+     * @param eventType         特殊业务可以根据对应类型处理
+     * @param tempChooseAdminId 客服id
+     * @param tempGroupId       技能组id
+     * @param keyword           触发转人工的关键词
+     * @param keywordId         触发转人工的关键词id
+     * @param isShowTips        是否显示提示
+     * @param transferType      转人工类型 重复提问、情绪负向转人工 传入后台做统计用
+     *                          0普通 1重复提问 2情绪负向 转人工 3-关键词转人工 4-多伦会话转人工
+     *                          5:机器人自动转人工(拆分 6-9 activeTransfer此时为1 根据answerType转换6-9)
+     *                          6直接转人工，7理解转人工，8引导转人工，9未知转人工 10，点踩转人工
+     * @param docId             词条触发转人工的词条id 指得是之前的transferType=5，现在的（6-9）的时候的词条id
+     * @param unknownQuestion   未知问题触发转人工的客户问的未知问题
+     * @param activeTransfer    转人工方式  0：机器人触发转人工 1：客户主动转人工
+     * @param answerMsgId       消息id（直接回答的转人工按钮，对应的消息id）
+     * @param ruleId            一问多答时的规则id，没有传入“”
      */
-    private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, int transferType, String docId, String unknownQuestion, String activeTransfer, String answerMsgId, String ruleId) {
-        if (isUserBlack()) {
-            SobotConnCusParam param = new SobotConnCusParam();
-            param.setKeyword(keyword);
-            param.setKeywordId(keywordId);
-            param.setDocId(docId);
-            param.setUnknownQuestion(unknownQuestion);
-            param.setAnswerMsgId(answerMsgId);
-            param.setRuleId(ruleId);
-            param.setActiveTransfer(activeTransfer);
-            connectCustomerService(param, isShowTips);
-        } else if (SobotOption.transferOperatorInterceptor != null) {
-            // 拦截转人工
-            SobotTransferOperatorParam param = new SobotTransferOperatorParam();
-            param.setGroupId(tempGroupId);
-            param.setKeyword(keyword);
-            param.setKeywordId(keywordId);
-            param.setShowTips(isShowTips);
-
-            param.setTransferType(transferType);
-            param.setConsultingContent(info.getConsultingContent());
-            SobotOption.transferOperatorInterceptor.onTransferStart(getContext(), param);
-        } else if (!TextUtils.isEmpty(info.getGroupid())) {
-            //预设技能组转人工
-            SobotConnCusParam param = new SobotConnCusParam();
-            param.setGroupId(info.getGroupid());
-            param.setGroupName(info.getGroup_name());
-            param.setKeyword(keyword);
-            param.setKeywordId(keywordId);
-            param.setDocId(docId);
-            param.setUnknownQuestion(unknownQuestion);
-            param.setActiveTransfer(activeTransfer);
-            param.setAnswerMsgId(answerMsgId);
-            param.setRuleId(ruleId);
-            transfer2CustomBySkillId(param, transferType);
-        } else if (!TextUtils.isEmpty(tempGroupId)) {
-            //关键词转人工，用户选中了某个技能组，转人工
-            SobotConnCusParam param = new SobotConnCusParam();
+    private void transfer2Custom(int eventType, String tempChooseAdminId, String tempGroupId, String keyword, String keywordId,
+                                 boolean isShowTips, int transferType, String docId, String unknownQuestion, String
+                                         activeTransfer, String answerMsgId, String ruleId) {
+        SobotConnCusParam param = new SobotConnCusParam();
+        param.setEventType(eventType);
+        if (info != null) {
+            param.setGroupId(StringUtils.checkStringIsNull(info.getGroupid()));
+            param.setGroupName(StringUtils.checkStringIsNull(info.getGroup_name()));
+            param.setChooseAdminId(StringUtils.checkStringIsNull(info.getChoose_adminid()));
+        }
+        param.setKeyword(keyword);
+        param.setKeywordId(keywordId);
+        param.setDocId(docId);
+        param.setUnknownQuestion(unknownQuestion);
+        param.setTransferType(transferType);
+        param.setActiveTransfer(activeTransfer);
+        param.setAnswerMsgId(answerMsgId);
+        param.setRuleId(ruleId);
+        //如果有业务（关键词转人工、多轮1526 转人工）技能组id 和客服id ，就覆盖进线info里边的技能组id 和客服id
+        if (StringUtils.isNoEmpty(tempChooseAdminId)) {
+            param.setChooseAdminId(tempChooseAdminId);
+        }
+        if (StringUtils.isNoEmpty(tempGroupId)) {
             param.setGroupId(tempGroupId);
             param.setGroupName("");
-            param.setKeyword(keyword);
-            param.setKeywordId(keywordId);
-            param.setDocId(docId);
-            param.setUnknownQuestion(unknownQuestion);
-            param.setTransferType(transferType);
-            param.setActiveTransfer(activeTransfer);
-            param.setAnswerMsgId(answerMsgId);
-            param.setRuleId(ruleId);
-            transfer2CustomBySkillId(param, transferType);
+        }
+        if (SobotOption.transferOperatorInterceptor != null) {
+            // 拦截转人工
+            SobotTransferOperatorParam tparam = new SobotTransferOperatorParam();
+            tparam.setGroupId(tempGroupId);
+            tparam.setKeyword(keyword);
+            tparam.setKeywordId(keywordId);
+            tparam.setShowTips(isShowTips);
+            tparam.setTransferType(transferType);
+            tparam.setConsultingContent(info.getConsultingContent());
+            SobotOption.transferOperatorInterceptor.onTransferStart(getContext(), tparam);
+        } else if (StringUtils.isNoEmpty(param.getGroupId())
+                || StringUtils.isNoEmpty(param.getChooseAdminId())
+                || StringUtils.isNoEmpty(info.getTransferAction())
+                || initModel.isSmartRouteInfoFlag()) {
+            //指定了客服id、指定了技能组、配置了转人工溢出、开启智能路由 ，只要有一个条件满足就直接先走询前表单然后转人工
+            requestQueryFrom(param, info.isCloseInquiryForm());
         } else {
-            if (initModel.getGroupflag().equals(ZhiChiConstant.groupflag_on)
-                    && TextUtils.isEmpty(info.getChoose_adminid())
-                    && !initModel.isSmartRouteInfoFlag()
-                    && TextUtils.isEmpty(info.getTransferAction())) {
-                //如果指定客服id  或者开启了智能路由那么不弹技能组选择框
-                //如果技能组开启，此时没有指定客服，那么拉取技能组数据
-                SobotConnCusParam param = new SobotConnCusParam();
-                param.setDocId(docId);
-                param.setUnknownQuestion(unknownQuestion);
-                param.setKeyword(keyword);
-                param.setKeywordId(keywordId);
-                param.setTransferType(transferType);
-                param.setActiveTransfer(activeTransfer);
-                param.setAnswerMsgId(answerMsgId);
-                param.setRuleId(ruleId);
+            if (initModel.getGroupflag().equals(ZhiChiConstant.groupflag_on)) {
+                //如果技能组开启，同时没有开启智能路由，那么拉取技能组数据
                 getGroupInfo(param);
             } else {
-                //没有预设技能组，技能组关闭  直接转人工
-                SobotConnCusParam param = new SobotConnCusParam();
-                param.setDocId(docId);
-                param.setUnknownQuestion(unknownQuestion);
-                param.setKeyword(keyword);
-                param.setKeywordId(keywordId);
-                param.setTransferType(transferType);
-                param.setActiveTransfer(activeTransfer);
-                param.setAnswerMsgId(answerMsgId);
-                param.setRuleId(ruleId);
+                //直接转人工
                 requestQueryFrom(param, info.isCloseInquiryForm());
             }
         }
@@ -2186,7 +2179,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                     intent.putExtra("msgFlag", initModel.getMsgFlag());
                                     intent.putExtra("transferType", param != null ? param.getTransferType() : 0);
                                     Bundle bundle = new Bundle();
-                                    bundle.putSerializable("sobotConnCusParam", param);
+                                    bundle.putSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM, param);
                                     intent.putExtras(bundle);
                                     startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_GRROUP);
                                 }
@@ -2312,7 +2305,6 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         if (param == null) {
             param = new SobotConnCusParam();
         }
-        param.setChooseAdminId(info.getChoose_adminid());
         param.setTran_flag(info.getTranReceptionistFlag());
         param.setPartnerid(initModel.getPartnerid());
         param.setCid(initModel.getCid());
@@ -2324,15 +2316,10 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         param.setOfflineMsgConnectFlag(offlineMsgConnectFlag);
         SharedPreferencesUtil.saveStringData(getSobotActivity(), ZhiChiConstant.sobot_connect_group_id, param.getGroupId());
 
-//        SobotConnCusParam  param = new SobotConnCusParam();
-//        param.setGroupId(groupId);
-//        param.setGroupName(groupName);
-//        param.setKeyword(keyword);
-//        param.setKeywordId(keywordId);
-//        param.setTransferType(transferType);
-//        param.setDocId(docId);
-//        param.setUnknownQuestion(unknownQuestion);
-//        param.setActiveTransfer(activeTransfer);
+        if (param.getEventType() == ZhiChiConstant.SOBOT_TYEP_TRANSFER_CUSTOM_DUOLUN1526) {
+            //多轮转人工节点 1526 如果指定客服需要设置强转
+            param.setTran_flag(1);
+        }
 
         final String keyword = param.getKeyword();
         final String keywordId = param.getKeywordId();
@@ -2387,7 +2374,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                 //智能路由匹配失败重新转人工
                                 initModel.setSmartRouteInfoFlag(false);
 //                                    transfer2Custom(null, keyword, keywordId, isShowTips, docId, unknownQuestion, activeTransfer);
-                                transfer2Custom(null, keyword, keywordId, isShowTips, transferType, docId, unknownQuestion, activeTransfer, answerMsgId, ruleId);
+                                transfer2Custom(0,null, null, keyword, keywordId, isShowTips, transferType, docId, unknownQuestion, activeTransfer, answerMsgId, ruleId);
                             } else {
                                 if (ZhiChiConstant.transfer_customeServeive_success == status) {
                                     connCustomerServiceSuccess(zhichiMessageBase);
@@ -2910,7 +2897,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 base.setAnswer(answer);
                 base.setSenderType(ZhiChiConstant.message_sender_type_customer + "");
                 if (base.getId() == null || TextUtils.isEmpty(base.getId())) {
-                    String msgId = System.currentTimeMillis() + "";
+                    String msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
                     base.setId(msgId);
                     updateUiMessage(messageAdapter, base);
                 }
@@ -2943,7 +2930,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     temptransferType = 8;
                 }
             }
-            transfer2Custom(null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1", base.getMsgId(), base.getRuleId());
+            transfer2Custom(0,null, null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1", base.getMsgId(), base.getRuleId());
         } else {
             transfer2Custom(null, null, null, true, "1", "", "");
         }
@@ -3743,8 +3730,12 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         try {
             // 取消广播接受者
             if (getSobotActivity() != null) {
-                getSobotActivity().unregisterReceiver(receiver);
-                KeyboardUtil.detach(getSobotActivity(), mKPSwitchListener);
+                if (receiver != null) {
+                    getSobotActivity().unregisterReceiver(receiver);
+                }
+                if (mKPSwitchListener != null) {
+                    KeyboardUtil.detach(getSobotActivity(), mKPSwitchListener);
+                }
             }
             if (localBroadcastManager != null) {
                 localBroadcastManager.unregisterReceiver(localReceiver);
@@ -4644,7 +4635,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     //转人工
                     hidePanelAndKeyboard(mPanelRoot);
                     doEmoticonBtn2Blur();
-                    transfer2Custom(null, null, null, true, 10, "", "", "1", "", "");
+                    transfer2Custom(0,null, null, null, null, true, 10, "", "", "1", "", "");
                 } else if (ZhiChiConstants.dcrc_comment_state.equals(intent.getAction())) {
                     //评价完客户后所需执行的逻辑
                     isComment = intent.getBooleanExtra("commentState", false);
@@ -4949,6 +4940,12 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 if (SobotOption.functionClickListener != null) {
                     SobotOption.functionClickListener.onClickFunction(getSobotActivity(), SobotFunctionType.ZC_PhoneCustomerService);
                 }
+                if (SobotOption.newHyperlinkListener != null) {
+                    boolean isIntercept = SobotOption.newHyperlinkListener.onPhoneClick(getSobotActivity(), "tel:" + SobotUIConfig.sobot_title_right_menu2_call_num);
+                    if (isIntercept) {
+                        return;
+                    }
+                }
                 ChatUtils.callUp(SobotUIConfig.sobot_title_right_menu2_call_num, getContext());
             } else {
                 btnSatisfaction();
@@ -4959,6 +4956,12 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
             if (!TextUtils.isEmpty(SobotUIConfig.sobot_title_right_menu3_call_num)) {
                 if (SobotOption.functionClickListener != null) {
                     SobotOption.functionClickListener.onClickFunction(getSobotActivity(), SobotFunctionType.ZC_PhoneCustomerService);
+                }
+                if (SobotOption.newHyperlinkListener != null) {
+                    boolean isIntercept = SobotOption.newHyperlinkListener.onPhoneClick(getSobotActivity(), "tel:" + SobotUIConfig.sobot_title_right_menu3_call_num);
+                    if (isIntercept) {
+                        return;
+                    }
                 }
                 ChatUtils.callUp(SobotUIConfig.sobot_title_right_menu3_call_num, getContext());
             } else {
@@ -5027,7 +5030,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
             return;
         }
 
-        String msgId = System.currentTimeMillis() + "";
+        String msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
 
         if (ZhiChiConstant.client_model_robot == current_client_model) {
             if (type == 4 && initModel.getInvalidSessionFlag() == 1 && customerState != CustomerState.Queuing && TextUtils.isEmpty(tempMsgContent)) {
@@ -5077,7 +5080,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         if (customerState == CustomerState.Online
                 && current_client_model == ZhiChiConstant.client_model_customService
                 && !TextUtils.isEmpty(fromUrl) && !TextUtils.isEmpty(title)) {
-            String msgId = System.currentTimeMillis() + "";
+            String msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
 
             setTimeTaskMethod(handler);
             sendHttpCardMsg(initModel.getPartnerid(), initModel.getCid(), handler, msgId, consultingContent);
@@ -5097,7 +5100,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         if (customerState == CustomerState.Online
                 && current_client_model == ZhiChiConstant.client_model_customService
                 && !TextUtils.isEmpty(title)) {
-            String msgId = System.currentTimeMillis() + "";
+            String msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
             setTimeTaskMethod(handler);
             sendHttpOrderCardMsg(initModel.getPartnerid(), initModel.getCid(), handler, msgId, orderCardContent);
         }
@@ -5232,43 +5235,19 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                         int tmpTransferType = data.getIntExtra("transferType", 0);
                         LogUtils.i("groupIndex-->" + groupIndex);
                         if (groupIndex >= 0) {
-                            String docId = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID);
-                            String unknownQuestion = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION);
-                            String activeTransfer = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER);
-                            String keyword = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD);
-                            String keywordId = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID);
-                            SobotConnCusParam param = new SobotConnCusParam();
-                            param.setGroupId(list_group.get(groupIndex).getGroupId());
-                            param.setGroupName(list_group.get(groupIndex).getGroupName());
-                            param.setTransferType(tmpTransferType);
-                            param.setDocId(docId);
-                            param.setUnknownQuestion(unknownQuestion);
-                            param.setActiveTransfer(activeTransfer);
-                            param.setKeyword(keyword);
-                            param.setKeywordId(keywordId);
+                            SobotConnCusParam param = (SobotConnCusParam) data.getSerializableExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM);
+                            if (param != null) {
+                                param.setGroupId(list_group.get(groupIndex).getGroupId());
+                                param.setGroupName(list_group.get(groupIndex).getGroupName());
+                                param.setTransferType(tmpTransferType);
+                            }
                             requestQueryFrom(param, info.isCloseInquiryForm());
                         }
                         break;
                     case ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM:
                         //填完询前表单后的回调
                         if (resultCode == ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM) {
-                            String groupId = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID);
-                            String groupName = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME);
-                            int transferType = data.getIntExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, 0);
-                            String docId = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID);
-                            String unknownQuestion = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION);
-                            String activeTransfer = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER);
-                            String keyword = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD);
-                            String keywordId = data.getStringExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID);
-                            SobotConnCusParam param = new SobotConnCusParam();
-                            param.setGroupId(groupId);
-                            param.setGroupName(groupName);
-                            param.setTransferType(transferType);
-                            param.setDocId(docId);
-                            param.setUnknownQuestion(unknownQuestion);
-                            param.setActiveTransfer(activeTransfer);
-                            param.setKeyword(keyword);
-                            param.setKeywordId(keywordId);
+                            SobotConnCusParam param = (SobotConnCusParam) data.getSerializableExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM);
                             connectCustomerService(param);
                         } else {
                             //询前表单取消
@@ -5288,7 +5267,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                             File selectedFile = (File) data.getSerializableExtra(ZhiChiConstant.SOBOT_INTENT_DATA_SELECTED_FILE);
                             uploadFile(selectedFile, handler, lv_message, messageAdapter, false);
                         } else {
-                            String tmpMsgId = String.valueOf(System.currentTimeMillis());
+                            String tmpMsgId = (initModel != null ? initModel.getCid() : "") + String.valueOf(System.currentTimeMillis());
                             if (selectedFileUri == null) {
                                 selectedFileUri = ImageUtils.getUri(data, getSobotActivity());
                             }
@@ -5374,7 +5353,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     }
                     //放弃音频焦点
                     abandonAudioFocus();
-                    voiceMsgId = System.currentTimeMillis() + "";
+                    voiceMsgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
                     // 在这个点击的位置
                     btn_upload_view.setClickable(false);
                     btn_model_edit.setClickable(false);

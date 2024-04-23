@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">已保存到系統相冊</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">諮詢後才能評價服務質量</string>
        <string name="sobot__is_null">不能為空</string>
-       <string name="sobot_reunicon">點擊重新連接</string>
+       <string name="sobot_reunicon">重裝</string>
        <string name="sobot_pic_select_again">請重新選擇或拍攝</string>
        <string name="sobot_only_can_write">只能輸入</string>
        <string name="sobot_loading">請稍候</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">請選擇是否解决了您的問題</string>
        <string name="sobot_evaluate_lab">標籤：</string>
        <string name="sobot_evaluate_issolve">是否解决：</string>
+       <string name="sobot_str_select_pic_video">選擇照片和視頻</string>
+       <string name="sobot_str_goto_setting_info">當前僅允許訪問部分照片或視頻</string>
+       <string name="sobot_str_goto_setting_allow">允許全部></string>
 </resources>

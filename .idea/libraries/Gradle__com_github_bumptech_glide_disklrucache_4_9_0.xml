@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Gradle: com.github.bumptech.glide:disklrucache:4.9.0">
+  <library name="Gradle: com.github.bumptech.glide:disklrucache:4.9.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.github.bumptech.glide" artifactId="disklrucache" version="4.9.0" />
     <CLASSES>
       <root url="jar://E:/androidtools/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.9.0/cbb185635e8f265d6391c7d43118d3856574dc3a/disklrucache-4.9.0.jar!/" />
     </CLASSES>

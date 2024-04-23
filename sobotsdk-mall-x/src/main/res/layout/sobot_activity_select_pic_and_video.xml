@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sobot_common_gray6"
+    android:orientation="vertical">
+
+    <include layout="@layout/sobot_layout_titlebar1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sobot_common_msg_bg_gray"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sobot_str_goto_setting_info"
+            android:textColor="@color/sobot_common_gray1"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_go_to_settring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="@string/sobot_str_goto_setting_allow"
+            android:textColor="@color/sobot_color"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sobot_rcy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:horizontalSpacing="3dp"
+            android:scrollbarSize="10dp"
+            android:scrollbarThumbVertical="@drawable/sobot_custom_scroll_style"
+            android:verticalSpacing="3dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/sobot_btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/sobot_normal_btn_bg"
+            android:gravity="center"
+            android:stateListAnimator="@null"
+            android:text="@string/sobot_button_send"
+            android:textAllCaps="false"
+            android:textColor="@color/sobot_common_white"
+            android:textSize="17sp" />
+    </LinearLayout>
+</LinearLayout>

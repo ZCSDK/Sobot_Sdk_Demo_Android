@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">Telah disimpan pada foto album sistem</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Kualiti perkhidmatan hanya dapat dinilai setelah berunding</string>
        <string name="sobot__is_null">Tidak boleh kosong</string>
-       <string name="sobot_reunicon">Klik untuk menyambung semula</string>
+       <string name="sobot_reunicon">Muatkan naik semula</string>
        <string name="sobot_pic_select_again">Sila pilih atau ambil foto semula</string>
        <string name="sobot_only_can_write">Hanya dapat memasukkan</string>
        <string name="sobot_loading">Sila tunggu</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">Sila pilih sama ada isu anda telah diselesaikan</string>
        <string name="sobot_evaluate_lab">Label:</string>
        <string name="sobot_evaluate_issolve">Selesai:</string>
+       <string name="sobot_str_select_pic_video">Pilih foto dan video</string>
+       <string name="sobot_str_goto_setting_info">Semasa, hanya akses sebahagian kepada foto atau video dibenarkan</string>
+       <string name="sobot_str_goto_setting_allow">Benarkan semua></string>
 </resources>

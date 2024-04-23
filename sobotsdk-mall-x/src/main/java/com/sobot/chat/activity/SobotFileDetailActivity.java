@@ -217,9 +217,6 @@ public class SobotFileDetailActivity extends SobotBaseActivity implements View.O
         }
 
         if (v == sobot_btn_start) {
-            if (!checkStoragePermission(3)) {
-                return;
-            }
             if (sobot_btn_start.isSelected()) {
                 //打开文件
                 if (mCacheFile != null) {

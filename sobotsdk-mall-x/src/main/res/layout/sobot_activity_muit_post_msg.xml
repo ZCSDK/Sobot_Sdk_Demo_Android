@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/sobot_common_bg"
     android:orientation="vertical">
 
     <com.sobot.chat.widget.SobotMHLinearLayout
-        app:sobot_mhv_HeightRatio="0.8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:sobot_mhv_HeightRatio="0.8">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -253,13 +253,13 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/ll_problem_description_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/sobot_tv_problem_description"
@@ -269,10 +269,12 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_problem_description_required"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" *"
-                            android:textColor="#f9676f" />
+                            android:textColor="#f9676f"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <EditText
@@ -478,8 +480,8 @@
                     android:layout_margin="20dp"
                     android:background="@drawable/sobot_normal_btn_bg"
                     android:gravity="center"
-                    android:textAllCaps="false"
                     android:stateListAnimator="@null"
+                    android:textAllCaps="false"
                     android:textColor="@color/sobot_common_white"
                     android:textSize="17sp"
                     android:textStyle="bold" />

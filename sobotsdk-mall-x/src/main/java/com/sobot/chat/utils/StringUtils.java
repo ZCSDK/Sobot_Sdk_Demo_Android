@@ -1,6 +1,7 @@
 package com.sobot.chat.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -375,6 +376,34 @@ public final class StringUtils {
             return true;
         else
             return false;
+    }
+
+
+    //检查字符串是否为空
+    public static boolean isEmpty(String str) {
+        if (TextUtils.isEmpty(str) || "null".equals(str) || "NULL".equals(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //检查字符串是否不为空
+    public static boolean isNoEmpty(String str) {
+        if (TextUtils.isEmpty(str) || "null".equals(str) || "NULL".equals(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //检查字符串为空的情况，如果是空，返回 “”
+    public static String checkStringIsNull(String str) {
+        if (TextUtils.isEmpty(str) || "null".equals(str) || "NULL".equals(str)) {
+            return "";
+        } else {
+            return str;
+        }
     }
 
 }

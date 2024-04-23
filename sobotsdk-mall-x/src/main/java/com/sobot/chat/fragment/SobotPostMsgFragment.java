@@ -16,11 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.activity.SobotPhotoActivity;
 import com.sobot.chat.activity.SobotPostCascadeActivity;
@@ -60,6 +60,7 @@ import com.sobot.chat.utils.SobotOption;
 import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
+import com.sobot.chat.widget.SobotGridView;
 import com.sobot.chat.widget.attachment.FileTypeConfig;
 import com.sobot.chat.widget.dialog.SobotDeleteWorkOrderDialog;
 import com.sobot.chat.widget.dialog.SobotDialogUtils;
@@ -80,11 +81,11 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
     private View mRootView;
 
     private EditText sobot_post_email, sobot_et_content, sobot_post_phone, sobot_post_title;
-    private TextView sobot_tv_post_msg, sobot_post_email_lable, sobot_post_phone_lable, sobot_post_lable, sobot_post_title_lable, sobot_post_question_type, sobot_post_question_lable, sobot_tv_problem_description;
+    private TextView sobot_tv_post_msg, sobot_post_email_lable, sobot_post_phone_lable, sobot_post_lable, sobot_post_title_lable, sobot_post_question_type, sobot_post_question_lable, sobot_tv_problem_description, tv_problem_description_required;
     private View sobot_frist_line, sobot_post_title_line, sobot_post_question_line, sobot_post_customer_line, sobot_post_title_sec_line, sobot_post_question_sec_line, sobot_post_customer_sec_line, sobot_phone_line;
     private Button sobot_btn_submit;
-    private GridView sobot_post_msg_pic;
-    private LinearLayout sobot_enclosure_container, sobot_post_customer_field, sobot_post_question_ll, sobot_ll_content_img;
+    private SobotGridView sobot_post_msg_pic;
+    private LinearLayout sobot_post_customer_field, sobot_post_question_ll, sobot_ll_content_img, ll_problem_description_title;
     private RelativeLayout sobot_post_email_rl, sobot_post_phone_rl, sobot_post_title_rl;
     private TextView title_hint_input_lable, email_hint_input_label, phone_hint_input_label;
     private ArrayList<ZhiChiUploadAppFileModelResult> pic_list = new ArrayList<>();
@@ -164,6 +165,7 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
     }
 
     protected void initView(View rootView) {
+        sobot_post_msg_pic = mRootView.findViewById(getResId("sobot_post_msg_pic"));
         sobot_ll_content_img = (LinearLayout) rootView.findViewById(getResId("sobot_ll_content_img"));
         sobot_post_phone = (EditText) rootView.findViewById(getResId("sobot_post_phone"));
         sobot_post_email = (EditText) rootView.findViewById(getResId("sobot_post_email"));
@@ -187,7 +189,6 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         sobot_post_question_lable = (TextView) rootView.findViewById(getResId("sobot_post_question_lable"));
         sobot_post_question_type = (TextView) rootView.findViewById(getResId("sobot_post_question_type"));
         sobot_post_msg_layout = (LinearLayout) rootView.findViewById(getResId("sobot_post_msg_layout"));
-        sobot_enclosure_container = (LinearLayout) rootView.findViewById(getResId("sobot_enclosure_container"));
         sobot_post_customer_field = (LinearLayout) rootView.findViewById(getResId("sobot_post_customer_field"));
         sobot_post_email_rl = (RelativeLayout) rootView.findViewById(getResId("sobot_post_email_rl"));
         email_hint_input_label = (TextView) rootView.findViewById(getResId("sobot_post_email_lable_hint"));
@@ -200,8 +201,25 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         sobot_post_title_rl = (RelativeLayout) rootView.findViewById(getResId("sobot_post_title_rl"));
         sobot_post_question_ll = (LinearLayout) rootView.findViewById(getResId("sobot_post_question_ll"));
         sobot_post_question_ll.setOnClickListener(this);
-        sobot_tv_problem_description = (TextView) rootView.findViewById(getResId("sobot_tv_problem_description"));
-        sobot_tv_problem_description.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_problem_description"));
+        ll_problem_description_title = rootView.findViewById(R.id.ll_problem_description_title);
+        sobot_tv_problem_description = rootView.findViewById(R.id.sobot_tv_problem_description);
+        tv_problem_description_required = rootView.findViewById(R.id.tv_problem_description_required);
+        sobot_tv_problem_description.setText(R.string.sobot_problem_description);
+        if (mConfig.isTicketContentShowFlag()) {
+            //问题描述是否显示
+            ll_problem_description_title.setVisibility(View.VISIBLE);
+            sobot_et_content.setVisibility(View.VISIBLE);
+            //问题描述是否必填
+            if (mConfig.isTicketContentFillFlag()) {
+                tv_problem_description_required.setVisibility(View.VISIBLE);
+
+            } else {
+                tv_problem_description_required.setVisibility(View.GONE);
+            }
+        } else {
+            ll_problem_description_title.setVisibility(View.GONE);
+            sobot_et_content.setVisibility(View.GONE);
+        }
         sobot_btn_submit = (Button) rootView.findViewById(getResId("sobot_btn_submit"));
         sobot_btn_submit.setText(ResourceUtils.getResString(getSobotActivity(), "sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
@@ -343,13 +361,13 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
         }
 
         if (mConfig.isEnclosureShowFlag()) {
-            sobot_enclosure_container.setVisibility(View.VISIBLE);
+            sobot_post_msg_pic.setVisibility(View.VISIBLE);
             initPicListView();
         } else {
-            sobot_enclosure_container.setVisibility(View.GONE);
+            sobot_post_msg_pic.setVisibility(View.GONE);
         }
 
-        if (mConfig.isTicketTypeFlag()&& mConfig.getType()!=null && mConfig.getType().size()>0) {
+        if (mConfig.isTicketTypeFlag() && mConfig.getType() != null && mConfig.getType().size() > 0) {
             sobot_post_question_ll.setVisibility(View.VISIBLE);
             sobot_post_question_line.setVisibility(View.VISIBLE);
             sobot_post_question_sec_line.setVisibility(View.VISIBLE);
@@ -448,10 +466,11 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
                 }
             }
         }
-
-        if (TextUtils.isEmpty(sobot_et_content.getText().toString().trim())) {
-            showHint(getResString("sobot_problem_description") + "  " + getResString("sobot__is_null"));
-            return;
+        if (mConfig.isTicketContentShowFlag() && mConfig.isTicketContentFillFlag()) {
+            if (TextUtils.isEmpty(sobot_et_content.getText().toString().trim())) {
+                showHint(getResString("sobot_problem_description") + "  " + getResString("sobot__is_null"));
+                return;
+            }
         }
 
         if (mConfig.isEnclosureShowFlag() && mConfig.isEnclosureFlag()) {
@@ -658,7 +677,6 @@ public class SobotPostMsgFragment extends SobotBaseFragment implements View.OnCl
      * 初始化图片选择的控件
      */
     private void initPicListView() {
-        sobot_post_msg_pic = (GridView) mRootView.findViewById(getResId("sobot_post_msg_pic"));
         adapter = new SobotPicListAdapter(getSobotActivity(), pic_list);
         sobot_post_msg_pic.setAdapter(adapter);
 //        sobot_post_msg_pic.setOnItemClickListener(new AdapterView.OnItemClickListener() {

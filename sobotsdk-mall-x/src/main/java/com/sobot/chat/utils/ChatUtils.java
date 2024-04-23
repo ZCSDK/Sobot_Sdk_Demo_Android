@@ -149,7 +149,7 @@ public class ChatUtils {
             return;
         }
         Intent intent;
-        if (Build.VERSION.SDK_INT < 19||RomUtils.isOppo()||RomUtils.isOnePlus()) {
+        if (Build.VERSION.SDK_INT < 19 || RomUtils.isOppo() || RomUtils.isOnePlus()) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("video/*");
         } else {
@@ -181,7 +181,7 @@ public class ChatUtils {
             return;
         }
         Intent intent;
-        if (Build.VERSION.SDK_INT < 19|| RomUtils.isOppo()||RomUtils.isOnePlus()) {
+        if (Build.VERSION.SDK_INT < 19 || RomUtils.isOppo() || RomUtils.isOnePlus()) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("video/*");
         } else {
@@ -295,7 +295,7 @@ public class ChatUtils {
                 }
                 long size = CommonUtils.getFileSize(filePath);
                 if (size < (20 * 1024 * 1024)) {
-                    String id = System.currentTimeMillis() + "";
+                    String id = cid + System.currentTimeMillis() + "";
                     sendImageMessageToHandler(filePath, handler, id);
                     sendPicture(context, cid, uid, filePath, handler, id, lv_message,
                             messageAdapter);
@@ -309,7 +309,7 @@ public class ChatUtils {
             if (!TextUtils.isEmpty(filePath)) {
                 long size = CommonUtils.getFileSize(filePath);
                 if (size < (20 * 1024 * 1024)) {
-                    String id = System.currentTimeMillis() + "";
+                    String id = cid + System.currentTimeMillis() + "";
                     sendImageMessageToHandler(filePath, handler, id);
                     sendPicture(context, cid, uid, filePath, handler, id, lv_message,
                             messageAdapter);
@@ -343,7 +343,7 @@ public class ChatUtils {
     public static void sendPicture(final Context context, String cid, String uid,
                                    final String filePath, final Handler handler, final String id,
                                    final ListView lv_message, final SobotMsgAdapter messageAdapter) {
-        SobotMsgManager.getInstance(context).getZhiChiApi().sendFile(cid, uid, filePath, "", new ResultCallBack<ZhiChiMessage>() {
+        SobotMsgManager.getInstance(context).getZhiChiApi().sendFile(cid, uid, id, filePath, "", new ResultCallBack<ZhiChiMessage>() {
             @Override
             public void onSuccess(ZhiChiMessage zhiChiMessage) {
                 if (ZhiChiConstant.result_success_code == Integer
@@ -468,7 +468,7 @@ public class ChatUtils {
      * @param pushMessage 推送的信息
      * @return
      */
-    public static ZhiChiMessageBase getCustomEvaluateMode(Context context,ZhiChiPushMessage pushMessage) {
+    public static ZhiChiMessageBase getCustomEvaluateMode(Context context, ZhiChiPushMessage pushMessage) {
         ZhiChiMessageBase base = new ZhiChiMessageBase();
         base.setT(Calendar.getInstance().getTime().getTime() + "");
         base.setSenderName(TextUtils.isEmpty(pushMessage.getAname()) ? ResourceUtils.getResString(context, "sobot_cus_service") : pushMessage.getAname());
@@ -629,6 +629,8 @@ public class ChatUtils {
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_service_mode, -1);
         String last_current_customer_fields = SharedPreferencesUtil.getStringData(
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_customer_fields, "");
+        String last_current_params = SharedPreferencesUtil.getStringData(
+                context, appkey + "_" + ZhiChiConstant.sobot_last_current_params, "");
         String sobot_last_current_isvip = SharedPreferencesUtil.getStringData(
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_isvip, "");
         String sobot_last_current_vip_level = SharedPreferencesUtil.getStringData(
@@ -637,10 +639,10 @@ public class ChatUtils {
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_user_label, "");
         String sobot_last_current_robot_alias = SharedPreferencesUtil.getStringData(
                 context, appkey + "_" + ZhiChiConstant.sobot_last_current_robot_alias, "");
-        // appkey，技能组、用户id，客服id，对接机器人编号、接入模式，自定义字段，自定义固定KEY字段 ，userRemark,isvip,vip级别，用户标签，机器人别名,商户id
+        // appkey，技能组、用户id，客服id，对接机器人编号、接入模式，自定义资料，自定义固定KEY字段 ，userRemark,isvip,vip级别，用户标签，机器人别名,商户id
         //判断上次uid是否跟此次传入的一样
         if (!last_current_partnerId.equals(info.getPartnerid() == null ? "" : info.getPartnerid())) {
-            LogUtils.i("uid发生了变化，重新初始化..............");
+            LogUtils.i("partnerid发生了变化，重新初始化..............");
             return true;
         } else if (!last_current_dreceptionistId.equals(info.getChoose_adminid() == null ? "" : info.getChoose_adminid())) {
             LogUtils.i("转入的指定客服发生了变化，重新初始化..............");
@@ -663,6 +665,9 @@ public class ChatUtils {
         } else if (!last_current_customer_fields.equals(info.getCustomer_fields() == null ? "" : info.getCustomer_fields())) {
             LogUtils.i("自定义字段发生变化，重新初始化..............");
             return true;
+        } else if (!last_current_params.equals(info.getParams() == null ? "" : info.getParams())) {
+            LogUtils.i("自定义资料发生变化，重新初始化..............");
+            return true;
         } else if (!sobot_last_current_isvip.equals(info.getIsVip() == null ? "" : info.getIsVip())) {
             LogUtils.i("是否vip发生变化，重新初始化..............");
             return true;
@@ -684,13 +689,13 @@ public class ChatUtils {
      * 打开评价对话框
      *
      * @param context
-     * @param isSessionOver      当前会话是否结束
-     * @param isFinish           评价完是否关闭
-     * @param isExitCommit       评价完是否结束会话
-     * @param initModel          初始化信息
-     * @param current_model      评价对象
-     * @param commentType        commentType 评价类型 主动评价1 邀请评价0
-     * @param isBackShowEvaluate 弹出评价窗 是否显示暂不评价（暂不评价和关闭图片只能显示一个）  true 是 false 否
+     * @param isSessionOver            当前会话是否结束
+     * @param isFinish                 评价完是否关闭
+     * @param isExitCommit             评价完是否结束会话
+     * @param initModel                初始化信息
+     * @param current_model            评价对象
+     * @param commentType              commentType 评价类型 主动评价1 邀请评价0
+     * @param isBackShowEvaluate       弹出评价窗 是否显示暂不评价（暂不评价和关闭图片只能显示一个）  true 是 false 否
      * @param canBackWithNotEvaluation 是否是返回时弹出评价窗  true 是 false 否
      */
     public static SobotEvaluateDialog showEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitCommit, ZhiChiInitModeBase
@@ -1316,13 +1321,13 @@ public class ChatUtils {
         return data;
     }
 
-    public static void msgLogicalProcess(Context context,ZhiChiInitModeBase initModel, SobotMsgAdapter messageAdapter, ZhiChiPushMessage pushMessage) {
-        if (initModel != null && ChatUtils.isNeedWarning(context,pushMessage.getContent(), initModel.getAccountStatus())) {
+    public static void msgLogicalProcess(Context context, ZhiChiInitModeBase initModel, SobotMsgAdapter messageAdapter, ZhiChiPushMessage pushMessage) {
+        if (initModel != null && ChatUtils.isNeedWarning(context, pushMessage.getContent(), initModel.getAccountStatus())) {
             messageAdapter.justAddData(ChatUtils.getTipByText(ResourceUtils.getResString(context, "sobot_money_trading_tip")));
         }
     }
 
-    private static boolean isNeedWarning(Context context,String content, int accountStatus) {
+    private static boolean isNeedWarning(Context context, String content, int accountStatus) {
         return !TextUtils.isEmpty(content) && (accountStatus == ZhiChiConstant.SOBOT_ACCOUNTSTATUS_FREE_EDITION
                 || accountStatus == ZhiChiConstant.SOBOT_ACCOUNTSTATUS_TRIAL_EDITION)
                 && content.contains(ResourceUtils.getResString(context, "sobot_ver_code"));

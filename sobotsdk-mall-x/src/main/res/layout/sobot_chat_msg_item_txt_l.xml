@@ -53,6 +53,7 @@
                     android:id="@+id/sobot_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:textColor="@color/sobot_left_msg_text_color"
                     android:textSize="@dimen/sobot_robot_msg_text_size" />
 

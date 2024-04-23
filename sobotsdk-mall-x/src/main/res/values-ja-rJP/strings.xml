@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">アルバムに保存しました</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">問い合わせしてから評価できます</string>
        <string name="sobot__is_null">空にできません</string>
-       <string name="sobot_reunicon">クリックして再接続します</string>
+       <string name="sobot_reunicon">リロード</string>
        <string name="sobot_pic_select_again">再選択または撮ってください</string>
        <string name="sobot_only_can_write">入力のみ</string>
        <string name="sobot_loading">少々お待ちください</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">問題を解決したかどうかを選択してください</string>
        <string name="sobot_evaluate_lab">ラベル:</string>
        <string name="sobot_evaluate_issolve">解決するかどうか：</string>
+       <string name="sobot_str_select_pic_video">写真とビデオを選択</string>
+       <string name="sobot_str_goto_setting_info">現在は一部の写真またはビデオへのアクセスのみが許可されています</string>
+       <string name="sobot_str_goto_setting_allow">すべて許可></string>
 </resources>

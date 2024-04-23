@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.MarkConfig;
+import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.activity.base.SobotDialogBaseActivity;
 import com.sobot.chat.adapter.SobotPicListAdapter;
@@ -86,11 +87,11 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
     private LinearLayout sobot_btn_cancle;
     private TextView sobot_tv_title;
     private EditText sobot_post_email, sobot_et_content, sobot_post_phone, sobot_post_title;
-    private TextView sobot_tv_post_msg, sobot_post_email_lable, sobot_post_phone_lable, sobot_post_lable, sobot_post_title_lable, sobot_post_question_type, sobot_post_question_lable, sobot_tv_problem_description;
+    private TextView sobot_tv_post_msg, sobot_post_email_lable, sobot_post_phone_lable, sobot_post_lable, sobot_post_title_lable, sobot_post_question_type, sobot_post_question_lable, sobot_tv_problem_description, tv_problem_description_required;
     private View sobot_frist_line, sobot_post_title_line, sobot_post_question_line, sobot_post_customer_line, sobot_post_title_sec_line, sobot_post_question_sec_line, sobot_post_customer_sec_line, sobot_phone_line;
     private Button sobot_btn_submit;
     private GridView sobot_post_msg_pic;
-    private LinearLayout sobot_enclosure_container, sobot_post_customer_field, sobot_post_question_ll, sobot_ll_content_img;
+    private LinearLayout sobot_enclosure_container, sobot_post_customer_field, sobot_post_question_ll, sobot_ll_content_img, ll_problem_description_title;
     private RelativeLayout sobot_post_email_rl, sobot_post_phone_rl, sobot_post_title_rl;
     private TextView title_hint_input_lable, email_hint_input_label, phone_hint_input_label;
     private ArrayList<ZhiChiUploadAppFileModelResult> pic_list = new ArrayList<>();
@@ -249,8 +250,25 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
         sobot_post_title_rl = (RelativeLayout) findViewById(getResId("sobot_post_title_rl"));
         sobot_post_question_ll = (LinearLayout) findViewById(getResId("sobot_post_question_ll"));
         sobot_post_question_ll.setOnClickListener(this);
+        ll_problem_description_title = findViewById(R.id.ll_problem_description_title);
         sobot_tv_problem_description = (TextView) findViewById(getResId("sobot_tv_problem_description"));
         sobot_tv_problem_description.setText(ResourceUtils.getResString(getSobotBaseActivity(), "sobot_problem_description"));
+        tv_problem_description_required = findViewById(R.id.tv_problem_description_required);
+        if (mConfig.isTicketContentShowFlag()) {
+            //问题描述是否显示
+            ll_problem_description_title.setVisibility(View.VISIBLE);
+            sobot_et_content.setVisibility(View.VISIBLE);
+            //问题描述是否必填
+            if (mConfig.isTicketContentFillFlag()) {
+                tv_problem_description_required.setVisibility(View.VISIBLE);
+
+            } else {
+                tv_problem_description_required.setVisibility(View.GONE);
+            }
+        } else {
+            ll_problem_description_title.setVisibility(View.GONE);
+            sobot_et_content.setVisibility(View.GONE);
+        }
         sobot_btn_submit = (Button) findViewById(getResId("sobot_btn_submit"));
         sobot_btn_submit.setText(ResourceUtils.getResString(getSobotBaseActivity(), "sobot_btn_submit_text"));
         sobot_btn_submit.setOnClickListener(this);
@@ -391,14 +409,14 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
             sobot_post_email_lable.setTextSize(12);
         }
 
-        if (mConfig.isEnclosureShowFlag() && mConfig.getType()!=null && mConfig.getType().size()>0) {
+        if (mConfig.isEnclosureShowFlag()) {
             sobot_enclosure_container.setVisibility(View.VISIBLE);
             initPicListView();
         } else {
             sobot_enclosure_container.setVisibility(View.GONE);
         }
 
-        if (mConfig.isTicketTypeFlag()&& mConfig.getType()!=null && mConfig.getType().size()>0) {
+        if (mConfig.isTicketTypeFlag() && mConfig.getType() != null && mConfig.getType().size() > 0) {
             sobot_post_question_ll.setVisibility(View.VISIBLE);
             sobot_post_question_line.setVisibility(View.VISIBLE);
             sobot_post_question_sec_line.setVisibility(View.VISIBLE);
@@ -497,10 +515,11 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                 }
             }
         }
-
-        if (TextUtils.isEmpty(sobot_et_content.getText().toString().trim())) {
-            showHint(getResString("sobot_problem_description") + "  " + getResString("sobot__is_null"));
-            return;
+        if (mConfig.isTicketContentShowFlag() && mConfig.isTicketContentFillFlag()) {
+            if (TextUtils.isEmpty(sobot_et_content.getText().toString().trim())) {
+                showHint(getResString("sobot_problem_description") + "  " + getResString("sobot__is_null"));
+                return;
+            }
         }
 
         if (mConfig.isEnclosureShowFlag() && mConfig.isEnclosureFlag()) {
@@ -621,7 +640,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
             tempMap.put(sobot_post_title_lable.getText().toString().replace(" *", ""), StringUtils.isEmpty(title) ? " - -" : title);
         }
 
-        if (mConfig.isTicketTypeFlag() && mConfig.getType()!=null && mConfig.getType().size()>0) {
+        if (mConfig.isTicketTypeFlag() && mConfig.getType() != null && mConfig.getType().size() > 0) {
             tempMap.put(sobot_post_question_lable.getText().toString().replace(" *", ""), StringUtils.isEmpty(sobot_post_question_type.getText().toString()) ? " - -" : sobot_post_question_type.getText().toString());
         }
         if (mFields != null && mFields.size() > 0) {
@@ -630,7 +649,9 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                 tempMap.putAll(map);
             }
         }
-        tempMap.put(getResString("sobot_problem_description"), StringUtils.isEmpty(sobot_et_content.getText().toString()) ? " - -" : sobot_et_content.getText().toString());
+        if (mConfig.isTicketContentShowFlag()) {
+            tempMap.put(getResString("sobot_problem_description"), StringUtils.isEmpty(sobot_et_content.getText().toString()) ? " - -" : sobot_et_content.getText().toString());
+        }
         if (mConfig.isEnclosureShowFlag()) {
             tempMap.put(getResString("sobot_enclosure_string"), StringUtils.isEmpty(getFileNameStr()) ? " - -" : getFileNameStr());
         }
@@ -659,7 +680,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                         SobotSerializableMap sobotSerializableMap = new SobotSerializableMap();
                         sobotSerializableMap.setMap(tempMap);
                         bundle.putSerializable("leaveMsgData", sobotSerializableMap);
-                        bundle.putString("tipMsgId",tipMsgId);
+                        bundle.putString("tipMsgId", tipMsgId);
                         intent.putExtras(bundle);
                         CommonUtils.sendLocalBroadcast(getSobotBaseActivity(), intent);
                         if (!TextUtils.isEmpty(tipMsgId)) {
@@ -811,8 +832,6 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
 
     //对msg过滤
     private void msgFilter() {
-
-
         if (information != null && information.getLeaveMsgTemplateContent() != null) {
             sobot_et_content.setHint(Html.fromHtml(information.getLeaveMsgTemplateContent().replace("<p>", "").replace("</p>", "<br/>").replace("\n", "<br/>")));
         } else {
@@ -948,7 +967,7 @@ public class SobotMuItiPostMsgActivty extends SobotDialogBaseActivity implements
                     if (!StringUtils.isEmpty(path)) {
                         if (MediaFileUtils.isVideoFileType(path)) {
                             try {
-                               File selectedFile = new File(path);
+                                File selectedFile = new File(path);
                                 if (selectedFile.exists()) {
                                     if (selectedFile.length() > 50 * 1024 * 1024) {
                                         ToastUtil.showToast(getContext(), getResString("sobot_file_upload_failed"));

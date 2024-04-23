@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">Wird im systemalbum gespeichert</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Nach der erkundigung kann man die servicequalität bewerten</string>
        <string name="sobot__is_null">Kann nicht leer sein</string>
-       <string name="sobot_reunicon">Klicken und erneut verbinden</string>
+       <string name="sobot_reunicon">Erneut herunterladen</string>
        <string name="sobot_pic_select_again">Bitte wählen sie aus oder nehmen sie auf erneut</string>
        <string name="sobot_only_can_write">Kann nur eingeben</string>
        <string name="sobot_loading">Einen moment bitte</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">Bitte wählen Sie, ob Ihr Problem gelöst wurde</string>
        <string name="sobot_evaluate_lab">Etikett:</string>
        <string name="sobot_evaluate_issolve">Behoben:</string>
+       <string name="sobot_str_select_pic_video">Fotos und Videos auswählen</string>
+       <string name="sobot_str_goto_setting_info">Derzeit ist nur ein Teilzugriff auf Fotos oder Videos erlaubt</string>
+       <string name="sobot_str_goto_setting_allow">Alle zulassen></string>
 </resources>

@@ -37,7 +37,7 @@
     <string name="sobot_outline_openNewWindows">您打开了新窗口，本次会话结束</string>
     <string name="sobot_voiceTooLong">录音时间过长</string>
     <string name="sobot_count_down">倒计时:</string>
-    <string name="sobot_reunicon">点击重新连接</string>
+    <string name="sobot_reunicon">重新加载</string>
     <string name="sobot_ctrl_v_success">复制成功！</string>
     <string name="sobot_ctrl_copy">复制</string>
     <string name="sobot_network_unavailable">当前网络不可用，请检查您的网络设置</string>
@@ -276,9 +276,13 @@
     <string name="sobot_re_write">重新填写信息</string>
     <!--3.2.3-->
     <string name="sobo_outline_closed">会话已结束，可重新发起咨询</string>
-<!--    3.2.4-->
+    <!--3.2.4-->
     <string name="sobot_str_please_check_is_solve">请选择是否解决了您的问题</string>
     <!--   3.2.5   -->
     <string name="sobot_evaluate_lab">标签：</string>
     <string name="sobot_evaluate_issolve">是否解决：</string>
+    <!--   3.3.1   -->
+    <string name="sobot_str_select_pic_video">选择照片和视频</string>
+    <string name="sobot_str_goto_setting_info">当前仅允许访问部分照片或视频</string>
+    <string name="sobot_str_goto_setting_allow">允许全部 ></string>
 </resources>

@@ -2,7 +2,9 @@ package com.sobot.chat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.sobot.chat.activity.base.SobotBaseActivity;
 import com.sobot.chat.api.model.CommonModel;
 import com.sobot.chat.api.model.SobotCityResult;
+import com.sobot.chat.api.model.SobotConnCusParam;
 import com.sobot.chat.api.model.SobotCusFieldConfig;
 import com.sobot.chat.api.model.SobotFieldModel;
 import com.sobot.chat.api.model.SobotProvinInfo;
@@ -36,16 +39,8 @@ import java.util.ArrayList;
  */
 public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotCusField, View.OnClickListener {
     private Bundle mIntentBundleData;
-    private String mDocId;
-    private String mUnknownQuestion;
-    private String mActiveTransfer;
-    private String mKeywordId;
-    private String mKeyword;
-    private String mGroupId;
     private SobotQueryFormModel mQueryFormModel;
-    private String mGroupName;
     private String mUid;
-    private int mTransferType;
     private ArrayList<SobotFieldModel> mField;
     private SobotProvinInfo.SobotProvinceModel mFinalData;
 
@@ -55,6 +50,7 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
     private TextView sobot_tv_safety;
     //防止多次提交
     private boolean isSubmitting = false;
+    private SobotConnCusParam param;
 
     @Override
     protected int getContentViewResId() {
@@ -73,17 +69,9 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
     }
 
     private void initIntent(Bundle mIntentBundleData) {
-        mGroupId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID);
-        mGroupName = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME);
+        param = (SobotConnCusParam) mIntentBundleData.getSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM);
         mQueryFormModel = (SobotQueryFormModel) mIntentBundleData.getSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_FIELD);
-        mDocId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID);
-        mUnknownQuestion = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION);
-        mActiveTransfer = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER);
-        mKeywordId = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID);
-        mKeyword = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD);
-
         mUid = mIntentBundleData.getString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UID);
-        mTransferType = mIntentBundleData.getInt(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, 0);
         if (mQueryFormModel != null) {
             mField = mQueryFormModel.getField();
         }
@@ -155,16 +143,9 @@ public class SobotQueryFromActivity extends SobotBaseActivity implements ISobotC
     private void saveIntentWithFinish() {
         // 保存返回值 并且结束当前页面
         try {
-            KeyboardUtil.hideKeyboard(SobotQueryFromActivity.this.getCurrentFocus());
+            KeyboardUtil.hideKeyboard(sobot_container);
             Intent intent = new Intent();
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID, mGroupId);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME, mGroupName);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, mTransferType);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, mDocId);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, mUnknownQuestion);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, mActiveTransfer);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD, mKeyword);
-            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID, mKeywordId);
+            intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM, param);
             setResult(ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM, intent);
             finish();
         } catch (Exception e) {

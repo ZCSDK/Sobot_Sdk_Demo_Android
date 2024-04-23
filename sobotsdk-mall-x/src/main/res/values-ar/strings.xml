@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">تم الحفظ إلى ألبومات النظام</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">يرجى استخدام خدماتنا وإرسال الآراء</string>
        <string name="sobot__is_null">مطلوب</string>
-       <string name="sobot_reunicon">انقر للتحميل من جديد</string>
+       <string name="sobot_reunicon">تحديث</string>
        <string name="sobot_pic_select_again">يرجى المحاولة من جديد</string>
        <string name="sobot_only_can_write">أدخل فقط</string>
        <string name="sobot_loading">جارٍ التحميل</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">الرجاء اختيار ما إذا كانت المشكلة قد تم حلها</string>
        <string name="sobot_evaluate_lab">علامة:</string>
        <string name="sobot_evaluate_issolve">إذا تقرر :</string>
+       <string name="sobot_str_select_pic_video">اختيار الصور والفيديو</string>
+       <string name="sobot_str_goto_setting_info">حاليا فقط بعض الصور أو الفيديو مسموح الوصول إليها</string>
+       <string name="sobot_str_goto_setting_allow">السماح للجميع</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.sobot.chat.activity;
 
 import android.content.Intent;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -84,12 +86,8 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
                             Intent intent = new Intent();
                             intent.putExtra("groupIndex", position);
                             intent.putExtra("transferType", transferType);
-                            if (param!=null){
-                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, param.getDocId());
-                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, param.getUnknownQuestion());
-                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, param.getActiveTransfer());
-                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD, param.getKeyword());
-                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID, param.getKeywordId());
+                            if (param != null) {
+                                intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM, param);
                             }
                             setResult(ZhiChiConstant.REQUEST_COCE_TO_GRROUP, intent);
                             finish();
@@ -154,7 +152,7 @@ public class SobotSkillGroupActivity extends SobotDialogBaseActivity {
             msgTxt = getIntent().getStringExtra("msgTxt");
             msgFlag = getIntent().getIntExtra("msgFlag", 0);
             transferType = getIntent().getIntExtra("transferType", 0);
-            param = (SobotConnCusParam) getIntent().getSerializableExtra("sobotConnCusParam");
+            param = (SobotConnCusParam) getIntent().getSerializableExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM);
         }
         zhiChiApi = SobotMsgManager.getInstance(getApplicationContext()).getZhiChiApi();
         zhiChiApi.getGroupList(SobotSkillGroupActivity.this, appkey, uid, new StringResultCallBack<ZhiChiGroup>() {

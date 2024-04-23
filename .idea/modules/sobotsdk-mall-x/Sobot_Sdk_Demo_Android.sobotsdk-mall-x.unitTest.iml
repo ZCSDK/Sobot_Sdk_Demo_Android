@@ -7,28 +7,28 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/main/res;file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/debug/res;file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/res/rs/debug;file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/res/resValues/debug" />
-        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/androidTest/res;file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/androidTestDebug/res;file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/res/rs/androidTest/debug;file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/res/resValues/androidTest/debug" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
         <option name="PROJECT_TYPE" value="1" />
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
-    <output url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/intermediates/javac/debugUnitTest/compileDebugUnitTestJavaWithJavac/classes" />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output-test url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/source/apt/test/debug" />
+    <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/build/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/test" />
     <content url="file://$MODULE_DIR$/../../../sobotsdk-mall-x/src/testDebug" />
-    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 34, extension level 7 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.2.7.jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture_x:1.1.4@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:net:1.1.8@aar" level="project" />
+    <orderEntry type="module" module-name="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:picture_x:1.2.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:net:1.2.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:gson:1.1.1@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:1.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsdk-imageloader:2.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:3.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsdk-imageloader:3.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.3.0.jar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" />
 </module>

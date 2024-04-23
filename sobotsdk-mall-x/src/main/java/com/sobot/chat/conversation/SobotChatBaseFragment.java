@@ -455,6 +455,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     protected void sendHttpRobotMessage(final String msgId, String requestText,
                                         String uid, String cid, final Handler handler, int questionFlag, String question, String serverInternationalLanguage) {
         Map<String, Object> params = new HashMap<>();
+        params.put("msgId", msgId);//指定msgId
         params.put("adminId", info.getChoose_adminid());//指定客服
         params.put("tranFlag", info.getTranReceptionistFlag() + "");//是否必转该指定客服
         params.put("groupId", info.getGroupid());//指定技能组
@@ -486,19 +487,9 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                             isAboveZero = true;
                             sendTextMessageToHandler(msgId, null, handler, 1, UPDATE_TEXT, simpleMessage.getSentisive(), simpleMessage.getSentisiveExplain());
                         } else {
-                            String id = System.currentTimeMillis() + "";
+                            String id = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
                             if (simpleMessage.getUstatus() == ZhiChiConstant.result_fail_code) {
-                                sendTextMessageToHandler(msgId, null, handler, 0, UPDATE_TEXT);
-                                simpleMessage.setId(id);
-                                simpleMessage.setSenderName(initModel.getRobotName());
-                                simpleMessage.setSender(initModel.getRobotName());
-                                simpleMessage.setSenderFace(initModel.getRobotLogo());
-                                simpleMessage.setSenderType(ZhiChiConstant.message_sender_type_robot + "");
-                                if (messageAdapter != null) {
-                                    messageAdapter.justAddData(simpleMessage);
-                                    messageAdapter.notifyDataSetChanged();
-                                }
-
+                                sendTextMessageToHandler(msgId, null, handler, 1, UPDATE_TEXT);
                                 //机器人超时下线
                                 customerServiceOffline(initModel, 4);
 
@@ -539,7 +530,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
 
     protected void sendHttpCustomServiceMessage(final String content, final String uid,
                                                 String cid, final Handler handler, final String mid) {
-        zhiChiApi.sendMsgToCoutom(content, uid, cid, new StringResultCallBack<CommonModelBase>() {
+        zhiChiApi.sendMsgToCoutom(content, uid, cid, mid, new StringResultCallBack<CommonModelBase>() {
             @Override
             public void onSuccess(CommonModelBase commonModelBase) {
                 if (!isActive()) {
@@ -617,7 +608,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
      */
     protected void sendHttpCardMsg(final String uid,
                                    String cid, final Handler handler, final String mid, final ConsultingContent consultingContent) {
-        zhiChiApi.sendCardMsg(consultingContent, uid, cid, new StringResultCallBack<CommonModelBase>() {
+        zhiChiApi.sendCardMsg(consultingContent, uid, cid, mid, new StringResultCallBack<CommonModelBase>() {
             @Override
             public void onSuccess(CommonModelBase commonModelBase) {
                 if (!isActive()) {
@@ -672,7 +663,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
      */
     protected void sendHttpOrderCardMsg(final String uid,
                                         String cid, final Handler handler, final String mid, final OrderCardContentModel orderCardContent) {
-        zhiChiApi.sendOrderCardMsg(orderCardContent, uid, cid, new StringResultCallBack<CommonModelBase>() {
+        zhiChiApi.sendOrderCardMsg(orderCardContent, uid, cid, mid, new StringResultCallBack<CommonModelBase>() {
             @Override
             public void onSuccess(CommonModelBase commonModelBase) {
                 if (!isActive()) {
@@ -735,9 +726,9 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                 if (FileOpenHelper.checkEndsWithInStringArray(fileName, getContext(), "sobot_fileEndingAll")) {
                     return;
                 }
-                String tmpMsgId = String.valueOf(System.currentTimeMillis());
+                String tmpMsgId = (initModel != null ? initModel.getCid() : "") + String.valueOf(System.currentTimeMillis());
                 LogUtils.i("tmpMsgId:" + tmpMsgId);
-                zhiChiApi.addUploadFileTask(false, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), selectedFile.getAbsolutePath(), null);
+                zhiChiApi.addUploadFileTask(false, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), tmpMsgId, selectedFile.getAbsolutePath(), null);
                 updateUiMessage(messageAdapter, ChatUtils.getUploadFileModel(getContext(), tmpMsgId, selectedFile));
                 isAboveZero = true;
             }
@@ -750,7 +741,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             return;
         }
         if (isNewMsg) {
-            msgId = System.currentTimeMillis() + "";
+            msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
             sendNewMsgToHandler(ChatUtils.getLocationModel(msgId, data), handler, ZhiChiConstant.MSG_SEND_STATUS_LOADING);
         } else {
             if (TextUtils.isEmpty(msgId)) {
@@ -759,7 +750,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             updateMsgToHandler(msgId, handler, ZhiChiConstant.MSG_SEND_STATUS_LOADING);
         }
         final String finalMsgId = msgId;
-        zhiChiApi.sendLocation(SobotChatBaseFragment.this, data, initModel.getPartnerid(), initModel.getCid(), new StringResultCallBack<CommonModelBase>() {
+        zhiChiApi.sendLocation(SobotChatBaseFragment.this, data, initModel.getPartnerid(), initModel.getCid(), finalMsgId,new StringResultCallBack<CommonModelBase>() {
             @Override
             public void onSuccess(CommonModelBase commonModelBase) {
                 if (!isActive()) {
@@ -792,7 +783,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             return;
         }
         if (isNewMsg) {
-            msgId = System.currentTimeMillis() + "";
+            msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
             sendNewMsgToHandler(ChatUtils.getMuitidiaLeaveMsgModel(msgId, data), handler, ZhiChiConstant.MSG_SEND_STATUS_LOADING);
         } else {
             if (TextUtils.isEmpty(msgId)) {
@@ -822,7 +813,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     }
 
     protected void uploadVideo(File videoFile, Uri fileUri, final SobotMsgAdapter messageAdapter) {
-        String tmpMsgId = String.valueOf(System.currentTimeMillis());
+        String tmpMsgId = (initModel != null ? initModel.getCid() : "") + String.valueOf(System.currentTimeMillis());
         LogUtils.i("tmpMsgId:" + tmpMsgId);
         String fName = MD5Util.encode(videoFile.getAbsolutePath());
         String filePath = null;
@@ -841,7 +832,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             snapshotPath = FileUtil.saveBitmap(100, bitmap);
         }
 
-        zhiChiApi.addUploadFileTask(true, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), filePath, snapshotPath);
+        zhiChiApi.addUploadFileTask(true, tmpMsgId, initModel.getPartnerid(), initModel.getCid(), tmpMsgId, filePath, snapshotPath);
         updateUiMessage(messageAdapter, ChatUtils.getUploadVideoModel(getContext(), tmpMsgId, new File(filePath), snapshotPath));
         isAboveZero = true;
     }
@@ -980,7 +971,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     protected void sendVoice(final String voiceMsgId, final String voiceTimeLongStr,
                              String cid, String uid, final String filePath, final Handler handler) {
         if (current_client_model == ZhiChiConstant.client_model_robot) {
-            zhiChiApi.sendVoiceToRobot(filePath, uid, cid, initModel.getRobotid(), voiceTimeLongStr, new ResultCallBack<ZhiChiMessage>() {
+            zhiChiApi.sendVoiceToRobot(filePath, uid, cid,voiceMsgId, initModel.getRobotid(), voiceTimeLongStr, new ResultCallBack<ZhiChiMessage>() {
                 @Override
                 public void onSuccess(ZhiChiMessage zhiChiMessage) {
                     if (!isActive()) {
@@ -988,7 +979,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     }
                     LogUtils.i("发送给机器人语音---sobot---" + zhiChiMessage.getMsg());
                     // 语音发送成功
-                    String id = System.currentTimeMillis() + "";
+                    String id =(initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
                     isAboveZero = true;
                     restartMyTimeTask(handler);
                     if (!TextUtils.isEmpty(zhiChiMessage.getMsg())) {
@@ -1032,7 +1023,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             });
         } else if (current_client_model == ZhiChiConstant.client_model_customService) {
             LogUtils.i("发送给人工语音---sobot---" + filePath);
-            zhiChiApi.sendFile(cid, uid, filePath, voiceTimeLongStr,
+            zhiChiApi.sendFile(cid, uid, voiceMsgId, filePath, voiceTimeLongStr,
                     new ResultCallBack<ZhiChiMessage>() {
                         @Override
                         public void onSuccess(ZhiChiMessage zhiChiMessage) {
@@ -1387,16 +1378,9 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                     // 打开询前表单
                     Intent intent = new Intent(mAppContext, SobotQueryFromActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPID, param.getGroupId());
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_GROUPNAME, param.getGroupName());
                     bundle.putSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_FIELD, sobotQueryFormModel);
                     bundle.putSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UID, initModel.getPartnerid());
-                    bundle.putInt(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_TRANSFER_TYPE, param.getTransferType());
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_DOCID, param.getDocId());
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_UNKNOWNQUESTION, param.getUnknownQuestion());
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_ACTIVETRANSFER, param.getActiveTransfer());
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD, param.getKeyword());
-                    bundle.putString(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_KEYWORD_ID, param.getKeywordId());
+                    bundle.putSerializable(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA_CONNCUSPARAM,param);
                     intent.putExtra(ZhiChiConstant.SOBOT_INTENT_BUNDLE_DATA, bundle);
                     startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_QUERY_FROM);
                 } else {
@@ -1786,14 +1770,14 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
                             //队列中没有 表示是新数据
                             //新数据就添加进队列中
                             receiveMsgQueue.offer(msgId);
-                            Util.notifyMsg(mContext, data,"fragment 轮询： 新数据插入到receiveMsgQueue中  msgId: " +msgId);
-                        }else{
-                            LogUtils.i2Local("fragment 轮询","已经插入过receiveMsgQueue,不操作  msgId: " +msgId);
+                            Util.notifyMsg(mContext, data, "fragment 轮询： 新数据插入到receiveMsgQueue中  msgId: " + msgId);
+                        } else {
+                            LogUtils.i2Local("fragment 轮询", "已经插入过receiveMsgQueue,不操作  msgId: " + msgId);
                         }
                         //生成 回执
                         acks.put(new JSONObject("{msgId:" + msgId + "}"));
                     } else {
-                        Util.notifyMsg(mContext, data,"fragment 轮询： receiveMsgQueue为空，不缓存直接广播   msgId: " + msgId);
+                        Util.notifyMsg(mContext, data, "fragment 轮询： receiveMsgQueue为空，不缓存直接广播   msgId: " + msgId);
                     }
                 }
             } catch (JSONException e) {

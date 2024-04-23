@@ -171,7 +171,7 @@
        <string name="sobot_already_save_to_picture">Đã lưu vào album hệ thống</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Sau khi tư vấn mới có thể đánh giá chất lượng dịch vụ</string>
        <string name="sobot__is_null">Không thể để trống</string>
-       <string name="sobot_reunicon">NHấp đề thử lại liên kểt</string>
+       <string name="sobot_reunicon">Tải lại</string>
        <string name="sobot_pic_select_again">Hãy chọn lại hoặc chụp ảnh</string>
        <string name="sobot_only_can_write">Chỉ có thể nhập</string>
        <string name="sobot_loading">Hãy đợi</string>
@@ -238,4 +238,7 @@
        <string name="sobot_str_please_check_is_solve">Vui lòng chọn nếu vấn đề của bạn được giải quyết</string>
        <string name="sobot_evaluate_lab">Thẻ:</string>
        <string name="sobot_evaluate_issolve">Giải quyết:</string>
+       <string name="sobot_str_select_pic_video">Chọn ảnh và video</string>
+       <string name="sobot_str_goto_setting_info">Hiện tại chỉ cho phép truy cập vào một số ảnh hoặc video</string>
+       <string name="sobot_str_goto_setting_allow">Cho phép tất cả></string>
 </resources>

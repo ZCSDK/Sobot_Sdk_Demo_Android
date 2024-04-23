@@ -17,6 +17,7 @@ import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
+import com.sobot.chat.ZCSobotConstant;
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.enumtype.SobotChatAvatarDisplayMode;
 import com.sobot.chat.api.enumtype.SobotChatTitleDisplayMode;
@@ -30,7 +31,7 @@ import com.sobot.demo.model.SobotDemoOtherModel;
 
 public class SobotCustomUiFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText sobot_et_custom_title, sobot_et_custom_avatar,sobot_et_custom_right_button_call;
+    private EditText sobot_et_custom_title, sobot_et_custom_avatar, sobot_et_custom_right_button_call, sobot_et_localmodel;
     private RelativeLayout sobot_tv_left, sobot_rl_4_6_2, sobot_rl_4_6_2_2, sobot_rl_4_6_3, sobot_rl_4_6_4, sobot_rl_4_6_1_1, sobot_rl_4_6_1_2, sobot_rl_4_6_1_3;
     private ImageView sobotImage462, sobotImage4622, sobotImage463, sobotImage464, sobotImage4611, sobotImage4612, sobotImage4613;
     private boolean status462, status4622, status463, status464, status4611, status4612, status4613;
@@ -96,14 +97,15 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
         sobot_et_custom_title = findViewById(R.id.sobot_et_custom_title);
         sobot_et_custom_avatar = findViewById(R.id.sobot_et_custom_avatar);
         sobot_et_custom_right_button_call = findViewById(R.id.sobot_et_custom_right_button_call);
-
+        sobot_et_localmodel = findViewById(R.id.sobot_et_localmodel);
+        sobot_et_localmodel.setText(SharedPreferencesUtil.getIntData(getContext(), ZCSobotConstant.LOCAL_NIGHT_MODE, -1)+"");
         String title = SharedPreferencesUtil.getStringData(getContext(), ZhiChiConstant.SOBOT_CHAT_TITLE_DISPLAY_CONTENT,
                 "");
         sobot_et_custom_title.setText(title);
         String avatar = SharedPreferencesUtil.getStringData(getContext(), ZhiChiConstant.SOBOT_CHAT_AVATAR_DISPLAY_CONTENT,
                 "");
         sobot_et_custom_avatar.setText(avatar);
-        String callNum = SobotSPUtil.getStringData(getContext(), "sobot_et_custom_right_button_call",sobot_et_custom_avatar.getText().toString().trim());
+        String callNum = SobotSPUtil.getStringData(getContext(), "sobot_et_custom_right_button_call", sobot_et_custom_avatar.getText().toString().trim());
         sobot_et_custom_right_button_call.setText(callNum);
         status462 = SharedPreferencesUtil.getBooleanData(getContext(), ZhiChiConstant.SOBOT_CHAT_TITLE_IS_SHOW, false);
         setImageShowStatus(status462, sobotImage462);
@@ -180,7 +182,7 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
                     SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu1_display", status4611);
                     SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu2_display", status4612);
                     SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu3_display", status4613);
-                    SobotSPUtil.saveStringData(getContext(), "sobot_et_custom_right_button_call",sobot_et_custom_right_button_call.getText().toString().trim());
+                    SobotSPUtil.saveStringData(getContext(), "sobot_et_custom_right_button_call", sobot_et_custom_right_button_call.getText().toString().trim());
                     //设置 toolbar右边第一个按钮是否显示（更多）
                     SobotUIConfig.sobot_title_right_menu1_display = status4611;
                     //设置 toolbar右边第二个按钮是否显示（评价）
@@ -189,6 +191,7 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
                     SobotUIConfig.sobot_title_right_menu3_display = status4613;
                     // toolbar右边第三个按钮电话对应的电话号
                     SobotUIConfig.sobot_title_right_menu3_call_num = sobot_et_custom_right_button_call.getText().toString().trim();
+                    ZCSobotApi.setLocalNightMode(SobotCustomUiFunctionActivity.this,Integer.parseInt(sobot_et_localmodel.getText().toString()));
                 }
                 ToastUtil.showToast(getContext(), "已保存");
                 finish();

@@ -6,7 +6,7 @@
     <!-- stroke 描边 -->
     <stroke
         android:width="0.5dip"
-        android:color="#C3C3C3" />
+        android:color="@color/sobot_line_1dp" />
     <!-- corners 圆角 android:radius为角的弧度，值越大角越圆。 -->
     <corners android:radius="5dip" />
 

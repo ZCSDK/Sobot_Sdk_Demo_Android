@@ -210,6 +210,8 @@
 
     <!--文件进度条背景色-->
     <color name="sobot_sectorProgressView_fgColor">#4D000000</color>
+    <!--半透明-->
+    <color name="sobot_half_transparent">#73000000</color>
 
     <!--自动补全 背景色-->
     <color name="sobot_auto_complete_press">@color/sobot_common_gray8</color>
