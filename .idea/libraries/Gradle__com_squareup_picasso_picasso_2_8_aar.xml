@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.squareup.picasso:picasso:2.8@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://E:/androidtools/.gradle/caches/transforms-3/d395f31d75fed6bc3bdb73c8f87d296b/transformed/jetified-picasso-2.8/jars/classes.jar!/" />
+      <root url="file://E:/androidtools/.gradle/caches/transforms-3/d395f31d75fed6bc3bdb73c8f87d296b/transformed/jetified-picasso-2.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

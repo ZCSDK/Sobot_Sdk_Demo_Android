@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.sobot.library:net:1.2.3@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://E:/androidtools/.gradle/caches/transforms-3/d9a27a3327fc057d23b1e023a3ea0cdf/transformed/jetified-net-1.2.3/jars/classes.jar!/" />
+      <root url="file://E:/androidtools/.gradle/caches/transforms-3/d9a27a3327fc057d23b1e023a3ea0cdf/transformed/jetified-net-1.2.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

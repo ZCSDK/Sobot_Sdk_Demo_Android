@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: D./sobotproject/sdkproject/Sobot_Sdk_Demo_Android/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.3.0.jar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/sobotsdk-mall-x/libs/sobot_sdk_mall_x_lib_3.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

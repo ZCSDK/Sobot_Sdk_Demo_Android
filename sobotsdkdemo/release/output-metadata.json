@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sobot.chat.tem",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 30,
+      "versionName": "3.3.0",
+      "outputFile": "sobotsdkdemo-release.apk"
+    }
+  ]
+}
