@@ -177,18 +177,27 @@ public abstract class SobotBaseFragment extends Fragment {
                 try {
                     //单独处理android 14 部分权限，如果允许是部分权限，跳转到回显界面
                     if (grantResults.length > 1 && permissions.length > 0) {
+                        //是否有全部权限
+                        boolean isAllGranted = true;
                         for (int i = 0; i < grantResults.length; i++) {
-                            if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                                int selectType;
-                                if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_IMAGES) && Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
-                                    selectType = 3;//部分视频和图片
-                                } else if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
-                                    selectType = 2;//部分视频
-                                } else {
-                                    selectType = 1;//部分图片
+                            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                                isAllGranted = false;
+                            }
+                        }
+                        if (!isAllGranted) {
+                            for (int i = 0; i < grantResults.length; i++) {
+                                if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                                    int selectType;
+                                    if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_IMAGES) && Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
+                                        selectType = 3;//部分视频和图片
+                                    } else if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
+                                        selectType = 2;//部分视频
+                                    } else {
+                                        selectType = 1;//部分图片
+                                    }
+                                    openSelectPic(selectType);
+                                    return;
                                 }
-                                openSelectPic(selectType);
-                                return;
                             }
                         }
                     }
@@ -363,7 +372,8 @@ public abstract class SobotBaseFragment extends Fragment {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                         //android 14
                         if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED) {
+                                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                                != PackageManager.PERMISSION_GRANTED) {
                             //有部分图片权限，直接打开允许访问图片视频列表界面
                             openSelectPic(1);//照片
                             return false;
@@ -383,7 +393,8 @@ public abstract class SobotBaseFragment extends Fragment {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                         //android 14
                         if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED) {
+                                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                                != PackageManager.PERMISSION_GRANTED) {
                             //有部分视频权限，直接打开允许访问图片视频列表界面
                             openSelectPic(2);//视频
                             return false;

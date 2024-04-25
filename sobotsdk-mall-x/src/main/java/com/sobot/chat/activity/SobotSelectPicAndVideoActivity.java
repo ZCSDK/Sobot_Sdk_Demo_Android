@@ -68,10 +68,18 @@ public class SobotSelectPicAndVideoActivity extends SobotBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                == PackageManager.PERMISSION_GRANTED) {
-            //如果android 14 手机有永久权限 直接关闭当前界面
-            finish();
+        if(selectType == 1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //如果android 14 手机有永久权限 直接关闭当前界面
+                finish();
+            }
+        }else if(selectType == 2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //如果android 14 手机有永久权限 直接关闭当前界面
+                finish();
+            }
         }
     }
 
