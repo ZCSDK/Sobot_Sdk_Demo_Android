@@ -2,10 +2,11 @@ package com.sobot.chat.widget.rich;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.core.app.ShareCompat;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
+
+import androidx.core.app.ShareCompat;
 
 import com.sobot.chat.utils.SobotOption;
 

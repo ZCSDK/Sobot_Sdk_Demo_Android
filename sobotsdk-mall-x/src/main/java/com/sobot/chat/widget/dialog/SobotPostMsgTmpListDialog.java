@@ -31,6 +31,7 @@ public class SobotPostMsgTmpListDialog extends SobotActionSheet implements Adapt
     private SobotPostMsgTmpListAdapter mListAdapter;
 
     private TextView sobot_tv_title;
+    private Activity mActivity;
 
     private SobotPostMsgTmpListDialog(Activity context) {
         super(context);
@@ -38,6 +39,7 @@ public class SobotPostMsgTmpListDialog extends SobotActionSheet implements Adapt
 
     public SobotPostMsgTmpListDialog(Activity context, ArrayList<SobotPostMsgTemplate> datas, SobotDialogListener listListener) {
         super(context);
+        mActivity = context;
         mDatas = datas;
         mListener = listListener;
     }
@@ -67,8 +69,8 @@ public class SobotPostMsgTmpListDialog extends SobotActionSheet implements Adapt
 
     @Override
     protected void initData() {
-        if (mListAdapter == null) {
-            mListAdapter = new SobotPostMsgTmpListAdapter(getContext(), mDatas);
+        if (mListAdapter == null && mActivity!=null) {
+            mListAdapter = new SobotPostMsgTmpListAdapter(mActivity, mDatas);
             sobot_gv.setAdapter(mListAdapter);
         }
     }

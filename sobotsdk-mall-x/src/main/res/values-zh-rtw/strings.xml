@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">確定</string>
        <string name="sobot_btn_cancle">取消</string>
        <string name="sobot_attach_take_pic">拍攝</string>
-       <string name="sobot_already_save_to_picture">已保存到系統相冊</string>
+       <string name="sobot_already_save_to_picture">保存成功</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">諮詢後才能評價服務質量</string>
        <string name="sobot__is_null">不能為空</string>
        <string name="sobot_reunicon">重裝</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">選擇照片和視頻</string>
        <string name="sobot_str_goto_setting_info">當前僅允許訪問部分照片或視頻</string>
        <string name="sobot_str_goto_setting_allow">允許全部></string>
+       <string name="sobot_permission_use_info">權限使用說明</string>
+       <string name="sobot_album_permission_yongtu">正在申請您的照片和影片存取及使用權限。 允許後，在諮詢客服和留言時可發送照片和視頻</string>
+       <string name="sobot_please_open_album">請求使用相簿權限</string>
+       <string name="sobot_use_album">用於存取及使用此設備上的照片和視頻</string>
+       <string name="sobot_camera_permission_yongtu">正在申請您的照片和影片存取及使用權限。 允許後，在諮詢客服和留言時可發送照片和視頻</string>
+       <string name="sobot_please_open_camera">請求開啟相機權限</string>
+       <string name="sobot_use_camera">用於取得相機的使用權限</string>
+       <string name="sobot_microphone_permission_yongtu">正在申請您的麥克風使用權限。 允許後，在諮詢客服時可發送語音訊息</string>
+       <string name="sobot_please_open_microphone">請求開啟相機及麥克風權限</string>
+       <string name="sobot_use_microphone">用於取得相機及麥克風的使用權限</string>
+       <string name="sobot_storage_permission_yongtu">正在申請您的文件存取及使用權限。 允許後，在諮詢客服和留言時可發送文件</string>
+       <string name="sobot_please_open_storage">請求使用儲存權限</string>
+       <string name="sobot_use_storage">用於存取及使用此設備上的文件</string>
 </resources>

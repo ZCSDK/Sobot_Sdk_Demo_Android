@@ -8,12 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.sobot.chat.activity.SobotConsultationListActivity;
 import com.sobot.chat.activity.SobotHelpCenterActivity;
@@ -579,6 +578,7 @@ public class ZCSobotApi {
             SharedPreferencesUtil.saveStringData(context, SOBOT_LANGUAGE_STRING_PATH, "");
             //清除夜间模式设置
             SharedPreferencesUtil.removeKey(context, ZCSobotConstant.LOCAL_NIGHT_MODE);
+            SharedPreferencesUtil.removeKey(context, ZCSobotConstant.IS_CHECK_AUTHORITY_SUBTITLE);
             if (!CommonUtils.inMainProcess(context.getApplicationContext())) {
                 return;
             }
@@ -1331,6 +1331,18 @@ public class ZCSobotApi {
                 appCompatDelegate = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
             }
             SharedPreferencesUtil.saveIntData(context, ZCSobotConstant.LOCAL_NIGHT_MODE, appCompatDelegate);
+        }
+    }
+
+    /**
+     * 权限说明蒙层显示时是否检测有副标题，
+     * 只有检测时同时有副标题，才不显示权限说明蒙层
+     * @param context
+     * @param isCheck true：检测，false:不检测
+     */
+    public static void isCheckAuthoritySubtitle(Context context, boolean isCheck) {
+        if (context != null) {
+            SharedPreferencesUtil.saveBooleanData(context, ZCSobotConstant.IS_CHECK_AUTHORITY_SUBTITLE, isCheck);
         }
     }
 }

@@ -1,1 +1,23 @@
-include ':sobotsdkdemo', ':sobotsdk-mall-x'
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        jcenter()
+        google()
+        // 添加阿里云仓库（国内镜像加速）
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        // 其他私有仓库（若依赖为私有库）
+        maven { url 'https://jitpack.io' }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        google()
+        jcenter()
+    }
+}
+rootProject.name = "Sobot_Sdk_Demo_Android"
+include ':sobotsdkdemo'
+include ':sobotsdk-mall-x'

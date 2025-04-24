@@ -1,5 +1,7 @@
 package com.sobot.demo.permission;
 
+import static com.sobot.demo.permission.ZCPermissionUtils.getActivity;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,8 +12,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sobot.demo.permission.ZCPermissionUtils.getActivity;
 
 
 /**

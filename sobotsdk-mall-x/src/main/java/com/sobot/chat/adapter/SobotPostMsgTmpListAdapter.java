@@ -1,5 +1,6 @@
 package com.sobot.chat.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class SobotPostMsgTmpListAdapter extends SobotBaseGvAdapter<SobotPostMsgTemplate> {
 
-    public SobotPostMsgTmpListAdapter(Context context, List<SobotPostMsgTemplate> list) {
+    public SobotPostMsgTmpListAdapter(Activity context, List<SobotPostMsgTemplate> list) {
         super(context, list);
     }
 

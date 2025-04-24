@@ -1,11 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.chat:sobotsupport-glidev4:3.1@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://E:/androidtools/.gradle/caches/transforms-3/1aab1758bfb1bef7ff79614d7512518e/transformed/jetified-sobotsupport-glidev4-3.1/jars/classes.jar!/" />
-      <root url="file://E:/androidtools/.gradle/caches/transforms-3/1aab1758bfb1bef7ff79614d7512518e/transformed/jetified-sobotsupport-glidev4-3.1/res" />
-      <root url="file://E:/androidtools/.gradle/caches/transforms-3/1aab1758bfb1bef7ff79614d7512518e/transformed/jetified-sobotsupport-glidev4-3.1/AndroidManifest.xml" />
+      <root url="file://E:/androidtools/.gradle/caches/8.11.1/transforms/396bfab54ea9b3dce20fc4d516927289/transformed/jetified-sobotsupport-glidev4-3.1/res" />
+      <root url="file://E:/androidtools/.gradle/caches/8.11.1/transforms/396bfab54ea9b3dce20fc4d516927289/transformed/jetified-sobotsupport-glidev4-3.1/AndroidManifest.xml" />
+      <root url="jar://E:/androidtools/.gradle/caches/8.11.1/transforms/396bfab54ea9b3dce20fc4d516927289/transformed/jetified-sobotsupport-glidev4-3.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://E:/androidtools/.gradle/caches/modules-2/files-2.1/com.sobot.chat/sobotsupport-glidev4/3.1/be2106e35d7d25a8ff2bf9e88322564164d50cf6/sobotsupport-glidev4-3.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

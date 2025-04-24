@@ -1,11 +1,12 @@
 package com.sobot.chat.widget.horizontalgridpage;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
-import android.view.View;
 
 import com.sobot.chat.utils.LogUtils;
 

@@ -117,7 +117,7 @@ public class SobotCameraActivity extends SobotBaseActivity {
 
     @Override
     protected void onDestroy() {
-        if(null!=jCameraView){
+        if (null != jCameraView) {
             jCameraView.setErrorLisenter(null);
         }
         MyApplication.getInstance().deleteActivity(this);
@@ -148,11 +148,19 @@ public class SobotCameraActivity extends SobotBaseActivity {
             public void AudioPermissionError() {
                 permissionListener = new PermissionListenerImpl() {
                 };
-                if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2,3)) {
-                } else {
-                    if (!checkAudioPermission()) {
-                    }
+                if (!isHasPermission(2, 3)) {
                 }
+            }
+
+
+            @Override
+            public boolean checkAutoPremission() {
+                return isHasPermission(2,2);
+            }
+
+            @Override
+            public boolean checkCameraPremission() {
+                return isHasPermission(3, 3);
             }
         });
         //JCameraView监听

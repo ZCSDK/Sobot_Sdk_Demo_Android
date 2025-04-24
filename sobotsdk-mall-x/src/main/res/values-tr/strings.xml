@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Tamamla</string>
        <string name="sobot_btn_cancle">Iptal</string>
        <string name="sobot_attach_take_pic">Fotoğraf çek</string>
-       <string name="sobot_already_save_to_picture">Sistem albümüne kaydedildi</string>
+       <string name="sobot_already_save_to_picture">Başarıyla kaydedildi</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Danışmadan sonra hizmet kalitesi değerlendirilebilir</string>
        <string name="sobot__is_null">Boş olmamalı</string>
        <string name="sobot_reunicon">Yeniden yükle</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Fotoğrafları ve videoları seçin</string>
        <string name="sobot_str_goto_setting_info">Şu anda fotoğraflara ya da videolara sadece parçacık erişim izin verildi.</string>
        <string name="sobot_str_goto_setting_allow">Bütün izin verin></string>
+       <string name="sobot_permission_use_info">İzin kullanma talimatları</string>
+       <string name="sobot_album_permission_yongtu">We are applying for your photo and video access and usage rights. İzninizden sonra, müşteri hizmetlerine danıştığında fotoğraflar ve videolar gönderebilir ve mesajlar bıraktığında</string>
+       <string name="sobot_please_open_album">Requesting permission to use album</string>
+       <string name="sobot_use_album">Bu cihazda fotoğraflar ve videolar kullanmak için kullanılır</string>
+       <string name="sobot_camera_permission_yongtu">Kamerayı kullanmak için izin istiyorum. İzninizden sonra, müşteri hizmeti danıştırırken fotoğrafları ve videoları kaydetebilirsiniz.</string>
+       <string name="sobot_please_open_camera">Kamera izinlerini etkinleştirmek iste</string>
+       <string name="sobot_use_camera">Kamera kullanma izinlerini almak için kullanılır</string>
+       <string name="sobot_microphone_permission_yongtu">Mikrofonunuzu kullanmak için izin istiyorum. İzninizden sonra, müşteri hizmeti danıştığında sesli mesajlar gönderilir</string>
+       <string name="sobot_please_open_microphone">Mikrofonu etkinleştirmek için izin iste</string>
+       <string name="sobot_use_microphone">Mikrofonları kullanmak için izni almak için kullanılır</string>
+       <string name="sobot_storage_permission_yongtu">We are applying for your file access and usage rights. İzninizden sonra, müşteri hizmeti danıştırırken ve mesajları terk ettiğinde dosyalar gönderilebilir.</string>
+       <string name="sobot_please_open_storage">depo izini istemek</string>
+       <string name="sobot_use_storage">Bu cihazdaki dosyalara erişim ve kullanmak için kullanılır</string>
 </resources>

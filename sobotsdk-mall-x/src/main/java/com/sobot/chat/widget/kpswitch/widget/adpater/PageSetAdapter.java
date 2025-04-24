@@ -1,9 +1,10 @@
 package com.sobot.chat.widget.kpswitch.widget.adpater;
 
-import androidx.viewpager.widget.PagerAdapter;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.sobot.chat.widget.kpswitch.widget.data.PageEntity;
 import com.sobot.chat.widget.kpswitch.widget.data.PageSetEntity;

@@ -1,11 +1,12 @@
 package com.sobot.demo.activity.product;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.model.Information;

@@ -20,6 +20,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
+import com.sobot.chat.MarkConfig;
+import com.sobot.chat.R;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.camera.listener.StCameraListener;
 import com.sobot.chat.camera.listener.StCaptureListener;
 import com.sobot.chat.camera.listener.StClickListener;
@@ -30,7 +33,6 @@ import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.camera.util.ScreenUtils;
 import com.sobot.chat.camera.util.StCmeraLog;
 import com.sobot.chat.camera.view.StICameraView;
-import com.sobot.chat.utils.ResourceUtils;
 
 
 public class StCameraView extends FrameLayout implements CameraInterface.CameraOpenOverCallback, SurfaceHolder
@@ -130,8 +132,8 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
     private void initAttrs() {
         iconSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 30, getResources().getDisplayMetrics());
         iconMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20, getResources().getDisplayMetrics());
-        iconSrc = ResourceUtils.getDrawableId(getContext(), "sobot_ic_camera");
-        iconLeft = ResourceUtils.getDrawableId(getContext(), "sobot_ic_back");
+        iconSrc = R.drawable.sobot_ic_camera;
+        iconLeft = R.drawable.sobot_ic_back;
         iconRight = 0;
         duration = 15 * 1000;       //没设置默认为15s
     }
@@ -146,10 +148,10 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
 
     private void initView() {
         setWillNotDraw(false);
-        View view = LayoutInflater.from(getContext()).inflate(ResourceUtils.getResLayoutId(getContext(),"sobot_camera_view"), this);
-        mVideoView = (VideoView) view.findViewById(ResourceUtils.getResId(getContext(), "video_preview"));
-        mPhoto = (ImageView) view.findViewById(ResourceUtils.getResId(getContext(), "image_photo"));
-        mSwitchCamera = (ImageView) view.findViewById(ResourceUtils.getResId(getContext(), "image_switch"));
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.sobot_camera_view, this);
+        mVideoView = (VideoView) view.findViewById(R.id.video_preview);
+        mPhoto = (ImageView) view.findViewById(R.id.image_photo);
+        mSwitchCamera = (ImageView) view.findViewById(R.id.image_switch);
         mSwitchCamera.setImageResource(iconSrc);
 //        mFlashLamp = (ImageView) view.findViewById(R.id.image_flash);
 //        setFlashRes();
@@ -162,10 +164,10 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
 //                setFlashRes();
 //            }
 //        });
-        mCaptureLayout = (CaptureLayout) view.findViewById(ResourceUtils.getResId(getContext(), "capture_layout"));
+        mCaptureLayout = (CaptureLayout) view.findViewById(R.id.capture_layout);
         mCaptureLayout.setDuration(duration);
         mCaptureLayout.setIconSrc(iconLeft, iconRight);
-        mFoucsView = (StFoucsView) view.findViewById(ResourceUtils.getResId(getContext(), "fouce_view"));
+        mFoucsView = (StFoucsView) view.findViewById(R.id.fouce_view);
         mVideoView.getHolder().addCallback(this);
         //切换摄像头
         mSwitchCamera.setOnClickListener(new OnClickListener() {
@@ -192,7 +194,7 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
 
             @Override
             public void recordShort(final long time) {
-                mCaptureLayout.setTextWithAnimation(ResourceUtils.getResString(getContext(),"sobot_voice_time_short"));
+                mCaptureLayout.setTextWithAnimation(getContext().getResources().getString(R.string.sobot_voice_time_short));
                 mSwitchCamera.setVisibility(VISIBLE);
 //                mFlashLamp.setVisibility(VISIBLE);
                 postDelayed(new Runnable() {
@@ -219,6 +221,22 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
                 if (errorLisenter != null) {
                     errorLisenter.AudioPermissionError();
                 }
+            }
+
+            @Override
+            public boolean checkAutoPremission() {
+                if (errorLisenter != null) {
+                    return errorLisenter.checkAutoPremission();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean checkCameraPremission() {
+                if (errorLisenter != null) {
+                    return errorLisenter.checkCameraPremission();
+                }
+                return false;
             }
         });
         //确认 取消
@@ -257,8 +275,16 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         float widthSize = mVideoView.getMeasuredWidth();
         float heightSize = mVideoView.getMeasuredHeight();
-        if (screenProp == 0) {
-            screenProp = heightSize / widthSize;
+        if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)) {
+            //横屏
+            if (screenProp == 0) {
+                screenProp = widthSize / heightSize;
+            }
+        } else {
+            //竖屏
+            if (screenProp == 0) {
+                screenProp = heightSize / widthSize;
+            }
         }
     }
 
@@ -297,9 +323,9 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
                 postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        setFocusViewWidthAnimation(getWidth()/2,getHeight()/2);
+                        setFocusViewWidthAnimation(getWidth() / 2, getHeight() / 2);
                     }
-                },1000);
+                }, 1000);
 
             }
         }.start();
@@ -467,7 +493,7 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
         if (isVertical) {
             mPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
         } else {
-            mPhoto.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            mPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
         }
         captureBitmap = bitmap;
         mPhoto.setImageBitmap(bitmap);

@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Tentu</string>
        <string name="sobot_btn_cancle">Batal</string>
        <string name="sobot_attach_take_pic">Kamera</string>
-       <string name="sobot_already_save_to_picture">Disimpan ke album sistem</string>
+       <string name="sobot_already_save_to_picture">Berhasil disimpan</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Kualitas layanan hanya dapat dievaluasi setelah konsultasi</string>
        <string name="sobot__is_null">Tidak boleh kosong</string>
        <string name="sobot_reunicon">Muat ulang</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Pilih foto dan video</string>
        <string name="sobot_str_goto_setting_info">Saat ini, hanya akses parsial ke foto atau video dibenarkan</string>
        <string name="sobot_str_goto_setting_allow">Izinkan semua></string>
+       <string name="sobot_permission_use_info">Instruksi penggunaan izin</string>
+       <string name="sobot_album_permission_yongtu">Kami mendaftar untuk akses foto dan video Anda dan hak penggunaan. Setelah izin, foto dan video dapat dikirim ketika mengkonsultasi layanan pelanggan dan meninggalkan pesan</string>
+       <string name="sobot_please_open_album">Meminta izin untuk menggunakan album</string>
+       <string name="sobot_use_album">Digunakan untuk mengakses dan menggunakan foto dan video pada perangkat ini</string>
+       <string name="sobot_camera_permission_yongtu">Meminta izin untuk menggunakan kameramu. Setelah izin, Anda dapat mengambil foto dan merekam video untuk mengunggah ketika mengkonsultasi layanan pelanggan dan meninggalkan pesan</string>
+       <string name="sobot_please_open_camera">Permintaan untuk mengaktifkan keizinan kamera</string>
+       <string name="sobot_use_camera">Digunakan untuk mendapatkan izin penggunaan kamera</string>
+       <string name="sobot_microphone_permission_yongtu">Meminta izin untuk menggunakan mikrofonmu. Setelah izin, pesan suara dapat dikirim ketika mengkonsultasi layanan pelanggan</string>
+       <string name="sobot_please_open_microphone">Permintaan izin untuk mengaktifkan mikrofon</string>
+       <string name="sobot_use_microphone">Digunakan untuk mendapatkan izin untuk menggunakan mikrofon</string>
+       <string name="sobot_storage_permission_yongtu">Kami meminta akses berkasmu dan hak penggunaan. Setelah izin, berkas dapat dikirim ketika mengkonsultasi layanan pelanggan dan meninggalkan pesan</string>
+       <string name="sobot_please_open_storage">Meminta izin penyimpanan</string>
+       <string name="sobot_use_storage">Digunakan untuk mengakses dan menggunakan berkas pada perangkat ini</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.sobot.chat.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.util.List;
 public class SobotHelpCenterAdapter extends SobotBaseAdapter<StCategoryModel> {
     private LayoutInflater mInflater;
 
-    public SobotHelpCenterAdapter(Context context, List<StCategoryModel> list) {
+    public SobotHelpCenterAdapter(Activity context, List<StCategoryModel> list) {
         super(context, list);
         mInflater = LayoutInflater.from(context);
     }

@@ -42,7 +42,7 @@ public class SobotCusFieldAdapter extends SobotBaseAdapter<SobotCusFieldDataInfo
     //适配器的adpater
 
     public SobotCusFieldAdapter(Activity activity, Context context, List<SobotCusFieldDataInfo> list, int fieldType) {
-        super(context, list);
+        super(activity, list);
         this.mContext = context;
         this.mActivity = activity;
         this.fieldType = fieldType;

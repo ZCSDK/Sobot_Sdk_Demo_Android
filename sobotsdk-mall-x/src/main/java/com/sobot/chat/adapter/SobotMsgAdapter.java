@@ -1,6 +1,6 @@
 package com.sobot.chat.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -244,7 +244,7 @@ public class SobotMsgAdapter extends SobotBaseAdapter<ZhiChiMessageBase> {
 
     private SobotMsgCallBack mMsgCallBack;
 
-    public SobotMsgAdapter(Context context, List<ZhiChiMessageBase> list, SobotMsgCallBack msgCallBack) {
+    public SobotMsgAdapter(Activity context, List<ZhiChiMessageBase> list, SobotMsgCallBack msgCallBack) {
         super(context, list);
         mMsgCallBack = msgCallBack;
     }

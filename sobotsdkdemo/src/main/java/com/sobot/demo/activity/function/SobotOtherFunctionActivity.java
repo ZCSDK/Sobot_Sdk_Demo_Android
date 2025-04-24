@@ -3,9 +3,6 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -13,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sobot.chat.MarkConfig;
-import com.sobot.chat.SobotApi;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.model.Information;
@@ -25,8 +22,6 @@ import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.util.AndroidBug5497Workaround;
-
-import java.util.Map;
 
 public class SobotOtherFunctionActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -126,53 +121,52 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sobot_tv_save:
-                if (information != null) {
-                    information.setHideManualEvaluationLabels(status4762);
-                    information.setHideRototEvaluationLabels(status4761);
-                    information.setLocale(sobot_et_server_langue.getText().toString());
-                    SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
-                }
-                ZCSobotApi.setSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE, status478);
-                SobotSPUtil.saveBooleanData(this, "auto_match_timezone", status478);
-                String scope_time = sobot_et_scope_time.getText().toString().trim();
-                if (!TextUtils.isEmpty(scope_time)) {
+        if (v.getId() == R.id.sobot_tv_save) {
+            if (information != null) {
+                information.setHideManualEvaluationLabels(status4762);
+                information.setHideRototEvaluationLabels(status4761);
+                information.setLocale(sobot_et_server_langue.getText().toString());
+                SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
+            }
+            ZCSobotApi.setSwitchMarkStatus(MarkConfig.AUTO_MATCH_TIMEZONE, status478);
+            SobotSPUtil.saveBooleanData(this, "auto_match_timezone", status478);
+            String scope_time = sobot_et_scope_time.getText().toString().trim();
+            if (!TextUtils.isEmpty(scope_time)) {
+                try {
                     ZCSobotApi.setScope_time(getContext(), Long.parseLong(scope_time));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    ToastUtil.showToast(getContext(), "输入的时间范围格式错误，请检查输入内容");
                 }
-                ToastUtil.showToast(getContext(), "已保存");
-                if (TextUtils.isEmpty(sobot_et_langue.getText().toString().trim())) {
-                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), false, false);
-                    ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
-                } else {
-                    ZCSobotApi.setInternationalLanguage(getApplicationContext(), sobot_et_langue.getText().toString().trim(), true, false);
-                    ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
-                }
-                SobotSPUtil.saveStringData(this, "custom_language_value", sobot_et_langue.getText().toString().trim());
-                //是否在申请权限前弹出权限用途提示框,默认不弹
-                ZCSobotApi.setSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP, status479);
-                SobotSPUtil.saveBooleanData(this, "show_permission_tips_pop", status479);
-                ZCSobotApi.outCurrentUserZCLibInfo(getContext(),"");
-                finish();
-                break;
-            case R.id.sobot_rl_4_7_6_1:
-                status4761 = !status4761;
-                setImageShowStatus(status4761, sobotImage4761);
-                break;
-            case R.id.sobot_rl_4_7_6_2:
-                status4762 = !status4762;
-                setImageShowStatus(status4762, sobotImage4762);
-                break;
-            case R.id.sobot_rl_4_7_8:
-                status478 = !status478;
-                setImageShowStatus(status478, sobotImage478);
-                break;
-            case R.id.sobot_rl_4_7_9:
-                status479 = !status479;
-                setImageShowStatus(status479, sobotImage479);
-                break;
+            }
+            ToastUtil.showToast(getContext(), "已保存");
+            String language = sobot_et_langue.getText().toString().trim();
+            if (!TextUtils.isEmpty(language)) {
+                ZCSobotApi.setInternationalLanguage(getApplicationContext(), language, true, false);
+            } else {
+                ZCSobotApi.setInternationalLanguage(getApplicationContext(), language, false, false);
+            }
+            ZCSobotApi.hideTimemsgForMessageList(getApplicationContext(), false);
+            SobotSPUtil.saveStringData(this, "custom_language_value", language);
+            // 是否在申请权限前弹出权限用途提示框,默认不弹
+            ZCSobotApi.setSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP, status479);
+            SobotSPUtil.saveBooleanData(this, "show_permission_tips_pop", status479);
+            ZCSobotApi.outCurrentUserZCLibInfo(getContext(), "");
+            finish();
+        } else if (v.getId() == R.id.sobot_rl_4_7_6_1) {
+            toggleStatus(status4761, sobotImage4761);
+        } else if (v.getId() == R.id.sobot_rl_4_7_6_2) {
+            toggleStatus(status4762, sobotImage4762);
+        } else if (v.getId() == R.id.sobot_rl_4_7_8) {
+            toggleStatus(status478, sobotImage478);
+        } else if (v.getId() == R.id.sobot_rl_4_7_9) {
+            toggleStatus(status479, sobotImage479);
         }
+    }
 
+    private void toggleStatus(boolean status, ImageView imageView) {
+        status = !status;
+        setImageShowStatus(status, imageView);
     }
 
     private void setImageShowStatus(boolean status, ImageView imageView) {

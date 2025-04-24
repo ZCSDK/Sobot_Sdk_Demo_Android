@@ -1,11 +1,13 @@
 package com.sobot.chat.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.adapter.base.SobotBaseGvAdapter;
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class SobotRobotListAdapter extends SobotBaseGvAdapter<SobotRobot> {
 
-    public SobotRobotListAdapter(Context context, List<SobotRobot> list) {
+    public SobotRobotListAdapter(Activity context, List<SobotRobot> list) {
         super(context, list);
     }
 

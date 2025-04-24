@@ -1,18 +1,14 @@
 package com.sobot.demo.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sobot.chat.utils.LogUtils;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotDemoNewActivity;
-import com.sobot.demo.permission.ZCPermission;
-
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * 闪屏界面
@@ -38,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.sobot_push_left_in, R.anim.sobot_push_left_out);
+        overridePendingTransition(com.sobot.chat.R.anim.sobot_push_left_in, com.sobot.chat.R.anim.sobot_push_left_out);
     }
 
     private void goActivity(final Class clz, long delMin, final boolean isSuccess) {

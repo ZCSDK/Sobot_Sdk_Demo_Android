@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Confirmar</string>
        <string name="sobot_btn_cancle">Cancelar</string>
        <string name="sobot_attach_take_pic">Câmara</string>
-       <string name="sobot_already_save_to_picture">Já foi salvo no álbum de fotografias do sistema</string>
+       <string name="sobot_already_save_to_picture">Salvo com sucesso</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">A qualidade do serviço só pode ser avaliada após a consulta</string>
        <string name="sobot__is_null">Não pode estar vazio</string>
        <string name="sobot_reunicon">Recarregar</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Seleccionar fotografias e vídeos</string>
        <string name="sobot_str_goto_setting_info">Atualmente, apenas é permitido o acesso parcial a fotos ou vídeos</string>
        <string name="sobot_str_goto_setting_allow">Permitir tudo></string>
+       <string name="sobot_permission_use_info">Instruções de utilização da permissão</string>
+       <string name="sobot_album_permission_yongtu">Estamos solicitando seus direitos de acesso e uso de fotos e vídeos. Após a permissão, fotos e vídeos podem ser enviados ao consultar o atendimento ao cliente e deixar mensagens</string>
+       <string name="sobot_please_open_album">A pedir permissão para usar o álbum</string>
+       <string name="sobot_use_album">Usado para acessar e usar fotos e vídeos neste dispositivo</string>
+       <string name="sobot_camera_permission_yongtu">Peço permissão para usar sua câmera. Após permissão, você pode tirar fotos e gravar vídeos para upload ao consultar o atendimento ao cliente e deixar mensagens</string>
+       <string name="sobot_please_open_camera">Pedido para activar as permissões da câmara</string>
+       <string name="sobot_use_camera">Usado para obter permissões de utilização da câmara</string>
+       <string name="sobot_microphone_permission_yongtu">Pedindo permissão para usar seu microfone. Após a permissão, mensagens de voz podem ser enviadas ao consultar o atendimento ao cliente</string>
+       <string name="sobot_please_open_microphone">Pedir permissão para activar o microfone</string>
+       <string name="sobot_use_microphone">Usado para obter permissão para usar microfones</string>
+       <string name="sobot_storage_permission_yongtu">Estamos solicitando seus direitos de acesso e uso de arquivos. Após a permissão, os arquivos podem ser enviados ao consultar o atendimento ao cliente e deixar mensagens</string>
+       <string name="sobot_please_open_storage">A solicitar permissões de armazenamento</string>
+       <string name="sobot_use_storage">Usado para acessar e usar arquivos neste dispositivo</string>
 </resources>

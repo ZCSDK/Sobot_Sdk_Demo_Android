@@ -2,11 +2,12 @@ package com.sobot.chat.widget.attachment;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.View;
+
 import androidx.annotation.IntDef;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import android.view.View;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

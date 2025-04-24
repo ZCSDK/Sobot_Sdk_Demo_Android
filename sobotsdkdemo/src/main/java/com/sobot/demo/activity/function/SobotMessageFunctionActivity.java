@@ -3,11 +3,12 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
@@ -98,36 +99,28 @@ public class SobotMessageFunctionActivity extends AppCompatActivity implements V
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sobot_tv_left:
-                finish();
-                break;
-            case R.id.sobot_tv_save:
-                //设置是否开启消息提醒
-                ZCSobotApi.setNotificationFlag(getContext(), status452, R.drawable.sobot_logo_small_icon, R.drawable.sobot_logo_icon);
-                ToastUtil.showToast(getContext(), "已保存");
-                finish();
-                break;
-            case R.id.sobot_rl_4_5:
-                if (information != null) {
-                    int num = ZCSobotApi.getUnReadMessage(getContext(), information.getPartnerid());
-                    ToastUtil.showToast(getContext(), "未读消息数=" + num);
-                } else {
-                    ZCSobotApi.getUnReadMessage(getContext(), null);
-                }
-                break;
-            case R.id.sobot_rl_4_51:
-                if (information != null) {
-                    ZCSobotApi.clearUnReadNumber(getContext(), information.getPartnerid());
-                    ToastUtil.showToast(getContext(), "已清除");
-                } else {
-                    ZCSobotApi.clearUnReadNumber(getContext(), null);
-                }
-                break;
-            case R.id.sobot_rl_4_5_2:
-                status452 = !status452;
-                setImageShowStatus(status452, sobotImage452);
-                break;
+         if (v.getId() == R.id.sobot_tv_save) {
+            //设置是否开启消息提醒
+            ZCSobotApi.setNotificationFlag(getContext(), status452, com.sobot.chat.R.drawable.sobot_logo_small_icon, com.sobot.chat.R.drawable.sobot_logo_icon);
+            ToastUtil.showToast(getContext(), "已保存");
+            finish();
+        } else if (v.getId() == R.id.sobot_rl_4_5) {
+            if (information != null) {
+                int num = ZCSobotApi.getUnReadMessage(getContext(), information.getPartnerid());
+                ToastUtil.showToast(getContext(), "未读消息数=" + num);
+            } else {
+                ZCSobotApi.getUnReadMessage(getContext(), null);
+            }
+        } else if (v.getId() == R.id.sobot_rl_4_51) {
+            if (information != null) {
+                ZCSobotApi.clearUnReadNumber(getContext(), information.getPartnerid());
+                ToastUtil.showToast(getContext(), "已清除");
+            } else {
+                ZCSobotApi.clearUnReadNumber(getContext(), null);
+            }
+        } else if (v.getId() == R.id.sobot_rl_4_5_2) {
+            status452 = !status452;
+            setImageShowStatus(status452, sobotImage452);
         }
     }
 

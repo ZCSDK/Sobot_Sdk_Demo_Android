@@ -199,7 +199,7 @@ public class HtmlTools {
         }
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
         widget.setFocusable(false);
-        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br />"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("&", "&amp;").replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接
@@ -235,7 +235,7 @@ public class HtmlTools {
         }
 
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("&", "&amp;").replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接
@@ -286,7 +286,7 @@ public class HtmlTools {
             content = content.replaceAll("\n", "<br/>");
         }
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("&", "&amp;").replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接
@@ -302,7 +302,7 @@ public class HtmlTools {
      * @return
      */
     public Spanned formatRichTextWithPic(final TextView textView, final String htmlContent, final int color) {
-        return Html.fromHtml(htmlContent.replace("span", "sobotspan"), new Html.ImageGetter() {
+        return Html.fromHtml(("<span>"+htmlContent+"</span>").replace("span", "sobotspan"), new Html.ImageGetter() {
             @Override
             public Drawable getDrawable(String source) {
                 if (!TextUtils.isEmpty(source)) {

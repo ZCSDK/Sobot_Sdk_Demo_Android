@@ -24,7 +24,7 @@ public class SobotCategoryAdapter extends SobotBaseAdapter<StDocModel> {
     private Activity mActivity;
 
     public SobotCategoryAdapter(Context context, Activity activity, List<StDocModel> list) {
-        super(context, list);
+        super(activity, list);
         this.mActivity = activity;
         mInflater = LayoutInflater.from(context);
     }

@@ -80,8 +80,8 @@ public class SobotHelpCenterActivity extends SobotBaseHelpCenterActivity impleme
                 if (datas != null && datas.size() > 0) {
                     mEmptyView.setVisibility(View.GONE);
                     mGridView.setVisibility(View.VISIBLE);
-                    if (mAdapter == null) {
-                        mAdapter = new SobotHelpCenterAdapter(getApplicationContext(), datas);
+                    if (mAdapter == null && getSobotBaseActivity()!=null) {
+                        mAdapter = new SobotHelpCenterAdapter(getSobotBaseActivity(), datas);
                         mGridView.setAdapter(mAdapter);
                     } else {
                         List<StCategoryModel> list = mAdapter.getDatas();

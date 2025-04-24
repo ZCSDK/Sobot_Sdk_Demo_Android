@@ -117,6 +117,12 @@ public class WebViewActivity extends SobotBaseActivity implements View.OnClickLi
                     "                max-height: 100%;\n" +
                     "                max-width: 100%;\n" +
                     "            }\n" +
+                    "            video{\n" +
+                    "                width: auto;\n" +
+                    "                height:auto;\n" +
+                    "                max-height: 100%;\n" +
+                    "                max-width: 100%;\n" +
+                    "            }" +
                     "        </style>\n" +
                     "    </head>\n" +
                     "    <body>" + mUrl + "  </body>\n" +

@@ -1,5 +1,6 @@
 package com.sobot.chat.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class SobotPicListAdapter extends SobotBaseAdapter<ZhiChiUploadAppFileMod
 
     ViewClickListener listener;
 
-    public SobotPicListAdapter(Context context, List<ZhiChiUploadAppFileModelResult> list) {
+    public SobotPicListAdapter(Activity context, List<ZhiChiUploadAppFileModelResult> list) {
         super(context, list);
     }
 

@@ -2,9 +2,10 @@ package com.sobot.chat.widget.statusbar;
 
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 /**
  * @author 黄浩杭 (huanghaohang@parkingwang.com)

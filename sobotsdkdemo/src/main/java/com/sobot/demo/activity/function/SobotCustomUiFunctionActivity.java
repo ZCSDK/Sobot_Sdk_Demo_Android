@@ -3,15 +3,14 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
@@ -155,76 +154,66 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sobot_tv_save:
-                if (information != null) {
-                    String custom_title = sobot_et_custom_title.getText().toString().trim();
-                    if (TextUtils.isEmpty(custom_title)) {
-                        SobotApi.setChatTitleDisplayMode(getApplicationContext(),
-                                SobotChatTitleDisplayMode.Default, "", status462);
-                    } else {
-                        SobotApi.setChatTitleDisplayMode(getApplicationContext(),
-                                SobotChatTitleDisplayMode.ShowFixedText, custom_title, status462);
-                    }
-                    String custom_avatar = sobot_et_custom_avatar.getText().toString().trim();
-                    if (TextUtils.isEmpty(custom_avatar)) {
-                        SobotApi.setChatAvatarDisplayMode(getApplicationContext(), SobotChatAvatarDisplayMode.Default, "", status4622);
-                    } else {
-                        SobotApi.setChatAvatarDisplayMode(getApplicationContext(), SobotChatAvatarDisplayMode.ShowFixedAvatar, custom_avatar, status4622);
-                    }
-                    //true 横屏 , false 竖屏; 默认 false 竖屏
-                    ZCSobotApi.setSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN, status463);
-                    SobotSPUtil.saveBooleanData(this, "landscape_screen", status463);
-                    //只有在横屏下才有用;竖屏已适配，可修改状态栏颜色
-                    //true 打开 ,false 关闭; 默认 false 关闭
-                    ZCSobotApi.setSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH, status464);
-                    SobotSPUtil.saveBooleanData(this, "display_innotch", status464);
-                    SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu1_display", status4611);
-                    SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu2_display", status4612);
-                    SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu3_display", status4613);
-                    SobotSPUtil.saveStringData(getContext(), "sobot_et_custom_right_button_call", sobot_et_custom_right_button_call.getText().toString().trim());
-                    //设置 toolbar右边第一个按钮是否显示（更多）
-                    SobotUIConfig.sobot_title_right_menu1_display = status4611;
-                    //设置 toolbar右边第二个按钮是否显示（评价）
-                    SobotUIConfig.sobot_title_right_menu2_display = status4612;
-                    //设置 toolbar右边第三个按钮是否显示（电话）
-                    SobotUIConfig.sobot_title_right_menu3_display = status4613;
-                    // toolbar右边第三个按钮电话对应的电话号
-                    SobotUIConfig.sobot_title_right_menu3_call_num = sobot_et_custom_right_button_call.getText().toString().trim();
-                    ZCSobotApi.setLocalNightMode(SobotCustomUiFunctionActivity.this,Integer.parseInt(sobot_et_localmodel.getText().toString()));
+        if (v.getId() == R.id.sobot_tv_save) {
+            if (information != null) {
+                String custom_title = sobot_et_custom_title.getText().toString().trim();
+                if (TextUtils.isEmpty(custom_title)) {
+                    SobotApi.setChatTitleDisplayMode(getApplicationContext(),
+                            SobotChatTitleDisplayMode.Default, "", status462);
+                } else {
+                    SobotApi.setChatTitleDisplayMode(getApplicationContext(),
+                            SobotChatTitleDisplayMode.ShowFixedText, custom_title, status462);
                 }
-                ToastUtil.showToast(getContext(), "已保存");
-                finish();
-                break;
-            case R.id.sobot_rl_4_6_2:
-                status462 = !status462;
-                setImageShowStatus(status462, sobotImage462);
-                break;
-            case R.id.sobot_rl_4_6_2_2:
-                status4622 = !status4622;
-                setImageShowStatus(status4622, sobotImage4622);
-                break;
-            case R.id.sobot_rl_4_6_3:
-                status463 = !status463;
-                setImageShowStatus(status463, sobotImage463);
-
-                break;
-            case R.id.sobot_rl_4_6_4:
-                status464 = !status464;
-                setImageShowStatus(status464, sobotImage464);
-                break;
-            case R.id.sobot_rl_4_6_1_1:
-                status4611 = !status4611;
-                setImageShowStatus(status4611, sobotImage4611);
-                break;
-            case R.id.sobot_rl_4_6_1_2:
-                status4612 = !status4612;
-                setImageShowStatus(status4612, sobotImage4612);
-                break;
-            case R.id.sobot_rl_4_6_1_3:
-                status4613 = !status4613;
-                setImageShowStatus(status4613, sobotImage4613);
-                break;
+                String custom_avatar = sobot_et_custom_avatar.getText().toString().trim();
+                if (TextUtils.isEmpty(custom_avatar)) {
+                    SobotApi.setChatAvatarDisplayMode(getApplicationContext(), SobotChatAvatarDisplayMode.Default, "", status4622);
+                } else {
+                    SobotApi.setChatAvatarDisplayMode(getApplicationContext(), SobotChatAvatarDisplayMode.ShowFixedAvatar, custom_avatar, status4622);
+                }
+                //true 横屏 , false 竖屏; 默认 false 竖屏
+                ZCSobotApi.setSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN, status463);
+                SobotSPUtil.saveBooleanData(this, "landscape_screen", status463);
+                //只有在横屏下才有用;竖屏已适配，可修改状态栏颜色
+                //true 打开 ,false 关闭; 默认 false 关闭
+                ZCSobotApi.setSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH, status464);
+                SobotSPUtil.saveBooleanData(this, "display_innotch", status464);
+                SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu1_display", status4611);
+                SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu2_display", status4612);
+                SobotSPUtil.saveBooleanData(this, "sobot_title_right_menu3_display", status4613);
+                SobotSPUtil.saveStringData(getContext(), "sobot_et_custom_right_button_call", sobot_et_custom_right_button_call.getText().toString().trim());
+                //设置 toolbar右边第一个按钮是否显示（更多）
+                SobotUIConfig.sobot_title_right_menu1_display = status4611;
+                //设置 toolbar右边第二个按钮是否显示（评价）
+                SobotUIConfig.sobot_title_right_menu2_display = status4612;
+                //设置 toolbar右边第三个按钮是否显示（电话）
+                SobotUIConfig.sobot_title_right_menu3_display = status4613;
+                // toolbar右边第三个按钮电话对应的电话号
+                SobotUIConfig.sobot_title_right_menu3_call_num = sobot_et_custom_right_button_call.getText().toString().trim();
+                ZCSobotApi.setLocalNightMode(SobotCustomUiFunctionActivity.this,Integer.parseInt(sobot_et_localmodel.getText().toString()));
+            }
+            ToastUtil.showToast(getContext(), "已保存");
+            finish();
+        } else if (v.getId() == R.id.sobot_rl_4_6_2) {
+            status462 = !status462;
+            setImageShowStatus(status462, sobotImage462);
+        } else if (v.getId() == R.id.sobot_rl_4_6_2_2) {
+            status4622 = !status4622;
+            setImageShowStatus(status4622, sobotImage4622);
+        } else if (v.getId() == R.id.sobot_rl_4_6_3) {
+            status463 = !status463;
+            setImageShowStatus(status463, sobotImage463);
+        } else if (v.getId() == R.id.sobot_rl_4_6_4) {
+            status464 = !status464;
+            setImageShowStatus(status464, sobotImage464);
+        } else if (v.getId() == R.id.sobot_rl_4_6_1_1) {
+            status4611 = !status4611;
+            setImageShowStatus(status4611, sobotImage4611);
+        } else if (v.getId() == R.id.sobot_rl_4_6_1_2) {
+            status4612 = !status4612;
+            setImageShowStatus(status4612, sobotImage4612);
+        } else if (v.getId() == R.id.sobot_rl_4_6_1_3) {
+            status4613 = !status4613;
+            setImageShowStatus(status4613, sobotImage4613);
         }
 
     }

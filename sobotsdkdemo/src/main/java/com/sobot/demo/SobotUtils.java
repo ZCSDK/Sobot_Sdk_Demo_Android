@@ -3,27 +3,11 @@ package com.sobot.demo;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.sobot.chat.MarkConfig;
-import com.sobot.chat.SobotApi;
 import com.sobot.chat.ZCSobotApi;
-import com.sobot.chat.api.enumtype.SobotAutoSendMsgMode;
-import com.sobot.chat.api.enumtype.SobotChatStatusMode;
-import com.sobot.chat.api.enumtype.SobotChatTitleDisplayMode;
-import com.sobot.chat.api.model.ConsultingContent;
 import com.sobot.chat.api.model.Information;
-import com.sobot.chat.listener.NewHyperlinkListener;
-import com.sobot.chat.listener.SobotChatStatusListener;
-import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
-import static com.sobot.chat.api.apiUtils.SobotApp.getApplicationContext;
 
 /**
  * Created by Administrator on 2017/12/12.

@@ -4,12 +4,13 @@ package com.sobot.chat.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.R;

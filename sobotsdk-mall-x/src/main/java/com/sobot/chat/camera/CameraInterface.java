@@ -28,7 +28,6 @@ import android.widget.ImageView;
 import com.sobot.chat.camera.listener.StErrorListener;
 import com.sobot.chat.camera.util.AngleUtil;
 import com.sobot.chat.camera.util.CameraParamUtil;
-import com.sobot.chat.camera.util.CheckPermission;
 import com.sobot.chat.camera.util.DeviceUtil;
 import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.camera.util.ScreenUtils;
@@ -288,7 +287,7 @@ public class CameraInterface implements Camera.PreviewCallback {
      */
     void doOpenCamera(CameraOpenOverCallback callback) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            if (!CheckPermission.isCameraUseable(SELECTED_CAMERA) && this.errorLisenter != null) {
+            if (!errorLisenter.checkCameraPremission()) {
                 this.errorLisenter.onError();
                 return;
             }
@@ -388,6 +387,10 @@ public class CameraInterface implements Camera.PreviewCallback {
                     mParams.setPictureFormat(ImageFormat.JPEG);
                     mParams.setJpegQuality(100);
                 }
+                if (mSwitchView != null) {
+                    cameraAngle = CameraParamUtil.getInstance().getCameraDisplayOrientation(mSwitchView.getContext(),
+                            SELECTED_CAMERA);
+                }
                 mCamera.setParameters(mParams);
                 mParams = mCamera.getParameters();
                 mCamera.setPreviewDisplay(holder);  //SurfaceView
@@ -441,8 +444,7 @@ public class CameraInterface implements Camera.PreviewCallback {
 //                destroyCameraInterface();
                 Log.i(TAG, "=== Destroy Camera ===");
             } catch (Exception e) {
-                e.printStackTrace();
-                if(null!=errorLisenter) {
+                if(null!=errorLisenter){
                     errorLisenter.onError();
                 }
                 destroyCameraInterface();
@@ -508,6 +510,9 @@ public class CameraInterface implements Camera.PreviewCallback {
             if (mCamera == null) {
                 return;
             }
+        }
+        if (firstFrame_data == null) {
+            return;
         }
         mCamera.stopPreview();
         mCamera.setPreviewCallback(null);
@@ -712,21 +717,22 @@ public class CameraInterface implements Camera.PreviewCallback {
         if (mCamera == null) {
             return;
         }
-        final Camera.Parameters params = mCamera.getParameters();
-        if(params==null) return;
-        Rect focusRect = calculateTapArea(x, y, 1f, context);
-        mCamera.cancelAutoFocus();
-        if (params.getMaxNumFocusAreas() > 0) {
-            List<Camera.Area> focusAreas = new ArrayList<>();
-            focusAreas.add(new Camera.Area(focusRect, 800));
-            params.setFocusAreas(focusAreas);
-        } else {
-            Log.i(TAG, "focus areas not supported");
-            callback.focusSuccess();
-            return;
-        }
-        final String currentFocusMode = params.getFocusMode();
         try {
+            final Camera.Parameters params = mCamera.getParameters();
+            if(params==null) return;
+            Rect focusRect = calculateTapArea(x, y, 1f, context);
+            mCamera.cancelAutoFocus();
+            if (params.getMaxNumFocusAreas() > 0) {
+                List<Camera.Area> focusAreas = new ArrayList<>();
+                focusAreas.add(new Camera.Area(focusRect, 800));
+                params.setFocusAreas(focusAreas);
+            } else {
+                Log.i(TAG, "focus areas not supported");
+                callback.focusSuccess();
+                return;
+            }
+            final String currentFocusMode = params.getFocusMode();
+
             params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
             mCamera.setParameters(params);
             mCamera.autoFocus(new Camera.AutoFocusCallback() {
@@ -832,7 +838,7 @@ public class CameraInterface implements Camera.PreviewCallback {
             width = wm.getDefaultDisplay().getWidth();
             height = wm.getDefaultDisplay().getHeight();
         }
-        options.inSampleSize = calculateInSampleSize(options, width, height);
+//        options.inSampleSize = calculateInSampleSize(options, width, height);
         options.inJustDecodeBounds = false;
 //        options.inPreferredConfig = Bitmap.Config.RGB_565;
 

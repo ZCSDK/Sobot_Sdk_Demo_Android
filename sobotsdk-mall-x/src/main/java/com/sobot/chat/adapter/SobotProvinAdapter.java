@@ -29,7 +29,7 @@ public class SobotProvinAdapter extends SobotBaseAdapter<SobotProvinInfo.SobotPr
     private SobotProvinAdapter.ViewHolder myViewHolder;
 
     public SobotProvinAdapter(Activity activity, Context context, List list) {
-        super(context, list);
+        super(activity, list);
         this.mContext = context;
         this.mActivity = activity;
     }

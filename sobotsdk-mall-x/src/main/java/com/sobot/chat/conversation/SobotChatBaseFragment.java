@@ -476,7 +476,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
             }
         }
 
-        zhiChiApi.chatSendMsgToRoot(initModel.getAiStatus() == 1 ? 30 : 10, initModel.getRobotid(), requestText, questionFlag, question, uid, cid, params,
+        zhiChiApi.chatSendMsgToRoot(40, initModel.getRobotid(), requestText, questionFlag, question, uid, cid, params,
                 new StringResultCallBack<ZhiChiMessageBase>() {
                     @Override
                     public void onSuccess(ZhiChiMessageBase simpleMessage) {
@@ -882,8 +882,7 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
         myMessage.setId(id);
         ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
         if (!TextUtils.isEmpty(msgContent)) {
-            msgContent = msgContent.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace
-                    ("\n", "<br/>").replace("&lt;br/&gt;", "<br/>");
+            msgContent = msgContent.replace("\n", "<br/>");
             reply.setMsg(msgContent);
         } else {
             reply.setMsg(msgContent);
@@ -1660,6 +1659,12 @@ public abstract class SobotChatBaseFragment extends SobotBaseFragment implements
     };
 
     private void pollingMsg() {
+        if(puid==null || TextUtils.isEmpty(puid)){
+            puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
+        }
+        if(uid==null || TextUtils.isEmpty(uid)){
+            uid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_UID, "");
+        }
         String platformUnionCode = SharedPreferencesUtil.getStringData(getSobotActivity(), ZhiChiConstant.SOBOT_PLATFORM_UNIONCODE, "");
         if (SobotVerControl.isPlatformVer && !TextUtils.isEmpty(platformUnionCode)) {
             pollingParams.put("platformUserId", CommonUtils.getPlatformUserId(getSobotActivity()));

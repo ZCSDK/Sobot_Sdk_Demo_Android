@@ -2,7 +2,6 @@ package com.sobot.chat.viewHolder;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.core.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.activity.SobotFileDetailActivity;
@@ -700,7 +701,10 @@ public class RichTextMessageHolder extends MessageHolderBase implements View.OnC
                                         @Override
                                         public void onFailure(Exception e, String s) {
                                             if (view != null) {
-                                                view.setVisibility(View.GONE);
+                                                TextView tv_title = view.findViewById(R.id.tv_title);
+                                                tv_title.setText(richListModel.getMsg());
+                                                ImageView image_link = view.findViewById(R.id.image_link);
+                                                SobotBitmapUtil.display(mContext, "", image_link, R.drawable.sobot_link_image, R.drawable.sobot_link_image);
                                             }
                                         }
                                     });

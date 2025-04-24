@@ -1,5 +1,6 @@
 package com.sobot.chat.adapter.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ public abstract class SobotBaseGvAdapter<T> extends SobotBaseAdapter {
     protected LayoutInflater mInflater;
 
 
-    public SobotBaseGvAdapter(Context context, List<T> list) {
+    public SobotBaseGvAdapter(Activity context, List<T> list) {
         super(context, list);
         mInflater = LayoutInflater.from(context);
     }

@@ -1,5 +1,6 @@
 package com.sobot.chat.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.text.TextUtils;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class SobotMsgCenterAdapter extends SobotBaseAdapter<SobotMsgCenterModel> {
 
-    public SobotMsgCenterAdapter(Context context, List<SobotMsgCenterModel> list) {
+    public SobotMsgCenterAdapter(Activity context, List<SobotMsgCenterModel> list) {
         super(context, list);
     }
 

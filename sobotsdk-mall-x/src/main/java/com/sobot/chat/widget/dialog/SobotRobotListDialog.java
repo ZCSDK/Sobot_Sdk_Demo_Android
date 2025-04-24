@@ -34,6 +34,7 @@ public class SobotRobotListDialog extends SobotActionSheet implements AdapterVie
     private SobotRobotListListener mListener;
 
     private SobotRobotListAdapter mListAdapter;
+    private Activity mActivity;
 
     private SobotRobotListDialog(Activity context) {
         super(context);
@@ -41,6 +42,7 @@ public class SobotRobotListDialog extends SobotActionSheet implements AdapterVie
 
     public SobotRobotListDialog(Activity context, String uid, String robotFlag, SobotRobotListListener listListener) {
         super(context);
+        mActivity = context;
         mUid = uid;
         mRobotFlag = robotFlag;
         mListener = listListener;
@@ -82,8 +84,8 @@ public class SobotRobotListDialog extends SobotActionSheet implements AdapterVie
                         break;
                     }
                 }
-                if (mListAdapter == null) {
-                    mListAdapter = new SobotRobotListAdapter(getContext(), sobotRobots);
+                if (mListAdapter == null && mActivity!=null) {
+                    mListAdapter = new SobotRobotListAdapter(mActivity, sobotRobots);
                     sobot_gv.setAdapter(mListAdapter);
                 } else {
                     List<SobotRobot> datas = mListAdapter.getDatas();

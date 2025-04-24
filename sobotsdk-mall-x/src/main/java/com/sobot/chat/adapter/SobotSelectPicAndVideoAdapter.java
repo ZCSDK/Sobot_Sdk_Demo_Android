@@ -50,35 +50,11 @@ public class SobotSelectPicAndVideoAdapter extends RecyclerView.Adapter<SobotSel
         return list == null ? 0 : list.size();
     }
 
-    /**
-     * 设置监听
-     *
-     * @param holder 监听对象
-     */
-    public void setListener(RecyclerView.ViewHolder holder) {
-        // 设置监听
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callBack.onItemClickListener(v, (Integer) v.getTag());
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                callBack.onItemLongClickListener(v, (Integer) v.getTag());
-                return true;
-            }
-        });
-    }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.sobot_select_pic_and_video_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(mContext, itemView);
-        setListener(viewHolder);//设置监听
         return viewHolder;
     }
 

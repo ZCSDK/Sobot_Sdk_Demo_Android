@@ -120,7 +120,10 @@ public class TextMessageHolder extends MessageHolderBase {
                         @Override
                         public void onFailure(Exception e, String s) {
                             if (view != null) {
-                                //   view.setVisibility(View.GONE);
+                                TextView tv_title = view.findViewById(R.id.tv_title);
+                                tv_title.setText(content);
+                                ImageView image_link = view.findViewById(R.id.image_link);
+                                SobotBitmapUtil.display(mContext, "", image_link, R.drawable.sobot_link_image, R.drawable.sobot_link_image);
                             }
                         }
                     });

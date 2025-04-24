@@ -25,6 +25,7 @@ import com.sobot.chat.utils.StMapOpenHelper;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.kpswitch.view.ChattingPanelUploadView;
 import com.sobot.demo.model.SobotDemoOtherModel;
+
 import java.util.ArrayList;
 import java.util.List;
 

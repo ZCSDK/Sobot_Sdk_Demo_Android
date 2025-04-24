@@ -21,11 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -45,13 +40,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotCameraActivity;
-import com.sobot.chat.activity.SobotChooseFileActivity;
 import com.sobot.chat.activity.SobotPostLeaveMsgActivity;
 import com.sobot.chat.activity.SobotPostMsgActivity;
 import com.sobot.chat.activity.SobotSkillGroupActivity;
@@ -817,9 +815,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                                     } else if ("3".equals(zhiChiMessageBasebase.getAnswerType())) {
                                         transferType = 9;
                                     }
-                                    transfer2Custom(0,null, null, null, null, true, transferType, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", "", "");
+                                    transfer2Custom(0, null, null, null, null, true, transferType, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", "", "");
                                 } else {
-                                    transfer2Custom(0,null, null, null, null, true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", "", "");
+                                    transfer2Custom(0, null, null, null, null, true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", "", "");
                                 }
                             }
                         }
@@ -931,7 +929,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         if (!TextUtils.isEmpty(keyWordTransfer.getTransferTips())) {
             ZhiChiMessageBase base = new ZhiChiMessageBase();
             base.setT(Calendar.getInstance().getTime().getTime() + "");
-            base.setId((initModel != null ? initModel.getCid() : "") +System.currentTimeMillis() + "");
+            base.setId((initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "");
             base.setSenderType(ZhiChiConstant.message_sender_type_remide_info + "");
             ZhiChiReplyAnswer reply = new ZhiChiReplyAnswer();
             reply.setRemindType(ZhiChiConstant.sobot_remind_type_simple_tip);
@@ -1212,7 +1210,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     }
 
     private void setupListView() {
-        messageAdapter = new SobotMsgAdapter(getContext(), messageList, this);
+        messageAdapter = new SobotMsgAdapter(getSobotActivity(), messageList, this);
         lv_message.setAdapter(messageAdapter);
         lv_message.setPullRefreshEnable(true);// 设置下拉刷新列表
         lv_message.setOnRefreshListenerHead(this);
@@ -2044,15 +2042,15 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips) {
-        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", "0", "", "");
+        transfer2Custom(0, null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", "0", "", "");
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, String activeTransfer) {
-        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", activeTransfer, "", "");
+        transfer2Custom(0, null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", activeTransfer, "", "");
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, String docId, String unknownQuestion, String activeTransfer) {
-        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, 0, docId, unknownQuestion, activeTransfer, "", "");
+        transfer2Custom(0, null, tempGroupId, keyword, keywordId, isShowTips, 0, docId, unknownQuestion, activeTransfer, "", "");
     }
 
     /**
@@ -2486,7 +2484,11 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         handler.post(new Runnable() {
             @Override
             public void run() {
-                lv_message.setSelection(messageAdapter.getCount());
+                if(messageAdapter.getCount()>0) {
+                    lv_message.setSelection(messageAdapter.getCount()-1);
+                }else {
+                    lv_message.setSelection(messageAdapter.getCount());
+                }
             }
         });
     }
@@ -2887,7 +2889,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                 base.setAnswer(answer);
                 base.setSenderType(ZhiChiConstant.message_sender_type_customer + "");
                 if (base.getId() == null || TextUtils.isEmpty(base.getId())) {
-                    String msgId = (initModel != null ? initModel.getCid() : "") +System.currentTimeMillis() + "";
+                    String msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
                     base.setId(msgId);
                     updateUiMessage(messageAdapter, base);
                 }
@@ -2920,7 +2922,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     temptransferType = 8;
                 }
             }
-            transfer2Custom(0,null, null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1", base.getMsgId(), base.getRuleId());
+            transfer2Custom(0, null, null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1", base.getMsgId(), base.getRuleId());
         } else {
             transfer2Custom(null, null, null, true, "1");
         }
@@ -3919,23 +3921,21 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
      */
     @Override
     public void chooseFile() {
-        permissionListener = new PermissionListenerImpl() {
-            @Override
-            public void onPermissionSuccessListener() {
-                hidePanelAndKeyboard(mPanelRoot);
-                Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
-                startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
-            }
-        };
-        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 3)) {
-            return;
-        }
-        // 选择文件
-        if (!checkStoragePermission(3)) {
-            return;
-        }
-        hidePanelAndKeyboard(mPanelRoot);
-        Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
+//        permissionListener = new PermissionListenerImpl() {
+//            @Override
+//            public void onPermissionSuccessListener() {
+//             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//             intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+//             intent.addCategory(Intent.CATEGORY_OPENABLE);
+//             startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
+//            }
+//        };
+//        if (!isHasPermission(1, 3)) {
+//            return;
+//        }
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
     }
 
@@ -4925,10 +4925,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                     showAudioRecorder();
                 }
             };
-            if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2, 3)) {
-                return;
-            }
-            if (!checkAudioPermission()) {
+            if (!isHasPermission(2, 3)) {
                 return;
             }
             showAudioRecorder();
@@ -5036,7 +5033,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             return;
         }
 
-        String msgId = (initModel != null ? initModel.getCid() : "") +System.currentTimeMillis() + "";
+        String msgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
 
         if (ZhiChiConstant.client_model_robot == current_client_model) {
             if (type == 4 && initModel.getInvalidSessionFlag() == 1 && customerState != CustomerState.Queuing && TextUtils.isEmpty(tempMsgContent)) {
@@ -5284,7 +5281,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                             File selectedFile = (File) data.getSerializableExtra(ZhiChiConstant.SOBOT_INTENT_DATA_SELECTED_FILE);
                             uploadFile(selectedFile, handler, lv_message, messageAdapter, false);
                         } else {
-                            String tmpMsgId = (initModel != null ? initModel.getCid() : "") +String.valueOf(System.currentTimeMillis());
+                            String tmpMsgId = (initModel != null ? initModel.getCid() : "") + String.valueOf(System.currentTimeMillis());
                             if (selectedFileUri == null) {
                                 selectedFileUri = ImageUtils.getUri(data, getSobotActivity());
                             }
@@ -5343,7 +5340,7 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
             // 获取说话位置的点击事件
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
-                    voiceMsgId = (initModel != null ? initModel.getCid() : "") +System.currentTimeMillis() + "";
+                    voiceMsgId = (initModel != null ? initModel.getCid() : "") + System.currentTimeMillis() + "";
                     // 在这个点击的位置
                     btn_upload_view.setClickable(false);
                     btn_model_edit.setClickable(false);

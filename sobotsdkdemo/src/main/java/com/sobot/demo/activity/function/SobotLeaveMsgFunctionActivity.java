@@ -3,15 +3,14 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSON;
 import com.sobot.chat.MarkConfig;
@@ -23,7 +22,6 @@ import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements View.OnClickListener {
@@ -119,49 +117,41 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sobot_tv_save:
-                if (information != null) {
-                    String leaveCusFieldMap = sobot_et_leaveCusFieldMap.getText().toString().trim();
-                    try {
-                        Map lcMap = (Map<String, String>) JSON.parse(leaveCusFieldMap);
-                        information.setLeaveCusFieldMap(lcMap);
-                    } catch (Exception e) {
-
-                    }
-
-                    String leaveMsgGroupId = sobot_et_leaveMsgGroupId.getText().toString().trim();
-                    information.setLeaveMsgGroupId(leaveMsgGroupId);
-                    information.setLeaveTemplateId(sobot_et_leaveTemplateId.getText().toString().trim());
-                    //已完成状态的留言，是否可持续回复 true 持续回复 ，false 不可继续回复 ；默认 true 用户可一直持续回复
-                    ZCSobotApi.setSwitchMarkStatus(MarkConfig.LEAVE_COMPLETE_CAN_REPLY, status435);
-                    SobotSPUtil.saveBooleanData(this, "leave_complete_can_reply", status435);
-                    //添加留言评价主动提醒开关
-                    information.setShowLeaveDetailBackEvaluate(status437);
-
-                    SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
+        if (v.getId() == R.id.sobot_tv_save) {
+            if (information != null) {
+                String leaveCusFieldMap = sobot_et_leaveCusFieldMap.getText().toString().trim();
+                try {
+                    Map lcMap = (Map<String, String>) JSON.parse(leaveCusFieldMap);
+                    information.setLeaveCusFieldMap(lcMap);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                ToastUtil.showToast(getContext(), "已保存");
-                finish();
-                break;
 
-            case R.id.sobot_rl_4_3_5:
-                status435 = !status435;
-                setImageShowStatus(status435, sobotImage435);
-                break;
-            case R.id.sobot_rl_4_3_7:
-                status437 = !status437;
-                setImageShowStatus(status437, sobotImage437);
-                break;
-
-            case R.id.sobot_start_leavemsg_tv:
+                String leaveMsgGroupId = sobot_et_leaveMsgGroupId.getText().toString().trim();
+                information.setLeaveMsgGroupId(leaveMsgGroupId);
                 information.setLeaveTemplateId(sobot_et_leaveTemplateId.getText().toString().trim());
-                ZCSobotApi.openLeave(getContext(), information, false);
-                break;
+                //已完成状态的留言，是否可持续回复 true 持续回复 ，false 不可继续回复 ；默认 true 用户可一直持续回复
+                ZCSobotApi.setSwitchMarkStatus(MarkConfig.LEAVE_COMPLETE_CAN_REPLY, status435);
+                SobotSPUtil.saveBooleanData(this, "leave_complete_can_reply", status435);
+                //添加留言评价主动提醒开关
+                information.setShowLeaveDetailBackEvaluate(status437);
 
+                SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
+            }
+            ToastUtil.showToast(getContext(), "已保存");
+            finish();
+        } else if (v.getId() == R.id.sobot_rl_4_3_5) {
+            status435 = !status435;
+            setImageShowStatus(status435, sobotImage435);
+        } else if (v.getId() == R.id.sobot_rl_4_3_7) {
+            status437 = !status437;
+            setImageShowStatus(status437, sobotImage437);
+        } else if (v.getId() == R.id.sobot_start_leavemsg_tv) {
+            information.setLeaveTemplateId(sobot_et_leaveTemplateId.getText().toString().trim());
+            ZCSobotApi.openLeave(getContext(), information, false);
         }
-
     }
+
 
     private void setImageShowStatus(boolean status, ImageView imageView) {
         if (status) {

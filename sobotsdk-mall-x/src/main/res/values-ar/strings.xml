@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">تقديم</string>
        <string name="sobot_btn_cancle">إلغاء المشاركة</string>
        <string name="sobot_attach_take_pic">الكاميرا</string>
-       <string name="sobot_already_save_to_picture">تم الحفظ إلى ألبومات النظام</string>
+       <string name="sobot_already_save_to_picture">حفظ بنجاح</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">يرجى استخدام خدماتنا وإرسال الآراء</string>
        <string name="sobot__is_null">مطلوب</string>
        <string name="sobot_reunicon">تحديث</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">اختيار الصور والفيديو</string>
        <string name="sobot_str_goto_setting_info">حاليا فقط بعض الصور أو الفيديو مسموح الوصول إليها</string>
        <string name="sobot_str_goto_setting_allow">السماح للجميع</string>
+       <string name="sobot_permission_use_info">تعليمات استخدام الإذن</string>
+       <string name="sobot_album_permission_yongtu">طلب الوصول إلى الصور ومقاطع الفيديو الخاصة بك واستخدامها. بعد الإذن، يمكنك إرسال الصور ومقاطع الفيديو عند استشارة خدمة العملاء وترك الرسائل.</string>
+       <string name="sobot_please_open_album">طلب إذن لاستخدام الألبوم</string>
+       <string name="sobot_use_album">للوصول إلى الصور ومقاطع الفيديو واستخدامها على هذا الجهاز</string>
+       <string name="sobot_camera_permission_yongtu">طلب الوصول إلى الصور ومقاطع الفيديو الخاصة بك واستخدامها. بعد الإذن، يمكنك إرسال الصور ومقاطع الفيديو عند استشارة خدمة العملاء وترك الرسائل.</string>
+       <string name="sobot_please_open_camera">طلب الإذن لفتح الكاميرا</string>
+       <string name="sobot_use_camera">تستخدم للحصول على أذونات الكاميرا</string>
+       <string name="sobot_microphone_permission_yongtu">طلب الإذن لاستخدام الميكروفون الخاص بك. بعد الحصول على إذن، يمكنك إرسال رسائل صوتية عند استشارة خدمة العملاء</string>
+       <string name="sobot_please_open_microphone">اطلب الإذن لتشغيل الكاميرا والميكروفون</string>
+       <string name="sobot_use_microphone">يستخدم للحصول على إذن لاستخدام الكاميرا والميكروفون</string>
+       <string name="sobot_storage_permission_yongtu">طلب الوصول إلى الملف وأذونات الاستخدام. بعد الحصول على إذن، يمكنك إرسال الملفات عند استشارة خدمة العملاء وترك الرسائل.</string>
+       <string name="sobot_please_open_storage">طلب الوصول إلى التخزين</string>
+       <string name="sobot_use_storage">للوصول إلى الملفات الموجودة على هذا الجهاز واستخدامها</string>
 </resources>

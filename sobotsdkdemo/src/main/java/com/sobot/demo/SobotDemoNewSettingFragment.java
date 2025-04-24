@@ -2,15 +2,14 @@ package com.sobot.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.apiUtils.SobotVerControl;
@@ -102,95 +101,77 @@ public class SobotDemoNewSettingFragment extends Fragment implements View.OnClic
         boolean initSdk = SharedPreferencesUtil.getBooleanData(getActivity(), ZhiChiConstant.SOBOT_CONFIG_INITSDK, false);
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
+        int id = v.getId();
         Intent intent;
-        switch (v.getId()) {
-            case R.id.rl_1://基础设置
-                intent = new Intent(getActivity(), SobotBaseFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_2://初始化普通版
-                intent = new Intent(getActivity(), SobotInitSobotFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_3://初始化电商版
-                intent = new Intent(getActivity(), SobotInitPlatformSobotFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_4://启动客服
-                if (!initSdk) {
-                    ToastUtil.showCustomToast(getActivity(), "请先初始化再启动");
+        if (id == R.id.rl_1) { // 基础设置
+            intent = new Intent(getActivity(), SobotBaseFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_2) { // 初始化普通版
+            intent = new Intent(getActivity(), SobotInitSobotFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_3) { // 初始化电商版
+            intent = new Intent(getActivity(), SobotInitPlatformSobotFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_4) { // 启动客服
+            if (!initSdk) {
+                ToastUtil.showCustomToast(getActivity(), "请先初始化再启动");
+                return;
+            }
+            if (information != null) {
+                if (TextUtils.isEmpty(information.getApp_key())) {
+                    ToastUtil.showCustomToast(getActivity(), "appkey不能为空,请前往基础设置中设置");
                     return;
                 }
-                if (information != null) {
-                    if (TextUtils.isEmpty(information.getApp_key())) {
-                        ToastUtil.showCustomToast(getActivity(), "appkey不能为空,请前往基础设置中设置");
-                        return;
-                    }
-                    intent = new Intent(getActivity(), SobotStartSobotFunctionActivity.class);
-                    startActivity(intent);
-                }
-                break;
-            case R.id.rl_5://启动商家列表
-                if (information != null) {
-                    ZCSobotApi.openZCChatListView(getActivity(), information.getPartnerid());
-                }
-                break;
-            case R.id.rl_6://启动客户帮助中心
-                if (!initSdk) {
-                    ToastUtil.showCustomToast(getActivity(), "请先初始化再启动");
+                intent = new Intent(getActivity(), SobotStartSobotFunctionActivity.class);
+                startActivity(intent);
+            }
+        } else if (id == R.id.rl_5) { // 启动商家列表
+            if (information != null) {
+                ZCSobotApi.openZCChatListView(getActivity(), information.getPartnerid());
+            }
+        } else if (id == R.id.rl_6) { // 启动客户帮助中心
+            if (!initSdk) {
+                ToastUtil.showCustomToast(getActivity(), "请先初始化再启动");
+                return;
+            }
+            if (information != null) {
+                if (TextUtils.isEmpty(information.getApp_key())) {
+                    ToastUtil.showCustomToast(getActivity(), "appkey不能为空,请前往基础设置中设置");
                     return;
                 }
-                if (information != null) {
-                    if (TextUtils.isEmpty(information.getApp_key())) {
-                        ToastUtil.showCustomToast(getActivity(), "appkey不能为空,请前往基础设置中设置");
-                        return;
-                    }
-                    intent = new Intent(getActivity(), SobotStartHelpCenterFunctionActivity.class);
-                    startActivity(intent);
-                }
-                break;
-            case R.id.rl_7://机器人客服
-                intent = new Intent(getActivity(), SobotReobotFunctionActivity.class);
+                intent = new Intent(getActivity(), SobotStartHelpCenterFunctionActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.rl_8://人工客服
-                intent = new Intent(getActivity(), SobotManualFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_9://留言工单相关
-                intent = new Intent(getActivity(), SobotLeaveMsgFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_10://评价
-                intent = new Intent(getActivity(), SobotSatisfactionFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_11://消息相关
-                intent = new Intent(getActivity(), SobotMessageFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_12://自定义UI设置
-                intent = new Intent(getActivity(), SobotCustomUiFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_13://其它配置
-                intent = new Intent(getActivity(), SobotOtherFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_14://Information类说明
-                intent = new Intent(getActivity(), SobotInfomationFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_15://结束会话
-                intent = new Intent(getActivity(), SobotEndSobotFunctionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_16://多轮会话
-                intent = new Intent(getActivity(), SobotDuolunActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
+            }
+        } else if (id == R.id.rl_7) { // 机器人客服
+            intent = new Intent(getActivity(), SobotReobotFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_8) { // 人工客服
+            intent = new Intent(getActivity(), SobotManualFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_9) { // 留言工单相关
+            intent = new Intent(getActivity(), SobotLeaveMsgFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_10) { // 评价
+            intent = new Intent(getActivity(), SobotSatisfactionFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_11) { // 消息相关
+            intent = new Intent(getActivity(), SobotMessageFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_12) { // 自定义UI设置
+            intent = new Intent(getActivity(), SobotCustomUiFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_13) { // 其它配置
+            intent = new Intent(getActivity(), SobotOtherFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_14) { // Information类说明
+            intent = new Intent(getActivity(), SobotInfomationFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_15) { // 结束会话
+            intent = new Intent(getActivity(), SobotEndSobotFunctionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rl_16) { // 多轮会话
+            intent = new Intent(getActivity(), SobotDuolunActivity.class);
+            startActivity(intent);
         }
     }
 

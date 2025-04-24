@@ -3,10 +3,11 @@ package com.sobot.chat.widget;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
 
 import com.sobot.chat.R;
 import com.sobot.chat.utils.LogUtils;

@@ -129,7 +129,7 @@
        <string name="sobot_empty_data">Sin información relevante</string>
        <string name="sobot_email_no_empty">El correo no puede estar vacío</string>
        <string name="sobot_email_dialog_hint">Su correo no tiene el formato correcto</string>
-       <string name="sobot_email">Correi</string>
+       <string name="sobot_email">Correo</string>
        <string name="sobot_edittext_hint">Bienvenido a consejos</string>
        <string name="sobot_do_you_delete_video">¿Quieres borrar este video?</string>
        <string name="sobot_do_you_delete_picture">¿Quiere borrar esta imagen?</string>
@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Confirmar</string>
        <string name="sobot_btn_cancle">cancelar</string>
        <string name="sobot_attach_take_pic">Capturar</string>
-       <string name="sobot_already_save_to_picture">Guardado en el álbum del sistema</string>
+       <string name="sobot_already_save_to_picture">Guardado exitosamente</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Solo después de la consulta se puede evaluar la calidad del servicio.</string>
        <string name="sobot__is_null">No puede estar vacío</string>
        <string name="sobot_reunicon">Recargar</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Elegir fotos y videos</string>
        <string name="sobot_str_goto_setting_info">Actualmente solo se permite el acceso a algunas fotos o videos</string>
        <string name="sobot_str_goto_setting_allow">Permitir todo</string>
+       <string name="sobot_permission_use_info">Instrucciones de uso de permisos</string>
+       <string name="sobot_album_permission_yongtu">Se está solicitando su acceso y uso de fotos y videos. Con permiso, se pueden enviar fotos y videos al consultar al servicio al cliente y dejar mensajes.</string>
+       <string name="sobot_please_open_album">Se solicitan permisos para álbumes de fotos</string>
+       <string name="sobot_use_album">Para acceder y usar fotos y videos en este dispositivo</string>
+       <string name="sobot_camera_permission_yongtu">Solicitando permisos para usar su Cámara. Después de permiso, se puede tomar fotos y grabar videos para cargar al consultar al servicio al cliente y dejar mensajes.</string>
+       <string name="sobot_please_open_camera">Solicitar permiso para abrir la Cámara</string>
+       <string name="sobot_use_camera">Para obtener permisos de uso de la Cámara</string>
+       <string name="sobot_microphone_permission_yongtu">Solicitando permiso para usar su micrófono. Después de permiso, se puede enviar un mensaje de voz al consultar al servicio al cliente.</string>
+       <string name="sobot_please_open_microphone">Solicitar permiso para activar el micrófono</string>
+       <string name="sobot_use_microphone">Para obtener permisos de uso del micrófono</string>
+       <string name="sobot_storage_permission_yongtu">Se están solicitando permisos de acceso y uso de sus archivos. Después de permiso, se pueden enviar documentos al consultar al servicio al cliente y dejar un mensaje.</string>
+       <string name="sobot_please_open_storage">Solicitar permisos de almacenamiento</string>
+       <string name="sobot_use_storage">Para acceder y usar archivos en este dispositivo</string>
 </resources>

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
+    namespace("com.sobot.chat")
     compileSdkVersion 34
 
     defaultConfig {
@@ -17,6 +18,7 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     compileOnly 'com.squareup.okhttp3:okhttp:3.12.0'
     compileOnly 'androidx.appcompat:appcompat:1.0.0'
+    compileOnly 'androidx.legacy:legacy-support-v4:1.0.0'
     compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
     compileOnly 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compileOnly 'com.github.bumptech.glide:glide:3.8.0'
@@ -24,5 +26,4 @@ dependencies {
     api 'com.sobot.library:picture_x:1.2.0'
     api 'com.sobot.library:net:1.2.3'
     api 'com.sobot.library:gson:1.1.1'
- 
 }

@@ -4,17 +4,25 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,9 +33,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.sobot.chat.MarkConfig;
+import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
-import com.sobot.chat.ZCSobotApi;
+import com.sobot.chat.ZCSobotConstant;
 import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.activity.SobotSelectPicAndVideoActivity;
 import com.sobot.chat.api.ZhiChiApi;
@@ -41,10 +50,12 @@ import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
-import com.sobot.chat.widget.dialog.SobotPermissionTipDialog;
 import com.sobot.chat.widget.image.SobotRCImageView;
+import com.sobot.chat.widget.statusbar.StatusBarCompat;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
@@ -62,6 +73,8 @@ public abstract class SobotBaseFragment extends Fragment {
     private Activity activity;
     //权限回调
     public PermissionListener permissionListener;
+    private View overlay;//权限用途提示蒙层
+    private ViewGroup viewGroup;//根view content
 
     public SobotBaseFragment() {
 
@@ -169,115 +182,6 @@ public abstract class SobotBaseFragment extends Fragment {
         return getResources().getDimension(getResDimenId(name));
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE:
-                try {
-                    //单独处理android 14 部分权限，如果允许是部分权限，跳转到回显界面
-                    if (grantResults.length > 1 && permissions.length > 0) {
-                        //是否有全部权限
-                        boolean isAllGranted = true;
-                        for (int i = 0; i < grantResults.length; i++) {
-                            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                                isAllGranted = false;
-                            }
-                        }
-                        if (!isAllGranted) {
-                            for (int i = 0; i < grantResults.length; i++) {
-                                if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                                    int selectType;
-                                    if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_IMAGES) && Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
-                                        selectType = 3;//部分视频和图片
-                                    } else if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
-                                        selectType = 2;//部分视频
-                                    } else {
-                                        selectType = 1;//部分图片
-                                    }
-                                    openSelectPic(selectType);
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    for (int i = 0; i < grantResults.length; i++) {
-                        //判断权限的结果，如果有被拒绝，就return
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            String permissionTitle = "sobot_no_permission_text";
-                            if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                                permissionTitle = "sobot_no_write_external_storage_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.RECORD_AUDIO)) {
-                                permissionTitle = "sobot_no_record_audio_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_microphone") + " , " + getResString("sobot_microphone_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.CAMERA)) {
-                                permissionTitle = "sobot_no_camera_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_camera") + " , " + getResString("sobot_camera_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_IMAGES)) {
-                                permissionTitle = "sobot_no_write_external_storage_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_IMAGES) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VIDEO)) {
-                                permissionTitle = "sobot_no_write_external_storage_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_VIDEO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_AUDIO)) {
-                                permissionTitle = "sobot_no_write_external_storage_permission";
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_AUDIO) && !ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-                                    ToastUtil.showCustomLongToast(getSobotActivity(), CommonUtils.getAppName(getContext()) + getResString("sobot_want_use_your") + getResString("sobot_memory_card") + " , " + getResString("sobot_memory_card_yongtu"));
-                                } else {
-                                    //调用权限失败
-                                    if (permissionListener != null) {
-                                        permissionListener.onPermissionErrorListener(getSobotActivity(), getResString(permissionTitle));
-                                    }
-                                }
-                            }
-                            return;
-                        }
-                    }
-                    if (permissionListener != null) {
-                        permissionListener.onPermissionSuccessListener();
-                    }
-                } catch (Exception e) {
-//                    e.printStackTrace();
-                }
-                break;
-        }
-    }
 
     /**
      * @param resourceId
@@ -353,100 +257,312 @@ public abstract class SobotBaseFragment extends Fragment {
         applyTitleTextColor(leftMenu);
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE:
+                try {
+                    //android 14 api 34 以上 部分权限直接打开“选择图片和视频界面”
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && grantResults.length > 1) {
+                        boolean isAllGranted = true;
+                        for (int i = 0; i < grantResults.length; i++) {
+                            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                                isAllGranted = false;
+                            }
+                        }
+                        if (!isAllGranted) {
+                            //如果android 14 有部分权限，直接启动“选择图片和视频界面”
+                            for (int i = 0; i < grantResults.length; i++) {
+                                if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                                    int selectType;
+                                    if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_IMAGES) && Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
+                                        selectType = 3;//部分视频和图片
+                                    } else if (Arrays.asList(permissions).contains(Manifest.permission.READ_MEDIA_VIDEO)) {
+                                        selectType = 2;//部分视频
+                                    } else {
+                                        selectType = 1;//部分图片
+                                    }
+                                    openSelectPic(selectType);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < grantResults.length; i++) {
+                        //判断权限的结果，如果有被拒绝，就return
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                            if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                showPerssionSettingUi();
+                                return;
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.RECORD_AUDIO)) {
+                                showPerssionSettingUi();
+                                return;
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.CAMERA)) {
+                                showPerssionSettingUi();
+                                return;
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_IMAGES)) {
+                                showPerssionSettingUi();
+                                return;
+                            } else if (permissions[i] != null && permissions[i].equals(Manifest.permission.READ_MEDIA_VIDEO)) {
+                                showPerssionSettingUi();
+                                return;
+                            }
+                            if (permissions[i] != null && !permissions[i].equals(Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)) {
+                                //不处理 READ_MEDIA_VISUAL_USER_SELECTED权限，如果是Android13 全部允许权限时，这个权限返回的还是-1
+                                return;
+                            }
+                        }
+                    }
+                    if (permissionListener != null) {
+                        permissionListener.onPermissionSuccessListener();
+                    }
+                    hidePerssionUi();
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    /**
+     * 检测是否没有对应的权限，没有权限显示提示蒙层
+     *
+     * @param type                1：文件 2：麦克风 3：相机
+     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
+     * @return true :有权限 false:没有权限
+     */
+    public boolean isHasPermission(int type, int checkPermissionType) {
+        boolean isHasPermission = false;
+        if (type == 1) {
+            int result = checkStoragePermission(checkPermissionType);
+            if (result == 0) {
+                isHasPermission = true;
+            } else if (result == 2) {
+                //部分权限
+                isHasPermission = false;
+                if (checkPermissionType == 3) {
+                    //1:部分图片 2:部分视频 3:部分视频和图片
+                    openSelectPic(3);
+                } else if (checkPermissionType == 1) {
+                    openSelectPic(2);
+                } else {
+                    openSelectPic(1);
+                }
+            } else {
+                isHasPermission = false;
+                if (checkPermissionType == 3) {
+                    showPerssionUi(1);
+                } else {
+                    showPerssionUi(0);
+                }
+                //申请权限
+                requestStoragePermission(checkPermissionType);
+            }
+        } else if (type == 2) {
+            isHasPermission = checkAudioPermission();
+            if (!isHasPermission) {
+                showPerssionUi(2);
+            }
+        } else if (type == 3) {
+            isHasPermission = checkCameraPermission();
+            if (!isHasPermission) {
+                showPerssionUi(3);
+            }
+        }
+        return isHasPermission;
+    }
+
+    /**
+     * 显示权限蒙层
+     *
+     * @param type 0：照片和视频 1：文件 2：麦克风 3：相机
+     */
+    public void showPerssionUi(int type) {
+        overlay = LayoutInflater.from(getSobotActivity()).inflate(R.layout.sobot_layout_overlay, null);
+        if (overlay != null) {
+            FrameLayout fl_root = overlay.findViewById(R.id.fl_root);
+            final LinearLayout ll_info = overlay.findViewById(R.id.ll_info);
+            final LinearLayout ll_setting = overlay.findViewById(R.id.ll_setting);
+            TextView tv_content = overlay.findViewById(R.id.tv_content);
+            Button btn_left = overlay.findViewById(R.id.btn_left);
+            Button btn_right = overlay.findViewById(R.id.btn_right);
+            TextView tv_setting_title = overlay.findViewById(R.id.tv_setting_title);
+            TextView tv_setting_content = overlay.findViewById(R.id.tv_setting_content);
+            if (type == 0) {
+                tv_content.setText("\"" + CommonUtils.getAppName(getContext()) + "\" " + getResources().getString(R.string.sobot_album_permission_yongtu));
+                tv_setting_title.setText(getResources().getString(R.string.sobot_please_open_album));
+                tv_setting_content.setText(getResources().getString(R.string.sobot_use_album));
+            } else if (type == 1) {
+                tv_content.setText("\"" + CommonUtils.getAppName(getContext()) + "\" " + getResources().getString(R.string.sobot_storage_permission_yongtu));
+                tv_setting_title.setText(getResources().getString(R.string.sobot_please_open_storage));
+                tv_setting_content.setText(getResources().getString(R.string.sobot_use_storage));
+            } else if (type == 2) {
+                tv_content.setText("\"" + CommonUtils.getAppName(getContext()) + "\" " + getResources().getString(R.string.sobot_microphone_permission_yongtu));
+                tv_setting_title.setText(getResources().getString(R.string.sobot_please_open_microphone));
+                tv_setting_content.setText(getResources().getString(R.string.sobot_use_microphone));
+            } else if (type == 3) {
+                tv_content.setText("\"" + CommonUtils.getAppName(getContext()) + "\" " + getResources().getString(R.string.sobot_camera_permission_yongtu));
+                tv_setting_title.setText(getResources().getString(R.string.sobot_please_open_camera));
+                tv_setting_content.setText(getResources().getString(R.string.sobot_use_camera));
+            }
+            viewGroup = getSobotActivity().findViewById(android.R.id.content);
+            viewGroup.addView(overlay);
+            if (customDetailMsgEnabled()) {
+                fl_root.setVisibility(View.GONE);
+            } else {
+                fl_root.setVisibility(View.VISIBLE);
+                StatusBarCompat.setStatusBarColor(getSobotActivity(), getResources().getColor(R.color.sobot_status_bar_transparent));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (ll_setting.getVisibility() == View.GONE) {
+                            ll_info.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }, 300);//延迟0.5s 是避免多次拒绝后ll_info 隐藏会出现闪一下的问题
+            }
+            overlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hidePerssionUi();
+                }
+            });
+            btn_left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hidePerssionUi();
+                }
+            });
+            btn_right.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hidePerssionUi();
+                    Uri packageURI = Uri.parse("package:" + getSobotActivity().getPackageName());
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                    getSobotActivity().startActivity(intent);
+                }
+            });
+        }
+    }
+
+    //拒绝权限后显示 去设置UI
+    public void showPerssionSettingUi() {
+        String permissionTitle = "";
+        if (overlay != null) {
+            FrameLayout fl_root = overlay.findViewById(R.id.fl_root);
+            StatusBarCompat.setStatusBarColor(getSobotActivity(), getResources().getColor(R.color.sobot_status_bar_transparent));
+            fl_root.setVisibility(View.VISIBLE);
+            LinearLayout ll_info = overlay.findViewById(R.id.ll_info);
+            LinearLayout ll_setting = overlay.findViewById(R.id.ll_setting);
+            TextView tv_content = overlay.findViewById(R.id.tv_content);
+            ll_info.setVisibility(View.GONE);
+            ll_setting.setVisibility(View.VISIBLE);
+            if (tv_content != null && StringUtils.isNoEmpty(tv_content.getText().toString())) {
+                permissionTitle = tv_content.getText().toString();
+            }
+        }
+        if (permissionListener != null) {
+            permissionListener.onPermissionErrorListener(getSobotActivity(), permissionTitle);
+        }
+    }
+
+    //移除权限提示蒙层
+    public void hidePerssionUi() {
+        if (overlay != null) {
+            if (viewGroup == null) {
+                viewGroup = getSobotActivity().findViewById(android.R.id.content);
+            }
+            viewGroup.removeView(overlay);
+            StatusBarCompat.setStatusBarColor(getSobotActivity(), getResources().getColor(R.color.sobot_status_bar_color));
+        }
+    }
+
+    /**
+     * 申请存储权限
+     *
+     * @param checkType 0：图片权限 1：视频权限，3，所有细分的权限， android 13 使用
+     */
+    public void requestStoragePermission(int checkType) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                if (checkType == 0) {
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                } else if (checkType == 1) {
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                } else {
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                }
+            } else {
+                if (checkType == 0) {
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                } else if (checkType == 1) {
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_VIDEO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                } else {
+                    this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+                }
+            }
+        } else {
+            //申请READ_EXTERNAL_STORAGE权限
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
+            }
+        }
+    }
+
     /**
      * 检查存储权限
      *
      * @param checkType 0：图片权限 1：视频权限，3，所有细分的权限， android 13 使用
-     * @return true, 已经获取权限;false,没有权限,尝试获取
+     * @return int  0：有权限，1：没有权限，2:有部分权限
      */
-    protected boolean checkStoragePermission(int checkType) {
-        //如果是升级Android13之前就已经具有读写SDK的权限，那么升级到13之后，自己具有上述三个权限。
-        //如果是升级Android13之后新装的应用，并且targetSDK小于33，则申请READ_EXTERNAL_STORAGE权限时，会自动转化为对上述三个权限的申请，权限申请框只一个
-        //如果是升级Android13之后新装的应用，并且targetSDK大于等于33，则申请READ_EXTERNAL_STORAGE权限时会自动拒绝（同理WRITE_EXTERNAL_STORAGE也是一样）。
-        //如果是android14 没有图片或者视频权限，还需要判断是否有部分权限，如果有部分权限，跳转允许图片视频界面，选择可以访问的上传，或者打开设置申请永久权限
+    public int checkStoragePermission(int checkType) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (checkType == 0) {
+            //android 13 api 33 以上
+            if (checkType == 0 || checkType == 1) {
                 //检测是否有图片权限
                 if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        //android 14
-                        if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                                != PackageManager.PERMISSION_GRANTED) {
-                            //有部分图片权限，直接打开允许访问图片视频列表界面
-                            openSelectPic(1);//照片
-                            return false;
-                        } else {
-                            this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                            return false;
-                        }
-                    } else {
-                        //申请图片权限
-                        this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                        return false;
-                    }
+                        == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //有权限
+                    return 0;
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //android 14 有部分权限
+                    return 2;
+                } else {
+                    //没有权限
+                    return 1;
                 }
-            } else if (checkType == 1) {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        //android 14
-                        if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                                != PackageManager.PERMISSION_GRANTED) {
-                            //有部分视频权限，直接打开允许访问图片视频列表界面
-                            openSelectPic(2);//视频
-                            return false;
-                        } else {
-                            this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                            return false;
-                        }
-                    } else {
-                        //申请视频权限
-                        this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_VIDEO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                        return false;
-                    }
-                }
-                return true;
             } else {
+                //检测是否有图片权限
                 if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        //有图片和视频但是 没有音频权限
-                        this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_AUDIO}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                        return false;
-                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        //android 14
-                        if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED) {
-                            //有部分视频权限，直接打开允许访问图片视频列表界面
-                            openSelectPic(3);//视频
-                            return false;
-                        } else {
-                            this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_AUDIO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                            return false;
-                        }
-                    } else {
-                        //申请图片、视频、语音三个权限
-                        this.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_AUDIO,}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                        return false;
-                    }
+                        == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
+                        == PackageManager.PERMISSION_GRANTED ) {
+                    //有权限
+                    return 0;
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //android 14 有部分权限
+                    return 2;
+                } else {
+                    //没有权限
+                    return 1;
                 }
             }
-        } else if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
+        } else {
+            // android 13 api33 以前
             if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //申请READ_EXTERNAL_STORAGE权限
-                this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
+                    == PackageManager.PERMISSION_GRANTED) {
+                return 0; //有权限
+            } else {
+                return 1; //没有权限
             }
         }
-        return true;
     }
+
 
     /**
      * android 14 部分权限情况下，回显照片或者视频
@@ -454,66 +570,13 @@ public abstract class SobotBaseFragment extends Fragment {
      * @param selectType 1:部分图片 2:部分视频 3:部分视频和图片
      */
     private void openSelectPic(int selectType) {
+        //隐藏权限提示蒙层
+        hidePerssionUi();
         Intent intent = new Intent(getSobotActivity(), SobotSelectPicAndVideoActivity.class);
         intent.putExtra("selectType", selectType);
         startActivityForResult(intent, ZhiChiConstant.REQUEST_CODE_picture);
     }
 
-    /**
-     * 判断是否有存储卡权限,android 14 部分权限有的话也返回true
-     *
-     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
-     * @return true, 已经获取权限;false,没有权限
-     */
-    protected boolean isHasStoragePermission(int checkPermissionType) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (checkPermissionType == 0) {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        //android 14 有部分权限就不弹权限提示框了
-                        if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            } else if (checkPermissionType == 1) {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        //android 14 有部分权限就不弹权限提示框了
-                        if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            } else {
-                if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        //android 14 有部分权限就不弹权限提示框了
-                        if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
-                                == PackageManager.PERMISSION_GRANTED) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            }
-        } else if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * 检查录音权限
@@ -533,21 +596,6 @@ public abstract class SobotBaseFragment extends Fragment {
     }
 
     /**
-     * 判断是否有录音权限
-     *
-     * @return true, 已经获取权限;false,没有权限
-     */
-    protected boolean isHasAudioPermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.RECORD_AUDIO)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * 检查相机权限
      *
      * @return true, 已经获取权限;false,没有权限,尝试获取
@@ -558,21 +606,6 @@ public abstract class SobotBaseFragment extends Fragment {
                     != PackageManager.PERMISSION_GRANTED) {
                 this.requestPermissions(new String[]{Manifest.permission.CAMERA}
                         , ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_CODE);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 判断是否有相机权限
-     *
-     * @return true, 已经获取权限;false,没有权限
-     */
-    protected boolean isHasCameraPermission() {
-        if (Build.VERSION.SDK_INT >= 23 && CommonUtils.getTargetSdkVersion(getSobotActivity().getApplicationContext()) >= 23) {
-            if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
@@ -598,14 +631,9 @@ public abstract class SobotBaseFragment extends Fragment {
             }
         };
 
-        if (checkIsShowPermissionPop(getResString("sobot_camera"), getResString("sobot_camera_yongtu"), 3, 3)) {
+        if (!isHasPermission(3, 3)) {
             return;
         }
-
-        if (!checkCameraPermission()) {
-            return;
-        }
-
         // 打开拍摄页面
         startActivityForResult(SobotCameraActivity.newIntent(getContext()), REQUEST_CODE_CAMERA);
     }
@@ -620,75 +648,12 @@ public abstract class SobotBaseFragment extends Fragment {
                 ChatUtils.openSelectPic(getSobotActivity(), getSobotBaseFragment());
             }
         };
-        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 0)) {
-            return;
-        }
-        if (!checkStoragePermission(0)) {
+        if (!isHasPermission(1, 0)) {
             return;
         }
         ChatUtils.openSelectPic(getSobotActivity(), SobotBaseFragment.this);
     }
 
-    /**
-     * 判断是否有存储卡权限
-     *
-     * @param type                1 存储卡;2 麦克风;3 相机;
-     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
-     * @return true, 已经获取权限;false,没有权限
-     */
-    protected boolean isHasPermission(int type, int checkPermissionType) {
-        if (type == 1) {
-            return isHasStoragePermission(checkPermissionType);
-        } else if (type == 2) {
-            return isHasAudioPermission();
-        } else if (type == 3) {
-            return isHasCameraPermission();
-        }
-        return true;
-    }
-
-    /**
-     * 检测是否需要弹出权限用途提示框pop,如果弹出，则拦截接下来的处理逻辑，自己处理
-     *
-     * @param title
-     * @param content
-     * @param type
-     * @param checkPermissionType 0：图片权限 1：视频权限，2：音频权限，3，所有细分的权限， android 13 使用
-     * @return
-     */
-    public boolean checkIsShowPermissionPop(String title, String content, final int type, final int checkPermissionType) {
-        if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.SHOW_PERMISSION_TIPS_POP)) {
-            if (!isHasPermission(type, checkPermissionType)) {
-                SobotPermissionTipDialog dialog = new SobotPermissionTipDialog(activity, title, content, new SobotPermissionTipDialog.ClickViewListener() {
-                    @Override
-                    public void clickRightView(Context context, SobotPermissionTipDialog dialog) {
-                        dialog.dismiss();
-                        if (type == 1) {
-                            if (!checkStoragePermission(checkPermissionType)) {
-                                return;
-                            }
-                        } else if (type == 2) {
-                            if (!checkAudioPermission()) {
-                                return;
-                            }
-                        } else if (type == 3) {
-                            if (!checkCameraPermission()) {
-                                return;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void clickLeftView(Context context, SobotPermissionTipDialog dialog) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 从图库获取视频
@@ -700,10 +665,7 @@ public abstract class SobotBaseFragment extends Fragment {
                 ChatUtils.openSelectVedio(getSobotActivity(), getSobotBaseFragment());
             }
         };
-        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 1)) {
-            return;
-        }
-        if (!checkStoragePermission(1)) {
+        if (!isHasPermission(1, 1)) {
             return;
         }
         ChatUtils.openSelectVedio(getSobotActivity(), SobotBaseFragment.this);
@@ -757,6 +719,30 @@ public abstract class SobotBaseFragment extends Fragment {
         }
         return activity;
 
+    }
+
+    /**
+     * 是否支持权限弹密副标题自定义
+     *
+     * @return true：不弹权限说明蒙层；false 弹出蒙层
+     */
+    public boolean customDetailMsgEnabled() {
+        String pkgName = "com.android.permissioncontroller";
+        boolean enabled = false;
+        try {
+            if (getSobotActivity() != null) {
+                boolean isCheck = SharedPreferencesUtil.getBooleanData(getSobotActivity(), ZCSobotConstant.IS_CHECK_AUTHORITY_SUBTITLE, false);
+                if (isCheck) {
+                    ApplicationInfo info = getSobotActivity().getApplication().getPackageManager().getApplicationInfo(pkgName,
+                            PackageManager.GET_META_DATA);
+                    if ((info != null) && (info.metaData != null)) {
+                        enabled = info.metaData.getBoolean("custom_detail_msg_enabled");
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+        return enabled;
     }
 
 }

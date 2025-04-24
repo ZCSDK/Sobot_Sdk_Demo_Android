@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Déterminer</string>
        <string name="sobot_btn_cancle">Annuler</string>
        <string name="sobot_attach_take_pic">Photo</string>
-       <string name="sobot_already_save_to_picture">Enregistré dans l\'album système</string>
+       <string name="sobot_already_save_to_picture">Enregistré avec succès</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">La qualité du service ne peut être évaluée qu\'après consultation</string>
        <string name="sobot__is_null">Ne peux pas être vide</string>
        <string name="sobot_reunicon">Recharger</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">L\'accès à certaines photos ou vidéos n\'est actuellement autorisé que</string>
        <string name="sobot_str_goto_setting_info">Choisissez des photos et des vidéos</string>
        <string name="sobot_str_goto_setting_allow">Autoriser tout ></string>
+       <string name="sobot_permission_use_info">Instructions d\'utilisation des autorisations</string>
+       <string name="sobot_album_permission_yongtu">Demande d\'accès et d\'utilisation de vos photos et vidéos. Des photos et des vidéos peuvent être envoyées lors de la consultation du service clientèle et des messages après autorisation</string>
+       <string name="sobot_please_open_album">Demander l\'autorisation d\'utiliser l\'album</string>
+       <string name="sobot_use_album">Pour accéder et utiliser des photos et des vidéos sur cet appareil</string>
+       <string name="sobot_camera_permission_yongtu">Demande d\'autorisation d\'utilisation de votre appareil photo. Lorsque cela est autorisé, des photos et des vidéos peuvent être prises pour le téléchargement lors de la consultation du service clientèle et des messages</string>
+       <string name="sobot_please_open_camera">Demander l\'autorisation d\'ouvrir la caméra</string>
+       <string name="sobot_use_camera">Pour obtenir les autorisations d\'utilisation de la caméra</string>
+       <string name="sobot_microphone_permission_yongtu">Demande d\'autorisation d\'utilisation de votre microphone. Une fois autorisé, un message vocal peut être envoyé lors de la consultation du service client</string>
+       <string name="sobot_please_open_microphone">Demander l\'autorisation d\'activer le microphone</string>
+       <string name="sobot_use_microphone">Pour obtenir les droits d\'utilisation du microphone</string>
+       <string name="sobot_storage_permission_yongtu">Demande d\'accès et d\'utilisation de vos fichiers. Une fois autorisé, les documents peuvent être envoyés lors de la consultation du service à la clientèle et des messages</string>
+       <string name="sobot_please_open_storage">Demander l\'autorisation d\'utiliser le stockage</string>
+       <string name="sobot_use_storage">Pour accéder et utiliser les fichiers sur cet appareil</string>
 </resources>

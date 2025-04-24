@@ -2,8 +2,9 @@ package com.sobot.chat.widget.horizontalgridpage;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 

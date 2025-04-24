@@ -64,11 +64,6 @@ public abstract class BaseChattingPanelView {
         return ResourceUtils.getIdByName(context, "string", name);
     }
 
-    protected String getResString(String name) {
-        return  ResourceUtils.getResString(context,name);
-//        return context.getResources().getString(getResStringId(name));
-    }
-
     /**
      * 获取根view的tag
      * @return

@@ -31,7 +31,7 @@ public class SobotPostCategoryAdapter extends SobotBaseAdapter<SobotTypeModel> {
     private Activity mActivity;
 
     public SobotPostCategoryAdapter(Activity activity, Context context, List list) {
-        super(context, list);
+        super(activity, list);
         this.mContext = context;
         this.mActivity = activity;
     }

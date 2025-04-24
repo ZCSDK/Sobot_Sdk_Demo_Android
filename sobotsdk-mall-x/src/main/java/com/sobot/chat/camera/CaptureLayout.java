@@ -15,11 +15,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sobot.chat.R;
 import com.sobot.chat.camera.listener.StCaptureListener;
 import com.sobot.chat.camera.listener.StClickListener;
 import com.sobot.chat.camera.listener.StReturnListener;
 import com.sobot.chat.camera.listener.StTypeListener;
-import com.sobot.chat.utils.ResourceUtils;
 
 
 /**
@@ -186,6 +186,22 @@ public class CaptureLayout extends FrameLayout {
                     captureLisenter.recordError();
                 }
             }
+
+            @Override
+            public boolean checkAutoPremission() {
+                if (captureLisenter != null) {
+                    return captureLisenter.checkAutoPremission();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean checkCameraPremission() {
+                if (captureLisenter != null) {
+                    return captureLisenter.checkCameraPremission();
+                }
+                return false;
+            }
         });
 
         //取消按钮
@@ -269,10 +285,11 @@ public class CaptureLayout extends FrameLayout {
         txt_tip = new TextView(getContext());
         LayoutParams txt_param = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         txt_param.gravity = Gravity.CENTER_HORIZONTAL;
-        txt_param.setMargins(0, 0, 0, 0);
-        txt_tip.setText(ResourceUtils.getResString(getContext(),"sobot_tap_hold_camera"));
+        txt_param.setMargins(15, 0, 15, 0);
+        txt_tip.setText(R.string.sobot_tap_hold_camera);
         txt_tip.setTextColor(0xFFFFFFFF);
         txt_tip.setGravity(Gravity.CENTER);
+        txt_tip.setPadding(15,0,15,0);
         txt_tip.setLayoutParams(txt_param);
 
         this.addView(btn_capture);

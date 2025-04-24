@@ -1,5 +1,6 @@
 package com.sobot.chat.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ public class SobotFilesAdapter extends SobotBaseAdapter<File> {
     //文件夹类型
     public static final int MSG_TYPE_DIR = 1;
 
-    public SobotFilesAdapter(Context context, List list) {
+    public SobotFilesAdapter(Activity context, List list) {
         super(context, list);
         this.mContext = context;
     }

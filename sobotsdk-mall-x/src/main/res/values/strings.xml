@@ -45,7 +45,7 @@
     <string name="sobot_scan_qr_code">识别二维码</string>
     <string name="sobot_outline_leverByManager">您好,本次会话已结束</string>
     <string name="sobot_completed_the_evaluation">您已完成评价</string>
-    <string name="sobot_already_save_to_picture">已保存到系统相册</string>
+    <string name="sobot_already_save_to_picture">保存成功</string>
     <string name="sobot_unable_to_evaluate">暂时无法评价</string>
     <string name="sobot_data_wrong_hint">数据错误</string>
     <string name="sobot_server_request_wrong">服务器请求错误！</string>
@@ -285,4 +285,18 @@
     <string name="sobot_str_select_pic_video">选择照片和视频</string>
     <string name="sobot_str_goto_setting_info">当前仅允许访问部分照片或视频</string>
     <string name="sobot_str_goto_setting_allow">允许全部 ></string>
+    <!--   3.3.1   -->
+    <string name="sobot_permission_use_info">权限使用说明</string>
+    <string name="sobot_album_permission_yongtu">正在申请您的照片和视频访问及使用权限。允许后，在咨询客服和留言时可发送照片和视频</string>
+    <string name="sobot_please_open_album">请求使用相册权限</string>
+    <string name="sobot_use_album">用于访问及使用此设备上的照片和视频</string>
+    <string name="sobot_camera_permission_yongtu">正在申请您的相机使用权限。允许后，在咨询客服和留言时可拍照和录制视频进行上传</string>
+    <string name="sobot_please_open_camera">请求开启相机权限</string>
+    <string name="sobot_use_camera">用于获取相机的使用权限</string>
+    <string name="sobot_microphone_permission_yongtu">正在申请您的麦克风使用权限。允许后，在咨询客服时可发送语音消息</string>
+    <string name="sobot_please_open_microphone">请求开启麦克风权限</string>
+    <string name="sobot_use_microphone">用于获取麦克风的使用权限</string>
+    <string name="sobot_storage_permission_yongtu">正在申请您的文件访问及使用权限。允许后，在咨询客服和留言时可发送文件</string>
+    <string name="sobot_please_open_storage">请求使用存储权限</string>
+    <string name="sobot_use_storage">用于访问及使用此设备上的文件</string>
 </resources>

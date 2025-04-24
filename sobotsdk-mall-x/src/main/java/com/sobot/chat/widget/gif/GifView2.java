@@ -6,13 +6,14 @@ import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.os.Build;
 import android.os.Environment;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.sobot.chat.R;
 import com.sobot.chat.core.HttpUtils;

@@ -45,7 +45,7 @@ public class SobotTicketInfoAdapter extends SobotBaseAdapter<SobotUserTicketInfo
     public static final int MSG_TYPE_FILE = 0;
 
     public SobotTicketInfoAdapter(Activity activity, Context context, List list) {
-        super(context, list);
+        super(activity, list);
         this.mContext = context;
         this.activity = activity;
     }

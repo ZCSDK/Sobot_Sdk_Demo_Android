@@ -86,7 +86,7 @@
        <string name="sobot_not_find_pic">Picture not found</string>
        <string name="sobot_no_read">Below are new messages</string>
        <string name="sobot_no_content">No relevant content</string>
-       <string name="sobot_no_access">Service unavailable</string>
+       <string name="sobot_no_access">No Agents Currently Online</string>
        <string name="sobot_new_ticket_info_update">To update</string>
        <string name="sobot_new_ticket_info">Message status updated</string>
        <string name="sobot_new_msg">New Messages</string>
@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Submit</string>
        <string name="sobot_btn_cancle">Cancel</string>
        <string name="sobot_attach_take_pic">Camera</string>
-       <string name="sobot_already_save_to_picture">Saved to system albums</string>
+       <string name="sobot_already_save_to_picture">Saved</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Please use our service and then send feedback</string>
        <string name="sobot__is_null">Required</string>
        <string name="sobot_reunicon">Reload</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Select photos and videos</string>
        <string name="sobot_str_goto_setting_info">Currently, only partial access to photos or videos is allowed</string>
        <string name="sobot_str_goto_setting_allow">Allow all></string>
+       <string name="sobot_permission_use_info">Permission usage instructions</string>
+       <string name="sobot_album_permission_yongtu">Requesting access to and use of your photos and videos. After permission, you can send photos and videos when consulting customer service and leaving messages.</string>
+       <string name="sobot_please_open_album">Request permission to use album</string>
+       <string name="sobot_use_album">To access and use photos and videos on this device</string>
+       <string name="sobot_camera_permission_yongtu">Requesting access to and use of your photos and videos. After permission, you can send photos and videos when consulting customer service and leaving messages.</string>
+       <string name="sobot_please_open_camera">Request permission to open camera</string>
+       <string name="sobot_use_camera">Used to obtain camera permissions</string>
+       <string name="sobot_microphone_permission_yongtu">Requesting permission to use your microphone. After permission, you can send voice messages when consulting customer service</string>
+       <string name="sobot_please_open_microphone">Request permission to turn on camera and microphone</string>
+       <string name="sobot_use_microphone">Used to obtain permission to use the camera and microphone</string>
+       <string name="sobot_storage_permission_yongtu">Requesting your file access and usage permissions. After permission, you can send files when consulting customer service and leaving messages.</string>
+       <string name="sobot_please_open_storage">Request permission to use storage</string>
+       <string name="sobot_use_storage">To access and use files on this device</string>
 </resources>

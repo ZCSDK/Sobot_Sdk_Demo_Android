@@ -2,7 +2,6 @@ package com.sobot.chat.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +46,10 @@ public class SobotSelectPicAndVideoActivity extends SobotBaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        updateList();
+    }
+
+    private void updateList() {
         if (albumFileList == null) {
             albumFileList = new ArrayList<>();
         }
@@ -68,19 +70,8 @@ public class SobotSelectPicAndVideoActivity extends SobotBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(selectType == 1) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_IMAGES)
-                    == PackageManager.PERMISSION_GRANTED) {
-                //如果android 14 手机有永久权限 直接关闭当前界面
-                finish();
-            }
-        }else if(selectType == 2){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                    == PackageManager.PERMISSION_GRANTED) {
-                //如果android 14 手机有永久权限 直接关闭当前界面
-                finish();
-            }
-        }
+        //显示时重新刷新（点击加号 弹出权限，点接全部允许后，会显示所有的图片）
+        updateList();
     }
 
     @Override
@@ -110,6 +101,7 @@ public class SobotSelectPicAndVideoActivity extends SobotBaseActivity {
         if (albumFileList == null) {
             albumFileList = new ArrayList<>();
         }
+        albumFileList.clear();
         albumFileList.add(new SobotAlbumFile());
         picAdapter = new SobotSelectPicAndVideoAdapter(this, albumFileList, new SobotRecyclerCallBack() {
             @Override
@@ -125,9 +117,9 @@ public class SobotSelectPicAndVideoActivity extends SobotBaseActivity {
         picAdapter.setClickListener(new SobotSelectPicAndVideoAdapter.myClickListener() {
             @Override
             public void onClickOtherListener() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     if (selectType == 3) {
-                        requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_AUDIO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_ACTIVITY_CODE);
+                        requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_ACTIVITY_CODE);
                     } else if (selectType == 2) {
                         requestPermissions(new String[]{Manifest.permission.READ_MEDIA_VIDEO, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED}, ZhiChiConstant.SOBOT_PERMISSIONS_REQUEST_ACTIVITY_CODE);
                     } else {

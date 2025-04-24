@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Bestätigen</string>
        <string name="sobot_btn_cancle">Stornieren</string>
        <string name="sobot_attach_take_pic">Aufnehmen</string>
-       <string name="sobot_already_save_to_picture">Wird im systemalbum gespeichert</string>
+       <string name="sobot_already_save_to_picture">Erfolgreich gespeichert</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Nach der erkundigung kann man die servicequalität bewerten</string>
        <string name="sobot__is_null">Kann nicht leer sein</string>
        <string name="sobot_reunicon">Erneut herunterladen</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Fotos und Videos auswählen</string>
        <string name="sobot_str_goto_setting_info">Derzeit ist nur ein Teilzugriff auf Fotos oder Videos erlaubt</string>
        <string name="sobot_str_goto_setting_allow">Alle zulassen></string>
+       <string name="sobot_permission_use_info">Anweisungen zur Verwendung von Berechtigungen</string>
+       <string name="sobot_album_permission_yongtu">Wir beantragen Ihre Foto- und Videozugriffs- und Nutzungsrechte. Nach Genehmigung können Fotos und Videos gesendet werden, wenn Sie den Kundenservice konsultieren und Nachrichten hinterlassen.</string>
+       <string name="sobot_please_open_album">Erlaubnis zur Verwendung des Albums anfordern</string>
+       <string name="sobot_use_album">Wird für den Zugriff auf und die Verwendung von Fotos und Videos auf diesem Gerät verwendet</string>
+       <string name="sobot_camera_permission_yongtu">Bitte um Erlaubnis, Ihre Kamera zu benutzen. Nach Genehmigung können Sie Fotos und Videos zum Hochladen aufnehmen, wenn Sie den Kundenservice konsultieren und Nachrichten hinterlassen</string>
+       <string name="sobot_please_open_camera">Anforderung zur Aktivierung von Kameraberechtigungen</string>
+       <string name="sobot_use_camera">Wird verwendet, um Berechtigungen zur Kameranutzung zu erhalten</string>
+       <string name="sobot_microphone_permission_yongtu">Bitte um Erlaubnis zur Verwendung Ihres Mikrofons. Nach Genehmigung können Sprachnachrichten gesendet werden, wenn der Kundenservice konsultiert wird</string>
+       <string name="sobot_please_open_microphone">Erlaubnis zum Aktivieren des Mikrofons anfordern</string>
+       <string name="sobot_use_microphone">Wird verwendet, um die Erlaubnis zur Verwendung von Mikrofonen zu erhalten</string>
+       <string name="sobot_storage_permission_yongtu">Wir beantragen Ihre Dateizugriffs- und Nutzungsrechte. Nach Genehmigung können Dateien gesendet werden, wenn Sie den Kundenservice konsultieren und Nachrichten hinterlassen</string>
+       <string name="sobot_please_open_storage">Speicherberechtigungen werden angefordert</string>
+       <string name="sobot_use_storage">Wird für den Zugriff auf und die Verwendung von Dateien auf diesem Gerät verwendet</string>
 </resources>

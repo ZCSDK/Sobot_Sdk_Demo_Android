@@ -1,8 +1,6 @@
 package com.sobot.chat.widget;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +8,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.utils.ScreenUtils;

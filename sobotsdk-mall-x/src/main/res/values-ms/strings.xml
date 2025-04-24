@@ -168,7 +168,7 @@
        <string name="sobot_btn_submit">Pasti</string>
        <string name="sobot_btn_cancle">Batal</string>
        <string name="sobot_attach_take_pic">Kamera</string>
-       <string name="sobot_already_save_to_picture">Telah disimpan pada foto album sistem</string>
+       <string name="sobot_already_save_to_picture">Berjaya disimpan</string>
        <string name="sobot_after_consultation_to_evaluate_custome_service">Kualiti perkhidmatan hanya dapat dinilai setelah berunding</string>
        <string name="sobot__is_null">Tidak boleh kosong</string>
        <string name="sobot_reunicon">Muatkan naik semula</string>
@@ -241,4 +241,17 @@
        <string name="sobot_str_select_pic_video">Pilih foto dan video</string>
        <string name="sobot_str_goto_setting_info">Semasa, hanya akses sebahagian kepada foto atau video dibenarkan</string>
        <string name="sobot_str_goto_setting_allow">Benarkan semua></string>
+       <string name="sobot_permission_use_info">Arahan penggunaan keizinan</string>
+       <string name="sobot_album_permission_yongtu">Kami melamar untuk akses foto dan video dan hak penggunaan anda. Selepas kebenaran, foto dan video boleh dihantar bila berkonsultasi perkhidmatan pelanggan dan meninggalkan mesej</string>
+       <string name="sobot_please_open_album">Meminta keizinan untuk menggunakan album</string>
+       <string name="sobot_use_album">Digunakan untuk mengakses dan menggunakan foto dan video pada peranti ini</string>
+       <string name="sobot_camera_permission_yongtu">Meminta kebenaran untuk menggunakan kamera anda. Selepas kebenaran, anda boleh mengambil foto dan rekod video untuk muat naik bila berkonsultasi perkhidmatan pelanggan dan meninggalkan mesej</string>
+       <string name="sobot_please_open_camera">Permintaan untuk benarkan keizinan kamera</string>
+       <string name="sobot_use_camera">Digunakan untuk mendapatkan keizinan penggunaan kamera</string>
+       <string name="sobot_microphone_permission_yongtu">Meminta kebenaran untuk menggunakan mikrofon anda. Selepas kebenaran, mesej suara boleh dihantar bila berkonsultasi perkhidmatan pelanggan</string>
+       <string name="sobot_please_open_microphone">Permintaan keizinan untuk benarkan mikrofon</string>
+       <string name="sobot_use_microphone">Digunakan untuk mendapatkan kebenaran untuk menggunakan mikrofon</string>
+       <string name="sobot_storage_permission_yongtu">Kami meminta akses fail dan hak penggunaan anda. Selepas kebenaran, fail boleh dihantar bila mengkonsultasi perkhidmatan pelanggan dan meninggalkan mesej</string>
+       <string name="sobot_please_open_storage">Meminta keizinan penyimpanan</string>
+       <string name="sobot_use_storage">Digunakan untuk mengakses dan menggunakan fail pada peranti ini</string>
 </resources>

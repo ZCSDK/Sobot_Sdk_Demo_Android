@@ -3,15 +3,14 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.enumtype.SobotAutoSendMsgMode;
@@ -189,171 +188,159 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sobot_tv_save:
-                if (information != null) {
-                    String groupid = sobot_et_groupid.getText().toString().trim();
-                    information.setGroupid(groupid);
-                    String choose_adminid = sobot_et_choose_adminid.getText().toString().trim();
-                    information.setChoose_adminid(choose_adminid);
-                    String tranReceptionistFlag = sobot_et_tranReceptionistFlag.getText().toString().trim();
-                    information.setTranReceptionistFlag(Integer.parseInt(tranReceptionistFlag));
-                    String customer_fields = sobot_et_customer_fields.getText().toString().trim();
-                    information.setCustomer_fields(customer_fields);
+        if (v.getId() == R.id.sobot_tv_save) {
+            if (information != null) {
+                String groupid = sobot_et_groupid.getText().toString().trim();
+                information.setGroupid(groupid);
+                String choose_adminid = sobot_et_choose_adminid.getText().toString().trim();
+                information.setChoose_adminid(choose_adminid);
+                String tranReceptionistFlag = sobot_et_tranReceptionistFlag.getText().toString().trim();
+                information.setTranReceptionistFlag(Integer.parseInt(tranReceptionistFlag));
+                String customer_fields = sobot_et_customer_fields.getText().toString().trim();
+                information.setCustomer_fields(customer_fields);
 
-                    String autoSendMsgMode = sobot_et_autoSendMsgMode.getText().toString().trim();
-                    String autoSendMsgcontent = sobot_et_autoSendMsgcontent.getText().toString().trim();
-                    String autoSendMsgtype = sobot_et_autoSendMsgtype.getText().toString().trim();
-                    String autoSendMsgCount = sobot_et_autoSendMsg_count.getText().toString().trim();
-                    if (!TextUtils.isEmpty(autoSendMsgMode) && !TextUtils.isEmpty(autoSendMsgcontent) && !"0".equals(autoSendMsgMode)) {
-                        SobotAutoSendMsgMode sobotAutoSendMsgMode = null;
-                        if ("1".equals(autoSendMsgMode)) {
-                            sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToRobot;
-                        } else if ("2".equals(autoSendMsgMode)) {
-                            sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToOperator;
-                        } else if ("3".equals(autoSendMsgMode)) {
-                            sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToAll;
-                        }
-                        if (sobotAutoSendMsgMode != null) {
-                            sobotAutoSendMsgMode.setIsEveryTimeAutoSend("0".equals(autoSendMsgCount));
-                            if (TextUtils.isEmpty(autoSendMsgtype)) {
-                                information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent));
+                String autoSendMsgMode = sobot_et_autoSendMsgMode.getText().toString().trim();
+                String autoSendMsgcontent = sobot_et_autoSendMsgcontent.getText().toString().trim();
+                String autoSendMsgtype = sobot_et_autoSendMsgtype.getText().toString().trim();
+                String autoSendMsgCount = sobot_et_autoSendMsg_count.getText().toString().trim();
+                if (!TextUtils.isEmpty(autoSendMsgMode) && !TextUtils.isEmpty(autoSendMsgcontent) && !"0".equals(autoSendMsgMode)) {
+                    SobotAutoSendMsgMode sobotAutoSendMsgMode = null;
+                    if ("1".equals(autoSendMsgMode)) {
+                        sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToRobot;
+                    } else if ("2".equals(autoSendMsgMode)) {
+                        sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToOperator;
+                    } else if ("3".equals(autoSendMsgMode)) {
+                        sobotAutoSendMsgMode = SobotAutoSendMsgMode.SendToAll;
+                    }
+                    if (sobotAutoSendMsgMode != null) {
+                        sobotAutoSendMsgMode.setIsEveryTimeAutoSend("0".equals(autoSendMsgCount));
+                        if (TextUtils.isEmpty(autoSendMsgtype)) {
+                            information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent));
+                        } else {
+                            if ("1".equals(autoSendMsgtype) || "12".equals(autoSendMsgtype) || "23".equals(autoSendMsgtype)) {
+                                information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(CommonUtils.getSDCardRootPath(SobotManualFunctionActivity.this) + File.separator + autoSendMsgcontent).setAuto_send_msgtype(Integer.parseInt(autoSendMsgtype)));
                             } else {
-                                if ("1".equals(autoSendMsgtype) || "12".equals(autoSendMsgtype) || "23".equals(autoSendMsgtype)) {
-                                    information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(CommonUtils.getSDCardRootPath(SobotManualFunctionActivity.this) + File.separator + autoSendMsgcontent).setAuto_send_msgtype(Integer.parseInt(autoSendMsgtype)));
-                                } else {
-                                    information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent).setAuto_send_msgtype(0));
-                                }
+                                information.setAutoSendMsgMode(sobotAutoSendMsgMode.setContent(autoSendMsgcontent).setAuto_send_msgtype(0));
                             }
                         }
-                    } else {
-                        information.setAutoSendMsgMode(SobotAutoSendMsgMode.Default.setContent(autoSendMsgcontent).setAuto_send_msgtype(0).setIsEveryTimeAutoSend("0".equals(autoSendMsgCount)));
                     }
+                } else {
+                    information.setAutoSendMsgMode(SobotAutoSendMsgMode.Default.setContent(autoSendMsgcontent).setAuto_send_msgtype(0).setIsEveryTimeAutoSend("0".equals(autoSendMsgCount)));
+                }
 
-                    String queue_First = sobot_et_queue_First.getText().toString().trim();
-                    information.setIs_Queue_First("1".equals(queue_First) ? true : false);
-                    String summary_params = sobot_et_summary_params.getText().toString().trim();
-                    information.setSummary_params(summary_params);
-                    String multi_params = sobot_et_multi_params.getText().toString().trim();
-                    information.setMulti_params(multi_params);
-                    if (status428) {
-                        //咨询内容
-                        ConsultingContent consultingContent = new ConsultingContent();
-                        //咨询内容标题，必填
-                        consultingContent.setSobotGoodsTitle("XXX超级电视50英寸2D智能LED黑色");
-                        //咨询内容图片，选填 但必须是图片地址
-                        consultingContent.setSobotGoodsImgUrl("http://www.li7.jpg");
-                        //咨询来源页，必填
-                        consultingContent.setSobotGoodsFromUrl("www.sobot.com");
-                        //描述，选填
-                        consultingContent.setSobotGoodsDescribe("XXX超级电视 S5");
-                        //标签，选填
-                        consultingContent.setSobotGoodsLable("￥2150");
-                        //转人工后是否自动发送
-                        consultingContent.setAutoSend(true);
-                        //启动智齿客服页面 在Information 添加,转人工发送卡片消息
-                        information.setConsultingContent(consultingContent);
-                    } else {
-                        information.setConsultingContent(null);
-                    }
-                    if (status429) {
-                        List<OrderCardContentModel.Goods> goodsList = new ArrayList<>();
-                        goodsList.add(new OrderCardContentModel.Goods("苹果", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
-                        goodsList.add(new OrderCardContentModel.Goods("苹果1111111", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
-                        goodsList.add(new OrderCardContentModel.Goods("苹果2222", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
-                        goodsList.add(new OrderCardContentModel.Goods("苹果33333333", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
-                        OrderCardContentModel orderCardContent = new OrderCardContentModel();
-                        //订单编号（必填）
-                        orderCardContent.setOrderCode("zc32525235425");
-                        //订单状态
-                        //待付款:1 待发货:2 运输中:3  派送中:4  已完成:5  待评价:6 已取消:7
-                        orderCardContent.setOrderStatus(1);
-                        //订单总金额(单位 分)
-                        orderCardContent.setTotalFee(1234);
-                        //订单商品总数
-                        orderCardContent.setGoodsCount("4");
-                        //订单链接
-                        orderCardContent.setOrderUrl("https://item.jd.com/1765513297.html");
-                        //订单创建时间
-                        orderCardContent.setCreateTime(System.currentTimeMillis() + "");
-                        //转人工后是否自动发送
-                        orderCardContent.setAutoSend(true);
-                        //订单商品集合
-                        orderCardContent.setGoods(goodsList);
-                        //订单卡片内容
-                        information.setOrderGoodsInfo(orderCardContent);
-                    } else {
-                        information.setOrderGoodsInfo(null);
-                    }
-                    information.setIsVip(status4211 ? "1" : "0");
+                String queue_First = sobot_et_queue_First.getText().toString().trim();
+                information.setIs_Queue_First("1".equals(queue_First) ? true : false);
+                String summary_params = sobot_et_summary_params.getText().toString().trim();
+                information.setSummary_params(summary_params);
+                String multi_params = sobot_et_multi_params.getText().toString().trim();
+                information.setMulti_params(multi_params);
+                if (status428) {
+                    //咨询内容
+                    ConsultingContent consultingContent = new ConsultingContent();
+                    //咨询内容标题，必填
+                    consultingContent.setSobotGoodsTitle("XXX超级电视50英寸2D智能LED黑色");
+                    //咨询内容图片，选填 但必须是图片地址
+                    consultingContent.setSobotGoodsImgUrl("http://www.li7.jpg");
+                    //咨询来源页，必填
+                    consultingContent.setSobotGoodsFromUrl("www.sobot.com");
+                    //描述，选填
+                    consultingContent.setSobotGoodsDescribe("XXX超级电视 S5");
+                    //标签，选填
+                    consultingContent.setSobotGoodsLable("￥2150");
+                    //转人工后是否自动发送
+                    consultingContent.setAutoSend(true);
+                    //启动智齿客服页面 在Information 添加,转人工发送卡片消息
+                    information.setConsultingContent(consultingContent);
+                } else {
+                    information.setConsultingContent(null);
+                }
+                if (status429) {
+                    List<OrderCardContentModel.Goods> goodsList = new ArrayList<>();
+                    goodsList.add(new OrderCardContentModel.Goods("苹果", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    goodsList.add(new OrderCardContentModel.Goods("苹果1111111", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    goodsList.add(new OrderCardContentModel.Goods("苹果2222", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    goodsList.add(new OrderCardContentModel.Goods("苹果33333333", "https://img.sobot.com/chatres/66a522ea3ef944a98af45bac09220861/msg/20190930/7d938872592345caa77eb261b4581509.png"));
+                    OrderCardContentModel orderCardContent = new OrderCardContentModel();
+                    //订单编号（必填）
+                    orderCardContent.setOrderCode("zc32525235425");
+                    //订单状态
+                    //待付款:1 待发货:2 运输中:3  派送中:4  已完成:5  待评价:6 已取消:7
+                    orderCardContent.setOrderStatus(1);
+                    //订单总金额(单位 分)
+                    orderCardContent.setTotalFee(1234);
+                    //订单商品总数
+                    orderCardContent.setGoodsCount("4");
+                    //订单链接
+                    orderCardContent.setOrderUrl("https://item.jd.com/1765513297.html");
+                    //订单创建时间
+                    orderCardContent.setCreateTime(System.currentTimeMillis() + "");
+                    //转人工后是否自动发送
+                    orderCardContent.setAutoSend(true);
+                    //订单商品集合
+                    orderCardContent.setGoods(goodsList);
+                    //订单卡片内容
+                    information.setOrderGoodsInfo(orderCardContent);
+                } else {
+                    information.setOrderGoodsInfo(null);
+                }
+                information.setIsVip(status4211 ? "1" : "0");
 
-                    String vip_level = sobot_et_vip_level.getText().toString().trim();
-                    information.setVip_level(vip_level);
-                    String user_label = sobot_et_user_label.getText().toString().trim();
-                    information.setUser_label(user_label);
-                    information.setHideMenuSatisfaction(status42131);
-                    information.setHideMenuLeave(status42132);
-                    information.setHideMenuPicture(status42133);
-                    information.setHideMenuVedio(status42134);
-                    information.setHideMenuCamera(status42135);
-                    information.setHideMenuFile(status42136);
-                    information.setHideMenuManualLeave(status42137);
-                    SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
-                }
-                ToastUtil.showToast(getContext(), "已保存");
-                finish();
-                break;
-            case R.id.sobot_rl_4_2_8:
-                status428 = !status428;
-                setImageShowStatus(status428, sobotImage428);
-                if (otherModel != null) {
-                    otherModel.setUserConsultingContentDemo(status428);
-                    SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
-                }
-                break;
-            case R.id.sobot_rl_4_2_9:
-                status429 = !status429;
-                setImageShowStatus(status429, sobotImage429);
-                if (otherModel != null) {
-                    otherModel.setUserOrderCardContentModelDemo(status429);
-                    SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
-                }
-                break;
-            case R.id.sobot_rl_4_2_11:
-                status4211 = !status4211;
-                setImageShowStatus(status4211, sobotImage4211);
-                break;
-            case R.id.sobot_rl_4_2_13_1:
-                status42131 = !status42131;
-                setImageShowStatus(status42131, sobotImage42131);
-                break;
-            case R.id.sobot_rl_4_2_13_2:
-                status42132 = !status42132;
-                setImageShowStatus(status42132, sobotImage42132);
-                break;
-            case R.id.sobot_rl_4_2_13_3:
-                status42133 = !status42133;
-                setImageShowStatus(status42133, sobotImage42133);
-                break;
-            case R.id.sobot_rl_4_2_13_4:
-                status42134 = !status42134;
-                setImageShowStatus(status42134, sobotImage42134);
-                break;
-            case R.id.sobot_rl_4_2_13_5:
-                status42135 = !status42135;
-                setImageShowStatus(status42135, sobotImage42135);
-                break;
-            case R.id.sobot_rl_4_2_13_6:
-                status42136 = !status42136;
-                setImageShowStatus(status42136, sobotImage42136);
-                break;
-            case R.id.sobot_rl_4_2_13_7:
-                status42137 = !status42137;
-                setImageShowStatus(status42137, sobotImage42137);
-                break;
+                String vip_level = sobot_et_vip_level.getText().toString().trim();
+                information.setVip_level(vip_level);
+                String user_label = sobot_et_user_label.getText().toString().trim();
+                information.setUser_label(user_label);
+                information.setHideMenuSatisfaction(status42131);
+                information.setHideMenuLeave(status42132);
+                information.setHideMenuPicture(status42133);
+                information.setHideMenuVedio(status42134);
+                information.setHideMenuCamera(status42135);
+                information.setHideMenuFile(status42136);
+                information.setHideMenuManualLeave(status42137);
+                SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
+            }
+            ToastUtil.showToast(getContext(), "已保存");
+            finish();
+        } else if (v.getId() == R.id.sobot_rl_4_2_8) {
+            status428 = !status428;
+            setImageShowStatus(status428, sobotImage428);
+            if (otherModel != null) {
+                otherModel.setUserConsultingContentDemo(status428);
+                SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
+            }
+        } else if (v.getId() == R.id.sobot_rl_4_2_9) {
+            status429 = !status429;
+            setImageShowStatus(status429, sobotImage429);
+            if (otherModel != null) {
+                otherModel.setUserOrderCardContentModelDemo(status429);
+                SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
+            }
+        } else if (v.getId() == R.id.sobot_rl_4_2_11) {
+            status4211 = !status4211;
+            setImageShowStatus(status4211, sobotImage4211);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_1) {
+            status42131 = !status42131;
+            setImageShowStatus(status42131, sobotImage42131);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_2) {
+            status42132 = !status42132;
+            setImageShowStatus(status42132, sobotImage42132);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_3) {
+            status42133 = !status42133;
+            setImageShowStatus(status42133, sobotImage42133);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_4) {
+            status42134 = !status42134;
+            setImageShowStatus(status42134, sobotImage42134);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_5) {
+            status42135 = !status42135;
+            setImageShowStatus(status42135, sobotImage42135);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_6) {
+            status42136 = !status42136;
+            setImageShowStatus(status42136, sobotImage42136);
+        } else if (v.getId() == R.id.sobot_rl_4_2_13_7) {
+            status42137 = !status42137;
+            setImageShowStatus(status42137, sobotImage42137);
         }
-
     }
+
 
     private void setImageShowStatus(boolean status, ImageView imageView) {
         if (status) {

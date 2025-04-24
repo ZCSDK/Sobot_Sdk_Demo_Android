@@ -73,8 +73,8 @@ public class SobotRobotListActivity extends SobotDialogBaseActivity implements A
                         break;
                     }
                 }
-                if (mListAdapter == null) {
-                    mListAdapter = new SobotRobotListAdapter(getBaseContext(), sobotRobots);
+                if (mListAdapter == null && getSobotBaseActivity()!=null) {
+                    mListAdapter = new SobotRobotListAdapter(getSobotBaseActivity(), sobotRobots);
                     sobot_gv.setAdapter(mListAdapter);
                 } else {
                     List<SobotRobot> datas = mListAdapter.getDatas();

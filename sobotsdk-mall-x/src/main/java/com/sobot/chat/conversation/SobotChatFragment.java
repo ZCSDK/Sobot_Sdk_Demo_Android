@@ -21,11 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -45,13 +40,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.SobotCameraActivity;
-import com.sobot.chat.activity.SobotChooseFileActivity;
 import com.sobot.chat.activity.SobotPostLeaveMsgActivity;
 import com.sobot.chat.activity.SobotSkillGroupActivity;
 import com.sobot.chat.activity.WebViewActivity;
@@ -147,6 +145,7 @@ import com.sobot.chat.widget.kpswitch.view.ChattingPanelEmoticonView;
 import com.sobot.chat.widget.kpswitch.view.ChattingPanelUploadView;
 import com.sobot.chat.widget.kpswitch.view.CustomeViewFactory;
 import com.sobot.chat.widget.kpswitch.widget.KPSwitchPanelLinearLayout;
+import com.sobot.network.http.callback.SobotResultCallBack;
 import com.sobot.network.http.callback.StringResultCallBack;
 import com.sobot.network.http.upload.SobotUpload;
 import com.sobot.pictureframe.SobotBitmapUtil;
@@ -444,6 +443,27 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 }
             } else {
                 zhiChiApi.reconnectChannel();
+            }
+            String puid = SharedPreferencesUtil.getStringData(getSobotActivity(), Const.SOBOT_PUID, "");
+            if (StringUtils.isNoEmpty(puid)) {
+                //互挤判断
+                zhiChiApi.userStatus(getSobotActivity(), info.getApp_key(), initModel.getPartnerid(), puid, new SobotResultCallBack() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        if (o instanceof Boolean) {
+                            boolean isEffectiveUserStatus = (boolean) o;
+                            //false 代表不对，需要做离线处理（204 打开了新窗口）；true代表正常聊天，不需要处理
+                            if (!isEffectiveUserStatus) {
+                                customerServiceOffline(initModel, 6);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Exception e, String s) {
+
+                    }
+                });
             }
         }
     }
@@ -821,13 +841,13 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                     } else if ("3".equals(zhiChiMessageBasebase.getAnswerType())) {
                                         transferType = 9;
                                     }
-                                    transfer2Custom(0,null, null, null, null, true, transferType, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                    transfer2Custom(0, null, null, null, null, true, transferType, zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
                                 } else if (zhiChiMessageBasebase.getTransferType() == 3) {
                                     //关键字转人工
-                                    transfer2Custom(0,null, null, zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeyword(), zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeywordId(), true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                    transfer2Custom(0, null, null, zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeyword(), zhiChiMessageBasebase.getSobotKeyWordTransfer().getKeywordId(), true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
 
                                 } else {
-                                    transfer2Custom(0,null, null, null, null, true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
+                                    transfer2Custom(0, null, null, null, null, true, zhiChiMessageBasebase.getTransferType(), zhiChiMessageBasebase.getDocId(), zhiChiMessageBasebase.getOriginQuestion(), "0", zhiChiMessageBasebase.getMsgId(), zhiChiMessageBasebase.getRuleId());
                                 }
                             }
                         }
@@ -1221,7 +1241,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     }
 
     private void setupListView() {
-        messageAdapter = new SobotMsgAdapter(getContext(), messageList, this);
+        messageAdapter = new SobotMsgAdapter(getSobotActivity(), messageList, this);
         lv_message.setAdapter(messageAdapter);
         lv_message.setPullRefreshEnable(true);// 设置下拉刷新列表
         lv_message.setOnRefreshListenerHead(this);
@@ -2050,11 +2070,11 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, int transferType, String anwerMsgId, String ruleld) {
-        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, transferType, "", "", "0", anwerMsgId, ruleld);
+        transfer2Custom(0, null, tempGroupId, keyword, keywordId, isShowTips, transferType, "", "", "0", anwerMsgId, ruleld);
     }
 
     private void transfer2Custom(String tempGroupId, String keyword, String keywordId, boolean isShowTips, String activeTransfer, String anwerMsgId, String ruleld) {
-        transfer2Custom(0,null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", activeTransfer, anwerMsgId, ruleld);
+        transfer2Custom(0, null, tempGroupId, keyword, keywordId, isShowTips, 0, "", "", activeTransfer, anwerMsgId, ruleld);
     }
 
 
@@ -2374,7 +2394,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                                 //智能路由匹配失败重新转人工
                                 initModel.setSmartRouteInfoFlag(false);
 //                                    transfer2Custom(null, keyword, keywordId, isShowTips, docId, unknownQuestion, activeTransfer);
-                                transfer2Custom(0,null, null, keyword, keywordId, isShowTips, transferType, docId, unknownQuestion, activeTransfer, answerMsgId, ruleId);
+                                transfer2Custom(0, null, null, keyword, keywordId, isShowTips, transferType, docId, unknownQuestion, activeTransfer, answerMsgId, ruleId);
                             } else {
                                 if (ZhiChiConstant.transfer_customeServeive_success == status) {
                                     connCustomerServiceSuccess(zhichiMessageBase);
@@ -2496,7 +2516,11 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         handler.post(new Runnable() {
             @Override
             public void run() {
-                lv_message.setSelection(messageAdapter.getCount());
+                if(messageAdapter.getCount()>0) {
+                    lv_message.setSelection(messageAdapter.getCount()-1);
+                }else {
+                    lv_message.setSelection(messageAdapter.getCount());
+                }
             }
         });
     }
@@ -2930,7 +2954,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     temptransferType = 8;
                 }
             }
-            transfer2Custom(0,null, null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1", base.getMsgId(), base.getRuleId());
+            transfer2Custom(0, null, null, null, null, true, temptransferType, base.getDocId(), base.getOriginQuestion(), "1", base.getMsgId(), base.getRuleId());
         } else {
             transfer2Custom(null, null, null, true, "1", "", "");
         }
@@ -3920,24 +3944,21 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
      */
     @Override
     public void chooseFile() {
-        permissionListener = new PermissionListenerImpl() {
-            @Override
-            public void onPermissionSuccessListener() {
-                hidePanelAndKeyboard(mPanelRoot);
-                Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
-                startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
-            }
-        };
-
-        if (checkIsShowPermissionPop(getResString("sobot_memory_card"), getResString("sobot_memory_card_yongtu"), 1, 3)) {
-            return;
-        }
-        // 选择文件
-        if (!checkStoragePermission(3)) {
-            return;
-        }
-        hidePanelAndKeyboard(mPanelRoot);
-        Intent intent = new Intent(getSobotActivity(), SobotChooseFileActivity.class);
+//        permissionListener = new PermissionListenerImpl() {
+//            @Override
+//            public void onPermissionSuccessListener() {
+//             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//             intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+//             intent.addCategory(Intent.CATEGORY_OPENABLE);
+//             startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
+//            }
+//        };
+//        if (!isHasPermission(1, 3)) {
+//            return;
+//        }
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, ZhiChiConstant.REQUEST_COCE_TO_CHOOSE_FILE);
     }
 
@@ -4406,6 +4427,9 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                             initModel.setAdminHelloWord(!TextUtils.isEmpty(pushMessage.getAdminHelloWord()) ? pushMessage.getAdminHelloWord() : initModel.getAdminHelloWord());
                             initModel.setServiceEndPushMsg(!TextUtils.isEmpty(pushMessage.getServiceEndPushMsg()) ? pushMessage.getServiceEndPushMsg() : initModel.getServiceEndPushMsg());
                         }
+                        if(!TextUtils.isEmpty(pushMessage.getPuid())){
+                            SharedPreferencesUtil.saveStringData(getSobotActivity(), Const.SOBOT_PUID, pushMessage.getPuid());
+                        }
                         createCustomerService(pushMessage.getAname(), pushMessage.getAface());
                     } else if (ZhiChiConstant.push_message_paidui == pushMessage.getType()) {
                         // 排队的消息类型
@@ -4635,7 +4659,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     //转人工
                     hidePanelAndKeyboard(mPanelRoot);
                     doEmoticonBtn2Blur();
-                    transfer2Custom(0,null, null, null, null, true, 10, "", "", "1", "", "");
+                    transfer2Custom(0, null, null, null, null, true, 10, "", "", "1", "", "");
                 } else if (ZhiChiConstants.dcrc_comment_state.equals(intent.getAction())) {
                     //评价完客户后所需执行的逻辑
                     isComment = intent.getBooleanExtra("commentState", false);
@@ -4919,10 +4943,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     showAudioRecorder();
                 }
             };
-            if (checkIsShowPermissionPop(getResString("sobot_microphone"), getResString("sobot_microphone_yongtu"), 2, 3)) {
-                return;
-            }
-            if (!checkAudioPermission()) {
+            if (!isHasPermission(2, 3)) {
                 return;
             }
             showAudioRecorder();

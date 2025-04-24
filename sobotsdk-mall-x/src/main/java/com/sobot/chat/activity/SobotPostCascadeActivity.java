@@ -119,7 +119,7 @@ public class SobotPostCascadeActivity extends SobotDialogBaseActivity {
             cusField = (SobotFieldModel) bundle.getSerializable("cusField");
         }
 
-        sobot_tv_title.setText(ResourceUtils.getResString(getBaseContext(), "sobot_choice_classification"));
+        sobot_tv_title.setText(ResourceUtils.getResString(this, "sobot_choice_classification"));
 
         if (cusField != null && cusField.getCusFieldDataInfoList() != null) {
             cusFieldDataInfoList = cusField.getCusFieldDataInfoList();

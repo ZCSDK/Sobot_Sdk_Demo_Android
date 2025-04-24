@@ -105,7 +105,7 @@ public class SobotPostCategoryActivity extends SobotDialogBaseActivity {
         if (typeTemp != null) {
             types.addAll(typeTemp);
         }
-        sobot_tv_title.setText(ResourceUtils.getResString(getBaseContext(), "sobot_choice_classification"));
+        sobot_tv_title.setText(ResourceUtils.getResString(this, "sobot_choice_classification"));
 
 
         //存贮一级List

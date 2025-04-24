@@ -2,13 +2,13 @@ package com.sobot.chat.viewHolder;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.sobot.chat.R;
 import com.sobot.chat.adapter.SobotRobotTemplatePageAdater;

@@ -7,11 +7,12 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.activity.base.SobotBaseActivity;

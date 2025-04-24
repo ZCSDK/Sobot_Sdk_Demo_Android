@@ -3,11 +3,12 @@ package com.sobot.demo.activity.function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.activity.WebViewActivity;
@@ -117,46 +118,38 @@ public class SobotSatisfactionFunctionActivity extends AppCompatActivity impleme
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sobot_tv_save:
-                if (information != null) {
-                    information.setShowLeftBackPop(status4421);
-                    information.setShowSatisfaction(status4422);
-                    information.setShowCloseBtn(status4431);
-                    information.setShowCloseSatisfaction(status4432);
-                    ZCSobotApi.setEvaluationCompletedExit(SobotSatisfactionFunctionActivity.this, status444);
-                    information.setCanBackWithNotEvaluation(status445);
-                    SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
-                }
-                ToastUtil.showToast(getContext(), "已保存");
-                finish();
-                break;
-            case R.id.sobot_rl_4_4_2_1:
-                status4421 = !status4421;
-                setImageShowStatus(status4421, sobotImage4421);
-                break;
-            case R.id.sobot_rl_4_4_2_2:
-                status4422 = !status4422;
-                setImageShowStatus(status4422, sobotImage4422);
-                break;
-            case R.id.sobot_rl_4_4_3_1:
-                status4431 = !status4431;
-                setImageShowStatus(status4431, sobotImage4431);
-                break;
-            case R.id.sobot_rl_4_4_3_2:
-                status4432 = !status4432;
-                setImageShowStatus(status4432, sobotImage4432);
-                break;
-            case R.id.sobot_rl_4_4_4:
-                status444 = !status444;
-                setImageShowStatus(status444, sobotImage444);
-                break;
-            case R.id.sobot_rl_4_4_5:
-                status445 = !status445;
-                setImageShowStatus(status445, sobotImage445);
-                break;
+        if (v.getId() == R.id.sobot_tv_save) {
+            if (information != null) {
+                information.setShowLeftBackPop(status4421);
+                information.setShowSatisfaction(status4422);
+                information.setShowCloseBtn(status4431);
+                information.setShowCloseSatisfaction(status4432);
+                ZCSobotApi.setEvaluationCompletedExit(SobotSatisfactionFunctionActivity.this, status444);
+                information.setCanBackWithNotEvaluation(status445);
+                SobotSPUtil.saveObject(this, "sobot_demo_infomation", information);
+            }
+            ToastUtil.showToast(getContext(), "已保存");
+            finish();
+        } else if (v.getId() == R.id.sobot_rl_4_4_2_1) {
+            toggleStatus(status4421, sobotImage4421);
+        } else if (v.getId() == R.id.sobot_rl_4_4_2_2) {
+            toggleStatus(status4422, sobotImage4422);
+        } else if (v.getId() == R.id.sobot_rl_4_4_3_1) {
+            toggleStatus(status4431, sobotImage4431);
+        } else if (v.getId() == R.id.sobot_rl_4_4_3_2) {
+            toggleStatus(status4432, sobotImage4432);
+        } else if (v.getId() == R.id.sobot_rl_4_4_4) {
+            toggleStatus(status444, sobotImage444);
+        } else if (v.getId() == R.id.sobot_rl_4_4_5) {
+            toggleStatus(status445, sobotImage445);
         }
     }
+
+    private void toggleStatus(boolean status, ImageView imageView) {
+        status = !status;
+        setImageShowStatus(status, imageView);
+    }
+
 
     private void setImageShowStatus(boolean status, ImageView imageView) {
         if (status) {

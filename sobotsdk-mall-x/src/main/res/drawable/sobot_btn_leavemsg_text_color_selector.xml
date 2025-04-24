@@ -4,6 +4,6 @@
     <item android:color="#FFFFFF" android:state_pressed="true"/>
     <item android:color="#FFFFFF" android:state_checked="true"/>
     <item android:color="#FFFFFF" android:state_selected="true"/>
-    <item android:color="@color/sobot_common_wenzi_green_white"/>
+    <item android:color="@color/sobot_color_link"/>
 
 </selector>

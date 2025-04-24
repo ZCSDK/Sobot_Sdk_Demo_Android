@@ -12,4 +12,6 @@ public interface StCaptureListener {
     void recordZoom(float zoom);
 
     void recordError();
+    boolean checkAutoPremission();
+    boolean checkCameraPremission();
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sobot.chat.R;
 import com.sobot.chat.SobotUIConfig;
 import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.SharedPreferencesUtil;
@@ -72,17 +73,17 @@ public class ChattingPanelUploadView extends BaseChattingPanelView implements Vi
         mEmoticonsFuncView.setOnIndicatorListener(this);
 
         //图片
-        SobotPlusEntity picEntity = new SobotPlusEntity(getResDrawableId("sobot_tack_picture_button_selector"), getResString("sobot_upload"), ACTION_PIC);
+        SobotPlusEntity picEntity = new SobotPlusEntity(getResDrawableId("sobot_tack_picture_button_selector"), context.getResources().getString(R.string.sobot_upload), ACTION_PIC);
         //视频
-        SobotPlusEntity videoEntity = new SobotPlusEntity(getResDrawableId("sobot_tack_video_button_selector"), getResString("sobot_upload_video"), ACTION_VIDEO);
+        SobotPlusEntity videoEntity = new SobotPlusEntity(getResDrawableId("sobot_tack_video_button_selector"), context.getResources().getString(R.string.sobot_upload_video), ACTION_VIDEO);
         //拍照
-        SobotPlusEntity cameraEntity = new SobotPlusEntity(getResDrawableId("sobot_camera_picture_button_selector"), getResString("sobot_attach_take_pic"), ACTION_CAMERA);
+        SobotPlusEntity cameraEntity = new SobotPlusEntity(getResDrawableId("sobot_camera_picture_button_selector"), context.getResources().getString(R.string.sobot_attach_take_pic), ACTION_CAMERA);
         //文件
-        SobotPlusEntity fileEntity = new SobotPlusEntity(getResDrawableId("sobot_choose_file_btn_selector"), getResString("sobot_choose_file"), ACTION_CHOOSE_FILE);
+        SobotPlusEntity fileEntity = new SobotPlusEntity(getResDrawableId("sobot_choose_file_btn_selector"), context.getResources().getString(R.string.sobot_choose_file), ACTION_CHOOSE_FILE);
         //留言
-        SobotPlusEntity leavemsgEntity = new SobotPlusEntity(getResDrawableId("sobot_leavemsg_selector"), getResString("sobot_str_bottom_message"), ACTION_LEAVEMSG);
+        SobotPlusEntity leavemsgEntity = new SobotPlusEntity(getResDrawableId("sobot_leavemsg_selector"), context.getResources().getString(R.string.sobot_str_bottom_message), ACTION_LEAVEMSG);
         //评价
-        SobotPlusEntity satisfactionEntity = new SobotPlusEntity(getResDrawableId("sobot_picture_satisfaction_selector"), getResString("sobot_str_bottom_satisfaction"), ACTION_SATISFACTION);
+        SobotPlusEntity satisfactionEntity = new SobotPlusEntity(getResDrawableId("sobot_picture_satisfaction_selector"), context.getResources().getString(R.string.sobot_str_bottom_satisfaction), ACTION_SATISFACTION);
 
         robotList.clear();
         operatorList.clear();
