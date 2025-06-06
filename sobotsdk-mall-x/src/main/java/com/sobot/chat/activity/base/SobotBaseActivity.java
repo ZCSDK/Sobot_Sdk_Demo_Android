@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
@@ -38,11 +39,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.R;
-import com.sobot.chat.SobotApi;
 import com.sobot.chat.SobotUIConfig;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.ZCSobotConstant;
 import com.sobot.chat.activity.SobotCameraActivity;
 import com.sobot.chat.activity.SobotSelectPicAndVideoActivity;
@@ -57,6 +61,7 @@ import com.sobot.chat.notchlib.INotchScreen;
 import com.sobot.chat.notchlib.NotchScreenManager;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
@@ -64,7 +69,7 @@ import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.image.SobotRCImageView;
-import com.sobot.chat.widget.statusbar.StatusBarCompat;
+import com.sobot.chat.widget.statusbar.StatusBarUtil;
 
 import java.io.File;
 import java.util.Arrays;
@@ -101,14 +106,14 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
         }
         initMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
-            if (!SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)) {
+            if (!ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);//竖屏
             } else {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);//横屏
 
             }
         }
-        if (SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && SobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH)) {
+        if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && ZCSobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH)) {
             // 支持显示到刘海区域
             NotchScreenManager.getInstance().setDisplayInNotch(this);
             // 设置Activity全屏
@@ -122,18 +127,31 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
         }
-        int sobot_status_bar_color = getStatusBarColor();
-        if (sobot_status_bar_color != 0) {
-            try {
-                StatusBarCompat.setStatusBarColor(this, sobot_status_bar_color);
-            } catch (Exception e) {
-                //请传入正确的颜色值
-            }
+        try {
+            View decorView = getWindow().getDecorView();
+            ViewCompat.setOnApplyWindowInsetsListener(decorView, new OnApplyWindowInsetsListener() {
+                @Override
+                public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                    int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+                    int bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+                    View rootView = findViewById(R.id.view_root);
+                    int targetSdkVersion = CommonUtils.getTargetSdkVersion(getSobotBaseActivity());
+                    if (rootView != null && Build.VERSION.SDK_INT >= 35 && targetSdkVersion >= 35) {
+                        //android 15 api 35 全屏沉侵式 底部避让
+                        rootView.setPadding(0, 0, 0, bottomInset);
+                    }
+                    LogUtils.d("状态栏高度: " + statusBarHeight);
+                    SharedPreferencesUtil.saveIntData(getSobotBaseActivity(), "SobotStatusBarHeight", statusBarHeight);
+                    setUpToolBar();
+                    return insets;
+                }
+            });
+        } catch (Exception e) {
+            setUpToolBar();
         }
-        setUpToolBar();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         zhiChiApi = SobotMsgManager.getInstance(getApplicationContext()).getZhiChiApi();
         MyApplication.getInstance().addActivity(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         View toolBar = findViewById(getResId("sobot_layout_titlebar"));
         if (toolBar != null) {
             setUpToolBarLeftMenu();
@@ -155,7 +173,7 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
     }
 
     public void displayInNotch(final View view) {
-        if (SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && SobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH) && view != null) {
+        if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && ZCSobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH) && view != null) {
             // 获取刘海屏信息
             NotchScreenManager.getInstance().getNotchInfo(this, new INotchScreen.NotchScreenCallback() {
                 @Override
@@ -233,7 +251,7 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
         if (SobotUIConfig.DEFAULT != SobotUIConfig.sobot_titleBgColor) {
             return getResources().getColor(SobotUIConfig.sobot_titleBgColor);
         }
-        return getResColor("sobot_status_bar_color");
+        return getResources().getColor(R.color.sobot_status_bar_color);
     }
 
     protected void setUpToolBar() {
@@ -241,7 +259,7 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
         if (toolBar == null) {
             return;
         }
-
+        setToolBarDefBg();
         if (SobotUIConfig.DEFAULT != SobotUIConfig.sobot_apicloud_titleBgColor) {
             toolBar.setBackgroundColor(getResources().getColor(SobotUIConfig.sobot_apicloud_titleBgColor));
         }
@@ -588,7 +606,6 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
                 fl_root.setVisibility(View.GONE);
             } else {
                 fl_root.setVisibility(View.VISIBLE);
-                StatusBarCompat.setStatusBarColor(getSobotBaseActivity(), getResources().getColor(R.color.sobot_status_bar_transparent));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -649,7 +666,6 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
                 viewGroup = findViewById(android.R.id.content);
             }
             viewGroup.removeView(overlay);
-            StatusBarCompat.setStatusBarColor(getSobotBaseActivity(), getResources().getColor(R.color.sobot_status_bar_color));
         }
     }
 
@@ -714,8 +730,7 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
                 //检测是否有图片权限
                 if (ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_IMAGES)
                         == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                        == PackageManager.PERMISSION_GRANTED )
-                         {
+                        == PackageManager.PERMISSION_GRANTED) {
                     //有权限
                     return 0;
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotBaseActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
@@ -934,5 +949,52 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
         return enabled;
+    }
+
+    /**
+     * 设置默认导航栏渐变色
+     */
+    public void setViewDefBgForStatusBar(View view) {
+        if (view==null){
+         return;
+        }
+        try {
+            int[] colors = new int[]{getStatusBarColor(), getStatusBarColor()};
+            GradientDrawable gradientDrawable = new GradientDrawable();
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setColors(colors); //添加颜色组
+            gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);//设置线性渐变
+            gradientDrawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);//设置渐变方向
+            view.setBackground(gradientDrawable);
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 设置默认导航栏渐变色
+     */
+    private void setToolBarDefBg() {
+        try {
+            int[] colors = new int[]{getStatusBarColor(), getStatusBarColor()};
+            GradientDrawable gradientDrawable = new GradientDrawable();
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setColors(colors); //添加颜色组
+            gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);//设置线性渐变
+            gradientDrawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);//设置渐变方向
+            getToolBar().setBackground(gradientDrawable);
+            if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && ZCSobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH)) {
+            } else {
+                GradientDrawable aDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
+                StatusBarUtil.setColor(getSobotBaseActivity(), aDrawable);
+                if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.UPDATE_STARUS_TEXT_COLOR)) {
+                    //状态栏文字白色
+                    StatusBarUtil.setDarkMode(getSobotBaseActivity());
+                } else {
+                    //状态栏文字黑色
+                    StatusBarUtil.setLightMode(getSobotBaseActivity());
+                }
+            }
+        } catch (Exception e) {
+        }
     }
 }

@@ -18,10 +18,11 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
+import com.sobot.demo.activity.SplashActivity;
 import com.sobot.demo.model.SobotDemoOtherModel;
-import com.sobot.demo.util.AndroidBug5497Workaround;
 
-public class SobotBaseFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotBaseFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
     private TextView tv_base_fun_3_1, tv_base_fun_3_2, sobot_tv_save;
@@ -30,13 +31,12 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
     private SobotDemoOtherModel otherModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_base_func_activity);
-        AndroidBug5497Workaround.assistActivity(this);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_base_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
         findvViews();
@@ -113,6 +113,10 @@ public class SobotBaseFunctionActivity extends AppCompatActivity implements View
                     if (!yuming.equals(oldYUming)) {
                         otherModel.setApi_host(yuming);
                         SobotSPUtil.saveObject(this, "sobot_demo_otherModel", otherModel);
+                        // 终止当前进程前启动主Activity
+                        Intent intent = new Intent(this, SplashActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         android.os.Process.killProcess(android.os.Process.myPid());
                     }
                 } else {

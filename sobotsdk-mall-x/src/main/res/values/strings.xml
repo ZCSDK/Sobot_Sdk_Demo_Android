@@ -275,7 +275,7 @@
     <string name="sobot_re_commit">您未提交信息，请</string>
     <string name="sobot_re_write">重新填写信息</string>
     <!--3.2.3-->
-    <string name="sobo_outline_closed">会话已结束，可重新发起咨询</string>
+    <string name="sobot_outline_closed">会话已结束，可重新发起咨询</string>
     <!--3.2.4-->
     <string name="sobot_str_please_check_is_solve">请选择是否解决了您的问题</string>
     <!--   3.2.5   -->

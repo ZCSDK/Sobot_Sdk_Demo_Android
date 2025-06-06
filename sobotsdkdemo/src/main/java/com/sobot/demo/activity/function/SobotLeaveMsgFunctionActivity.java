@@ -20,11 +20,12 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
 import java.util.Map;
 
-public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotLeaveMsgFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private EditText sobot_et_leaveCusFieldMap, sobot_et_leaveMsgGroupId,sobot_et_leaveTemplateId;
     private RelativeLayout sobot_tv_left, sobot_rl_4_3_5, sobot_rl_4_3_7;
@@ -34,13 +35,14 @@ public class SobotLeaveMsgFunctionActivity extends AppCompatActivity implements 
     private Information information;
     private SobotDemoOtherModel otherModel;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_leavemsg_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_leavemsg_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
         findvViews();

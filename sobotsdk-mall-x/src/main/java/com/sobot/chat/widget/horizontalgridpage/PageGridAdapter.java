@@ -1,9 +1,8 @@
 package com.sobot.chat.widget.horizontalgridpage;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 

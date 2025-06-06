@@ -1,12 +1,11 @@
 package com.sobot.chat.widget.attachment;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sobot.chat.api.model.SobotFileModel;
 import com.sobot.chat.utils.LogUtils;

@@ -5,13 +5,12 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import androidx.annotation.Nullable;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;

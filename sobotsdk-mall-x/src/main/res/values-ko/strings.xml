@@ -234,7 +234,7 @@
        <string name="sobot_cai">밟다</string>
        <string name="sobot_re_commit">정보를 제출하지 않았습니다.</string>
        <string name="sobot_re_write">정보 다시 작성</string>
-       <string name="sobo_outline_closed">세션 종료, 다시 시작 가능</string>
+       <string name="sobot_outline_closed">세션 종료, 다시 시작 가능</string>
        <string name="sobot_str_please_check_is_solve">문제 해결 여부를 선택하십시오.</string>
        <string name="sobot_evaluate_lab">태그:</string>
        <string name="sobot_evaluate_issolve">해결 여부:</string>

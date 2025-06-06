@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.view.View;
@@ -17,9 +19,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sobot.chat.R;
 import com.sobot.chat.SobotUIConfig;
@@ -427,10 +426,8 @@ public class ChatUtils {
     public static String getMessageContentByOutLineType(Context context, ZhiChiInitModeBase
             initModel, int type) {
         Resources resources = context.getResources();
-        if (1 == type) {// 管理员下线
-            return initModel.isServiceEndPushFlag() && !TextUtils.isEmpty(initModel.getServiceEndPushMsg()) ? initModel.getServiceEndPushMsg() : "";//ResourceUtils.getResString(context,"sobot_outline_leverByManager");
-        } else if (2 == type) { // 被管理员移除结束会话
-            return ResourceUtils.getResString(context, "sobo_outline_closed");
+        if (1 == type ||2 == type) {//            1:是客服下线导致的用户离线，2:是客服主动把用户离线了
+            return initModel.isServiceEndPushFlag() && !TextUtils.isEmpty(initModel.getServiceEndPushMsg()) ? initModel.getServiceEndPushMsg() : ResourceUtils.getResString(context, "sobot_outline_closed");//ResourceUtils.getResString(context,"sobot_outline_leverByManager");
         } else if (3 == type) { // 被加入黑名单
             return ResourceUtils.getResString(context, "sobot_outline_leverByManager");
         } else if (4 == type) { // 超时下线

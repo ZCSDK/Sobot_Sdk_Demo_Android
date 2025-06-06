@@ -234,7 +234,7 @@
        <string name="sobot_cai">step on</string>
        <string name="sobot_re_commit">You have not submitted any information. Please</string>
        <string name="sobot_re_write">Fill in the information again</string>
-       <string name="sobo_outline_closed">The session has ended, consultation can be initiated again</string>
+       <string name="sobot_outline_closed">The session has ended, consultation can be initiated again</string>
        <string name="sobot_str_please_check_is_solve">Please choose whether your issue has been resolved</string>
        <string name="sobot_evaluate_lab">Label:</string>
        <string name="sobot_evaluate_issolve">Resolved:</string>

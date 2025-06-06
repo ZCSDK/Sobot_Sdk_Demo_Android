@@ -2,12 +2,11 @@ package com.sobot.chat.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.adapter.base.SobotBaseGvAdapter;

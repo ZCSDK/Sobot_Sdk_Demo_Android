@@ -1,7 +1,6 @@
 package com.sobot.chat.widget.subscaleview.decoder;
 
 import android.graphics.Bitmap;
-
 import androidx.annotation.NonNull;
 
 import java.lang.reflect.Constructor;

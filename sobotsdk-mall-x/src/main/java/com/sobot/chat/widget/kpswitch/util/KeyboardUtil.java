@@ -22,6 +22,7 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -30,15 +31,18 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
 import com.sobot.chat.MarkConfig;
-import com.sobot.chat.SobotApi;
-import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.R;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.widget.kpswitch.IPanelHeightTarget;
 
 /**
+ * Created by Jacksgong on 15/7/6.
  * <p/>
- * For save the keyboard height, and provide the valid-panel-height {@link #getValidPanelHeight(Context)}.
+ * For save the keyboard height, and provide the valid-panel-height
+ * {@link #getValidPanelHeight(Context)}.
  * <p/>
- * Adapt the panel height with the keyboard height just relate {@link #attach(Activity, IPanelHeightTarget)}.
+ * Adapt the panel height with the keyboard height just relate
+ * {@link #attach(Activity, IPanelHeightTarget)}.
  *
  * @see KeyBoardSharedPreferences
  */
@@ -55,23 +59,19 @@ public class KeyboardUtil {
     }
 
     public static void hideKeyboard(final View view) {
-        if (view == null) {
-            return;
-        }
         if (view != null && view.getContext() != null) {
             InputMethodManager imm =
-                    (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
+                    (InputMethodManager) view.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
 
-    private static int LAST_SAVE_KEYBOARD_HEIGHT = 0;
+    private static int lastSaveKeyboardHeight = 0;
 
     private static boolean saveKeyboardHeight(final Context context, int keyboardHeight) {
-        if (LAST_SAVE_KEYBOARD_HEIGHT == keyboardHeight) {
+        if (lastSaveKeyboardHeight == keyboardHeight) {
             return false;
         }
 
@@ -79,7 +79,7 @@ public class KeyboardUtil {
             return false;
         }
 
-        LAST_SAVE_KEYBOARD_HEIGHT = keyboardHeight;
+        lastSaveKeyboardHeight = keyboardHeight;
         Log.d("KeyBordUtil", String.format("save keyboard: %d", keyboardHeight));
 
         return KeyBoardSharedPreferences.save(context, keyboardHeight);
@@ -94,24 +94,28 @@ public class KeyboardUtil {
      * Handle and refresh the keyboard height by {@link #attach(Activity, IPanelHeightTarget)}.
      */
     public static int getKeyboardHeight(final Context context) {
-        if (LAST_SAVE_KEYBOARD_HEIGHT == 0) {
-            LAST_SAVE_KEYBOARD_HEIGHT = KeyBoardSharedPreferences.get(context, getMinPanelHeight(context));
+        if (lastSaveKeyboardHeight == 0) {
+            lastSaveKeyboardHeight = KeyBoardSharedPreferences
+                    .get(context, getMinPanelHeight(context.getResources()));
         }
 
-        return LAST_SAVE_KEYBOARD_HEIGHT;
+        return lastSaveKeyboardHeight;
     }
 
     /**
      * @param context the keyboard height is stored by shared-preferences, so need context.
      * @return the valid panel height refer the keyboard height
+     * @see #getMaxPanelHeight(Resources)
+     * @see #getMinPanelHeight(Resources)
      * @see #getKeyboardHeight(Context)
      * @see #attach(Activity, IPanelHeightTarget)
      * <p/>
      * The keyboard height may be too short or too height. we intercept the keyboard height in
+     * [{@link #getMinPanelHeight(Resources)}, {@link #getMaxPanelHeight(Resources)}].
      */
     public static int getValidPanelHeight(final Context context) {
-        final int maxPanelHeight = getMaxPanelHeight(context);
-        final int minPanelHeight = getMinPanelHeight(context);
+        final int maxPanelHeight = getMaxPanelHeight(context.getResources());
+        final int minPanelHeight = getMinPanelHeight(context.getResources());
 
         int validPanelHeight = getKeyboardHeight(context);
 
@@ -121,42 +125,37 @@ public class KeyboardUtil {
     }
 
 
-    private static int MAX_PANEL_HEIGHT = 0;
-    private static int MIN_PANEL_HEIGHT = 0;
-    private static int MIN_KEYBOARD_HEIGHT = 0;
+    private static int maxPanelHeight = 0;
+    private static int minPanelHeight = 0;
+    private static int minKeyboardHeight = 0;
 
-    public static int getMaxPanelHeight(Context context) {
-        final Resources res = context.getResources();
-        if (MAX_PANEL_HEIGHT == 0) {
-            MAX_PANEL_HEIGHT = res.getDimensionPixelSize(ResourceUtils.getIdByName(
-                    context, "dimen", "sobot_max_panel_height"));
+    public static int getMaxPanelHeight(final Resources res) {
+        if (maxPanelHeight == 0) {
+            maxPanelHeight = res.getDimensionPixelSize(R.dimen.sobot_max_panel_height);
         }
 
-        return MAX_PANEL_HEIGHT;
+        return maxPanelHeight;
     }
 
-    public static int getMinPanelHeight(Context context) {
-        final Resources res = context.getResources();
-        if (MIN_PANEL_HEIGHT == 0) {
-            MIN_PANEL_HEIGHT = res.getDimensionPixelSize(ResourceUtils.getIdByName(
-                    context, "dimen", "sobot_min_panel_height"));
+    public static int getMinPanelHeight(final Resources res) {
+        if (minPanelHeight == 0) {
+            minPanelHeight = res.getDimensionPixelSize(R.dimen.sobot_min_panel_height);
         }
 
-        return MIN_PANEL_HEIGHT;
+        return minPanelHeight;
     }
 
     public static int getMinKeyboardHeight(Context context) {
-        if (MIN_KEYBOARD_HEIGHT == 0) {
-            MIN_KEYBOARD_HEIGHT = context.getResources()
-                    .getDimensionPixelSize(ResourceUtils.getIdByName(
-                            context, "dimen", "sobot_min_keyboard_height"));
+        if (minKeyboardHeight == 0) {
+            minKeyboardHeight = context.getResources()
+                    .getDimensionPixelSize(R.dimen.sobot_min_keyboard_height);
         }
-        return MIN_KEYBOARD_HEIGHT;
+        return minKeyboardHeight;
     }
 
 
     /**
-     * Recommend invoked by {@link Activity# onCreate(Bundle)}
+     * Recommend invoked by {@link Activity#onCreate(Bundle)}
      * For align the height of the keyboard to {@code target} as much as possible.
      * For save the refresh the keyboard height to shared-preferences.
      *
@@ -170,7 +169,7 @@ public class KeyboardUtil {
                                                                  IPanelHeightTarget target,
             /* Nullable */
                                                                  OnKeyboardShowingListener lis) {
-        final ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        final ViewGroup contentView = activity.findViewById(android.R.id.content);
         final boolean isFullScreen = ViewUtil.isFullScreen(activity);
         final boolean isTranslucentStatus = ViewUtil.isTranslucentStatus(activity);
         final boolean isFitSystemWindows = ViewUtil.isFitsSystemWindows(activity);
@@ -216,7 +215,7 @@ public class KeyboardUtil {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void detach(Activity activity, ViewTreeObserver.OnGlobalLayoutListener l) {
-        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentView = activity.findViewById(android.R.id.content);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             contentView.getViewTreeObserver().removeOnGlobalLayoutListener(l);
         } else {
@@ -304,8 +303,8 @@ public class KeyboardUtil {
                     userRootView.getWindowVisibleDisplayFrame(r);
                     displayHeight = (r.bottom - r.top);
                 } else {
-//                    Log.w("KeyBordUtil",
-//                            "user root view not ready so ignore global layout changed!");
+                    Log.w("KeyBordUtil",
+                            "user root view not ready so ignore global layout changed!");
                     displayHeight = notReadyDisplayHeight;
                 }
 
@@ -399,7 +398,7 @@ public class KeyboardUtil {
 
             } else {
 
-                /*final int phoneDisplayHeight = contentView.getResources()
+                final int phoneDisplayHeight = contentView.getResources()
                         .getDisplayMetrics().heightPixels;
                 if (!isTranslucentStatus
                         && phoneDisplayHeight == actionBarOverlayLayoutHeight) {
@@ -411,19 +410,17 @@ public class KeyboardUtil {
                             actionBarOverlayLayoutHeight));
                     return;
 
-                }*/
+                }
 
-                if (maxOverlayLayoutHeight == 0 || SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)) {//横屏
+                if (maxOverlayLayoutHeight == 0 || ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)) {//横屏
                     // non-used.
                     isKeyboardShowing = lastKeyboardShowing;
                 } else {
-
 //                    isKeyboardShowing = displayHeight < maxOverlayLayoutHeight
 //                            - getMinKeyboardHeight(getContext());
                     //解决一屏多窗口（平板 平行视窗）开启后，聊天页面可以横竖屏切换导致的点击加号不显示菜单面板的问题
                     isKeyboardShowing = displayHeight < actionBarOverlayLayoutHeight
                             - getMinKeyboardHeight(getContext());
-
                 }
 
                 maxOverlayLayoutHeight = Math

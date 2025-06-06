@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 /**
+ * Created by Jacksgong on 3/28/16.
  * <p/>
  * For wrap some utils for view.
  */
@@ -53,7 +54,11 @@ public class ViewUtil {
                     validPanelHeight);
             view.setLayoutParams(layoutParams);
         } else {
-            layoutParams.height = validPanelHeight;
+            if(view.getVisibility()==View.VISIBLE){
+                layoutParams.height = aimHeight;
+            }else {
+                layoutParams.height = validPanelHeight;
+            }
             view.requestLayout();
         }
 

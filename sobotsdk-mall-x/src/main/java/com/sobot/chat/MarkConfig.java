@@ -35,6 +35,11 @@ public class MarkConfig {
     public static final int SHOW_PERMISSION_TIPS_POP = 0b10000;
 
     /**
+     * 修改状态栏文字颜色 默认false:黑色   改成 true :白色
+     */
+    public static final int UPDATE_STARUS_TEXT_COLOR = 0b100000;
+
+    /**
      * 获取开关位
      *
      * @param mark 开关名

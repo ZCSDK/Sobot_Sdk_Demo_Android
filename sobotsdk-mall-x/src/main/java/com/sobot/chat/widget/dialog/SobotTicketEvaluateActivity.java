@@ -1,6 +1,8 @@
 package com.sobot.chat.widget.dialog;
 
 import android.content.Intent;
+
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.activity.base.SobotDialogBaseActivity;

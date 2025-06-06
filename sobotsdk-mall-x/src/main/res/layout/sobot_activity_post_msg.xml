@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sobot_white"
@@ -11,20 +12,20 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/sobot_ll_container"
+        android:id="@+id/sobot_postmsg_ll_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sobot_white"
-        android:gravity="center"
+        android:gravity="bottom"
+        android:background="@color/sobot_color_title_bar_bg"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:visibility="gone">
-
 
         <ImageView
             android:id="@+id/sobot_pst_back_iv"
             android:layout_width="38dp"
             android:layout_height="38dp"
+            android:layout_marginBottom="3dp"
             android:padding="12dp"
             android:src="@drawable/sobot_icon_back_grey" />
 
@@ -35,7 +36,6 @@
             android:minHeight="44dp"
             android:gravity="center"
             android:layout_weight="1"
-            android:background="@color/sobot_color_title_bar_bg"
             app:curTabTextColor="@color/sobot_postMsg_nav_sel_tx_color"
             app:indicatorColor="@color/sobot_postMsg_nav_indicator_color"
             app:tabTextColor="@color/sobot_postMsg_nav_tx_color" />

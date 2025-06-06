@@ -8,6 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,9 +24,6 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.R;

@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sobot_layout_titlebar"
     android:layout_width="match_parent"
-    android:layout_height="44dp"
+    android:layout_height="@dimen/sobot_title_bar_height"
     android:background="@color/sobot_color_title_bar_bg">
+
+    <View
+        android:id="@+id/view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/view_empty"
         android:layout_centerVertical="true"
         android:orientation="horizontal">
 
@@ -17,11 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/sobot_DIMEN_108PX"
             android:drawableStart="@drawable/sobot_icon_back_grey"
-            android:drawableLeft="@drawable/sobot_icon_back_grey"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
             android:textColor="@color/sobot_color_title_bar_menu_text"
             android:textSize="@dimen/sobot_text_title" />
 
@@ -29,20 +34,18 @@
             android:id="@+id/sobot_header_center_ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="horizontal"
             android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp">
+            android:layout_marginLeft="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <com.sobot.chat.widget.image.SobotRCImageView
                 android:id="@+id/sobot_avatar_iv"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
                 android:scaleType="centerCrop"
                 android:visibility="gone"
                 app:sobot_stroke_color="@color/sobot_line_1dp"
@@ -52,10 +55,8 @@
                 android:id="@+id/sobot_text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_toEndOf="@id/sobot_avatar_iv"
-                android:layout_toRightOf="@id/sobot_avatar_iv"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="@color/sobot_color_title_bar_title"
@@ -85,8 +86,8 @@
                 android:id="@+id/sobot_title_conn_status"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
                 android:ellipsize="end"
-                android:layout_marginLeft="4dp"
                 android:gravity="center|center_horizontal"
                 android:singleLine="true"
                 android:textColor="@color/sobot_color_title_bar_title"
@@ -101,7 +102,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/sobot_DIMEN_108PX"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -110,12 +110,11 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:background="@drawable/sobot_icon_evaluation_cancel"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/sobot_icon_evaluation_cancel"
+                android:paddingEnd="0dp"
                 android:textColor="@color/sobot_color_title_bar_menu_text"
                 android:textSize="16sp"
                 android:visibility="gone" />
@@ -125,9 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/sobot_DIMEN_108PX"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
                 android:drawableEnd="@drawable/sobot_phone"
-                android:drawableRight="@drawable/sobot_phone"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/sobot_color_title_bar_menu_text"
@@ -139,9 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/sobot_DIMEN_108PX"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
                 android:drawableEnd="@drawable/sobot_pop_satisfaction"
-                android:drawableRight="@drawable/sobot_pop_satisfaction"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/sobot_color_title_bar_menu_text"
@@ -156,7 +151,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical|end"
                 android:paddingEnd="10dp"
-                android:paddingRight="10dp"
+                android:paddingStart="0dp"
                 android:textColor="@color/sobot_color_title_bar_menu_text"
                 android:textSize="@dimen/sobot_text_title"
                 android:visibility="gone" />

@@ -2,6 +2,7 @@ package com.sobot.chat.viewHolder;
 
 import android.content.Context;
 import android.content.Intent;
+import androidx.core.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -12,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.activity.SobotFileDetailActivity;

@@ -21,13 +21,14 @@ import com.sobot.chat.utils.CommonUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SobotManualFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotManualFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private EditText sobot_et_groupid, sobot_et_choose_adminid, sobot_et_tranReceptionistFlag, sobot_et_customer_fields, sobot_et_autoSendMsgMode, sobot_et_autoSendMsgcontent, sobot_et_autoSendMsgtype,
             sobot_et_queue_First, sobot_et_summary_params, sobot_et_multi_params, sobot_et_vip_level, sobot_et_user_label, sobot_et_autoSendMsg_count;
@@ -38,13 +39,14 @@ public class SobotManualFunctionActivity extends AppCompatActivity implements Vi
     private Information information;
     private SobotDemoOtherModel otherModel;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_manual_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_manual_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
         findvViews();

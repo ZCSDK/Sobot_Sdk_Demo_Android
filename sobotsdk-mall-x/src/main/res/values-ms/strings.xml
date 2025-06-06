@@ -234,7 +234,7 @@
        <string name="sobot_cai">langkah ke depan</string>
        <string name="sobot_re_commit">Anda tidak menghantar sebarang maklumat. Sila</string>
        <string name="sobot_re_write">Isi maklumat lagi</string>
-       <string name="sobo_outline_closed">Sesi telah tamat, konsultasi boleh dimulakan lagi</string>
+       <string name="sobot_outline_closed">Sesi telah tamat, konsultasi boleh dimulakan lagi</string>
        <string name="sobot_str_please_check_is_solve">Sila pilih sama ada isu anda telah diselesaikan</string>
        <string name="sobot_evaluate_lab">Label:</string>
        <string name="sobot_evaluate_issolve">Selesai:</string>

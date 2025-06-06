@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,13 +31,13 @@
                     android:id="@+id/sobot_text452"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="本地消息自动提醒"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -44,25 +45,25 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text452"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:当用户不处在聊天界面时，收到客服的消息，APP 可以在通知栏或者聊天入口给出提醒]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:当用户不处在聊天界面时，收到客服的消息，APP 可以在通知栏或者聊天入口给出提醒]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_5_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -84,13 +85,13 @@
                     android:id="@+id/sobot_text45"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="获取未读消息数"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -98,24 +99,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text45"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:当前客服发送的未读消息数]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:当前客服发送的未读消息数]" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_right_arrow"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -136,13 +137,13 @@
                     android:id="@+id/sobot_text451"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="清空未读消息数"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -150,24 +151,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text451"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:清空当前客服发送的未读消息]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:清空当前客服发送的未读消息]" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_right_arrow"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 

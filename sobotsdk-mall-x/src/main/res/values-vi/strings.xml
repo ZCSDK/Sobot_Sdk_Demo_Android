@@ -234,7 +234,7 @@
        <string name="sobot_cai">bước lên</string>
        <string name="sobot_re_commit">Bạn chưa gửi thông tin, vui lòng</string>
        <string name="sobot_re_write">Điền lại thông tin</string>
-       <string name="sobo_outline_closed">Phiên đã kết thúc, tư vấn có thể được khởi động lại</string>
+       <string name="sobot_outline_closed">Phiên đã kết thúc, tư vấn có thể được khởi động lại</string>
        <string name="sobot_str_please_check_is_solve">Vui lòng chọn nếu vấn đề của bạn được giải quyết</string>
        <string name="sobot_evaluate_lab">Thẻ:</string>
        <string name="sobot_evaluate_issolve">Giải quyết:</string>

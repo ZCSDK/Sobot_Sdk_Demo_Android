@@ -193,7 +193,9 @@ public class StVideoView extends FrameLayout implements SurfaceHolder.Callback, 
         int height = (int) ((videoHeight / videoWidth) * getWidth());
         videoViewParam = new LayoutParams(LayoutParams.MATCH_PARENT, height);
         videoViewParam.gravity = Gravity.CENTER;
-        fl_video.setLayoutParams(videoViewParam);
+        if(fl_video!=null) {
+            fl_video.setLayoutParams(videoViewParam);
+        }
     }
 
     @Override
@@ -307,8 +309,10 @@ public class StVideoView extends FrameLayout implements SurfaceHolder.Callback, 
             mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    updateVideoViewSize(mp.getVideoWidth(), mp
-                            .getVideoHeight());
+                    if(fl_video!=null) {
+                        updateVideoViewSize(mp.getVideoWidth(), mp
+                                .getVideoHeight());
+                    }
                     startVideo();
                 }
             });

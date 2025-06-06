@@ -18,7 +18,9 @@ package com.sobot.chat.widget.kpswitch.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+
 /**
+ * Created by Jacksgong on 9/1/15.
  * <p/>
  * For save the keyboard height.
  */
@@ -28,7 +30,7 @@ class KeyBoardSharedPreferences {
 
     private static final String KEY_KEYBOARD_HEIGHT = "sp.key.keyboard.height";
 
-    private static volatile SharedPreferences SP;
+    private static volatile SharedPreferences sp;
 
     public static boolean save(final Context context, final int keyboardHeight) {
         return with(context).edit()
@@ -37,15 +39,15 @@ class KeyBoardSharedPreferences {
     }
 
     private static SharedPreferences with(final Context context) {
-        if (SP == null) {
+        if (sp == null) {
             synchronized (KeyBoardSharedPreferences.class) {
-                if (SP == null) {
-                    SP = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+                if (sp == null) {
+                    sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
                 }
             }
         }
 
-        return SP;
+        return sp;
     }
 
     public static int get(final Context context, final int defaultHeight) {

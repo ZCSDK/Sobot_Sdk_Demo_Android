@@ -21,9 +21,9 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
-import com.sobot.demo.util.AndroidBug5497Workaround;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotOtherFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotOtherFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
     private RelativeLayout sobot_rl_4_7_6_1, sobot_rl_4_7_6_2, sobot_rl_4_7_8, sobot_rl_4_7_9;
@@ -36,13 +36,12 @@ public class SobotOtherFunctionActivity extends AppCompatActivity implements Vie
     private Information information;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_other_func_activity);
-        AndroidBug5497Workaround.assistActivity(this);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_other_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         findvViews();
     }
 

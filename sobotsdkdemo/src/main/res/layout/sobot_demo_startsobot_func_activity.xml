@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
-    android:background="@color/sobot_white"
     android:layout_height="match_parent"
+    android:background="@color/sobot_white"
     android:orientation="vertical">
 
     <include
@@ -40,8 +41,10 @@
         android:id="@+id/sobot_tv_start"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/sobot_btn_bg_help_center"
@@ -49,8 +52,6 @@
         android:padding="6dp"
         android:text="启动客服"
         android:textColor="@color/sobot_common_gray1"
-        android:textSize="16sp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp" />
+        android:textSize="16sp" />
 
 </LinearLayout>

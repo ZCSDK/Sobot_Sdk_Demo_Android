@@ -55,7 +55,6 @@ import com.sobot.chat.utils.StringUtils;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.chat.widget.image.SobotRCImageView;
-import com.sobot.chat.widget.statusbar.StatusBarCompat;
 import com.sobot.pictureframe.SobotBitmapUtil;
 
 import java.io.File;
@@ -414,7 +413,6 @@ public abstract class SobotBaseFragment extends Fragment {
                 fl_root.setVisibility(View.GONE);
             } else {
                 fl_root.setVisibility(View.VISIBLE);
-                StatusBarCompat.setStatusBarColor(getSobotActivity(), getResources().getColor(R.color.sobot_status_bar_transparent));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -453,7 +451,6 @@ public abstract class SobotBaseFragment extends Fragment {
         String permissionTitle = "";
         if (overlay != null) {
             FrameLayout fl_root = overlay.findViewById(R.id.fl_root);
-            StatusBarCompat.setStatusBarColor(getSobotActivity(), getResources().getColor(R.color.sobot_status_bar_transparent));
             fl_root.setVisibility(View.VISIBLE);
             LinearLayout ll_info = overlay.findViewById(R.id.ll_info);
             LinearLayout ll_setting = overlay.findViewById(R.id.ll_setting);
@@ -476,7 +473,6 @@ public abstract class SobotBaseFragment extends Fragment {
                 viewGroup = getSobotActivity().findViewById(android.R.id.content);
             }
             viewGroup.removeView(overlay);
-            StatusBarCompat.setStatusBarColor(getSobotActivity(), getResources().getColor(R.color.sobot_status_bar_color));
         }
     }
 
@@ -540,7 +536,7 @@ public abstract class SobotBaseFragment extends Fragment {
                 //检测是否有图片权限
                 if (ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_IMAGES)
                         == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VIDEO)
-                        == PackageManager.PERMISSION_GRANTED ) {
+                        == PackageManager.PERMISSION_GRANTED) {
                     //有权限
                     return 0;
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && ContextCompat.checkSelfPermission(getSobotActivity(), Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)

@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import androidx.annotation.ColorRes;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-
-import androidx.annotation.ColorRes;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

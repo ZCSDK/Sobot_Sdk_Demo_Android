@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.viewpager.widget.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.viewpager.widget.ViewPager;
 
 import com.sobot.chat.MarkConfig;
 import com.sobot.chat.SobotApi;
@@ -95,7 +94,8 @@ public class SobotPostMsgActivity extends SobotBaseActivity implements View.OnCl
 //        showLeftMenu(getResDrawableId("sobot_icon_back_grey"), "", true);
 //        setTitle(getResString("sobot_str_bottom_message"));
         mLlCompleted = (LinearLayout) findViewById(getResId("sobot_ll_completed"));
-        mllContainer = (LinearLayout) findViewById(getResId("sobot_ll_container"));
+        mllContainer = (LinearLayout) findViewById(getResId("sobot_postmsg_ll_container"));
+        setViewDefBgForStatusBar(mllContainer);
         mTvTicket = (TextView) findViewById(getResId("sobot_tv_ticket"));
         mTvTicket.setText(ResourceUtils.getResString(SobotPostMsgActivity.this, "sobot_leaveMsg_to_ticket"));
         mTvCompleted = (TextView) findViewById(getResId("sobot_tv_completed"));

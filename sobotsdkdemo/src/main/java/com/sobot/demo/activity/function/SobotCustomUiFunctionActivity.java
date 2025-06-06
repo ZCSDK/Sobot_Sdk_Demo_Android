@@ -26,9 +26,10 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
-public class SobotCustomUiFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotCustomUiFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private EditText sobot_et_custom_title, sobot_et_custom_avatar, sobot_et_custom_right_button_call, sobot_et_localmodel;
     private RelativeLayout sobot_tv_left, sobot_rl_4_6_2, sobot_rl_4_6_2_2, sobot_rl_4_6_3, sobot_rl_4_6_4, sobot_rl_4_6_1_1, sobot_rl_4_6_1_2, sobot_rl_4_6_1_3;
@@ -39,12 +40,12 @@ public class SobotCustomUiFunctionActivity extends AppCompatActivity implements 
     private SobotDemoOtherModel otherModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_customui_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_customui_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
         findvViews();

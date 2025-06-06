@@ -20,11 +20,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.text.TextPaint;
-import android.text.TextUtils;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import android.text.TextPaint;
+import android.text.TextUtils;
 
 import com.sobot.chat.widget.zxing.BarcodeFormat;
 import com.sobot.chat.widget.zxing.BinaryBitmap;

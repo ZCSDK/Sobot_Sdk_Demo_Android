@@ -234,7 +234,7 @@
        <string name="sobot_cai">passo avanti</string>
        <string name="sobot_re_commit">Non hai inviato alcuna informazione. Per favore</string>
        <string name="sobot_re_write">Compila nuovamente le informazioni</string>
-       <string name="sobo_outline_closed">La sessione è terminata, la consultazione può essere ripresa</string>
+       <string name="sobot_outline_closed">La sessione è terminata, la consultazione può essere ripresa</string>
        <string name="sobot_str_please_check_is_solve">Scegliere se il problema è stato risolto</string>
        <string name="sobot_evaluate_lab">Etichetta:</string>
        <string name="sobot_evaluate_issolve">Risolto:</string>

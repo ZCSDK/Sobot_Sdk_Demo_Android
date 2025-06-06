@@ -234,7 +234,7 @@
        <string name="sobot_cai">踏む</string>
        <string name="sobot_re_commit">情報をコミットしていません。</string>
        <string name="sobot_re_write">情報の再入力</string>
-       <string name="sobo_outline_closed">セッションが終了しました。問い合わせを再開できます</string>
+       <string name="sobot_outline_closed">セッションが終了しました。問い合わせを再開できます</string>
        <string name="sobot_str_please_check_is_solve">問題を解決したかどうかを選択してください</string>
        <string name="sobot_evaluate_lab">ラベル:</string>
        <string name="sobot_evaluate_issolve">解決するかどうか：</string>

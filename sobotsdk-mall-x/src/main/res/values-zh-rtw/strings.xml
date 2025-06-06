@@ -234,7 +234,7 @@
        <string name="sobot_cai">踩</string>
        <string name="sobot_re_commit">您未提交資訊，請</string>
        <string name="sobot_re_write">重新填寫資訊</string>
-       <string name="sobo_outline_closed">會話已結束，可重新發起諮詢</string>
+       <string name="sobot_outline_closed">會話已結束，可重新發起諮詢</string>
        <string name="sobot_str_please_check_is_solve">請選擇是否解决了您的問題</string>
        <string name="sobot_evaluate_lab">標籤：</string>
        <string name="sobot_evaluate_issolve">是否解决：</string>

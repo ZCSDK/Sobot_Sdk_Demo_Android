@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.R;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.widget.kpswitch.widget.data.PageSetEntity;
 
@@ -27,12 +27,10 @@ public class EmoticonsIndicatorView extends LinearLayout {
         this.setOrientation(HORIZONTAL);
 
         if (mDrawableNomal == null) {
-            mDrawableNomal = getResources().getDrawable(ResourceUtils.getIdByName(context,
-                    "drawable", "sobot_indicator_point_nomal"));
+            mDrawableNomal = getResources().getDrawable(R.drawable.sobot_indicator_point_nomal);
         }
         if (mDrawableSelect == null) {
-            mDrawableSelect = getResources().getDrawable(ResourceUtils.getIdByName(context,
-                    "drawable", "sobot_indicator_point_select"));
+            mDrawableSelect = getResources().getDrawable(R.drawable.sobot_indicator_point_select);
         }
 
         mLeftLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

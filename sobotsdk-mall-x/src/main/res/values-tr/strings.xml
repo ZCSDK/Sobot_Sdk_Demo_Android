@@ -234,7 +234,7 @@
        <string name="sobot_cai">Step on</string>
        <string name="sobot_re_commit">Hiçbir bilgi göndermediniz. Lütfen</string>
        <string name="sobot_re_write">Bilgileri tekrar doldur</string>
-       <string name="sobo_outline_closed">Oturum bitti, danışma tekrar başlatılabilir.</string>
+       <string name="sobot_outline_closed">Oturum bitti, danışma tekrar başlatılabilir.</string>
        <string name="sobot_str_please_check_is_solve">Lütfen sorununuz çözüldüğünü seçin.</string>
        <string name="sobot_evaluate_lab">Etiket:</string>
        <string name="sobot_evaluate_issolve">Çözümlenmiş:</string>

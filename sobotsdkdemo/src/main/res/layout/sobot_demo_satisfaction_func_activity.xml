@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -31,13 +32,13 @@
                     android:id="@+id/sobot_text4421"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.4.2 左上角返回时是否弹出提示弹窗"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -45,24 +46,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4421"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:'您是否要结束会话?' 弹窗默认不显示]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:'您是否要结束会话?' 弹窗默认不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_4_2_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -83,13 +84,13 @@
                     android:id="@+id/sobot_text4422"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.4.2 左上角返回是否弹出评价"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -97,24 +98,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4422"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不显示]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:默认不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_4_2_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -135,13 +136,13 @@
                     android:id="@+id/sobot_text4431"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.4.3 右上角是否显示关闭"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -149,24 +150,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4431"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不显示]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:默认不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_4_3_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -187,13 +188,13 @@
                     android:id="@+id/sobot_text4432"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.4.3 右上角点击关闭是否弹出评价"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -201,24 +202,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4432"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不显示]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:默认不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_4_3_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -239,13 +240,13 @@
                     android:id="@+id/sobot_text444"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.4.4 评价完是否结束会话"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -253,24 +254,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text444"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不结束]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:默认不结束]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_4_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -292,13 +293,13 @@
                     android:id="@+id/sobot_text445"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.4.5 评价页面是否显示'暂不评价'"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -306,24 +307,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text445"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:默认不结束]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:默认不结束]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_4_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -380,7 +381,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"/>
+                android:layout_marginBottom="40dp" />
 
         </LinearLayout>
 

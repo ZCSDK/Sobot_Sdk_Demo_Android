@@ -1,15 +1,14 @@
 package com.sobot.chat.widget.attachment;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.sobot.chat.api.model.SobotFileModel;
 import com.sobot.chat.utils.ResourceUtils;

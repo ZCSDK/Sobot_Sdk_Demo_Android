@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.sobot.chat.MarkConfig;
-import com.sobot.chat.SobotApi;
+import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.widget.kpswitch.handler.KPSwitchFSPanelLayoutHandler;
@@ -105,7 +105,7 @@ public class KPSwitchConflictUtil {
                          * keyboard going to show.
                          * @see KPSwitchConflictUtil#showKeyboard(View, View)
                          */
-                        if (!SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){
+                        if (!ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){
                             panelLayout.setVisibility(View.INVISIBLE);
                         }else{
                             panelLayout.setVisibility(View.GONE);
@@ -161,7 +161,7 @@ public class KPSwitchConflictUtil {
                          * keyboard going to show.
                          * @see KPSwitchConflictUtil#showKeyboard(View, View)
                          */
-                        if (!SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){
+                        if (!ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){
                             panelLayout.setVisibility(View.INVISIBLE);
                         }else{
                             panelLayout.setVisibility(View.GONE);
@@ -202,16 +202,16 @@ public class KPSwitchConflictUtil {
     public static void showPanel(final View panelLayout) {
         final Activity activity = (Activity) panelLayout.getContext();
         panelLayout.setVisibility(View.VISIBLE);
-        if (!SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){//是竖屏
+        if (!ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){//是竖屏
             if (activity.getCurrentFocus() != null) {
                 KeyboardUtil.hideKeyboard(activity.getCurrentFocus());
             }
         }else {
             LogUtils.e(panelLayout.getMeasuredHeight()+"");
 //            if (panelLayout.getMeasuredHeight() > ScreenUtils.getScreenHeight(activity) * 0.6) {//
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) panelLayout.getLayoutParams();
-                layoutParams.height= (int) (ScreenUtils.getScreenHeight(activity) * 0.37);
-                panelLayout.setLayoutParams(layoutParams);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) panelLayout.getLayoutParams();
+            layoutParams.height= (int) (ScreenUtils.getScreenHeight(activity) * 0.37);
+            panelLayout.setLayoutParams(layoutParams);
 //            }
             if (activity.getCurrentFocus() != null) {
                 KeyboardUtil.hideKeyboard(activity.getCurrentFocus());
@@ -231,7 +231,7 @@ public class KPSwitchConflictUtil {
 
         KeyboardUtil.showKeyboard(focusView);
         if (isHandleByPlaceholder(activity)) {
-            if (!SobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){
+            if (!ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN)){
                 panelLayout.setVisibility(View.INVISIBLE);
             }else{
                 panelLayout.setVisibility(View.GONE);

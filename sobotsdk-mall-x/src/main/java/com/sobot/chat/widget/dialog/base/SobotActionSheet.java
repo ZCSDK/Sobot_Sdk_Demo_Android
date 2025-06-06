@@ -5,14 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import androidx.annotation.StyleRes;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import androidx.annotation.StyleRes;
 
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;

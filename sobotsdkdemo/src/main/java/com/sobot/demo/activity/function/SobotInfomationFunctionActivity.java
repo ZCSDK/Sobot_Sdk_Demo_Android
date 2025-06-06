@@ -13,20 +13,22 @@ import com.sobot.chat.activity.WebViewActivity;
 import com.sobot.chat.api.model.Information;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotInfomationFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotInfomationFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
-    private TextView tv_info_fun_5,sobot_tv_save;
+    private TextView tv_info_fun_5, sobot_tv_save;
     private Information information;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_infomation_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_infomation_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         findvViews();
     }
@@ -48,7 +50,6 @@ public class SobotInfomationFunctionActivity extends AppCompatActivity implement
             }
         });
         sobot_tv_save = findViewById(R.id.sobot_tv_save);
-        sobot_tv_save.setVisibility(View.GONE);
     }
 
     @Override

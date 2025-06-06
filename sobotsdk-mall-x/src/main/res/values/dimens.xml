@@ -67,4 +67,6 @@
     <dimen name="sobot_msg_corner_radius">4dp</dimen>
     <!--右侧消息 (文件、商品卡片、订单卡片、文件类型的气泡) 线框边框宽度 -->
     <dimen name="sobot_right_msg_line_width">1dp</dimen>
+    <!--页面头部导航条高度-->
+    <dimen name="sobot_title_bar_height">44dp</dimen>
 </resources>

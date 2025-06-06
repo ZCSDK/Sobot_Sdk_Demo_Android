@@ -234,7 +234,7 @@
        <string name="sobot_cai"> تدوس</string>
        <string name="sobot_re_commit"> أنت لم تقدم المعلومات ، يرجى</string>
        <string name="sobot_re_write"> إعادة ملء المعلومات </string>
-       <string name="sobo_outline_closed"> الدورة قد انتهت ، يمكن استئناف المشاورات</string>
+       <string name="sobot_outline_closed"> الدورة قد انتهت ، يمكن استئناف المشاورات</string>
        <string name="sobot_str_please_check_is_solve">الرجاء اختيار ما إذا كانت المشكلة قد تم حلها</string>
        <string name="sobot_evaluate_lab">علامة:</string>
        <string name="sobot_evaluate_issolve">إذا تقرر :</string>

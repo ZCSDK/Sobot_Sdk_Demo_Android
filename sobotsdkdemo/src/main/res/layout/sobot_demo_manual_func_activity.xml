@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -283,6 +284,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/sobot_common_gray1" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -309,8 +311,8 @@
                 android:enabled="true"
                 android:inputType="number"
                 android:padding="6dp"
-                android:text="0"
                 android:scrollbars="none"
+                android:text="0"
                 android:textColor="@color/sobot_common_gray1"
                 android:textColorHint="@color/sobot_common_gray3"
                 android:textSize="14sp" />
@@ -447,13 +449,13 @@
                     android:id="@+id/sobot_text428"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.8 商品卡片"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -461,24 +463,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text428"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:详细设置请参考文档4.2.8商品卡片]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:详细设置请参考文档4.2.8商品卡片]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -499,13 +501,13 @@
                     android:id="@+id/sobot_text429"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.9 订单卡片"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -513,24 +515,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text429"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:详细设置请参考文档4.2.9订单卡片]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:详细设置请参考文档4.2.9订单卡片]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -551,13 +553,13 @@
                     android:id="@+id/sobot_text4211"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.11 客户身份是否VIP"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -565,24 +567,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4211"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:指定用户是否是vip]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:指定用户是否是vip]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -681,13 +683,13 @@
                     android:id="@+id/sobot_text42131"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 隐藏评价功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -695,24 +697,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42131"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏'+'评价按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:隐藏'+'评价按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -734,13 +736,13 @@
                     android:id="@+id/sobot_text42132"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 隐藏留言功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -748,24 +750,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42132"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏机器人和人工聊天模式下，'+'中的留言按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:隐藏机器人和人工聊天模式下，'+'中的留言按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -786,13 +788,13 @@
                     android:id="@+id/sobot_text42137"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 只隐藏人工聊天模式的留言功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -800,24 +802,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42137"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:只隐藏在人工聊天模式'+'中的留言按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:只隐藏在人工聊天模式'+'中的留言按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -838,13 +840,13 @@
                     android:id="@+id/sobot_text42133"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 隐藏图片功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -852,24 +854,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42133"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏'+'图片按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:隐藏'+'图片按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -891,13 +893,13 @@
                     android:id="@+id/sobot_text42134"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 隐藏视频功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -905,24 +907,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42134"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏'+'视频按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:隐藏'+'视频按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -944,13 +946,13 @@
                     android:id="@+id/sobot_text42135"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 隐藏拍摄功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -958,24 +960,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42135"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏'+'拍摄按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:隐藏'+'拍摄按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -997,13 +999,13 @@
                     android:id="@+id/sobot_text42136"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="4.2.13 隐藏文件功能"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -1011,27 +1013,26 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text42136"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:text="[说明:隐藏'+'文件按钮]"
-                    android:layout_marginEnd="25dp" />
+                    android:text="[说明:隐藏'+'文件按钮]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_2_13_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
-
 
 
             <View

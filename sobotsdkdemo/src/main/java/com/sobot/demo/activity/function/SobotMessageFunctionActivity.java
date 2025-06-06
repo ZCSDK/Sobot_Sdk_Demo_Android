@@ -18,8 +18,9 @@ import com.sobot.chat.utils.SharedPreferencesUtil;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotMessageFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotMessageFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left, sobot_rl_4_5_2, sobot_rl_4_5, sobot_rl_4_51;
     private ImageView sobotImage452;
@@ -27,13 +28,14 @@ public class SobotMessageFunctionActivity extends AppCompatActivity implements V
     private TextView tv_message_fun_4_5_2, tv_message_fun_4_5_3, tv_message_fun_4_5_4, tv_message_fun_4_5_6, sobot_tv_save;
     private Information information;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_message_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_message_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         findvViews();
     }

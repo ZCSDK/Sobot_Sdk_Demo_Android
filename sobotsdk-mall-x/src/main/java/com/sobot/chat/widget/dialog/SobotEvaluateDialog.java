@@ -3,6 +3,10 @@ package com.sobot.chat.widget.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,11 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.R;
 import com.sobot.chat.api.ResultCallBack;

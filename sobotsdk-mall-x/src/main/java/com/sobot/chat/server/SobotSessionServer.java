@@ -8,10 +8,9 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.TextUtils;
-
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import android.text.TextUtils;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;

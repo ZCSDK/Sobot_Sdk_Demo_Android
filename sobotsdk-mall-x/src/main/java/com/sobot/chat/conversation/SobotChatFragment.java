@@ -15,6 +15,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sobot.chat.MarkConfig;
@@ -141,10 +145,12 @@ import com.sobot.chat.widget.image.SobotRCImageView;
 import com.sobot.chat.widget.kpswitch.CustomeChattingPanel;
 import com.sobot.chat.widget.kpswitch.util.KPSwitchConflictUtil;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
+import com.sobot.chat.widget.kpswitch.util.ViewUtil;
 import com.sobot.chat.widget.kpswitch.view.ChattingPanelEmoticonView;
 import com.sobot.chat.widget.kpswitch.view.ChattingPanelUploadView;
 import com.sobot.chat.widget.kpswitch.view.CustomeViewFactory;
 import com.sobot.chat.widget.kpswitch.widget.KPSwitchPanelLinearLayout;
+import com.sobot.chat.widget.statusbar.StatusBarUtil;
 import com.sobot.network.http.callback.SobotResultCallBack;
 import com.sobot.network.http.callback.StringResultCallBack;
 import com.sobot.network.http.upload.SobotUpload;
@@ -970,6 +976,30 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
     }
 
     protected void initData() {
+        if (StatusBarUtil.SOBOT_STATUS_HIGHT == 0) {
+            try {
+                View decorView = getSobotActivity().getWindow().getDecorView();
+                if (decorView != null) {
+                    ViewCompat.setOnApplyWindowInsetsListener(decorView, new OnApplyWindowInsetsListener() {
+                        @Override
+                        public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                            int statusBarHeight = insets.getSystemWindowInsetTop();
+                            LogUtils.d("chat fragment 状态栏高度: " + statusBarHeight);
+                            StatusBarUtil.SOBOT_STATUS_HIGHT = statusBarHeight;
+                            SharedPreferencesUtil.saveIntData(getSobotActivity(),"SobotStatusBarHeight", statusBarHeight);
+                            setToolBarDefBg();
+                            return insets;
+                        }
+                    });
+                } else {
+                    setToolBarDefBg();
+                }
+            } catch (Exception e) {
+                setToolBarDefBg();
+            }
+        } else {
+            setToolBarDefBg();
+        }
         setToolBar();
         initBrocastReceiver();
         initListener();
@@ -1915,27 +1945,6 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         mBottomViewtype = config.bottomViewtype;
         setBottomView(config.bottomViewtype);
         isChatLock = config.isChatLock;
-        if (type == ZhiChiConstant.type_custom_only && statusFlag == 0) {
-            //仅人工客服
-            preCurrentCid = currentCid;
-            if (isUserBlack()) {
-                showLeaveMsg();
-            } else {
-                if (initModel.getInvalidSessionFlag() == 1) {
-                    //设置底部键盘
-                    setBottomView(ZhiChiConstant.bottomViewtype_onlyrobot);
-                    btn_set_mode_rengong.setVisibility(View.GONE);
-                    btn_model_edit.setVisibility(View.GONE);
-                    btn_model_voice.setVisibility(View.GONE);
-                    btn_emoticon_view.setVisibility(View.VISIBLE);
-                    tempMsgContent = config.tempMsgContent;
-                    setAvatar(getResDrawableId("sobot_def_admin"), true);
-                    setTitle("", false);
-                } else {
-                    transfer2Custom(null, null, null, true, "1", "", "");
-                }
-            }
-        }
         if (type == ZhiChiConstant.type_custom_first && statusFlag == 0) {
             //人工优先
             tempMsgContent = config.tempMsgContent;
@@ -2029,6 +2038,27 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         //如果当前是人工模式，又在轮询，就启动轮询方法
         if (current_client_model == ZhiChiConstant.client_model_customService && inPolling && !CommonUtils.isServiceWork(getSobotActivity(), "com.sobot.chat.core.channel.SobotTCPServer")) {
             startPolling();
+        }
+        if (type == ZhiChiConstant.type_custom_only && statusFlag == 0) {
+            //仅人工客服
+            preCurrentCid = currentCid;
+            if (isUserBlack()) {
+                showLeaveMsg();
+            } else {
+                if (initModel.getInvalidSessionFlag() == 1) {
+                    //设置底部键盘
+                    setBottomView(ZhiChiConstant.bottomViewtype_onlyrobot);
+                    btn_set_mode_rengong.setVisibility(View.GONE);
+                    btn_model_edit.setVisibility(View.GONE);
+                    btn_model_voice.setVisibility(View.GONE);
+                    btn_emoticon_view.setVisibility(View.VISIBLE);
+                    tempMsgContent = config.tempMsgContent;
+                    setAvatar(getResDrawableId("sobot_def_admin"), true);
+                    setTitle("", false);
+                } else {
+                    transfer2Custom(null, null, null, true, "1", "", "");
+                }
+            }
         }
     }
 
@@ -4079,7 +4109,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 CustomeChattingPanel customeChattingPanel = (CustomeChattingPanel) childView;
                 Bundle bundle = new Bundle();
                 bundle.putInt("current_client_model", current_client_model);
-                customeChattingPanel.setupView(btnId, bundle, SobotChatFragment.this);
+                customeChattingPanel.setupView(btnId, bundle,  SobotChatFragment.this);
             }
         }
     }
@@ -4914,6 +4944,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
             LogUtils.i("-------点击加号-------");
             hideRobotVoiceHint();
             pressSpeakSwitchPanelAndKeyboard(btn_upload_view);
+            showPlusMenuHindKeyboard();
             doEmoticonBtn2Blur();
             gotoLastItem();
         }
@@ -4989,6 +5020,14 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 LogUtils.e("电话号码不能为空");
             }
         }
+    }
+
+    /**
+     * 底部多面板切换：显示多功能菜单
+     */
+    public void showPlusMenuHindKeyboard() {
+       int validPanelHeight = KeyboardUtil.getValidPanelHeight(getSobotActivity());
+        ViewUtil.refreshHeight(mPanelRoot, validPanelHeight);
     }
 
     //开始录音
@@ -5511,7 +5550,11 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
 
     // 获取标题内容
     public String getActivityTitle() {
-        return mTitleTextView.getText().toString();
+        if (mTitleTextView.getVisibility()==View.VISIBLE){
+            return mTitleTextView.getText().toString();
+        }else{
+            return "";
+        }
     }
 
     /**
@@ -5695,6 +5738,43 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         super.onConfigurationChanged(newConfig);
         if (mPanelRoot != null) {
             hidePanelAndKeyboard(mPanelRoot);
+        }
+    }
+
+    protected int getStatusBarColor() {
+        if (SobotUIConfig.DEFAULT != SobotUIConfig.sobot_statusbar_BgColor) {
+            return getResources().getColor(SobotUIConfig.sobot_statusbar_BgColor);
+        }
+        if (SobotUIConfig.DEFAULT != SobotUIConfig.sobot_titleBgColor) {
+            return getResources().getColor(SobotUIConfig.sobot_titleBgColor);
+        }
+        return getResources().getColor(R.color.sobot_status_bar_color);
+    }
+    /**
+     * 设置默认导航栏渐变色
+     */
+    private void setToolBarDefBg() {
+        try {
+            int[] colors = new int[]{getStatusBarColor(), getStatusBarColor()};
+            GradientDrawable gradientDrawable = new GradientDrawable();
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setColors(colors); //添加颜色组
+            gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);//设置线性渐变
+            gradientDrawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);//设置渐变方向
+            relative.setBackground(gradientDrawable);
+            if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.LANDSCAPE_SCREEN) && ZCSobotApi.getSwitchMarkStatus(MarkConfig.DISPLAY_INNOTCH)) {
+            } else {
+                GradientDrawable aDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
+                StatusBarUtil.setColor(getSobotActivity(), aDrawable);
+                if (ZCSobotApi.getSwitchMarkStatus(MarkConfig.UPDATE_STARUS_TEXT_COLOR)) {
+                    //状态栏文字白色
+                    StatusBarUtil.setDarkMode(getSobotActivity());
+                } else {
+                    //状态栏文字黑色
+                    StatusBarUtil.setLightMode(getSobotActivity());
+                }
+            }
+        } catch (Exception e) {
         }
     }
 }

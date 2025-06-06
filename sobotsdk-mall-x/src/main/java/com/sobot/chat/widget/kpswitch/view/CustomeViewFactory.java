@@ -2,8 +2,8 @@ package com.sobot.chat.widget.kpswitch.view;
 
 import android.content.Context;
 
+import com.sobot.chat.R;
 import com.sobot.chat.utils.LogUtils;
-import com.sobot.chat.utils.ResourceUtils;
 
 
 /**
@@ -15,9 +15,9 @@ public class CustomeViewFactory {
         BaseChattingPanelView baseView = null;
         LogUtils.i("BaseChattingPanelView");
         if (btnId != 0) {
-            if (btnId == ResourceUtils.getIdByName(context, "id", "sobot_btn_upload_view")) {
+            if (btnId == R.id.sobot_btn_upload_view) {
                 baseView = new ChattingPanelUploadView(context);
-            } else if (btnId == ResourceUtils.getIdByName(context, "id", "sobot_btn_emoticon_view")) {
+            } else if (btnId == R.id.sobot_btn_emoticon_view) {
                 baseView = new ChattingPanelEmoticonView(context);
             }
         }
@@ -33,10 +33,10 @@ public class CustomeViewFactory {
     public static String getInstanceTag(Context context, int btnId) {
         String baseViewTag = null;
         if (btnId != 0) {
-            if (btnId == ResourceUtils.getIdByName(context, "id", "sobot_btn_upload_view")) {
+            if (btnId == R.id.sobot_btn_upload_view) {
 //                baseViewTag = new ChattingPanelUploadView(context);
                 baseViewTag = "ChattingPanelUploadView";
-            } else if (btnId == ResourceUtils.getIdByName(context, "id", "sobot_btn_emoticon_view")) {
+            } else if (btnId == R.id.sobot_btn_emoticon_view) {
 //                baseViewTag = new ChattingPanelEmoticonView(context);
                 baseViewTag = "ChattingPanelEmoticonView";
             }

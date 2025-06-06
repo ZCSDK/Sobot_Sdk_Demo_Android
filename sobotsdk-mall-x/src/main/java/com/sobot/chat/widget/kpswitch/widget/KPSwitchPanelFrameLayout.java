@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package  com.sobot.chat.widget.kpswitch.widget;
+package com.sobot.chat.widget.kpswitch.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -25,7 +25,6 @@ import android.widget.FrameLayout;
 import com.sobot.chat.widget.kpswitch.IPanelConflictLayout;
 import com.sobot.chat.widget.kpswitch.IPanelHeightTarget;
 import com.sobot.chat.widget.kpswitch.handler.KPSwitchPanelLayoutHandler;
-
 
 /**
  * Created by Jacksgong on 3/30/16.

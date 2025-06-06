@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2016 Jacksgong(blog.dreamtobe.cn)
+ * Copyright (C) 2015-2017 Jacksgong(blog.dreamtobe.cn)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package com.sobot.chat.widget.kpswitch;
 
 /**
+ * Created by Jacksgong on 3/26/16.
  * <p/>
  * For align the height of the keyboard to panel height as much as possible.
  *
@@ -24,9 +25,10 @@ package com.sobot.chat.widget.kpswitch;
 public interface IPanelHeightTarget {
 
     /**
-     * for handle the panel's height, will be equal to the keyboard height which had saved last time.
+     * for handle the panel's height, will be equal to the keyboard height which had saved last
+     * time.
      */
-    void refreshHeight(final int panelHeight);
+    void refreshHeight(int panelHeight);
 
     /**
      * @return get the height of target-view.

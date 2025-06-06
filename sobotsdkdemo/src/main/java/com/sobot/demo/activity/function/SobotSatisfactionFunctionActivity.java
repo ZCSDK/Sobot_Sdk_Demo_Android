@@ -18,8 +18,9 @@ import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.utils.ZhiChiConstant;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotSatisfactionFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotSatisfactionFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left, sobot_rl_4_4_2_1, sobot_rl_4_4_2_2, sobot_rl_4_4_3_1, sobot_rl_4_4_3_2, sobot_rl_4_4_4, sobot_rl_4_4_5;
     private ImageView sobotImage4421, sobotImage4422, sobotImage4431, sobotImage4432, sobotImage444, sobotImage445;
@@ -28,12 +29,12 @@ public class SobotSatisfactionFunctionActivity extends AppCompatActivity impleme
     private Information information;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_satisfaction_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_satisfaction_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         findvViews();
     }

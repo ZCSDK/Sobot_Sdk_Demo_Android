@@ -4,46 +4,58 @@
     android:layout_height="@dimen/sobot_DIMEN_108PX"
     android:background="#ffffff">
 
-    <RelativeLayout
-        android:id="@+id/sobot_demo_tv_left"
-        android:layout_width="50dp"
-        android:layout_height="match_parent">
+    <View
+        android:id="@+id/view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_empty"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/sobot_demo_tv_left"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/sobot_demo_back_arrow"
+                android:contentDescription="@null" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/sobot_demo_tv_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/sobot_demo_back_arrow"
-            android:contentDescription="@null" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#3D4966"
+            android:textSize="16sp" />
 
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/sobot_demo_tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:textColor="#3D4966"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/sobot_tv_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="6dp"
-        android:text="保存"
-        android:textColor="@color/sobot_common_green"
-        android:textSize="16sp"
-        android:visibility="gone"
-        android:layout_alignParentEnd="true"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp" />
+        <TextView
+            android:id="@+id/sobot_tv_save"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="6dp"
+            android:text="保存"
+            android:textColor="@color/sobot_common_green"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

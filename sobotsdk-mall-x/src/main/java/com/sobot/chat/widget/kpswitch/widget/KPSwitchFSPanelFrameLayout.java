@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2015-2017 Jacksgong(blog.dreamtobe.cn)
  *
@@ -28,7 +27,6 @@ import com.sobot.chat.widget.kpswitch.IPanelHeightTarget;
 import com.sobot.chat.widget.kpswitch.handler.KPSwitchFSPanelLayoutHandler;
 import com.sobot.chat.widget.kpswitch.util.KeyboardUtil;
 import com.sobot.chat.widget.kpswitch.util.ViewUtil;
-
 
 /**
  * Created by Jacksgong on 3/31/16.

@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.sobot.chat.utils.LogUtils;
+
 /**
  * 自动换行的RadioGroup
  */

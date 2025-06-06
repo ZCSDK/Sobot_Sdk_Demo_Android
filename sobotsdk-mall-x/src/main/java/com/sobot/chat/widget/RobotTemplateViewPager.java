@@ -1,10 +1,9 @@
 package com.sobot.chat.widget;
 
 import android.content.Context;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
-
-import androidx.viewpager.widget.ViewPager;
 
 import com.sobot.chat.adapter.SobotRobotTemplatePageAdater;
 import com.sobot.chat.api.model.ZhiChiMessageBase;

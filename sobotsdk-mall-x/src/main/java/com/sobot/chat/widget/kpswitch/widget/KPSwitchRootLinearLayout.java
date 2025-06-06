@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2016 Jacksgong(blog.dreamtobe.cn)
+ * Copyright (C) 2015-2017 Jacksgong(blog.dreamtobe.cn)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import com.sobot.chat.widget.kpswitch.handler.KPSwitchRootLayoutHandler;
 
 
 /**
+ * Created by Jacksgong on 9/1/15.
  * <p/>
  * To keep watch on the keyboard status before occur layout-conflict.
  * <p/>
@@ -33,6 +34,8 @@ import com.sobot.chat.widget.kpswitch.handler.KPSwitchRootLayoutHandler;
  * <p/>
  * Resolve the layout-conflict from switching the keyboard and the Panel.
  *
+ * @see KPSwitchRootRelativeLayout
+ * @see KPSwitchRootFrameLayout
  * @see KPSwitchPanelLinearLayout
  */
 public class KPSwitchRootLinearLayout extends LinearLayout {
@@ -56,7 +59,8 @@ public class KPSwitchRootLinearLayout extends LinearLayout {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public KPSwitchRootLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public KPSwitchRootLinearLayout(Context context, AttributeSet attrs, int defStyleAttr,
+                                    int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
@@ -67,12 +71,8 @@ public class KPSwitchRootLinearLayout extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        try {
-            conflictHandler.handleBeforeMeasure(MeasureSpec.getSize(widthMeasureSpec),
-                    MeasureSpec.getSize(heightMeasureSpec));
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
+        conflictHandler.handleBeforeMeasure(MeasureSpec.getSize(widthMeasureSpec),
+                MeasureSpec.getSize(heightMeasureSpec));
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

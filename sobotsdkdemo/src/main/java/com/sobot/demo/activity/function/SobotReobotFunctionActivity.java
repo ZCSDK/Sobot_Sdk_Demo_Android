@@ -17,9 +17,9 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
-import com.sobot.demo.util.AndroidBug5497Workaround;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotReobotFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotReobotFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left, sobot_rl_4_1_5_1, sobot_rl_4_1_5_2;
     private ImageView sobotImage4151, sobotImage4152;
@@ -29,13 +29,12 @@ public class SobotReobotFunctionActivity extends AppCompatActivity implements Vi
     private Information information;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_rebot_func_activity);
-        AndroidBug5497Workaround.assistActivity(this);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_rebot_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         findvViews();
     }

@@ -234,7 +234,7 @@
        <string name="sobot_cai">Stap op</string>
        <string name="sobot_re_commit">U heeft geen informatie ingediend, alstublieft</string>
        <string name="sobot_re_write">Informatie bijvullen</string>
-       <string name="sobo_outline_closed">De sessie is afgelopen, u kunt het consult opnieuw starten</string>
+       <string name="sobot_outline_closed">De sessie is afgelopen, u kunt het consult opnieuw starten</string>
        <string name="sobot_str_please_check_is_solve">Selecteer of uw probleem hiermee is opgelost</string>
        <string name="sobot_evaluate_lab">Label:</string>
        <string name="sobot_evaluate_issolve">Opgelost:</string>

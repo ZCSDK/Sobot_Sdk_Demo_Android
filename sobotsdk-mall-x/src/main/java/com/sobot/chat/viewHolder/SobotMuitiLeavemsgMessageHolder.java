@@ -1,6 +1,7 @@
 package com.sobot.chat.viewHolder;
 
 import android.content.Context;
+import androidx.core.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.api.model.ZhiChiMessageBase;
 import com.sobot.chat.utils.ResourceUtils;

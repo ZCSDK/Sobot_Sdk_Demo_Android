@@ -16,9 +16,10 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 import com.sobot.demo.model.SobotDemoOtherModel;
 
-public class SobotInitPlatformSobotFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotInitPlatformSobotFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
     private TextView tv_start_fun_3_3_2, sobot_tv_save, sobot_tv_init_platform;
@@ -26,12 +27,12 @@ public class SobotInitPlatformSobotFunctionActivity extends AppCompatActivity im
     private SobotDemoOtherModel otherModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_initplatform_sobot_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_initplatform_sobot_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
         findvViews();
@@ -54,7 +55,7 @@ public class SobotInitPlatformSobotFunctionActivity extends AppCompatActivity im
             }
         });
         sobot_tv_save = findViewById(R.id.sobot_tv_save);
-        sobot_tv_save.setVisibility(View.GONE);
+        sobot_tv_save.setVisibility(View.INVISIBLE);
         sobot_tv_init_platform = findViewById(R.id.sobot_tv_init_platform);
         sobot_tv_init_platform.setOnClickListener(this);
     }

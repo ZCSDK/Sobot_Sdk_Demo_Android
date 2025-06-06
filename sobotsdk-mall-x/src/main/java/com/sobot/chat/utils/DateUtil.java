@@ -2,12 +2,11 @@ package com.sobot.chat.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.sobot.chat.application.MyApplication;
 import com.sobot.chat.widget.timePicker.SobotTimePickerView;

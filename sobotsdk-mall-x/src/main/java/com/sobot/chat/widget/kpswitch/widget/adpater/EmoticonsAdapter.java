@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.R;
 import com.sobot.chat.widget.kpswitch.widget.data.EmoticonPageEntity;
 import com.sobot.chat.widget.kpswitch.widget.interfaces.EmoticonClickListener;
 import com.sobot.chat.widget.kpswitch.widget.interfaces.EmoticonDisplayListener;
@@ -41,7 +41,7 @@ public class EmoticonsAdapter<T> extends BaseAdapter {
         this.mItemHeightMaxRatio = DEF_HEIGHTMAXTATIO;
         this.mDelbtnPosition = -1;
         this.mDefalutItemHeight = this.mItemHeight = (int) context.getResources().getDimension
-                (getResDimenId("sobot_item_emoticon_size_default"));
+                (R.dimen.sobot_item_emoticon_size_default);
         this.mData.addAll(emoticonPageEntity.getEmoticonList());
         checkDelBtn(emoticonPageEntity);
     }
@@ -83,11 +83,11 @@ public class EmoticonsAdapter<T> extends BaseAdapter {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = mInflater.inflate(getResLayoutId("sobot_list_item_emoticon"), null);
+            convertView = mInflater.inflate(R.layout.sobot_list_item_emoticon, null);
             viewHolder.rootView = convertView;
-            viewHolder.ly_root = (LinearLayout) convertView.findViewById(getResId("sobot_ly_root"));
-            viewHolder.iv_emoticon = (ImageView) convertView.findViewById(getResId("sobot_iv_emoticon"));
-            viewHolder.tv_emoticon = (TextView) convertView.findViewById(getResId("sobot_tv_emoticon"));
+            viewHolder.ly_root = (LinearLayout) convertView.findViewById(R.id.sobot_ly_root);
+            viewHolder.iv_emoticon = (ImageView) convertView.findViewById(R.id.sobot_iv_emoticon);
+            viewHolder.tv_emoticon = (TextView) convertView.findViewById(R.id.sobot_tv_emoticon);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -151,17 +151,5 @@ public class EmoticonsAdapter<T> extends BaseAdapter {
         public LinearLayout ly_root;
         public ImageView iv_emoticon;
         public TextView tv_emoticon;
-    }
-
-    public int getResId(String name) {
-        return ResourceUtils.getIdByName(mContext, "id", name);
-    }
-
-    public int getResDimenId(String name) {
-        return ResourceUtils.getIdByName(mContext, "dimen", name);
-    }
-
-    public int getResLayoutId(String name) {
-        return ResourceUtils.getIdByName(mContext, "layout", name);
     }
 }

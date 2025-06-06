@@ -14,10 +14,10 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 import com.sobot.demo.model.SobotDemoOtherModel;
-import com.sobot.demo.util.AndroidBug5497Workaround;
 
-public class SobotDuolunActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotDuolunActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
     private TextView tv_base_fun_16_1, update_appkey;
@@ -25,13 +25,12 @@ public class SobotDuolunActivity extends AppCompatActivity implements View.OnCli
     private SobotDemoOtherModel otherModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_duolun_func_activity);
-        AndroidBug5497Workaround.assistActivity(this);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_duolun_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         otherModel = (SobotDemoOtherModel) SobotSPUtil.getObject(getContext(), "sobot_demo_otherModel");
         findvViews();

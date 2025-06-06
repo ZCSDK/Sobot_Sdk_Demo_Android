@@ -103,11 +103,10 @@
         <item name="android:visibility">visible</item>
     </style>
 
-    <style name="sobot_clearHistoryDialogStyle" parent="Theme.AppCompat.Dialog">
+    <style name="sobot_clearHistoryDialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
-        <item name="android:windowActionBar">false</item>
         <item name="android:windowAnimationStyle">@style/sobot_AnimBottom</item>
     </style>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sobot_white"
@@ -9,33 +10,12 @@
         android:id="@+id/sobot_demo_titlebar"
         layout="@layout/sobot_demo_layout_titlebar" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:text="face                用户自定义头像"
-        android:textSize="14sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="6dp"
-        android:text="visit_title        接入来源页面标题"
-        android:textSize="14sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:text="visit_url          接入的来源URL"
-        android:textSize="14sp" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:text="其它属性说明可查看文档"
+        android:text="属性说明可查看文档"
         android:textSize="14sp" />
 
 

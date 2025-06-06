@@ -5,6 +5,8 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ZhiChiConstant;
 
 import java.util.ArrayList;
@@ -33,6 +37,24 @@ public class SobotDemoNewActivity extends AppCompatActivity {
         setContentView(R.layout.sobot_demo_new_activity);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
+        }
+        View view_root = findViewById(com.sobot.chat.R.id.view_root);
+        if (view_root != null) {
+            int targetSdkVersion = CommonUtils.getTargetSdkVersion(this);
+//            LogUtils.d(" app targetSdkVersion版本号：" + targetSdkVersion);
+            if (Build.VERSION.SDK_INT >= 35 && targetSdkVersion >= 35) {
+                view_root.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                    @Override
+                    public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                        int topInset = insets.getInsets(WindowInsets.Type.systemBars()).top;
+                        int bottomInset = insets.getInsets(WindowInsets.Type.systemBars()).bottom;
+                        LogUtils.d("状态栏高度：" + topInset + " 底部导航：" + bottomInset);
+                        //每个页面底部添加高度，避让底部导航栏
+                        view_root.setPadding(0, topInset, 0, 0);
+                        return insets;
+                    }
+                });
+            }
         }
         mFragments = new ArrayList<>();
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);

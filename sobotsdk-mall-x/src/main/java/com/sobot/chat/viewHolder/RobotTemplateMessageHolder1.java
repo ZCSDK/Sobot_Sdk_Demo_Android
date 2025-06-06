@@ -2,6 +2,7 @@ package com.sobot.chat.viewHolder;
 
 import android.content.Context;
 import android.content.Intent;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sobot.chat.R;
 import com.sobot.chat.activity.WebViewActivity;

@@ -1,19 +1,18 @@
 package com.sobot.chat.widget.horizontalgridpage;
 
-import static android.view.View.MeasureSpec.EXACTLY;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.view.View.MeasureSpec.EXACTLY;
 
 import android.annotation.SuppressLint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.util.SparseArray;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
+import android.util.SparseArray;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.sobot.chat.utils.LogUtils;
 

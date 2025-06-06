@@ -12,11 +12,10 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
-import android.text.TextUtils;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.sobot.chat.widget.subscaleview.SobotScaleImageView;
 

@@ -12,23 +12,21 @@ import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.model.Information;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotDemoWorkOrderActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotDemoWorkOrderActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
     private RelativeLayout sobot_demo_bottom_layout;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_work_order_activity);
-        findvViews();
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_work_order_activity;
     }
 
-    private void findvViews() {
+    @Override
+    protected void initView() {
         sobot_tv_left = (RelativeLayout) findViewById(R.id.sobot_demo_tv_left);
         TextView sobot_text_title = (TextView) findViewById(R.id.sobot_demo_tv_title);
         sobot_text_title.setText("工单系统");

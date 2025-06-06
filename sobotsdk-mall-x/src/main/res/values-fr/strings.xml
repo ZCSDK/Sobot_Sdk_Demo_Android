@@ -234,7 +234,7 @@
        <string name="sobot_cai">Marche!</string>
        <string name="sobot_re_commit">Vous n\'avez pas soumis d\'informations, veuillez</string>
        <string name="sobot_re_write">Remplissez à nouveau les informations</string>
-       <string name="sobo_outline_closed">La session est terminée, la consultation peut être relancée</string>
+       <string name="sobot_outline_closed">La session est terminée, la consultation peut être relancée</string>
        <string name="sobot_str_please_check_is_solve">Veuillez choisir si votre problème est résolu</string>
        <string name="sobot_evaluate_lab">Étiquette:</string>
        <string name="sobot_evaluate_issolve">Est - ce résolu:</string>

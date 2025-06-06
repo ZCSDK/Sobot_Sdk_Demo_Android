@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,12 +64,12 @@
 
             <TextView
                 android:id="@+id/update_appkey"
-                android:background="@drawable/sobot_normal_btn_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:padding="10dp"
+                android:background="@drawable/sobot_normal_btn_bg"
                 android:gravity="center"
+                android:padding="10dp"
                 android:text="多轮会话"
                 android:textColor="@color/sobot_common_white"
                 android:textSize="14sp" />

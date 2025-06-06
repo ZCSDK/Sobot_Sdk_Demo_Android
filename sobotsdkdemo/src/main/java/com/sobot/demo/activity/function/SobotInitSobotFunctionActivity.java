@@ -16,20 +16,21 @@ import com.sobot.chat.api.model.Information;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.demo.R;
 import com.sobot.demo.SobotSPUtil;
+import com.sobot.demo.activity.SobotDemoBaseActivity;
 
-public class SobotInitSobotFunctionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SobotInitSobotFunctionActivity extends SobotDemoBaseActivity implements View.OnClickListener {
 
     private RelativeLayout sobot_tv_left;
     private TextView tv_start_fun_3_3_1, sobot_tv_save, sobot_tv_init;
     private Information information;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.sobot_demo_initsobot_func_activity);
+    protected int getContentViewResId() {
+        return R.layout.sobot_demo_initsobot_func_activity;
+    }
+
+    @Override
+    protected void initView() {
         information = (Information) SobotSPUtil.getObject(getContext(), "sobot_demo_infomation");
         findvViews();
     }
@@ -51,7 +52,7 @@ public class SobotInitSobotFunctionActivity extends AppCompatActivity implements
             }
         });
         sobot_tv_save = findViewById(R.id.sobot_tv_save);
-        sobot_tv_save.setVisibility(View.GONE);
+        sobot_tv_save.setVisibility(View.INVISIBLE);
         sobot_tv_init = findViewById(R.id.sobot_tv_init);
         sobot_tv_init.setOnClickListener(this);
     }

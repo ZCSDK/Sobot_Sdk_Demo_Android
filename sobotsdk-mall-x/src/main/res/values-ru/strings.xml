@@ -234,7 +234,7 @@
        <string name="sobot_cai">представлять и консультироваться</string>
        <string name="sobot_re_commit">Вы не предоставили информацию, пожалуйста</string>
        <string name="sobot_re_write">Повторное заполнение информации</string>
-       <string name="sobo_outline_closed">Сеанс окончен, консультации могут быть возобновлены</string>
+       <string name="sobot_outline_closed">Сеанс окончен, консультации могут быть возобновлены</string>
        <string name="sobot_str_please_check_is_solve">Пожалуйста, выберите, решили ли ваши проблемы.</string>
        <string name="sobot_evaluate_lab">Метки:</string>
        <string name="sobot_evaluate_issolve">Разрешены ли:</string>

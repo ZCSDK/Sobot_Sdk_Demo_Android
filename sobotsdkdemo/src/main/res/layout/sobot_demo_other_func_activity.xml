@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -141,13 +142,13 @@
                     android:id="@+id/sobot_text4761"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="隐藏机器人评价标签"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -155,25 +156,25 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4761"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="2"
-                    android:text="[说明:评价标签不支持多语言时，可以不显示]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:评价标签不支持多语言时，可以不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_7_6_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -194,13 +195,13 @@
                     android:id="@+id/sobot_text4762"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="隐藏人工评价标签"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -208,25 +209,25 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text4762"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="3"
-                    android:text="[说明:评价标签不支持多语言时，可以不显示]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:评价标签不支持多语言时，可以不显示]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_7_6_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -247,13 +248,13 @@
                     android:id="@+id/sobot_text478"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="时区适配"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -261,25 +262,25 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text478"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="3"
-                    android:text="[说明:自动根据手机时区适配时间显示，默认显示东八区时间]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:自动根据手机时区适配时间显示，默认显示东八区时间]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_7_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -293,13 +294,13 @@
                     android:id="@+id/sobot_text479"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:text="权限用途提示框"
                     android:textColor="@color/sobot_common_gray1"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="25dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/TxtTitle_Des"
@@ -307,25 +308,25 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sobot_text479"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginRight="60dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:lines="3"
-                    android:text="[说明:是否在申请权限前弹出权限用途提示框,默认不弹]"
-                    android:layout_marginEnd="60dp" />
+                    android:text="[说明:是否在申请权限前弹出权限用途提示框,默认不弹]" />
 
                 <ImageView
                     android:id="@+id/sobot_image_4_7_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/sobot_demo_icon_close"
                     android:contentDescription="@null"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 

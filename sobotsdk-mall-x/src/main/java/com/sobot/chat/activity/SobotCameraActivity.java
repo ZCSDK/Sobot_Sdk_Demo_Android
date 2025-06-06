@@ -19,7 +19,6 @@ import com.sobot.chat.camera.util.FileUtil;
 import com.sobot.chat.listener.PermissionListenerImpl;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.SobotPathManager;
-import com.sobot.chat.widget.statusbar.StatusBarCompat;
 
 /**
  * @author Created by jinxl on 2018/12/3.
@@ -199,8 +198,6 @@ public class SobotCameraActivity extends SobotBaseActivity {
                 SobotCameraActivity.this.finish();
             }
         });
-
-        StatusBarCompat.setNavigationBarColor(this, 0x33000000);
     }
 
     @Override

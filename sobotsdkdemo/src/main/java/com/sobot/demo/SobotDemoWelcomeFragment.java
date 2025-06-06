@@ -49,7 +49,6 @@ public class SobotDemoWelcomeFragment extends Fragment implements View.OnClickLi
     public void onClick(View v) {
         Intent intent;
         int id = v.getId();
-
         if (id == R.id.sobot_demo_robot_layout) {
             // 机器人客服演示
             intent = new Intent(getActivity(), SobotDemoRobotActivity.class);

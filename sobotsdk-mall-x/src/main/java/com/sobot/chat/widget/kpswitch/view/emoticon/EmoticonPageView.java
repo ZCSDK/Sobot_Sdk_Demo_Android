@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
-import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.R;
 
 public class EmoticonPageView extends RelativeLayout {
 
@@ -27,8 +27,8 @@ public class EmoticonPageView extends RelativeLayout {
     public EmoticonPageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(ResourceUtils.getIdByName(context,"layout","sobot_item_emoticonpage"), this);
-        mGvEmotion = (GridView) view.findViewById(ResourceUtils.getIdByName(context,"id", "sobot_gv_emotion"));
+        View view = inflater.inflate(R.layout.sobot_item_emoticonpage, this);
+        mGvEmotion = (GridView) view.findViewById(R.id.sobot_gv_emotion);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             mGvEmotion.setMotionEventSplittingEnabled(false);

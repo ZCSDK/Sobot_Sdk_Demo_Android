@@ -19,10 +19,12 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.sobot.chat.R;
 import com.sobot.chat.widget.kpswitch.IPanelConflictLayout;
 import com.sobot.chat.widget.kpswitch.util.ViewUtil;
 
 /**
+ * Created by Jacksgong on 3/30/16.
  * <p/>
  * Keyboard->Panel: if the keyboard is showing, and {@code visibility} equal {@link View#VISIBLE}
  * then must by Keyboard->Panel, then show the panel after the keyboard is real gone, and will be
@@ -32,9 +34,12 @@ import com.sobot.chat.widget.kpswitch.util.ViewUtil;
  * Panel->Keyboard: do not need to invoke {@link View#setVisibility(int)} to let the panel gone,
  * just show keyboard, the panel will be gone automatically when keyboard is real visible, and will
  * be hide by {@link #handleHide()} -> {@link #processOnMeasure(int, int)}.
- * Easy and safe way: {@link com.sobot.chat.widget.kpswitch.util.KPSwitchConflictUtil#showKeyboard(View, View)}.
+ * Easy and safe way:
+ * {@link com.sobot.chat.widget.kpswitch.util.KPSwitchConflictUtil#showKeyboard(View, View)}.
  *
+ * @see com.sobot.chat.widget.kpswitch.widget.KPSwitchPanelFrameLayout
  * @see com.sobot.chat.widget.kpswitch.widget.KPSwitchPanelLinearLayout
+ * @see com.sobot.chat.widget.kpswitch.widget.KPSwitchPanelRelativeLayout
  */
 public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
     private final View panelLayout;
@@ -62,8 +67,10 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
      * If the value is true, the panel's height will not be follow the height of the keyboard.
      * <p/>
      * Default is false.
+     *
      * @attr ref com.sobot.chat.widget.kpswitch.R.styleable#KPSwitchPanelLayout_ignore_recommend_height
      */
+    @SuppressWarnings("JavaDoc")
     private boolean mIgnoreRecommendHeight = false;
 
     public KPSwitchPanelLayoutHandler(final View panelLayout, final AttributeSet attrs) {
@@ -71,11 +78,11 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
         if (attrs != null) {
             TypedArray typedArray = null;
             try {
-//                typedArray = panelLayout.getContext().
-//                        obtainStyledAttributes(attrs, R.styleable.KPSwitchPanelLayout);
-//                mIgnoreRecommendHeight = typedArray.
-//                        getBoolean(R.styleable.KPSwitchPanelLayout_ignore_recommend_height,
-//                                false);
+                typedArray = panelLayout.getContext().
+                        obtainStyledAttributes(attrs, R.styleable.SobotKPSwitchPanelLayout);
+                mIgnoreRecommendHeight = typedArray.
+                        getBoolean(R.styleable.SobotKPSwitchPanelLayout_sobot_ignore_recommend_height,
+                                false);
             } finally {
                 if (typedArray != null) {
                     typedArray.recycle();
@@ -116,12 +123,11 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
         return false;
     }
 
-    private final int[] processedMeasureWHSpec = new int[2];
 
     /**
      * Handle Panel -> Keyboard.
      * <p/>
-     * Process the {@link View# onMeasure(int, int)} for handling the case of Panel->Keyboard.
+     * Process the {@link View#onMeasure(int, int)} for handling the case of Panel->Keyboard.
      *
      * @return the processed measure-width-spec and measure-height-spec.
      * @see #handleHide()
@@ -129,13 +135,14 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
     public int[] processOnMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (mIsHide) {
             panelLayout.setVisibility(View.GONE);
-            /**
+            /*
              * The current frame will be visible nil.
              */
             widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY);
             heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY);
         }
 
+        final int[] processedMeasureWHSpec = new int[2];
         processedMeasureWHSpec[0] = widthMeasureSpec;
         processedMeasureWHSpec[1] = heightMeasureSpec;
 
@@ -180,7 +187,7 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
     /**
      * @param recommendPanelHeight the recommend panel height, in the most situations, the value
      *                             would be equal to the height of the keyboard.
-     * @see com.sobot.chat.widget.kpswitch.util.KeyboardUtil# getValidPanelHeight( Context)
+     * @see com.sobot.chat.widget.kpswitch.util.KeyboardUtil#getValidPanelHeight
      */
     public void resetToRecommendPanelHeight(int recommendPanelHeight) {
         if (mIgnoreRecommendHeight) {
@@ -194,9 +201,10 @@ public class KPSwitchPanelLayoutHandler implements IPanelConflictLayout {
     /**
      * @param ignoreRecommendHeight Whether ignore the recommend panel height, what would be equal
      *                              to the height of keyboard in most situations.
-     * @attr ref cn.dreamtobe.kpswitch.R.styleable#KPSwitchPanelLayout_ignore_recommend_height
+     * @attr ref com.sobot.chat.widget.kpswitch.R.styleable#KPSwitchPanelLayout_ignore_recommend_height
      * @see #resetToRecommendPanelHeight(int)
      */
+    @SuppressWarnings("JavaDoc")
     public void setIgnoreRecommendHeight(boolean ignoreRecommendHeight) {
         this.mIgnoreRecommendHeight = ignoreRecommendHeight;
     }

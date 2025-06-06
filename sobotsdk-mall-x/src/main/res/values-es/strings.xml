@@ -234,7 +234,7 @@
        <string name="sobot_cai">Pisotear</string>
        <string name="sobot_re_commit">No ha presentado la información, por favor</string>
        <string name="sobot_re_write">Rellenar la información</string>
-       <string name="sobo_outline_closed">La sesión ha terminado y se puede reiniciar la consulta</string>
+       <string name="sobot_outline_closed">La sesión ha terminado y se puede reiniciar la consulta</string>
        <string name="sobot_str_please_check_is_solve">Por favor, elija si ha resuelto su problema.</string>
        <string name="sobot_evaluate_lab">Etiquetas:</string>
        <string name="sobot_evaluate_issolve">Si se resuelve:</string>
