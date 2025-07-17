@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sobot.chat.MarkConfig;
+import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.adapter.base.SobotBaseAdapter;
@@ -142,6 +143,14 @@ public class SobotTicketInfoAdapter extends SobotBaseAdapter<SobotUserTicketInfo
         }
 
         void bindData(SobotUserTicketInfo data) {
+            if (data != null && !TextUtils.isEmpty(data.getContent())) {
+                String tempStr = data.getContent().replaceAll("<br/>", "").replace("<p></p>", "")
+                        .replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("\n", "");
+                if(tempStr.contains("<img")) {
+                    tempStr = tempStr.replaceAll("<img[^>]*>", " [" + activity.getResources().getString(R.string.sobot_upload) + "] ");
+                }
+                tv_content.setText(TextUtils.isEmpty(data.getContent()) ? "" : Html.fromHtml(tempStr));
+            }
             tv_content.setText(TextUtils.isEmpty(data.getContent()) ? "" : Html.fromHtml(data.getContent()));
             if (2 == data.getFlag()) {
                 tv_ticket_status.setText(str2_resId);

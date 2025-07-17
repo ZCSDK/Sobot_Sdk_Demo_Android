@@ -3604,7 +3604,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 if (isAboveZero && !isComment) {
                     // 退出时 之前没有评价过的话 才能 弹评价框
                     mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, true, initModel,
-                            current_client_model, 1, currentUserName, 5, -1, "", false, true);
+                            current_client_model, 1, currentUserName, 5, -1, "");
                     return;
                 } else {
                     customerServiceOffline(initModel);
@@ -3628,7 +3628,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                 if (isAboveZero && !isComment) {
                     // 退出时 之前没有评价过的话 才能 弹评价框
                     mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, true, initModel,
-                            current_client_model, 1, currentUserName, 5, -1, "", false, true);
+                            current_client_model, 1, currentUserName, 5, -1, "");
                     return;
                 } else {
                     customerServiceOffline(initModel);
@@ -4719,13 +4719,14 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                         ChatUtils.showThankDialog(getSobotActivity(), handler, isFinish);
                     }
                 } else if (ZhiChiConstants.sobot_close_now.equals(intent.getAction())) {
-                    if (intent.getBooleanExtra("isBackShowEvaluate", true)) {
-                        //左上角 返回 满意度评价弹窗 暂不评价，直接返回
+                    if (intent.getBooleanExtra("isExitSession", true)) {
+                        //右上角点击关闭，暂不评价 ，结束会话，在返回
+                        customerServiceOffline(initModel);
+                        isSessionOver = true;
+                        ChatUtils.userLogout(mAppContext, "左上角返回弹窗结束会话和右上角关闭  弹窗评价后点击暂不评价 结束会话");
                         finish();
                     } else {
-                        //右上角点击关闭，结束会话，在返回
-                        customerServiceOffline(initModel);
-                        ChatUtils.userLogout(mAppContext, "左上角返回弹窗结束会话和右上角关闭  弹窗评价后点击暂不评价 结束会话");
+                        //左上角 返回 满意度评价弹窗 暂不评价，直接返回
                         finish();
                     }
                 } else if (ZhiChiConstants.sobot_close_now_clear_cache.equals(intent.getAction())) {
@@ -5187,7 +5188,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
         } else if (isAboveZero) {
             if (isActive()) {
                 if (mEvaluateDialog == null || !mEvaluateDialog.isShowing()) {
-                    mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, false, false, initModel, current_client_model, isActive ? 1 : 0, currentUserName, score, isSolve, checklables, false, false);
+                    mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, false, false, initModel, current_client_model, isActive ? 1 : 0, currentUserName, score, isSolve, checklables);
                 }
             }
         } else {
@@ -5573,7 +5574,7 @@ public class SobotChatFragment extends SobotChatBaseFragment implements View.OnC
                     if (isAboveZero && !isComment) {
                         // 退出时 之前没有评价过的话 才能 弹评价框
                         mEvaluateDialog = ChatUtils.showEvaluateDialog(getSobotActivity(), isSessionOver, true, false, initModel,
-                                current_client_model, 1, currentUserName, 5, -1, "", true, true);
+                                current_client_model, 1, currentUserName, 5, -1, "");
                         return;
                     }
 

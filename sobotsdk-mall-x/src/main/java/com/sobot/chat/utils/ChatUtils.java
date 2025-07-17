@@ -149,11 +149,11 @@ public class ChatUtils {
             return;
         }
         Intent intent;
-        if (Build.VERSION.SDK_INT < 19 || RomUtils.isOppo() || RomUtils.isOnePlus()) {
+        if (Build.VERSION.SDK_INT < 27 || RomUtils.isOppo() || RomUtils.isOnePlus() || RomUtils.isVivo()) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("video/*");
         } else {
-            intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+            intent = new Intent(Intent.ACTION_PICK);
             intent.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*");
         }
         try {
@@ -693,19 +693,17 @@ public class ChatUtils {
      * @param initModel                初始化信息
      * @param current_model            评价对象
      * @param commentType              commentType 评价类型 主动评价1 邀请评价0
-     * @param isBackShowEvaluate       弹出评价窗 是否显示暂不评价（暂不评价和关闭图片只能显示一个）  true 是 false 否
-     * @param canBackWithNotEvaluation 是否是返回时弹出评价窗  true 是 false 否
      */
     public static SobotEvaluateDialog showEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitCommit, ZhiChiInitModeBase
-            initModel, int current_model, int commentType, String customName, int scroe, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
+            initModel, int current_model, int commentType, String customName, int scroe, int isSolve, String checklables) {
         if (initModel == null) {
             return null;
         }
         SobotEvaluateDialog dialog = null;
         if (ScreenUtils.isFullScreen(context)) {
-            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables, isBackShowEvaluate, canBackWithNotEvaluation, ResourceUtils.getIdByName(context, "style", "sobot_FullScreenDialogStyle"));
+            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables, ResourceUtils.getIdByName(context, "style", "sobot_FullScreenDialogStyle"));
         } else {
-            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables, isBackShowEvaluate, canBackWithNotEvaluation);
+            dialog = new SobotEvaluateDialog(context, isSessionOver, isFinish, isExitCommit, initModel, current_model, commentType, customName, scroe, isSolve, checklables );
         }
 
         dialog.setCanceledOnTouchOutside(true);

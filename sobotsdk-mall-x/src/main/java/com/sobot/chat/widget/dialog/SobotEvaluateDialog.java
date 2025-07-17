@@ -64,7 +64,6 @@ public class SobotEvaluateDialog extends SobotActionSheet {
     private boolean isFinish;
     private boolean isExitSession;
     private boolean isSessionOver;//当前会话是否结束
-    private boolean canBackWithNotEvaluation;//是否显示暂不评价
     private boolean isBackShowEvaluate;//是否是 返回时弹出评价框
     private ZhiChiInitModeBase initModel;
     private Information information;
@@ -122,7 +121,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         this.customName = customName;
     }
 
-    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation) {
+    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, String checklables) {
         super(context);
         this.context = context;
         this.score = score;
@@ -135,11 +134,9 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         this.customName = customName;
         this.isSolve = isSolve;
         this.evaluateChecklables = checklables;
-        this.isBackShowEvaluate = isBackShowEvaluate;
-        this.canBackWithNotEvaluation = canBackWithNotEvaluation;
     }
 
-    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, String checklables, boolean isBackShowEvaluate, boolean canBackWithNotEvaluation, @StyleRes int themeResId) {
+    public SobotEvaluateDialog(Activity context, boolean isSessionOver, boolean isFinish, boolean isExitSession, ZhiChiInitModeBase initModel, int current_model, int commentType, String customName, int score, int isSolve, String checklables,   @StyleRes int themeResId) {
         super(context, themeResId);
         this.context = context;
         this.score = score;
@@ -152,8 +149,6 @@ public class SobotEvaluateDialog extends SobotActionSheet {
         this.customName = customName;
         this.isSolve = isSolve;
         this.evaluateChecklables = checklables;
-        this.isBackShowEvaluate = isBackShowEvaluate;
-        this.canBackWithNotEvaluation = canBackWithNotEvaluation;
     }
 
     @Override
@@ -197,11 +192,7 @@ public class SobotEvaluateDialog extends SobotActionSheet {
             }
         });
         if (information != null && information.isCanBackWithNotEvaluation()) {
-            if (canBackWithNotEvaluation) {
-                sobot_evaluate_cancel.setVisibility(View.VISIBLE);
-            } else {
-                sobot_evaluate_cancel.setVisibility(View.GONE);
-            }
+            sobot_evaluate_cancel.setVisibility(View.VISIBLE);
         } else {
             sobot_evaluate_cancel.setVisibility(View.GONE);
         }
@@ -422,11 +413,11 @@ public class SobotEvaluateDialog extends SobotActionSheet {
             @Override
             public void onClick(View v) {
                 dismiss();
-                if(isExitSession) {
+                if(isFinish || isExitSession) {
                     Intent intent = new Intent();
                     intent.setAction(ZhiChiConstants.sobot_close_now);
-                    LogUtils.i("isBackShowEvaluate:  " + isBackShowEvaluate + "--------canBackWithNotEvaluation:   " + canBackWithNotEvaluation);
-                    intent.putExtra("isBackShowEvaluate", isBackShowEvaluate);
+                    LogUtils.i("isExitSession:  " + isExitSession + "--------isFinish:   " + isFinish);
+                    intent.putExtra("isExitSession", isExitSession);
                     CommonUtils.sendLocalBroadcast(context.getApplicationContext(), intent);
                 }
             }

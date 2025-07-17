@@ -2484,9 +2484,9 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(messageAdapter.getCount()>0) {
-                    lv_message.setSelection(messageAdapter.getCount()-1);
-                }else {
+                if (messageAdapter.getCount() > 0) {
+                    lv_message.setSelection(messageAdapter.getCount() - 1);
+                } else {
                     lv_message.setSelection(messageAdapter.getCount());
                 }
             }
@@ -4674,13 +4674,14 @@ public class SobotChatFSFragment extends SobotChatBaseFragment implements View.O
                         ChatUtils.showThankDialog(getSobotActivity(), handler, isFinish);
                     }
                 } else if (ZhiChiConstants.sobot_close_now.equals(intent.getAction())) {
-                    if (intent.getBooleanExtra("isBackShowEvaluate", true)) {
-                        //左上角 返回 满意度评价弹窗 暂不评价，直接返回
-                        finish();
-                    } else {
+                    if (intent.getBooleanExtra("isExitSession", true)) {
                         //右上角点击关闭，暂不评价 ，结束会话，在返回
                         customerServiceOffline(initModel);
+                        isSessionOver = true;
                         ChatUtils.userLogout(mAppContext, "左上角返回弹窗结束会话和右上角关闭  弹窗评价后点击暂不评价 结束会话");
+                        finish();
+                    } else {
+                        //左上角 返回 满意度评价弹窗 暂不评价，直接返回
                         finish();
                     }
                 } else if (ZhiChiConstants.sobot_close_now_clear_cache.equals(intent.getAction())) {

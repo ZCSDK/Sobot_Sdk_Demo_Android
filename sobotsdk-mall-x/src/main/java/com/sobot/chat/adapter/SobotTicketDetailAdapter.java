@@ -294,6 +294,9 @@ public class SobotTicketDetailAdapter extends SobotBaseAdapter<Object> {
             if (data != null && !TextUtils.isEmpty(data.getContent())) {
                 String tempStr = data.getContent().replaceAll("<br/>", "").replace("<p></p>", "")
                         .replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
+                if(tempStr.contains("<img")) {
+                    tempStr = tempStr.replaceAll("<img[^>]*>", " [" + mActivity.getResources().getString(R.string.sobot_upload) + "] ");
+                }
                 tv_exp.setText(TextUtils.isEmpty(data.getContent()) ? "" : Html.fromHtml(tempStr));
             }
             int color = ResourceUtils.getResColorValue(context, "sobot_common_text_gray");

@@ -333,6 +333,7 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        //设置缩放比例，设置扭转角度
     }
 
     @Override
@@ -490,11 +491,11 @@ public class StCameraView extends FrameLayout implements CameraInterface.CameraO
 
     @Override
     public void showPicture(Bitmap bitmap, boolean isVertical) {
-        if (isVertical) {
-            mPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
-        } else {
-            mPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
-        }
+//        if (isVertical) {
+//            mPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
+//        } else {
+//            mPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
+//        }
         captureBitmap = bitmap;
         mPhoto.setImageBitmap(bitmap);
         mPhoto.setVisibility(VISIBLE);

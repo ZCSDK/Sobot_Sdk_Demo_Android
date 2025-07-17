@@ -25,7 +25,7 @@
     <dimen name="sobot_msg_voice_text_size">16sp</dimen>
     <dimen name="sobot_min_panel_height">280dp</dimen>
     <dimen name="sobot_max_panel_height">380dp</dimen>
-    <dimen name="sobot_min_keyboard_height">80dp</dimen>
+    <dimen name="sobot_min_keyboard_height">160dp</dimen>
 
     <dimen name="sobot_item_emoticon_size_default">32dp</dimen>
     <dimen name="sobot_item_plus_size_default">48dp</dimen>

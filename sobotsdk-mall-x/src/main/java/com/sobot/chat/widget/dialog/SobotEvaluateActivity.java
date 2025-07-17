@@ -38,6 +38,7 @@ import com.sobot.chat.core.channel.SobotMsgManager;
 import com.sobot.chat.notchlib.utils.ScreenUtil;
 import com.sobot.chat.utils.ChatUtils;
 import com.sobot.chat.utils.CommonUtils;
+import com.sobot.chat.utils.LogUtils;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
 import com.sobot.chat.utils.SharedPreferencesUtil;
@@ -374,10 +375,11 @@ public class SobotEvaluateActivity extends SobotDialogBaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                if(isExitSession) {
+                if(isFinish || isExitSession) {
                     Intent intent = new Intent();
                     intent.setAction(ZhiChiConstants.sobot_close_now);
-                    intent.putExtra("isBackShowEvaluate", isBackShowEvaluate);
+                    LogUtils.i("isExitSession:  " + isExitSession + "--------isFinish:   " + isFinish);
+                    intent.putExtra("isExitSession", isExitSession);
                     CommonUtils.sendLocalBroadcast(context.getApplicationContext(), intent);
                 }
             }
