@@ -213,7 +213,6 @@ public abstract class SobotBaseActivity extends AppCompatActivity {
                 res.updateConfiguration(conf, dm);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

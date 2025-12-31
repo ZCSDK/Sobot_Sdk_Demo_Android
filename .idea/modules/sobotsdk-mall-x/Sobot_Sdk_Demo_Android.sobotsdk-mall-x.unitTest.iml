@@ -25,7 +25,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsupport-glidev4:3.9@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.chat:sobotsdk-imageloader:3.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:net:1.2.3@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:gson:1.1.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sobot.library:gson:1.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: D" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Sobot_Sdk_Demo_Android.sobotsdk-mall-x.main" />

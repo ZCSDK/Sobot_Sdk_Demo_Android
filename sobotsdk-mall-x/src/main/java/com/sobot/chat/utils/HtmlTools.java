@@ -197,9 +197,10 @@ public class HtmlTools {
         if (!TextUtils.isEmpty(content) && content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
             content = content.substring(0, content.length() - 5);
         }
+        content= replaceHtmlEntities(content);
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
         widget.setFocusable(false);
-        Spanned span = formatRichTextWithPic(widget, content.replace("&", "&amp;").replace("\n", "<br/>"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接
@@ -233,9 +234,9 @@ public class HtmlTools {
                 }
             }
         }
-
+        content= replaceHtmlEntities(content);
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("&", "&amp;").replace("\n", "<br/>"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接
@@ -254,6 +255,7 @@ public class HtmlTools {
         if (content.contains("<p>")) {
             content = content.replaceAll("<p>", "").replaceAll("</p>", "<br/>").replaceAll("\n", "<br/>");
         }
+        content= replaceHtmlEntities(content);
         while (content.length() > 5 && "<br/>".equals(content.substring(content.length() - 5, content.length()))) {
             content = content.substring(0, content.length() - 5);
         }
@@ -286,7 +288,7 @@ public class HtmlTools {
             content = content.replaceAll("\n", "<br/>");
         }
         widget.setMovementMethod(LinkMovementClickMethod.getInstance());
-        Spanned span = formatRichTextWithPic(widget, content.replace("&", "&amp;").replace("\n", "<br/>"), color);
+        Spanned span = formatRichTextWithPic(widget, content.replace("\n", "<br/>"), color);
         // 显示表情
         span = InputHelper.displayEmoji(context.getApplicationContext(), span);
         // 显示链接
@@ -434,4 +436,44 @@ public class HtmlTools {
         Matcher m_html = p_html.matcher(htmlStr);
         return m_html.replaceAll("");
     }
+
+    /**
+     * 替换HTML实体字符为对应的实际字符
+     * @param content 原始内容
+     * @return 替换后的字符串
+     */
+    private String replaceHtmlEntities(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return content;
+        }
+        // 法语字符支持
+        return content.replace("&#39;", "'")
+                .replace("&amp;#39;", "'")
+                .replace("&eacute;", "é")
+                .replace("&amp;eacute;", "é")
+                .replace("&egrave;", "è")
+                .replace("&amp;egrave;", "è")
+                .replace("&ucirc;", "û")
+                .replace("&amp;ucirc;", "û")
+                .replace("&agrave;", "à")
+                .replace("&amp;agrave;", "à")
+                .replace("&ccedil;", "ç")
+                .replace("&amp;ccedil;", "ç")
+                .replace("&iuml;", "ï")
+                .replace("&amp;iuml;", "ï")
+                .replace("&acirc;", "â")
+                .replace("&amp;acirc;", "â")
+                .replace("&ecirc;", "ê")
+                .replace("&amp;ecirc;", "ê")
+                .replace("&ocirc;", "ô")
+                .replace("&amp;ocirc;", "ô")
+                .replace("&uuml;", "ü")
+                .replace("&amp;uuml;", "ü")
+                .replace("&laquo;", "«")
+                .replace("&amp;laquo;", "«")
+                .replace("&raquo;", "»")
+                .replace("&amp;raquo;", "»");
+    }
+
+
 }

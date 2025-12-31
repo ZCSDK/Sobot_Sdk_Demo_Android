@@ -8,9 +8,10 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.TextUtils;
+
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.text.TextUtils;
 
 import com.sobot.chat.ZCSobotApi;
 import com.sobot.chat.api.apiUtils.ZhiChiConstants;
@@ -40,8 +41,6 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by jinxl on 2016/9/13.
@@ -135,10 +134,10 @@ public class SobotSessionServer extends Service {
                     if (extras != null) {
                         ZhiChiPushMessage pushMessage = (ZhiChiPushMessage) extras.getSerializable(ZhiChiConstants.ZHICHI_PUSH_MESSAGE);
                         if (pushMessage != null && isNeedShowMessage(pushMessage.getAppId())) {
-                            LogUtils.i2Local("收到消息4", "接受到广播（SobotSessionServer）: " +pushMessage.getMsgId());
+                            LogUtils.i2Local("收到消息4", "接受到广播（SobotSessionServer）: " + pushMessage.getMsgId());
                             receiveMessage(context, pushMessage);
-                        }else{
-                            LogUtils.i2Local("收到消息4", "接受到广播（SobotSessionServer）: pushMessage是否为空："+(pushMessage == null)+"或isNeedShowMessage为true" );
+                        } else {
+                            LogUtils.i2Local("收到消息4", "接受到广播（SobotSessionServer）: pushMessage是否为空：" + (pushMessage == null) + "或isNeedShowMessage为true");
                         }
                     }
                 } catch (Exception e) {
@@ -149,14 +148,12 @@ public class SobotSessionServer extends Service {
                 if (extras != null) {
                     isStartTimer = extras.getBoolean("isStartTimer");
                     if (!isStartTimer) {
-                        stopTimeTask();
                         return;
                     }
                     info = (Information) extras.getSerializable("info");
                     config = SobotMsgManager.getInstance(getApplicationContext()).getConfig(info.getApp_key());
                     if (config.getInitModel() != null) {
                         if (config.customerState == CustomerState.Online) {
-                            startTimeTask();
                         }
                     }
                 }
@@ -206,7 +203,7 @@ public class SobotSessionServer extends Service {
                         config.isShowUnreadUi = false;
                     }
                     config.addMessage(base);
-                    LogUtils.i2Local("收到消息5", "加入到config中 msgId:"+base.getMsgId() );
+                    LogUtils.i2Local("收到消息5", "加入到config中 msgId:" + base.getMsgId());
                     if (config.customerState == CustomerState.Online) {
                         config.customTimeTask = false;
                         config.userInfoTimeTask = true;
@@ -266,7 +263,7 @@ public class SobotSessionServer extends Service {
                 // 更新界面的操作
                 config.addMessage(base);
                 if (!TextUtils.isEmpty(pushMessage.getSysType()) && "6".equals(pushMessage.getSysType())) {
-                    ZhiChiMessageBase keepQueuingMessageBase = ChatUtils.getKeepQueuingHint(ResourceUtils.getResString(context,"sobot_keep_queuing_string") + "<a href='sobot:SobotKeepQueuing'> " + ResourceUtils.getResString(context, "sobot_keep_queuing") + "</a>");
+                    ZhiChiMessageBase keepQueuingMessageBase = ChatUtils.getKeepQueuingHint(ResourceUtils.getResString(context, "sobot_keep_queuing_string") + "<a href='sobot:SobotKeepQueuing'> " + ResourceUtils.getResString(context, "sobot_keep_queuing") + "</a>");
                     config.addMessage(keepQueuingMessageBase);
                 }
                 if (config.customerState == CustomerState.Online) {
@@ -334,7 +331,7 @@ public class SobotSessionServer extends Service {
             if (config.getInitModel() != null) {
                 if (config.isAboveZero && !config.isComment && config.customerState == CustomerState.Online) {
                     // 满足评价条件，并且之前没有评价过的话 才能 弹评价框
-                    ZhiChiMessageBase customEvaluateMode = ChatUtils.getCustomEvaluateMode(SobotSessionServer.this,pushMessage);
+                    ZhiChiMessageBase customEvaluateMode = ChatUtils.getCustomEvaluateMode(SobotSessionServer.this, pushMessage);
                     config.addMessage(customEvaluateMode);
                     if (isNeedShowMessage(pushMessage.getAppId())) {
                         showNotification(getResString("sobot_cus_service") + " " + pushMessage.getAname() + " " + getResString("sobot_please_evaluate"), pushMessage, false);
@@ -348,10 +345,8 @@ public class SobotSessionServer extends Service {
                 if (config.customerState == CustomerState.Online) {
                     if (1 == pushMessage.getLockType()) {
                         config.isChatLock = 1;
-                        stopTimeTask();
                     } else {
                         config.isChatLock = 2;
-                        startTimeTask();
                     }
                 }
             }
@@ -454,14 +449,19 @@ public class SobotSessionServer extends Service {
 
     @Override
     public void onDestroy() {
-        // 取消广播接受者
+        // 注销广播接收器
         if (localBroadcastManager != null) {
             localBroadcastManager.unregisterReceiver(receiver);
+            receiver = null;
         }
         if (receiverNet != null) {
             unregisterReceiver(receiverNet);
+            receiverNet = null;
         }
-        stopTimeTask();
+        // 清理引用
+        config = null;
+        info = null;
+        currentUid = null;
         LogUtils.i2Local("SobotSessionServer onDestroy", "SobotSessionServer服务被销毁");
         super.onDestroy();
     }
@@ -503,7 +503,7 @@ public class SobotSessionServer extends Service {
                 .SOBOT_NOTIFICATION_FLAG, false);
 
         if (notification_flag) {
-            String notificationTitle = getResString( "sobot_notification_tip_title");
+            String notificationTitle = getResString("sobot_notification_tip_title");
             String contentTmp;
             if (!TextUtils.isEmpty(pushMessage.getAname()) && isShowKefuName) {
                 contentTmp = getResString("sobot_cus_service") + " " + pushMessage.getAname() + "：" + content;
@@ -542,48 +542,4 @@ public class SobotSessionServer extends Service {
                 "SobotChatActivity") || CommonUtils.isScreenLock(getApplicationContext()));
     }
 
-
-    protected Timer timer = null;
-    protected TimerTask task = null;
-
-    /**
-     * 定时处理
-     */
-    public void startTimeTask() {
-        final int maxRUnTime = 30 * 60;
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (config.userInfoTimeTask) {
-                    if (config.paseReplyTimeCustoms > maxRUnTime) {
-                        stopTimeTask();
-                        return;
-                    }
-                    config.paseReplyTimeUserInfo++;
-                    //LogUtils.i("不再当前会话界面时 用户定时器--->" + config.paseReplyTimeUserInfo);
-                } else {
-                    if (config.paseReplyTimeCustoms > maxRUnTime) {
-                        stopTimeTask();
-                        return;
-                    }
-                    config.paseReplyTimeCustoms++;
-                    // LogUtils.i("不再当前会话界面时 客服定时器 --->" + config.paseReplyTimeCustoms);
-                }
-            }
-        };
-        timer.schedule(task, 1000, 1000);
-
-    }
-
-    public void stopTimeTask() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-        if (task != null) {
-            task.cancel();
-            task = null;
-        }
-    }
 }

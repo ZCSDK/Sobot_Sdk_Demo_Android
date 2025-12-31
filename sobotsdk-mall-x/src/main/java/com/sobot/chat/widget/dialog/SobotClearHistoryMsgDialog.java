@@ -3,6 +3,8 @@ package com.sobot.chat.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -16,9 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.MarkConfig;
+import com.sobot.chat.R;
 import com.sobot.chat.SobotApi;
 import com.sobot.chat.utils.ResourceUtils;
 import com.sobot.chat.utils.ScreenUtils;
+import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.ZhiChiConstant;
+
+import java.util.Locale;
 
 /**
  * 右上角清空历史记录弹窗
@@ -31,6 +38,20 @@ public class SobotClearHistoryMsgDialog extends Dialog {
     private LinearLayout coustom_pop_layout;
     private View.OnClickListener itemsOnClick;
     private final int screenHeight;
+    public void changeAppLanguage() {
+        Locale language = (Locale) SharedPreferencesUtil.getObject(getContext(), ZhiChiConstant.SOBOT_LANGUAGE);
+        try {
+            if (language != null) {
+                // 本地语言设置
+                Resources res = getContext().getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = new Configuration();
+                conf.locale = language;
+                res.updateConfiguration(conf, dm);
+            }
+        } catch (Exception e) {
+        }
+    }
 
     public SobotClearHistoryMsgDialog(Activity context, View.OnClickListener itemsOnClick) {
         super(context, ResourceUtils.getIdByName(context, "style", "sobot_noAnimDialogStyle"));
@@ -54,6 +75,7 @@ public class SobotClearHistoryMsgDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeAppLanguage();
         setContentView(ResourceUtils.getIdByName(getContext(), "layout", "sobot_clear_history_msg_popup"));
         initView();
     }
@@ -70,11 +92,11 @@ public class SobotClearHistoryMsgDialog extends Dialog {
 
     private void initView() {
         sobot_tv_clear_his_msg_describe = (TextView) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_tv_clear_his_msg_describe"));
-        sobot_tv_clear_his_msg_describe.setText(ResourceUtils.getResString(getContext(),"sobot_clear_his_msg_describe"));
+        sobot_tv_clear_his_msg_describe.setText(R.string.sobot_clear_his_msg_describe);
         sobot_btn_cancle_conversation = (Button) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_btn_cancle_conversation"));
-        sobot_btn_cancle_conversation.setText(ResourceUtils.getResString(getContext(),"sobot_clear_his_msg_empty"));
+        sobot_btn_cancle_conversation.setText(R.string.sobot_clear_his_msg_empty);
         sobot_btn_temporary_leave = (Button) findViewById(ResourceUtils.getIdByName(getContext(), "id", "sobot_btn_temporary_leave"));
-        sobot_btn_temporary_leave.setText(ResourceUtils.getResString(getContext(),"sobot_btn_cancle"));
+        sobot_btn_temporary_leave.setText(R.string.sobot_btn_cancle);
         coustom_pop_layout = (LinearLayout) findViewById(ResourceUtils.getIdByName(getContext(), "id", "pop_layout"));
 
         sobot_btn_cancle_conversation.setOnClickListener(itemsOnClick);

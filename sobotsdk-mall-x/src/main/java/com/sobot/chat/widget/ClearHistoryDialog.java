@@ -3,6 +3,8 @@ package com.sobot.chat.widget;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -14,7 +16,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.sobot.chat.R;
 import com.sobot.chat.utils.ResourceUtils;
+import com.sobot.chat.utils.SharedPreferencesUtil;
+import com.sobot.chat.utils.ZhiChiConstant;
+
+import java.util.Locale;
 
 public class ClearHistoryDialog extends Dialog implements View.OnClickListener {
 
@@ -23,10 +30,24 @@ public class ClearHistoryDialog extends Dialog implements View.OnClickListener {
     private LinearLayout sobot_pop_layout;
     private final int screenHeight;
 
+    public void changeAppLanguage() {
+        Locale language = (Locale) SharedPreferencesUtil.getObject(getContext(), ZhiChiConstant.SOBOT_LANGUAGE);
+        try {
+            if (language != null) {
+                // 本地语言设置
+                Resources res = getContext().getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = new Configuration();
+                conf.locale = language;
+                res.updateConfiguration(conf, dm);
+            }
+        } catch (Exception e) {
+        }
+    }
+
     public ClearHistoryDialog(Activity context) {
         // 给Dialog的Window设置样式
         super(context, ResourceUtils.getIdByName(context, "style", "sobot_clearHistoryDialogStyle"));
-
         // 修改Dialog(Window)的弹出位置
         screenHeight = getScreenHeight(context);
         Window window = getWindow();
@@ -63,8 +84,8 @@ public class ClearHistoryDialog extends Dialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ResourceUtils.getIdByName(getContext(), "layout",
-                "sobot_clear_history_dialog"));
+        changeAppLanguage();
+        setContentView(R.layout.sobot_clear_history_dialog);
         initView();
         initData();
     }
@@ -76,16 +97,16 @@ public class ClearHistoryDialog extends Dialog implements View.OnClickListener {
     private void initView() {
         sobot_btn_take_photo = (Button) findViewById(ResourceUtils.getIdByName(getContext(), "id",
                 "sobot_btn_take_photo"));
-        sobot_btn_take_photo.setText(ResourceUtils.getResString(getContext(), "sobot_save_pic"));
         sobot_btn_cancel = (Button) findViewById(ResourceUtils.getIdByName(getContext(), "id",
                 "sobot_btn_cancel"));
-        sobot_btn_cancel.setText(ResourceUtils.getResString(getContext(), "sobot_btn_cancle"));
         sobot_pop_layout = (LinearLayout) findViewById(ResourceUtils.getIdByName(getContext(), "id",
                 "sobot_pop_layout"));
-        sobot_btn_take_photo.setText(ResourceUtils.getResString(getContext(), "sobot_clear_history_message"));
         sobot_btn_take_photo.setTextColor(getContext().getResources()
                 .getColor(ResourceUtils.getIdByName(getContext(), "color",
                         "sobot_text_delete_hismsg_color")));
+        // 使用context直接获取字符串
+        sobot_btn_take_photo.setText(getContext().getString(R.string.sobot_clear_history_message));
+        sobot_btn_cancel.setText(getContext().getString(R.string.sobot_btn_cancle));
         sobot_btn_take_photo.setOnClickListener(this);
         sobot_btn_cancel.setOnClickListener(this);
     }
